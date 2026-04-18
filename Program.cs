@@ -1,4 +1,4 @@
-﻿using ProjetoAcelera.Services;
+﻿/*using ProjetoAcelera.Services;
 
 namespace ProjetoAcelera
 {
@@ -95,7 +95,10 @@ namespace ProjetoAcelera
                                 Console.Write("Bio: ");
                                 string bio = Console.ReadLine();
 
-                                perfilService.AtualizarPerfil(facebook, instagram, bio);
+                                Console.Write("Foto: " );
+                                string foto = Console.ReadLine();
+
+                                perfilService.AtualizarPerfil(facebook, instagram, bio,foto);
                             }
                             else if (opcao == "0")
                             {
@@ -129,5 +132,7 @@ namespace ProjetoAcelera
 
             Console.WriteLine("Dados salvos. Encerrando sistema...");
         }
+      
     }
 }
+*/

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using ProjetoAcelera.Models;
 using System.Text.Json;
 using System.Data.SqlTypes;
+using System.IO;
 
 namespace ProjetoAcelera.Services
 {
-    internal class ArquivoService
+    public class ArquivoService
     {
         private string caminhoArquivo = "usuarios.json";
 
