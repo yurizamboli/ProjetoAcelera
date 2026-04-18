@@ -43,6 +43,9 @@ namespace ProjetoAcelera.Services
         public void Cadastrar(string nome, string senha, string email) 
         {
             List<string> erros = new List<string>();
+            nome = nome.Trim();
+            email = email.Trim().ToLower();
+            senha = senha.Trim();
 
             if (!Validacoes.ValidaNome(nome)) 
             {
@@ -56,14 +59,24 @@ namespace ProjetoAcelera.Services
             {
                 erros.Add("Senha não pode ser vazia.");
             }
+            else
+            {
+                var errosSenha = SenhaForte(senha);
+
+                if (errosSenha.Any())
+                {
+                    erros.Add("Senha fraca. Ela deve conter:");
+                    foreach (var erro in errosSenha)
+                    {
+                        erros.Add(erro);
+                    }
+                }
+            }
             if (EmailExiste(email)) 
             {
-                erros.Add("Já existe um usúario com email.");
+                erros.Add("Já existe um usúario com esse email.");
             }
-            if (!SenhaForte(senha)) 
-            {
-                erros.Add("Senha fraca.Deve ter pelo menos 8 caracteres, incluir maiúscula, minúscula, número e caractere especial.");
-            }
+            
             if (erros.Any()) 
             {
                 Console.WriteLine("Não foi possível cadastrar:");
@@ -73,16 +86,25 @@ namespace ProjetoAcelera.Services
                 }
                 return;
             }
-            string senhaHash = GerarHash(senha);
+
             Usuario novoUsuario = new Usuario
             {
                 Nome = nome,
-                SenhaHash = senhaHash,
+                SenhaHash = GerarHash(senha),
                 Email = email,
-                DataCadastro = DateTime.Now
+                DataCadastro = DateTime.Now,
+                Cargo = "Usuario", // nivel basico
+                Obras = new List<Obra>(),
+                Perfil = new Perfil 
+                { 
+                    Facebook = "",
+                    Instagram = "",
+                    Bio = "",            
+                    FotoPerfil = ""
+                }
             };
             usuarios.Add(novoUsuario);
-            arquivoService.Salvar(usuarios);
+            
         }
 
         private bool VerificarSenha(string senha, string hash)
@@ -94,18 +116,30 @@ namespace ProjetoAcelera.Services
             return usuarios.Any(u => u.Email == email);
 
         }
-        public bool SenhaForte(string senha)
+        public List<string> SenhaForte(string senha)
         {
+            List<string> senhaFaltou = new List<string>();
+
             if (senha.Length < 8)
             {
-                return false;
+                senhaFaltou.Add("pelo menos 8 caracteres.");
             }
-            bool Maiuscula = senha.Any(char.IsUpper);
-            bool Minuscula = senha.Any(char.IsLower);
-            bool Numero = senha.Any(char.IsDigit);
-            bool CEspecial = senha.Any(c => !char.IsLetterOrDigit(c));
-
-            return Maiuscula && Minuscula && Numero && CEspecial;
+            if (!senha.Any(char.IsUpper)) {
+                senhaFaltou.Add("letra maiúscula.");
+            }
+            if (!senha.Any(char.IsLower))
+            {
+                senhaFaltou.Add("letra minúscula.");
+            }
+            if (!senha.Any(char.IsDigit))
+            {
+                senhaFaltou.Add("número.");
+            }
+            if (!senha.Any(c => !char.IsLetterOrDigit(c)))
+            {
+                senhaFaltou.Add("caractere especial.");
+            }
+            return senhaFaltou;
         }
         public static class Validacoes 
         {
@@ -131,6 +165,7 @@ namespace ProjetoAcelera.Services
         
         public bool Login(string email, string senha)
         {
+            email = email.ToLower();
             var usuario = usuarios.FirstOrDefault(u => u.Email == email);
 
             if (usuario == null)
@@ -146,5 +181,15 @@ namespace ProjetoAcelera.Services
             return true;
         }
 
+        //metodo para quando for passar pro arquivo app.xaml o carregamento e salvamento
+        public List<Usuario> ObterTodos() {
+            return usuarios;
+        }
+
+
+
+
     }
+
 }
+
