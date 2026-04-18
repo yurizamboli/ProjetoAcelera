@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoAcelera.Services
 {
-    internal class UsuarioService
+    public class UsuarioService
     {
         private List<Usuario> usuarios;
         private ArquivoService arquivoService;
@@ -181,14 +181,32 @@ namespace ProjetoAcelera.Services
             return true;
         }
 
-        //metodo para quando for passar pro arquivo app.xaml o carregamento e salvamento
-        public List<Usuario> ObterTodos() {
-            return usuarios;
+        public void Logout()
+        {
+            UsuarioLogado = null;
         }
 
+        //exibir na tela todos
+        public List<Usuario> ListarUsuarios() 
+        {
+            return usuarios.OrderBy(u => u.Nome).ToList();
+        }
 
-
-
+        //metodo para quando for passar pro arquivo app.xaml ((usado para salvar no json))
+        public List<Usuario> ObterTodos()
+        {
+            return usuarios;
+        }
+       
+        //busca pelo nome
+        public List<Usuario> BuscarPorNome(string nome) 
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+            {
+                return usuarios;
+            }
+            return usuarios.Where(u => u.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
     }
 
 }

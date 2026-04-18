@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoAcelera.Models
 {
-    internal class Usuario
+    public class Usuario
     {
         public string Nome { get; set; }
         public string SenhaHash { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoAcelera.Services
 {
-    internal class ObraService
+    public class ObraService
     {
         private UsuarioService usuarioService;
 
@@ -52,8 +52,25 @@ namespace ProjetoAcelera.Services
             }
         }
 
+        public void RemoverObra(string titulo) 
+        { 
 
+        }
 
+        public void EditarObra(string titulo,string novoTitulo, string novaDescricao, string novaCapa) 
+        {
+        
+        }
+
+        public void FavoritarObra(string titulo) 
+        {
+        
+        }
+
+        public void ListarFavoritas() 
+        {
+        
+        }
 
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoAcelera.Models
 {
-    internal class Perfil
+    public class Perfil
     {
 
         public string Facebook { get; set; }

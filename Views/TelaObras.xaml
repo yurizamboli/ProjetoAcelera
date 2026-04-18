@@ -1,0 +1,147 @@
+<Window x:Class="ProjetoAcelera.Views.TelaObras"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TelaObras"
+        Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#0A2A3A">
+
+    <Grid>
+
+        <!-- CARD PRINCIPAL -->
+        <Border Background="#F3E6C9"
+                CornerRadius="10"
+                BorderBrush="#C9B27D"
+                BorderThickness="3"
+                Margin="40"
+                Padding="20">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- (PERFIL) -->
+                <Grid Margin="0,0,0,20">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="120"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- FOTO SÓ DEUS SABE -->
+                    <Border BorderBrush="#1F3A5F" BorderThickness="2" Margin="5">
+                        <!--Colocar uma imagem bem aqui, quando eu descobrir como fazer-->
+                        <Image Source="/Imagem Acelera/Hulkmagrelo.png" Stretch="Fill"/>
+                    </Border>
+
+                    <!-- INFO -->
+                    <StackPanel Grid.Column="1" Margin="15,0">
+
+                        <TextBox Text="Nome"
+                                 Height="35"
+                                 Margin="0,0,0,10"
+                                 Background="#EAEAEA"
+                                 BorderThickness="0"
+                                 Padding="10"/>
+
+                        <TextBox Text="Biografia"
+                                 Height="60"
+                                 AcceptsReturn="True"
+                                 Background="#EAEAEA"
+                                 BorderThickness="0"
+                                 Padding="10"/>
+                    </StackPanel>
+
+                    <!-- BOTÕES -->
+                    <StackPanel Grid.Column="2" VerticalAlignment="Top">
+
+                        <Button Content="Salvar"
+                                Height="35"
+                                Margin="0,0,0,10"
+                                Background="#1F3A5F"
+                                Foreground="Gold"
+                                FontWeight="Bold" Click="Button_Click"/>
+
+                        <Button Content="Editar"
+                                Height="35"
+                                Margin="0,0,0,10"
+                                Background="#1F3A5F"
+                                Foreground="Gold"
+                                FontWeight="Bold" Click="Button_Click_1"/>
+                    </StackPanel>
+
+                </Grid>
+
+                <!-- OBRAS -->
+                <Border Grid.Row="1"
+                        BorderBrush="#1F3A5F"
+                        BorderThickness="2"
+                        Padding="10">
+
+                    <StackPanel>
+
+                        <TextBlock Text="Minhas Obras"
+                                   FontWeight="Bold"
+                                   FontSize="16"
+                                   Foreground="#1F3A5F"
+                                   Margin="0,0,0,10"/>
+
+                        <!-- LISTA -->
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Disabled">
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <!-- BOTÃO ADICIONAR OBRAS -->
+                                <Border Width="120" Height="160"
+                                        BorderBrush="Black"
+                                        BorderThickness="2"
+                                        Margin="5"
+                                        Cursor="Hand"
+                                        MouseDown="AdicionarObra_Click">
+
+                                    <Grid>
+                                        <TextBlock Text="+"
+                                                   FontSize="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+
+                                <!-- OBRA -->
+                                <Border Width="120" Height="160"
+                                        Margin="5"
+                                        BorderBrush="Black"
+                                        BorderThickness="2">
+                                    <!--Colocar uma imagem bem aqui, quando eu descobrir como fazer//descobri-->
+                                    <Image Source="/Imagem Acelera/product_thumb_12927_68348a383fe072.97120940.jpg" Stretch="Fill"/>
+
+
+                                </Border>
+
+                                <!-- OBRA DNV -->
+                                <Border Width="120" Height="160"
+                                        Margin="5"
+                                        BorderBrush="Black"
+                                        BorderThickness="2">
+                                    <!--Colocar uma imagem bem aqui, quando eu descobrir como fazer-->
+
+
+                                </Border>
+
+                            </StackPanel>
+
+                        </ScrollViewer>
+
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>
