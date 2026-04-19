@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using ProjetoAcelera.Services;
+using ProjetoAcelera.Views.Obras;
 
-
-namespace ProjetoAcelera.Views
+namespace ProjetoAcelera.Views.Perfil
 {
     public partial class TelaExtra : Window
     {

@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace ProjetoAcelera.Views
+namespace ProjetoAcelera.Views.Obras
 {
     public partial class TelaObras : Window
     {
