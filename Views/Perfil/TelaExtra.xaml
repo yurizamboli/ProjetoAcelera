@@ -1,0 +1,87 @@
+<Window x:Class="ProjetoAcelera.Views.Perfil.TelaExtra"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Template"
+        Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#0A2A3A">
+
+    <Grid>
+
+        <!-- FUNDO PADRÃO -->
+        <Border Width="700" Height="400"
+                CornerRadius="10"
+                Background="#F3E6C9"
+                BorderBrush="#C9B27D"
+                BorderThickness="3"
+                Padding="20"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+
+            <!-- Montar as paradas aqui -->
+            <Grid>
+                <!-- EXEMPLO DO TÍTULO -->
+                <TextBlock Text="Children Of Sea"
+               FontSize="24"
+               FontWeight="Bold"
+               Foreground="#1F3A5F"
+               HorizontalAlignment="Center"
+               Margin="0,0,0,20"/>
+
+                <StackPanel Margin="0,50,0,0">
+
+                    <!-- IMAGEM -->
+                    <!--Descobrir um jeito de aparecer quando executar-->
+                    <Border Width="120" Height="120"
+                BorderBrush="#1F3A5F"
+                BorderThickness="2"
+                HorizontalAlignment="Center"
+                Margin="0,0,0,15">
+
+                        <!-- <Image Source="/Imagem Acelera/Hulkmagrelo.png" 
+                   Stretch="UniformToFill"/> -->
+                    </Border>
+
+                    <!-- tEXBOX -->
+                    <TextBox Height="35"
+                 Margin="0,0,0,10"
+                 Background="#EAEAEA"
+                 BorderThickness="0"
+                 Padding="10"
+                 Text="Digite algo..."/>
+
+                    <!-- ITEXBOX FODA -->
+                    <TextBox Height="60"
+                 Margin="0,0,0,15"
+                 AcceptsReturn="True"
+                 Background="#EAEAEA"
+                 BorderThickness="0"
+                 Padding="10"
+                 Text="Descrição..."/>
+
+                    <!-- BOTÕES -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!--Center/Left/Right-->
+
+                        <Button Content="Rainbow"
+                    Width="100"
+                    Height="35"
+                    Margin="5"
+                    Background="#1F3A5F"
+                    Foreground="Gold"
+                    FontWeight="Bold" Click="Button_Click"/>
+
+                        <Button Content="Dio"
+                    Width="100"
+                    Height="35"
+                    Margin="5"
+                    Background="#1F3A5F"
+                    Foreground="Gold"
+                    FontWeight="Bold" Click="Button_Click_1"/>
+
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
