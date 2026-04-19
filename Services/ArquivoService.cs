@@ -40,8 +40,6 @@ namespace ProjetoAcelera.Services
             }
         }
 
-
-
         public void Salvar(List<Usuario> usuarios) 
         {
             try 
