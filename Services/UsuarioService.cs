@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ProjetoAcelera.Services
 {
@@ -40,8 +41,9 @@ namespace ProjetoAcelera.Services
             }
         }
 
-        public void Cadastrar(string nome, string senha, string email) 
+        public bool Cadastrar(string nome, string senha, string email)
         {
+            //Mudei umas coisas yuri, Agora é MensagemBox e mudei para boolean, para poder usar no cadastro do usuario
             List<string> erros = new List<string>();
             nome = nome.Trim();
             email = email.Trim().ToLower();
@@ -79,12 +81,8 @@ namespace ProjetoAcelera.Services
             
             if (erros.Any()) 
             {
-                Console.WriteLine("Não foi possível cadastrar:");
-                foreach (var erro in erros) 
-                {
-                    Console.WriteLine("- " + erro);                
-                }
-                return;
+                MessageBox.Show(string.Join("\n", erros));
+                return false;
             }
 
             Usuario novoUsuario = new Usuario
@@ -104,6 +102,8 @@ namespace ProjetoAcelera.Services
                 }
             };
             usuarios.Add(novoUsuario);
+            
+            return true;
             
         }
 
@@ -165,7 +165,8 @@ namespace ProjetoAcelera.Services
         
         public bool Login(string email, string senha)
         {
-            email = email.ToLower();
+            //deixei igual o do cadastro
+            email = email.Trim().ToLower();
             var usuario = usuarios.FirstOrDefault(u => u.Email == email);
 
             if (usuario == null)

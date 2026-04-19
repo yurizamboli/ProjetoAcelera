@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetoAcelera.Views.Obras;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,6 +18,13 @@ namespace ProjetoAcelera.Views.Teste
         public Dashboard()
         {
             InitializeComponent();
+        }
+
+        private void Conta_Click(object sender, RoutedEventArgs e)
+        {
+            var tela = new TelaObras();
+            tela.Show();
+            this.Close();
         }
     }
 }

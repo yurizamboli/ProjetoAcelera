@@ -53,23 +53,42 @@
                                Foreground="#1F3A5F"/>
 
 					<!-- Usuario -->
-					<TextBox x:Name="txtEmail"
-                             Height="35"
-                             Margin="0,5"
-                             Padding="10"
-                             Background="#EDEDED"
-                             BorderThickness="0"
-                             FontSize="14"
-                             Text=""/>
+                        <TextBox x:Name="txtEmail"
+                        Height="40"
+                        Margin="0,5"
+                        Padding="8"
+                        Background="#EDEDED"
+                        BorderThickness="0"
+                        FontSize="14"
+                        VerticalContentAlignment="Center"
+                        Text="Usuário"
+                        Foreground="Gray"
+                        GotFocus="TxtEmail_GotFocus"
+                        LostFocus="TxtEmail_LostFocus" TextChanged="txtEmail_TextChanged"/>
 
-					<!-- Senha -->
-					<PasswordBox x:Name="txtSenha"
-                                 Height="35"
-                                 Margin="0,5"
-                                 Padding="10"
-                                 Background="#EDEDED"
-                                 BorderThickness="0"
-                                 FontSize="14"/>
+					
+<Grid Margin="0,5">
+
+    <!-- SENHA TEM Q FICAR DENTRO DO GRID PRA O "SENHA" FICAR DENTRO DO BOTAO-->
+    <PasswordBox x:Name="txtSenha"
+                 Height="40"
+                 Padding="8"
+                 Background="#EDEDED"
+                 BorderThickness="0"
+                 FontSize="14"
+                 VerticalContentAlignment="Center"
+                 GotFocus="TxtSenha_GotFocus"
+                 LostFocus="TxtSenha_LostFocus" HorizontalAlignment="Right" Width="262"/>
+
+    <!-- PLACEHOLDER -->
+    <TextBlock x:Name="txtSenhaPlaceholder"
+               Text="Senha"
+               Foreground="Gray"
+               Margin="10,0,0,0"
+               VerticalAlignment="Center"
+               IsHitTestVisible="False"/>
+</Grid>
+
 
 					<!-- Botão -->
 					<Button Content="ENTRAR!"

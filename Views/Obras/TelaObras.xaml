@@ -10,11 +10,11 @@
 
         <!-- CARD PRINCIPAL -->
         <Border Background="#F3E6C9"
-                CornerRadius="10"
+                CornerRadius="15"
                 BorderBrush="#C9B27D"
-                BorderThickness="3"
+                BorderThickness="2"
                 Margin="40"
-                Padding="20">
+                Padding="25">
 
             <Grid>
 
@@ -23,19 +23,24 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- (PERFIL) -->
-                <Grid Margin="0,0,0,20">
+                <!-- PERFIL -->
+                <Grid Margin="0,0,0,25">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="130"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- FOTO SÓ DEUS SABE -->
-                    <Border BorderBrush="#1F3A5F" BorderThickness="2" Margin="5">
-                        <!--Colocar uma imagem bem aqui, quando eu descobrir como fazer-->
-                        <Image Source="/Imagem Acelera/Hulkmagrelo.png" Stretch="Fill"/>
+                    <!-- FOTO -->
+                    <Border BorderBrush="#1F3A5F"
+                            BorderThickness="2"
+                            CornerRadius="10"
+                            Margin="5"
+                            ClipToBounds="True">
+
+                        <Image Source="/ImagemAcelera/Hulkmagrelo.png"
+                               Stretch="UniformToFill"/>
                     </Border>
 
                     <!-- INFO -->
@@ -46,32 +51,35 @@
                                  Margin="0,0,0,10"
                                  Background="#EAEAEA"
                                  BorderThickness="0"
-                                 Padding="10"/>
+                                 Padding="10"
+                                 VerticalContentAlignment="Center"/>
 
                         <TextBox Text="Biografia"
-                                 Height="60"
+                                 Height="70"
                                  AcceptsReturn="True"
+                                 TextWrapping="Wrap"
                                  Background="#EAEAEA"
                                  BorderThickness="0"
                                  Padding="10"/>
                     </StackPanel>
 
                     <!-- BOTÕES -->
-                    <StackPanel Grid.Column="2" VerticalAlignment="Top">
+                    <StackPanel Grid.Column="2"
+                                VerticalAlignment="Top"
+                                Margin="10,0">
 
                         <Button Content="Salvar"
                                 Height="35"
                                 Margin="0,0,0,10"
                                 Background="#1F3A5F"
                                 Foreground="Gold"
-                                FontWeight="Bold" Click="Button_Click"/>
+                                FontWeight="Bold"/>
 
                         <Button Content="Editar"
                                 Height="35"
-                                Margin="0,0,0,10"
                                 Background="#1F3A5F"
                                 Foreground="Gold"
-                                FontWeight="Bold" Click="Button_Click_1"/>
+                                FontWeight="Bold"/>
                     </StackPanel>
 
                 </Grid>
@@ -80,15 +88,16 @@
                 <Border Grid.Row="1"
                         BorderBrush="#1F3A5F"
                         BorderThickness="2"
-                        Padding="10">
+                        CornerRadius="10"
+                        Padding="15">
 
                     <StackPanel>
 
                         <TextBlock Text="Minhas Obras"
                                    FontWeight="Bold"
-                                   FontSize="16"
+                                   FontSize="18"
                                    Foreground="#1F3A5F"
-                                   Margin="0,0,0,10"/>
+                                   Margin="0,0,0,15"/>
 
                         <!-- LISTA -->
                         <ScrollViewer HorizontalScrollBarVisibility="Auto"
@@ -96,42 +105,43 @@
 
                             <StackPanel Orientation="Horizontal">
 
-                                <!-- BOTÃO ADICIONAR OBRAS -->
+                                <!-- BOTÃO + (MANTIDO DO ANTIGO) -->
                                 <Border Width="120" Height="160"
-                                        BorderBrush="Black"
-                                        BorderThickness="2"
                                         Margin="5"
+                                        Background="#EAEAEA"
+                                        BorderBrush="#1F3A5F"
+                                        BorderThickness="2"
+                                        CornerRadius="10"
                                         Cursor="Hand"
                                         MouseDown="AdicionarObra_Click">
 
                                     <Grid>
                                         <TextBlock Text="+"
-                                                   FontSize="50"
+                                                   FontSize="40"
+                                                   Foreground="#1F3A5F"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"/>
                                     </Grid>
                                 </Border>
 
-                                <!-- OBRA -->
+                                <!-- OBRA 1 (EXEMPLO) -->
                                 <Border Width="120" Height="160"
                                         Margin="5"
-                                        BorderBrush="Black"
-                                        BorderThickness="2">
-                                    <!--Colocar uma imagem bem aqui, quando eu descobrir como fazer//descobri-->
-                                    <Image Source="/Imagem Acelera/product_thumb_12927_68348a383fe072.97120940.jpg" Stretch="Fill"/>
+                                        CornerRadius="10"
+                                        BorderBrush="#1F3A5F"
+                                        BorderThickness="2"
+                                        ClipToBounds="True">
 
-
+                                    <Image Source="/ImagemAcelera/product_thumb_12927_68348a383fe072.97120940.jpg"
+                                           Stretch="UniformToFill"/>
                                 </Border>
 
-                                <!-- OBRA DNV -->
+                                <!-- OBRA 2 (VAZIA) -->
                                 <Border Width="120" Height="160"
                                         Margin="5"
-                                        BorderBrush="Black"
-                                        BorderThickness="2">
-                                    <!--Colocar uma imagem bem aqui, quando eu descobrir como fazer-->
-
-
-                                </Border>
+                                        CornerRadius="10"
+                                        BorderBrush="#1F3A5F"
+                                        BorderThickness="2"/>
 
                             </StackPanel>
 

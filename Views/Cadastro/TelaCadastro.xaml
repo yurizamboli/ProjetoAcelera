@@ -6,10 +6,10 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         WindowStartupLocation="CenterScreen"
         Background="#0A2A3A">
 
-	<Grid>
+    <Grid>
 
-		<!-- CARD -->
-		<Border Width="700" Height="400"
+        <!-- CARD -->
+        <Border Width="700" Height="400"
                 CornerRadius="10"
                 Background="#F3E6C9"
                 BorderBrush="#C9B27D"
@@ -18,70 +18,97 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
 
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition/>
-					<ColumnDefinition Width="5"/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-				<!-- LADO ESQUERDO (LOGO) -->
-				<StackPanel Grid.Column="0"
+                <!-- LADO ESQUERDO (LOGO) -->
+                <StackPanel Grid.Column="0"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
 
-					<Image Source="Image1.png"
+                    <Image Source="/ImagemAcelera/Hulkmagrelo.png"
                            Width="180"
                            Height="180"
                            Stretch="Uniform"/>
-				</StackPanel>
+                </StackPanel>
 
-				<!-- LINHA -->
-				<Border Grid.Column="1"
+                <!-- LINHA -->
+                <Border Grid.Column="1"
                         Background="#2FA36B"
                         Width="3"
                         Margin="10,0"/>
 
-				<!-- LADO DIREITO (CADASTRO) -->
-				<StackPanel Grid.Column="2"
+                <!-- LADO DIREITO (CADASTRO) -->
+                <StackPanel Grid.Column="2"
                             VerticalAlignment="Center"
                             Margin="30">
 
-					<TextBlock Text="Cadastro"
+                    <TextBlock Text="Cadastro"
                                FontSize="24"
                                FontWeight="Bold"
                                Foreground="#1F3A5F"
                                Margin="0,0,0,15"/>
 
-					<!-- Nome -->
-					<Border Background="#EAEAEA" CornerRadius="5" Margin="0,5">
-						<TextBox x:Name="txtNome"
+                    <!-- Nome -->
+                    <Border Background="#EAEAEA" CornerRadius="5" Margin="0,5">
+                        <TextBox x:Name="txtNome"
                                  Background="Transparent"
                                  BorderThickness="0"
                                  Padding="10"
-                                 FontSize="14"/>
-					</Border>
+                                 FontSize="14"
+                                 Text="Nome"
+                                 Foreground="Gray"
+                                 VerticalContentAlignment="Center"
+                                 GotFocus="TxtNome_GotFocus"
+                                 LostFocus="TxtNome_LostFocus" TextChanged="txtNome_TextChanged"/>
+                    </Border>
 
-					<!-- Email -->
-					<Border Background="#EAEAEA" CornerRadius="5" Margin="0,5">
-						<TextBox x:Name="txtEmail"
+                    <!-- Email -->
+                    <Border Background="#EAEAEA" CornerRadius="5" Margin="0,5">
+                        <TextBox x:Name="txtEmail"
                                  Background="Transparent"
                                  BorderThickness="0"
                                  Padding="10"
-                                 FontSize="14"/>
-					</Border>
+                                 FontSize="14"
+                                 Text="Email"
+                                 Foreground="Gray"
+                                 VerticalContentAlignment="Center"
+                                 GotFocus="TxtEmail_GotFocus"
+                                 LostFocus="TxtEmail_LostFocus" TextChanged="txtEmail_TextChanged"/>
+                    </Border>
 
-					<!-- Senha -->
-					<Border Background="#EAEAEA" CornerRadius="5" Margin="0,5">
-						<PasswordBox x:Name="txtSenha"
-                                     Background="Transparent"
-                                     BorderThickness="0"
-                                     Padding="10"
-                                     FontSize="14"/>
-					</Border>
+                    <!-- Senha -->
+                    <Border Background="#EAEAEA" CornerRadius="5" Margin="0,5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="31*"/>
+                                <ColumnDefinition Width="101*"/>
+                            </Grid.ColumnDefinitions>
 
-					<!-- Botão cadastrar -->
-					<Button Content="CADASTRAR"
+                            <PasswordBox x:Name="txtSenha"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     Padding="10"
+                     FontSize="14"
+                     VerticalContentAlignment="Center"
+                     GotFocus="TxtSenha_GotFocus"
+                     LostFocus="TxtSenha_LostFocus" Grid.ColumnSpan="2"/>
+
+                            <TextBlock x:Name="txtSenhaPlaceholder"
+                   Text="Senha"
+                   Foreground="Gray"
+                   Margin="12,0,0,0"
+                   VerticalAlignment="Center"
+                   IsHitTestVisible="False" Grid.ColumnSpan="2"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Botão cadastrar -->
+                    <Button Content="CADASTRAR"
                             Height="40"
                             Margin="0,15,0,5"
                             Background="#1F3A5F"
@@ -92,16 +119,16 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             Cursor="Hand"
                             Click="BtnCadastrar_Click"/>
 
-					<!-- Botão voltar -->
-					<Button Content="Voltar"
+                    <!-- Botão voltar -->
+                    <Button Content="Voltar"
                             Background="Transparent"
                             BorderThickness="0"
                             Foreground="#1F3A5F"
                             Cursor="Hand"
                             Click="BtnVoltar_Click"/>
-				</StackPanel>
+                </StackPanel>
 
-			</Grid>
-		</Border>
-	</Grid>
+            </Grid>
+        </Border>
+    </Grid>
 </Window>

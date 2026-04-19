@@ -4,6 +4,7 @@ using ProjetoAcelera.Views.Obras;
 using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Teste;
 using System.Windows;
+using System.Windows.Media;
 
 namespace ProjetoAcelera.Views.Login
 {
@@ -51,6 +52,51 @@ namespace ProjetoAcelera.Views.Login
         {
             TelaExtra tela = new TelaExtra();
             tela.Show();
+        }
+
+        //SUMIR O USUARIO
+        private void TxtEmail_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtEmail.Text == "Usuário")
+            {
+                txtEmail.Text = "";
+                txtEmail.Foreground = Brushes.Black;
+            }
+        }
+
+        private void TxtEmail_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                txtEmail.Text = "Usuário";
+                txtEmail.Foreground = Brushes.Gray;
+                string email = txtEmail.Text;
+
+                if (email == "Usuário")
+                {
+                    email = "";
+                }
+            }
+        }
+        //SE QUISER FAZER ALGO ENQUANTO O USUARIO DIGITA, PODE FAZER NISSO AQUI
+        // Exemplo: validar o email em tempo real, mostrar mensagens de erro.
+        private void txtEmail_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
+
+        //SUMIR A SENHA
+        private void TxtSenha_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtSenhaPlaceholder.Visibility = Visibility.Hidden;
+        }
+
+        private void TxtSenha_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtSenha.Password))
+            {
+                txtSenhaPlaceholder.Visibility = Visibility.Visible;
+            }
         }
     }
 }
