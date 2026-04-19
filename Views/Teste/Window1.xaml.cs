@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProjetoAcelera.Views
+namespace ProjetoAcelera.Views.Teste
 {
     public partial class Dashboard : Window
     {

@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWPF>True</UseWPF>
-    <StartupObject>ProjetoAcelera.App</StartupObject>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 	
 </Project>

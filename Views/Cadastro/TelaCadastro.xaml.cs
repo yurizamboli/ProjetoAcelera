@@ -12,27 +12,22 @@ using System.Windows.Shapes;
 using ProjetoAcelera.Services;
 
 
-namespace ProjetoAcelera.Views
+namespace ProjetoAcelera.Views.Cadastro
 {
-    public partial class Cadastro : Window
+    public partial class TelaCadastro : Window
     {
-        public UsuarioService usuarioService;
+        private UsuarioService usuarioService;
 
-        public Cadastro()
+        public TelaCadastro(UsuarioService service)
         {
             InitializeComponent();
-        }
-
-        public Cadastro(UsuarioService service)
-        {
-            InitializeComponent();
-            usuarioService = service;
+            this.usuarioService = service;
         }
 
 
         private void BtnCadastrar_Click(object sender, RoutedEventArgs e)
         {
-            string nome = txtNome.Text; 
+            string nome = txtNome.Text;
             string email = txtEmail.Text;
             string senha = txtSenha.Password;
 

@@ -1,16 +1,20 @@
 ﻿using ProjetoAcelera.Services;
+using ProjetoAcelera.Views.Cadastro;
+using ProjetoAcelera.Views.Obras;
+using ProjetoAcelera.Views.Perfil;
+using ProjetoAcelera.Views.Teste;
 using System.Windows;
 
-namespace ProjetoAcelera.Views
+namespace ProjetoAcelera.Views.Login
 {
-    public partial class MainWindow : Window
+    public partial class TelaLogin : Window
     {
         private UsuarioService usuarioService;
 
-        public MainWindow()
+        public TelaLogin()
         {
             InitializeComponent();
-            usuarioService = new UsuarioService();
+            usuarioService = App.UsuarioService;
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
@@ -31,9 +35,9 @@ namespace ProjetoAcelera.Views
                 MessageBox.Show("Email ou senha inválidos");
             }
         }
-        private void BtnCadastrarTela_Click(object sender, RoutedEventArgs e) 
+        private void BtnCadastrarTela_Click(object sender, RoutedEventArgs e)
         {
-            Cadastro tela = new Cadastro(usuarioService);
+            TelaCadastro tela = new TelaCadastro(usuarioService);
             tela.ShowDialog();
         }
         //LEMBRAR DE TIRAR ESSA PARADA AQ
