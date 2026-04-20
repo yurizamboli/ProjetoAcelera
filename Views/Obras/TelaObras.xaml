@@ -46,21 +46,23 @@
                     <!-- INFO -->
                     <StackPanel Grid.Column="1" Margin="15,0">
 
-                        <TextBox Text="Nome"
-                                 Height="35"
-                                 Margin="0,0,0,10"
-                                 Background="#EAEAEA"
-                                 BorderThickness="0"
-                                 Padding="10"
-                                 VerticalContentAlignment="Center"/>
+                        <TextBox x:Name="txtNome"
+                                IsReadOnly="True"
+                                Height="35"
+                                Margin="0,0,0,10"
+                                Background="#EAEAEA"
+                                BorderThickness="0"
+                                Padding="10"
+                                VerticalContentAlignment="Center" TextChanged="txtNome_TextChanged"/>
 
                         <TextBox Text="Biografia"
-                                 Height="70"
-                                 AcceptsReturn="True"
-                                 TextWrapping="Wrap"
-                                 Background="#EAEAEA"
-                                 BorderThickness="0"
-                                 Padding="10"/>
+                                IsReadOnly="True"
+                                Height="70"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                Background="#EAEAEA"
+                                BorderThickness="0"
+                                Padding="10"/>
                     </StackPanel>
 
                     <!-- BOTÕES -->

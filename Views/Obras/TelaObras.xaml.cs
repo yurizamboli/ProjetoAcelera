@@ -20,9 +20,10 @@ namespace ProjetoAcelera.Views.Obras
             InitializeComponent();
             usuarioService = service;
 
+            CarregarUsuario();
             CarregarObras();
         }
-
+        //OBRAS
         private void CarregarObras()
         {
             var usuario = usuarioService.UsuarioLogado;
@@ -37,6 +38,15 @@ namespace ProjetoAcelera.Views.Obras
             {
                 painelObras.Children.Add(CriarCardObra(obra));
             }
+        }
+        //NOMEZINHO LA NA CONTA
+        private void CarregarUsuario()
+        {
+            var usuario = usuarioService.UsuarioLogado;
+
+            if (usuario == null) return;
+
+            txtNome.Text = usuario.Nome;
         }
 
         private Border CriarBotaoAdicionar()
@@ -187,5 +197,11 @@ namespace ProjetoAcelera.Views.Obras
         {
 
         }
+
+        private void txtNome_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
     }
 }
