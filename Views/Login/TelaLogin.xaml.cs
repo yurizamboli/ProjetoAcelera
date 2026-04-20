@@ -5,7 +5,7 @@ using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Teste;
 using System.Windows;
 using System.Windows.Media;
-
+//Tem um erro em algum lugar ai, mas o codigo roda suave com ele então sla, n vou mexer
 namespace ProjetoAcelera.Views.Login
 {
     public partial class TelaLogin : Window
@@ -40,18 +40,6 @@ namespace ProjetoAcelera.Views.Login
         {
             TelaCadastro tela = new TelaCadastro(usuarioService);
             tela.ShowDialog();
-        }
-        //LEMBRAR DE TIRAR ESSA PARADA AQ
-        private void BtnTesteObras_Click(object sender, RoutedEventArgs e)
-        {
-            TelaObras tela = new TelaObras();
-            tela.Show();
-        }
-
-        private void BtnTesteFormatacao_Click(object sender, RoutedEventArgs e)
-        {
-            TelaExtra tela = new TelaExtra();
-            tela.Show();
         }
 
         //SUMIR O USUARIO

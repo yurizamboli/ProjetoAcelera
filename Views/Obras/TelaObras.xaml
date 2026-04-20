@@ -73,13 +73,14 @@
                                 Margin="0,0,0,10"
                                 Background="#1F3A5F"
                                 Foreground="Gold"
-                                FontWeight="Bold"/>
+                                FontWeight="Bold"
+                                Click="Button_Click"/>
 
                         <Button Content="Editar"
                                 Height="35"
                                 Background="#1F3A5F"
                                 Foreground="Gold"
-                                FontWeight="Bold"/>
+                                FontWeight="Bold" Click="Button_Click_1"/>
                     </StackPanel>
 
                 </Grid>
@@ -99,52 +100,14 @@
                                    Foreground="#1F3A5F"
                                    Margin="0,0,0,15"/>
 
-                        <!-- LISTA -->
+                        <!-- LISTA DINÂMICA -->
                         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                                       VerticalScrollBarVisibility="Disabled">
 
-                            <StackPanel Orientation="Horizontal">
-
-                                <!-- BOTÃO + (MANTIDO DO ANTIGO) -->
-                                <Border Width="120" Height="160"
-                                        Margin="5"
-                                        Background="#EAEAEA"
-                                        BorderBrush="#1F3A5F"
-                                        BorderThickness="2"
-                                        CornerRadius="10"
-                                        Cursor="Hand"
-                                        MouseDown="AdicionarObra_Click">
-
-                                    <Grid>
-                                        <TextBlock Text="+"
-                                                   FontSize="40"
-                                                   Foreground="#1F3A5F"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"/>
-                                    </Grid>
-                                </Border>
-
-                                <!-- OBRA 1 (EXEMPLO) -->
-                                <Border Width="120" Height="160"
-                                        Margin="5"
-                                        CornerRadius="10"
-                                        BorderBrush="#1F3A5F"
-                                        BorderThickness="2"
-                                        ClipToBounds="True">
-
-                                    <Image Source="/ImagemAcelera/product_thumb_12927_68348a383fe072.97120940.jpg"
-                                           Stretch="UniformToFill"/>
-                                </Border>
-
-                                <!-- OBRA 2 (VAZIA) -->
-                                <Border Width="120" Height="160"
-                                        Margin="5"
-                                        CornerRadius="10"
-                                        BorderBrush="#1F3A5F"
-                                        BorderThickness="2"/>
-
-                            </StackPanel>
-
+                            <!-- 🔥 AQUI É ONDE VAI CARREGAR AS OBRAS -->
+                            <StackPanel x:Name="painelObras"
+                                        Orientation="Horizontal"/>
+                            
                         </ScrollViewer>
 
                     </StackPanel>
