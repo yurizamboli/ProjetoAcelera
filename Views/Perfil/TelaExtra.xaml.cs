@@ -16,7 +16,8 @@ namespace ProjetoAcelera.Views.Perfil
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            TelaObras tela = new TelaObras();
+            //Mudei pra isso pro programa rodar
+            TelaObras tela = new TelaObras(App.UsuarioService);
             tela.Show();
             MessageBox.Show("AAAAAAAAAA");
         }

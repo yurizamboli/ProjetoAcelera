@@ -1,0 +1,29 @@
+<Window x:Class="ProjetoAcelera.Views.PopUpObras.ObrasPopUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Detalhe da Obra"
+        Height="400" Width="400"
+        WindowStartupLocation="CenterScreen">
+
+    <StackPanel Margin="20">
+
+        <Image x:Name="imgCapa"
+               Height="200"
+               Stretch="UniformToFill"/>
+
+        <TextBlock x:Name="txtTitulo"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Margin="0,10"/>
+
+        <TextBlock x:Name="txtDescricao"
+                   TextWrapping="Wrap"/>
+
+        <Button Content="Editar"
+        Click="BtnEditar_Click"
+        Background="#1F3A5F"
+        Foreground="Gold"
+        Margin="10"/>
+
+    </StackPanel>
+</Window>

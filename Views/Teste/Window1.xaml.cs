@@ -22,7 +22,7 @@ namespace ProjetoAcelera.Views.Teste
 
         private void Conta_Click(object sender, RoutedEventArgs e)
         {
-            var tela = new TelaObras();
+            TelaObras tela = new TelaObras(App.UsuarioService);
             tela.Show();
             this.Close();
         }

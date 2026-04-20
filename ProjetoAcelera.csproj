@@ -8,5 +8,12 @@
     <UseWPF>True</UseWPF>
     <StartupObject></StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\TelaEditarObra\**" />
+    <EmbeddedResource Remove="Views\TelaEditarObra\**" />
+    <None Remove="Views\TelaEditarObra\**" />
+    <Page Remove="Views\TelaEditarObra\**" />
+  </ItemGroup>
 	
 </Project>

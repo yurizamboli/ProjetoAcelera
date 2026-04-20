@@ -52,25 +52,68 @@ namespace ProjetoAcelera.Services
             }
         }
 
-        public void RemoverObra(string titulo) 
-        { 
-
-        }
-
-        public void EditarObra(string titulo,string novoTitulo, string novaDescricao, string novaCapa) 
+        public void RemoverObra(string titulo)
         {
-        
-        }
+            var usuario = usuarioService.UsuarioLogado;
 
-        public void FavoritarObra(string titulo) 
+            var obra = usuario.Obras.FirstOrDefault(o => o.Titulo == titulo);
+
+            if (obra != null)
+            {
+                usuario.Obras.Remove(obra);
+            }
+        }
+        //Fiz o metodo
+        public void EditarObra(string titulo, string novoTitulo, string novaDescricao, string novaCapa)
         {
-        
+            var usuario = usuarioService.UsuarioLogado;
+
+            var obra = usuario.Obras.FirstOrDefault(o => o.Titulo == titulo);
+
+            if (obra != null)
+            {
+                obra.Titulo = novoTitulo;
+                obra.Descricao = novaDescricao;
+                obra.Capa = novaCapa;
+            }
         }
 
-        public void ListarFavoritas() 
+        //Fiz o metodo aqui
+        public void FavoritarObra(string titulo)
         {
-        
+            var usuario = usuarioService.UsuarioLogado;
+
+            var obra = usuario.Obras.FirstOrDefault(o => o.Titulo == titulo);
+
+            if (obra != null)
+            {
+                obra.Favorito = !obra.Favorito;
+            }
         }
 
+        //Mudei pra lista de obras
+        public List<Obra> ListarFavoritas()
+        {
+            var usuario = usuarioService.UsuarioLogado;
+
+            return usuario.Obras.Where(o => o.Favorito).ToList();
+        }
+        //ADD outro metodo, depois verifica isso aqui
+        public void AtualizarObra(Obra obraAtualizada)
+        {
+            var usuario = usuarioService.UsuarioLogado;
+
+            if (usuario == null) return;
+
+            var obra = usuario.Obras
+                .FirstOrDefault(o => o.Titulo == obraAtualizada.Titulo);
+
+            if (obra != null)
+            {
+                obra.Titulo = obraAtualizada.Titulo;
+                obra.Descricao = obraAtualizada.Descricao;
+                obra.Capa = obraAtualizada.Capa;
+            }
+        }
     }
 }
