@@ -4,6 +4,7 @@ using ProjetoAcelera.Views.Obras;
 using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Teste;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 //Tem um erro em algum lugar ai, mas o codigo roda suave com ele então sla, n vou mexer
 namespace ProjetoAcelera.Views.Login
@@ -11,7 +12,7 @@ namespace ProjetoAcelera.Views.Login
     public partial class TelaLogin : Window
     {
         private UsuarioService usuarioService;
-
+        private bool senhaVisivel = false;
         public TelaLogin()
         {
             InitializeComponent();
@@ -84,6 +85,36 @@ namespace ProjetoAcelera.Views.Login
             if (string.IsNullOrEmpty(txtSenha.Password))
             {
                 txtSenhaPlaceholder.Visibility = Visibility.Visible;
+            }
+        }
+        private void txtSenha_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (!senhaVisivel)
+                txtSenhaVisivel.Text = txtSenha.Password;
+        }
+
+        private void txtSenhaVisivel_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (senhaVisivel)
+                txtSenha.Password = txtSenhaVisivel.Text;
+        }
+        private void BtnToggleSenha_Click(object sender, RoutedEventArgs e)
+        {
+            senhaVisivel = !senhaVisivel;
+
+            if (senhaVisivel)
+            {
+                txtSenhaVisivel.Text = txtSenha.Password;
+
+                txtSenha.Visibility = Visibility.Collapsed;
+                txtSenhaVisivel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txtSenha.Password = txtSenhaVisivel.Text;
+
+                txtSenhaVisivel.Visibility = Visibility.Collapsed;
+                txtSenha.Visibility = Visibility.Visible;
             }
         }
     }

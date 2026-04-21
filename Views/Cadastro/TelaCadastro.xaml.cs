@@ -17,7 +17,7 @@ namespace ProjetoAcelera.Views.Cadastro
     public partial class TelaCadastro : Window
     {
         private UsuarioService usuarioService;
-
+        private bool senhaVisivel = false;
         public TelaCadastro(UsuarioService service)
         {
             InitializeComponent();
@@ -118,6 +118,47 @@ namespace ProjetoAcelera.Views.Cadastro
         private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+        private void BtnToggleSenha_Click(object sender, RoutedEventArgs e)
+        {
+            senhaVisivel = !senhaVisivel;
+
+            if (senhaVisivel)
+            {
+                txtSenhaVisivel.Text = txtSenha.Password;
+
+                txtSenha.Visibility = Visibility.Collapsed;
+                txtSenhaVisivel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txtSenha.Password = txtSenhaVisivel.Text;
+
+                txtSenhaVisivel.Visibility = Visibility.Collapsed;
+                txtSenha.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void txtSenha_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (!senhaVisivel)
+                txtSenhaVisivel.Text = txtSenha.Password;
+
+            txtSenhaPlaceholder.Visibility =
+                string.IsNullOrEmpty(txtSenha.Password)
+                ? Visibility.Visible
+                : Visibility.Collapsed;
+        }
+
+        private void txtSenhaVisivel_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (senhaVisivel)
+                txtSenha.Password = txtSenhaVisivel.Text;
+
+            txtSenhaPlaceholder.Visibility =
+                string.IsNullOrEmpty(txtSenhaVisivel.Text)
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
     }
 }

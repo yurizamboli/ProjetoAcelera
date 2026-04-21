@@ -2,25 +2,29 @@ using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.EditarObras;
 using ProjetoAcelera.Views.PopUpObras;
+using ProjetoAcelera.Views.Perfil;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ProjetoAcelera.Views.Obras;
+using ProjetoAcelera.Views.Perfil.EditarPerfil;
+using System.IO;
 
-namespace ProjetoAcelera.Views.Obras
+namespace ProjetoAcelera.Views.Perfil
 {
-    public partial class TelaObras : Window
+    public partial class TelaPerfil : Window
     {
         private UsuarioService usuarioService;
 
-        public TelaObras(UsuarioService service)
+        public TelaPerfil(UsuarioService service)
         {
             InitializeComponent();
             usuarioService = service;
 
-            CarregarUsuario();
+            CarregarPerfil();
             CarregarObras();
         }
         //OBRAS
@@ -40,13 +44,36 @@ namespace ProjetoAcelera.Views.Obras
             }
         }
         //NOMEZINHO LA NA CONTA
-        private void CarregarUsuario()
+        private void CarregarPerfil()
         {
             var usuario = usuarioService.UsuarioLogado;
-
             if (usuario == null) return;
 
             txtNome.Text = usuario.Nome;
+            if (usuario.Perfil != null) 
+            {
+                txtBiografia.Text = usuario.Perfil.Bio;
+                textBlockFacebook.Text = usuario.Perfil.Facebook;
+                textBlockInstagram.Text = usuario.Perfil.Instagram;
+                string caminhoFoto = usuario.Perfil.FotoPerfil;
+                // se nao for nas propriedades da imagem e colocar  build action = resource , copy to output directory = do not copy , vai crashar
+                string caminhoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
+                try
+                {
+                    if (!string.IsNullOrWhiteSpace(caminhoFoto) && File.Exists(caminhoFoto))
+                    {
+                        imgPerfil.Source = new BitmapImage(new Uri(caminhoFoto, UriKind.Absolute));
+                    }
+                    else
+                    {
+                        imgPerfil.Source = new BitmapImage(new Uri(caminhoPadrao));
+                    }
+                }
+                catch
+                {
+                    imgPerfil.Source = new BitmapImage(new Uri(caminhoPadrao));
+                }
+            }
         }
 
         private Border CriarBotaoAdicionar()
@@ -180,9 +207,18 @@ namespace ProjetoAcelera.Views.Obras
             CarregarObras();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Logout_Button(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Salvo Sim");
+            var result = MessageBox.Show(
+            "Deseja realmente sair?",
+            "Logout",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes) { return; }
+            App.UsuarioService.Logout();
+            var login = new Views.Login.TelaLogin();
+            login.Show();
+            this.Close();
         }
 
         private void AbrirDetalhesObra(Obra obra)
@@ -193,9 +229,20 @@ namespace ProjetoAcelera.Views.Obras
             CarregarObras();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void EditarPerfil_Button(object sender, RoutedEventArgs e)
         {
-
+            var tela = new TelaEditarPerfil();
+            switch (tela.ShowDialog())
+            {
+                case true:
+                    CarregarPerfil();
+                    MessageBox.Show("Perfil atualizado!");
+                    break;
+                case false:
+                case null:
+                    MessageBox.Show("Edição cancelada!");
+                    break;
+            }
         }
 
         private void txtNome_TextChanged(object sender, TextChangedEventArgs e)

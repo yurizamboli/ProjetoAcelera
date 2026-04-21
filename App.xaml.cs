@@ -26,7 +26,7 @@ namespace ProjetoAcelera
             base.OnExit(e);
 
             ArquivoService arquivo = new ArquivoService();
-            arquivo.Salvar(UsuarioService.ObterTodos());
+            arquivo.SalvarUsuariosComImagens(UsuarioService.ObterTodos());
         }
     }
 }

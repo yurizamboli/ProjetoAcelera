@@ -14,6 +14,8 @@ namespace ProjetoAcelera.Services
     {
         private string caminhoArquivo = "usuarios.json";
 
+
+        //carrega os usuariod do arquivo json e retorna uma lista de usuarios
         public List<Usuario> Carregar()
         {
             try 
@@ -40,6 +42,7 @@ namespace ProjetoAcelera.Services
             }
         }
 
+        // recebe a lista dos usuarios para salvar no json
         public void Salvar(List<Usuario> usuarios) 
         {
             try 
@@ -59,6 +62,48 @@ namespace ProjetoAcelera.Services
         
         
         }
+
+
+
+        public void SalvarUsuariosComImagens(List<Usuario> usuarios)
+        {
+            try
+            {
+                string pastaPerfil = Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    "ImagemAcelera",
+                    "Perfil"
+                );
+
+                if (!Directory.Exists(pastaPerfil))
+                    Directory.CreateDirectory(pastaPerfil);
+
+                foreach (var usuario in usuarios)
+                {
+                    if (usuario?.Perfil?.FotoPerfil == null)
+                        continue;
+
+                    string caminhoImagem = usuario.Perfil.FotoPerfil;           
+                    if (File.Exists(caminhoImagem))
+                    {
+                        string nomeArquivo = Guid.NewGuid() + Path.GetExtension(caminhoImagem);
+                        string destinoFinal = Path.Combine(pastaPerfil, nomeArquivo);
+
+                        File.Copy(caminhoImagem, destinoFinal, true);
+                        usuario.Perfil.FotoPerfil = destinoFinal;
+                    }
+                }
+                Salvar(usuarios);
+            }
+            catch
+            {
+                // msg de erro
+            }
+        }
     }
 }
+
+
+
+
      
