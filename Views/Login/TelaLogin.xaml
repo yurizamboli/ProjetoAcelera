@@ -78,9 +78,29 @@
                  FontSize="14"
                  VerticalContentAlignment="Center"
                  GotFocus="TxtSenha_GotFocus"
-                 LostFocus="TxtSenha_LostFocus" HorizontalAlignment="Right" Width="262"/>
+                 LostFocus="TxtSenha_LostFocus" 
+                 PasswordChanged="txtSenha_PasswordChanged"
+                 HorizontalAlignment="Right" 
+                 Width="262"/>
+    <TextBox x:Name="txtSenhaVisivel"
+                 Height="40"
+                 Padding="8"
+                 Background="#EDEDED"
+                 BorderThickness="0"
+                 FontSize="14"
+                 VerticalContentAlignment="Center"
+                 Visibility="Collapsed"
+                 TextChanged="txtSenhaVisivel_TextChanged"
+                 Width="262"/>
+    <Button Content="👁"
+            Width="30"
+            Height="30"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="0,0,5,0"
+            Click="BtnToggleSenha_Click"/>
 
-    <!-- PLACEHOLDER -->
+                        <!-- PLACEHOLDER -->
     <TextBlock x:Name="txtSenhaPlaceholder"
                Text="Senha"
                Foreground="Gray"

@@ -1,4 +1,4 @@
-﻿using ProjetoAcelera.Views.Obras;
+﻿using ProjetoAcelera.Views.Perfil;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,7 +22,7 @@ namespace ProjetoAcelera.Views.Teste
 
         private void Conta_Click(object sender, RoutedEventArgs e)
         {
-            TelaObras tela = new TelaObras(App.UsuarioService);
+            TelaPerfil tela = new TelaPerfil(App.UsuarioService);
             tela.Show();
             this.Close();
         }

@@ -15,5 +15,20 @@
     <None Remove="Views\TelaEditarObra\**" />
     <Page Remove="Views\TelaEditarObra\**" />
   </ItemGroup>
+
+  <ItemGroup>
+	  <Content Include="ImagemAcelera\**\*.*">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="ImagemAcelera\AvatarPadrao.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ImagemAcelera\Hulkmagrelo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
 	
 </Project>
