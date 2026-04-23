@@ -1,0 +1,8 @@
+<Window x:Class="ProjetoAcelera.Views.Calendario.Calendario"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cadastro"
+        Height="520" Width="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#0A2A3A">
+</Window>
