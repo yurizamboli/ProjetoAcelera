@@ -30,7 +30,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
 
-                    <Image Source="/ImagemAcelera/Hulkmagrelo.png"
+                    <Image Source=""
                            Width="180"
                            Height="180"
                            Stretch="Uniform"/>

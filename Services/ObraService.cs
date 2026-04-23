@@ -34,23 +34,7 @@ namespace ProjetoAcelera.Services
             UsuarioLogado.Obras.Add(novaObra);
         }
 
-        public void ListarObras()
-        {
-            var UsuarioLogado = usuarioService.UsuarioLogado;
-
-            if (UsuarioLogado == null)
-            {
-                return;
-            }
-
-            foreach (var obra in UsuarioLogado.Obras)
-            {
-                Console.WriteLine($"Título: {obra.Titulo}");
-                Console.WriteLine($"Descrição: {obra.Descricao}");
-                Console.WriteLine($"Capa: {obra.Capa}");
-                Console.WriteLine("------------------");
-            }
-        }
+        
 
         public void RemoverObra(string titulo)
         {
