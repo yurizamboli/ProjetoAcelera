@@ -39,7 +39,6 @@ namespace ProjetoAcelera.Views.Calendario
         private void Timer_Tick(object? sender, EventArgs e)
         {
             var agora = DateTime.Now;
-            // Se mudou o mês/ano, reconstruir todo o calendário
             if (agora.Year != _anoAtual || agora.Month != _mesAtual)
             {
                 _anoAtual = agora.Year;
@@ -48,7 +47,6 @@ namespace ProjetoAcelera.Views.Calendario
                 return;
             }
 
-            // Caso contrário, apenas atualiza o destaque do dia atual
             AtualizarDestaqueDoDia(agora.Date);
         }
 
@@ -60,7 +58,7 @@ namespace ProjetoAcelera.Views.Calendario
                 {
                     if (data.Date == hoje)
                     {
-                        b.Background = new SolidColorBrush(Color.FromRgb(184, 134, 11)); // dourado
+                        b.Background = new SolidColorBrush(Color.FromRgb(184, 134, 11));
                         if (b.Child is TextBlock t) t.Foreground = Brushes.White;
                     }
                     else
@@ -76,16 +74,17 @@ namespace ProjetoAcelera.Views.Calendario
         {
             gridDias.Children.Clear();
 
-            // Mostra o nome do mês e o ano
-            txtMes.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mes) + " " + ano.ToString();
+            // Nome do mês em português
+            string[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                              "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+            txtMes.Text = meses[mes - 1] + " " + ano;
 
             DateTime primeiroDia = new DateTime(ano, mes, 1);
             int diasNoMes = DateTime.DaysInMonth(ano, mes);
 
-            // Ajusta a semana, começando na segunda-feira
+            // Ajusta para começar na segunda-feira
             int diaSemana = ((int)primeiroDia.DayOfWeek + 6) % 7;
 
-            // Espaços vazios antes do dia 1
             for (int i = 0; i < diaSemana; i++)
             {
                 var placeholder = new Border
@@ -98,7 +97,6 @@ namespace ProjetoAcelera.Views.Calendario
 
             DateTime hoje = DateTime.Now.Date;
 
-            // Dias do mês
             for (int dia = 1; dia <= diasNoMes; dia++)
             {
                 DateTime data = new DateTime(ano, mes, dia);
@@ -121,10 +119,9 @@ namespace ProjetoAcelera.Views.Calendario
                     Tag = data
                 };
 
-                // Destaque para o dia de hoje
                 if (data == hoje)
                 {
-                    borda.Background = new SolidColorBrush(Color.FromRgb(184, 134, 11)); // dourado
+                    borda.Background = new SolidColorBrush(Color.FromRgb(184, 134, 11));
                     texto.Foreground = Brushes.White;
                 }
                 else
@@ -134,18 +131,37 @@ namespace ProjetoAcelera.Views.Calendario
                 }
 
                 borda.Child = texto;
-
-                // Tooltip para mostrar data completa
                 borda.ToolTip = data.ToString("dddd, d 'de' MMMM", CultureInfo.CurrentCulture);
 
                 gridDias.Children.Add(borda);
             }
 
-            // Preencher células restantes para manter 6 linhas (6*7=42)
             while (gridDias.Children.Count < 42)
             {
                 gridDias.Children.Add(new Border { Background = Brushes.Transparent, Margin = new Thickness(3) });
             }
+        }
+
+        private void BtnAnterior_Click(object sender, RoutedEventArgs e)
+        {
+            _mesAtual--;
+            if (_mesAtual < 1)
+            {
+                _mesAtual = 12;
+                _anoAtual--;
+            }
+            GerarCalendario(_anoAtual, _mesAtual);
+        }
+
+        private void BtnProximo_Click(object sender, RoutedEventArgs e)
+        {
+            _mesAtual++;
+            if (_mesAtual > 12)
+            {
+                _mesAtual = 1;
+                _anoAtual++;
+            }
+            GerarCalendario(_anoAtual, _mesAtual);
         }
     }
 }

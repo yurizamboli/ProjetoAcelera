@@ -1,80 +1,124 @@
-<Window x:Class="ProjetoAcelera.Views.Calendario.Calendario"
-xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ï»¿<Window x:Class="ProjetoAcelera.Views.Calendario.Calendario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Calendário"
-        Height="520" Width="900"
+        Title="CalendÃ¡rio"
+        Height="580" Width="900"
         WindowStartupLocation="CenterScreen"
         Background="#0A2A3A">
     <Grid Background="#0B2A3A">
-        <TextBlock Text="PRÓXIMOS ENCONTROS"
-       FontSize="26"
-       FontWeight="Bold"
-       Foreground="#B8860B"
-       HorizontalAlignment="Center"
-       FontFamily="inter"
-       Margin="0,38,0,50"/>
+        <TextBlock Text="PRÃ“XIMOS ENCONTROS"
+                   FontSize="26"
+                   FontWeight="Bold"
+                   Foreground="#B8860B"
+                   HorizontalAlignment="Center"
+                   FontFamily="Inter"
+                   Margin="0,30,0,50"/>
 
-        <!-- Container central -->
         <Border Background="#EDE3D1"
-            CornerRadius="15"
-            Padding="20"
-            Width="600"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Margin="0,80,0,0">
+                CornerRadius="15"
+                Padding="25"
+                Width="620"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,80,0,0">
 
             <StackPanel>
 
-                <!-- Título -->
-                
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Caixa do calendário -->
+                    <Button x:Name="btnAnterior"
+                            Content="â—€"
+                            FontSize="18"
+                            Width="40" Height="40"
+                            Background="#B8860B"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="BtnAnterior_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="20">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <TextBlock x:Name="txtMes"
+                               Grid.Column="1"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="#2C3E50"/>
+
+                    <Button x:Name="btnProximo"
+                            Grid.Column="2"
+                            Content="â–¶"
+                            FontSize="18"
+                            Width="40" Height="40"
+                            Background="#B8860B"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="BtnProximo_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="20">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <UniformGrid Columns="7" Margin="0,0,0,10">
+                    <TextBlock Text="Seg" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="#2C3E50"/>
+                    <TextBlock Text="Ter" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="#2C3E50"/>
+                    <TextBlock Text="Qua" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="#2C3E50"/>
+                    <TextBlock Text="Qui" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="#2C3E50"/>
+                    <TextBlock Text="Sex" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="#2C3E50"/>
+                    <TextBlock Text="SÃ¡b" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="#2C3E50"/>
+                    <TextBlock Text="Dom" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="#2C3E50"/>
+                </UniformGrid>
+
                 <Border BorderBrush="#B8860B"
-                    BorderThickness="2"
-                    Padding="10"
-                    Background="#D3D3D3" Height="219" Width="550">
-
-                    <StackPanel>
-
-                        <!-- Título -->
-                        <TextBlock x:Name="txtMes"
-               FontSize="20"
-               FontWeight="Bold"
-               Margin="0,0,0,10"/>
-
-                        <!-- Dias da semana -->
-                        <UniformGrid Columns="7">
-                            <TextBlock Text="Seg"/>
-                            <TextBlock Text="Ter"/>
-                            <TextBlock Text="Qua"/>
-                            <TextBlock Text="Qui"/>
-                            <TextBlock Text="Sex"/>
-                            <TextBlock Text="Sáb"/>
-                            <TextBlock Text="Dom"/>
-                        </UniformGrid>
-
-                        <!-- Calendário -->
-                        <UniformGrid x:Name="gridDias"
-                 Columns="7"
-                 Margin="0,10,0,0"/>
-                    </StackPanel>
+                        BorderThickness="2"
+                        Padding="10"
+                        Background="White"
+                        CornerRadius="8">
+                    <UniformGrid x:Name="gridDias"
+                                 Columns="7"
+                                 Margin="0,5,0,0"/>
                 </Border>
 
-                <!-- Eventos -->
-                <StackPanel Margin="0,20,0,0">
+                <StackPanel Margin="0,25,0,0">
 
                     <TextBlock Text="FEIRA DO LIVRO:"
-                           FontWeight="Bold"
-                           Foreground="#B8860B"/>
+                               FontWeight="Bold"
+                               FontSize="14"
+                               Foreground="#B8860B"/>
 
                     <TextBlock Text="A feira do livro..."
-                           Margin="0,0,0,10"/>
+                               Margin="0,5,0,15"
+                               Foreground="#2C3E50"/>
 
                     <TextBlock Text="CLUBE DE LEITURA"
-                           FontWeight="Bold"
-                           Foreground="#B8860B"/>
+                               FontWeight="Bold"
+                               FontSize="14"
+                               Foreground="#B8860B"/>
 
-                    <TextBlock Text="O clube de leitura..."/>
+                    <TextBlock Text="O clube de leitura..."
+                               Foreground="#2C3E50"/>
 
                 </StackPanel>
 
