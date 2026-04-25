@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ProjetoAcelera.Views.Teste;
+using System;
 using System.Globalization;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using ProjetoAcelera.Views.Artistas;
+using ProjetoAcelera.Views.Teste;
 
 namespace ProjetoAcelera.Views.Calendario
 {
@@ -162,6 +165,27 @@ namespace ProjetoAcelera.Views.Calendario
                 _anoAtual++;
             }
             GerarCalendario(_anoAtual, _mesAtual);
+        }
+
+        private void NossaCidade_Click(object sender, RoutedEventArgs e)
+        {
+            var tela = new Dashboard();
+            tela.Show();
+            this.Close();
+        }
+
+        private void Conta_Click(object sender, RoutedEventArgs e)
+        {
+            var tela = new Views.Perfil.TelaPerfil(App.UsuarioService);
+            tela.Show();
+            this.Close();
+        }
+
+        private void Artistas_Click(object sender, RoutedEventArgs e)
+        {
+            TelaArtista tela = new TelaArtista();
+            tela.Show();
+            this.Close();
         }
     }
 }
