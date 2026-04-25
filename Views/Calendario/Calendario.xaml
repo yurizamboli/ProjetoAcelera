@@ -2,17 +2,70 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Calendário"
-        Height="580" Width="900"
+        Height="700" Width="900"
         WindowStartupLocation="CenterScreen"
         Background="#0A2A3A">
     <Grid Background="#0B2A3A">
+        <!-- MENU SUPERIOR -->
+        <StackPanel Background="#F3E6C9" Height="60" VerticalAlignment="Top">
+
+            <!-- TÍTULO -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                <TextBlock Text="ACADEMIA DE LETRAS ARTES E HISTÓRIA DE CRUZEIRO"
+                   FontWeight="Bold"
+                   FontSize="16"
+                   Foreground="#1F3A5F"/>
+            </StackPanel>
+
+            <!-- MENU -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <TextBlock Text="Home" Margin="15,0"/>
+
+
+                <!-- PROGRAMAÇÃO -->
+                <TextBlock Text="Progamação"
+                        Margin="15,0"
+                        Foreground="Black"
+                        FontWeight="Bold"/>
+                <TextBlock Text="Cultura" Margin="15,0"/>
+
+                <!--Botão Artistas -->
+                <Button Content="Artistas"
+            Margin="15,0"
+            Background="Transparent"
+            BorderThickness="0"
+            Foreground="#1F3A5F"
+            Cursor="Hand"
+            Click="Artistas_Click"/>
+
+                <Button Content="Nossa CIdade"
+        Margin="15,0"
+        Background="Transparent"
+        BorderThickness="0"
+        Foreground="#1F3A5F"
+        Cursor="Hand"
+        Click="NossaCidade_Click"
+                        />
+
+                <!-- BOTÃO CONTA -->
+                <Button Content="Conta"
+                Margin="15,0"
+                Background="Transparent"
+                BorderThickness="0"
+                Foreground="#1F3A5F"
+                Cursor="Hand"
+                Click="Conta_Click"/>
+            </StackPanel>
+
+        </StackPanel>
         <TextBlock Text="PRÓXIMOS ENCONTROS"
-                   FontSize="26"
+                   FontSize="20"
                    FontWeight="Bold"
                    Foreground="#B8860B"
                    HorizontalAlignment="Center"
                    FontFamily="Inter"
-                   Margin="0,30,0,50"/>
+                   Margin="0,60,0,50"/>
 
         <Border Background="#EDE3D1"
                 CornerRadius="15"
