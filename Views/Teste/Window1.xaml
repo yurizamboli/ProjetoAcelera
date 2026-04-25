@@ -23,10 +23,31 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
                 <TextBlock Text="Home" Margin="15,0"/>
-                <TextBlock Text="Programação" Margin="15,0"/>
+
+
+         <!-- PROGRAMAÇÃO -->
+        <Button Content="Programação"
+                Margin="15,0"
+                Background="Transparent"
+                BorderThickness="0"
+                Foreground="#1F3A5F"
+                Cursor="Hand"
+                Click="Programacao_Click"/>
                 <TextBlock Text="Cultura" Margin="15,0"/>
-                <TextBlock Text="Artistas" Margin="15,0"/>
-                <TextBlock Text="Nossa cidade" Margin="15,0"/>
+
+                <!--Botão Artistas -->
+                <Button Content="Artistas"
+                    Margin="15,0"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="#1F3A5F"
+                    Cursor="Hand"
+                    Click="Artistas_Click"/>
+
+                        <TextBlock Text="Nossa Cidade"
+                        Margin="15,0"
+                        Foreground="Black"
+                        FontWeight="Bold"/>
 
                 <!-- BOTÃO CONTA -->
                 <Button Content="Conta"
