@@ -250,5 +250,11 @@ namespace ProjetoAcelera.Views.Perfil
 
         }
 
+        private void Voltar_Click(object sender, RoutedEventArgs e)
+        {
+            var tela = new Views.Teste.Dashboard();
+            tela.Show();
+            this.Close();
+        }
     }
 }
