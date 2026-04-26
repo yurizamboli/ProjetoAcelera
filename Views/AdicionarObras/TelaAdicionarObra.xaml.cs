@@ -17,7 +17,7 @@ namespace ProjetoAcelera.Views.Obras
         public TelaAdicionarObra()
         {
             InitializeComponent();
-            obraService = new ObraService(App.UsuarioService);
+            obraService = new ObraService();
         }
 
         private void BtnSalvar_Click(object sender, RoutedEventArgs e)

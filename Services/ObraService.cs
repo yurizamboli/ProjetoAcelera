@@ -11,9 +11,10 @@ namespace ProjetoAcelera.Services
     {
         private UsuarioService usuarioService;
 
-        public ObraService(UsuarioService usuarioService)
+
+        public ObraService()
         {
-            this.usuarioService = usuarioService;
+            this.usuarioService = App.UsuarioService;
         }
 
 

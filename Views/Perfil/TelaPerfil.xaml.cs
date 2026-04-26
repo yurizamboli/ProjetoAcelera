@@ -128,61 +128,11 @@ namespace ProjetoAcelera.Views.Perfil
                 TextWrapping = TextWrapping.Wrap,
                 FontSize = 12
             };
-
-            // BOTÃO FAVORITO, ARRUMAR ISSO AQUI DEPOIS, AS ESTRELAS TÃO MUITO FEIAS, MAS FUNCIONA
-            Button favBtn = new Button
-            {
-                Content = obra.Favorito ? "⭐" : "☆",
-                Width = 30,
-                Height = 25,
-                Background = Brushes.Transparent,
-                BorderThickness = new Thickness(0),
-                Cursor = System.Windows.Input.Cursors.Hand
-            };
-
-            favBtn.Click += (s, e) =>
-            {
-                var service = new ObraService(App.UsuarioService);
-                service.FavoritarObra(obra.Titulo);
-
-                CarregarObras();
-            };
-
-            // BOTÃO DE REMOVER ACHAR UM EMOJI BONITINHO E DEIXAR IGUAL O DE FAVORITAR
-            Button delBtn = new Button
-            {
-                Content = "Deletar",
-                Width = 70,
-                Height = 30,
-                Background = Brushes.LightCoral,
-                Foreground = Brushes.White,
-                BorderThickness = new Thickness(0),
-                Cursor = System.Windows.Input.Cursors.Hand,
-                FontSize = 12
-            };
-
-            delBtn.Click += (s, e) =>
-            {
-                var service = new ObraService(App.UsuarioService);
-                service.RemoverObra(obra.Titulo);
-
-                CarregarObras();
-            };
-
-            // BOTÕES (FAVORITO + DELETE)
-            StackPanel actions = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                HorizontalAlignment = HorizontalAlignment.Center
-            };
-
-            actions.Children.Add(favBtn);
-            actions.Children.Add(delBtn);
-
+              
             // MONTAGEM FINAL
             container.Children.Add(img);
             container.Children.Add(titulo);
-            container.Children.Add(actions);
+            
 
             Border border = new Border
             {

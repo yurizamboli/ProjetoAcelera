@@ -17,7 +17,7 @@ namespace ProjetoAcelera.Views.EditarObras
         {
             InitializeComponent();
 
-            obraService = new ObraService(App.UsuarioService);
+            obraService = new ObraService();
             obraAtual = obra;
 
             PreencherCampos();
