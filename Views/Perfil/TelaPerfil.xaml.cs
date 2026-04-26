@@ -20,10 +20,10 @@ namespace ProjetoAcelera.Views.Perfil
     {
         private UsuarioService usuarioService;
 
-        public TelaPerfil(UsuarioService service)
+        public TelaPerfil()
         {
             InitializeComponent();
-            usuarioService = service;
+            this.usuarioService = App.UsuarioService;
 
             CarregarPerfil();
             CarregarObras();

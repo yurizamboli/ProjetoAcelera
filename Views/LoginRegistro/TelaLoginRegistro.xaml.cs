@@ -14,7 +14,8 @@ namespace ProjetoAcelera.Views.LoginRegistro
     public partial class TelaLoginRegistro : Window
     {
         private UsuarioService usuarioService;
-        private bool senhaVisivel = false;
+        private bool senhaVisivelRegistro = false;
+        private bool senhaVisivelLogin = false;
         public TelaLoginRegistro()
         {
             InitializeComponent();
@@ -54,7 +55,7 @@ namespace ProjetoAcelera.Views.LoginRegistro
                 txtSenhaRegistro.Visibility = Visibility.Visible;
                 txtSenhaVisivelRegistro.Visibility = Visibility.Collapsed;
 
-                senhaVisivel = false;
+                senhaVisivelRegistro = false;
             }
 
         }      
@@ -127,9 +128,9 @@ namespace ProjetoAcelera.Views.LoginRegistro
         }
         private void BtnToggleSenha_ClickRegistro(object sender, RoutedEventArgs e)
         {
-            senhaVisivel = !senhaVisivel;
+            senhaVisivelRegistro = !senhaVisivelRegistro;
 
-            if (senhaVisivel)
+            if (senhaVisivelRegistro)
             {
                 txtSenhaVisivelRegistro.Text = txtSenhaRegistro.Password;
 
@@ -147,7 +148,7 @@ namespace ProjetoAcelera.Views.LoginRegistro
 
         private void txtSenhaRegistro_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (!senhaVisivel)
+            if (!senhaVisivelRegistro)
                 txtSenhaVisivelRegistro.Text = txtSenhaRegistro.Password;
 
             txtSenhaPlaceholderRegistro.Visibility =
@@ -158,7 +159,7 @@ namespace ProjetoAcelera.Views.LoginRegistro
 
         private void txtSenhaVisivelRegistro_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (senhaVisivel)
+            if (senhaVisivelRegistro)
                 txtSenhaRegistro.Password = txtSenhaVisivelRegistro.Text;
 
             txtSenhaPlaceholderRegistro.Visibility =
@@ -235,20 +236,20 @@ namespace ProjetoAcelera.Views.LoginRegistro
         }
         private void txtSenhaLogin_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (!senhaVisivel)
+            if (!senhaVisivelLogin)
                 txtSenhaVisivelLogin.Text = txtSenhaLogin.Password;
         }
 
         private void txtSenhaVisivelLogin_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (senhaVisivel)
+            if (senhaVisivelLogin)
                 txtSenhaLogin.Password = txtSenhaVisivelLogin.Text;
         }
         private void BtnToggleSenha_ClickLogin(object sender, RoutedEventArgs e)
         {
-            senhaVisivel = !senhaVisivel;
+            senhaVisivelLogin = !senhaVisivelLogin;
 
-            if (senhaVisivel)
+            if (senhaVisivelLogin)
             {
                 txtSenhaVisivelLogin.Text = txtSenhaLogin.Password;
 

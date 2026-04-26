@@ -24,7 +24,7 @@ namespace ProjetoAcelera.Views.Teste
 
         private void Conta_Click(object sender, RoutedEventArgs e)
         {
-            TelaPerfil tela = new TelaPerfil(App.UsuarioService);
+            TelaPerfil tela = new TelaPerfil();
             tela.Show();
             this.Close();
         }
