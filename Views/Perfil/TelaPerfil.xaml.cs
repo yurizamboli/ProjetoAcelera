@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using ProjetoAcelera.Views.Obras;
 using ProjetoAcelera.Views.Perfil.EditarPerfil;
 using System.IO;
+using ProjetoAcelera.Views.LoginRegistro;
 
 namespace ProjetoAcelera.Views.Perfil
 {
@@ -216,7 +217,7 @@ namespace ProjetoAcelera.Views.Perfil
             MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) { return; }
             App.UsuarioService.Logout();
-            var login = new Views.Login.TelaLogin();
+            var login = new TelaLoginRegistro();
             login.Show();
             this.Close();
         }
