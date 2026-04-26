@@ -13,7 +13,7 @@ A aplicação foi desenvolvida exclusivamente na linguagem C# e, atualmente, nã
 - Gabriel Mariano Pinto
 - João Victor de Augusto Santos
 - Marjorye Porto Picanço - https://github.com/Marjorye-Porto-Picanco 
-- Yuri Zamboli Corrêa -https://github.com/yurizamboli
+- Yuri Zamboli Corrêa - https://github.com/yurizamboli
 
 ## Ferramentas utilizadas
 
