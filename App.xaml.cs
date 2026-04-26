@@ -17,7 +17,7 @@ namespace ProjetoAcelera
 
             UsuarioService = new UsuarioService();
 
-            var login = new Views.Login.TelaLogin();
+            var login = new Views.LoginRegistro.TelaLoginRegistro();
             login.Show();
         }
 
