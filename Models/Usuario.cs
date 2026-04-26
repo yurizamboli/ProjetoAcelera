@@ -13,9 +13,9 @@ namespace ProjetoAcelera.Models
         public string Email { get; set; }
         public DateTime DataCadastro { get; set; }
         public string Cargo { get; set; }
-
         public List<Obra> Obras { get; set; }
         public Perfil Perfil { get; set; }
-
+        public string TokenRecuperacao { get; set; }
+        public DateTime? TokenExpiracao { get; set; }
     }
 }

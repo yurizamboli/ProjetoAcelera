@@ -9,13 +9,14 @@ namespace ProjetoAcelera
     public partial class App : Application
     {
         public static UsuarioService UsuarioService;
-
+        public static EmailService EmailService { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             UsuarioService = new UsuarioService();
+            EmailService = new EmailService();
 
             var login = new Views.LoginRegistro.TelaLoginRegistro();
             login.Show();

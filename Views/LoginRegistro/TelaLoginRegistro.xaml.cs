@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ProjetoAcelera.Views.LoginRegistro
 {
     public partial class TelaLoginRegistro : Window
     {
         private UsuarioService usuarioService;
+        private EmailService emailService;
         private bool senhaVisivelRegistro = false;
         private bool senhaVisivelLogin = false;
         public TelaLoginRegistro()
         {
             InitializeComponent();
            this.usuarioService = App.UsuarioService;
-     
+            this.emailService = App.EmailService;
             // Mantém o placeholder do PasswordBox atualizado quando o usuário digita
             txtSenhaRegistro.PasswordChanged += TxtSenhaRegistro_PasswordChanged;
         }
@@ -267,7 +269,27 @@ namespace ProjetoAcelera.Views.LoginRegistro
 
         private void BtnEsqueceuSenha_Click(object sender, RoutedEventArgs e)
         {
+            string email = txtEmailLogin.Text;
 
+            var token = usuarioService.GerarTokenRecup(email);
+
+            if (token == null)
+            {
+                MessageBox.Show("Usuário não encontrado");
+                return;
+            }
+            bool emailEnviado = emailService.EnviarTokenPorEmail(email, token);
+
+            if (!emailEnviado)
+            {
+                MessageBox.Show("Erro ao enviar email de recuperação.");
+                return;
+            }
+
+            MessageBox.Show("Token enviado para seu email!");
+
+            var tela = new RedefinirSenha();
+            tela.ShowDialog();
         }
     }
 }
