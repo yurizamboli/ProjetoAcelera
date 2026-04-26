@@ -176,7 +176,7 @@ namespace ProjetoAcelera.Views.Calendario
 
         private void Conta_Click(object sender, RoutedEventArgs e)
         {
-            var tela = new Views.Perfil.TelaPerfil(App.UsuarioService);
+            var tela = new Views.Perfil.TelaPerfil();
             tela.Show();
             this.Close();
         }
