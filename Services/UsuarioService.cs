@@ -208,6 +208,40 @@ namespace ProjetoAcelera.Services
             }
             return usuarios.Where(u => u.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase)).ToList();
         }
+        public string GerarTokenRecup(string email)
+        {
+            var usuario = usuarios.FirstOrDefault(u => u.Email == email);
+
+            if (usuario == null) { return null; }
+
+            string token = Guid.NewGuid().ToString().Substring(0, 6).ToUpper();
+
+            usuario.TokenRecuperacao = token;
+            usuario.TokenExpiracao = DateTime.Now.AddMinutes(10);
+
+            return token;
+        }
+
+        public bool RedefinirSenha(string email, string token, string novaSenha)
+        {
+            var usuario = usuarios.FirstOrDefault(u => u.Email == email);
+
+            if (usuario == null)
+                return false;
+
+            if (usuario.TokenRecuperacao != token)
+                return false;
+
+            if (usuario.TokenExpiracao < DateTime.Now)
+                return false;
+
+            usuario.SenhaHash = GerarHash(novaSenha);
+
+            usuario.TokenRecuperacao = null;
+            usuario.TokenExpiracao = null;
+
+            return true;
+        }
     }
 
 }

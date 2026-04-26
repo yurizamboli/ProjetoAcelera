@@ -1,0 +1,74 @@
+<Window x:Class="ProjetoAcelera.Views.LoginRegistro.RedefinirSenha"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Redefinir Senha"
+        Height="430" Width="350"
+        WindowStartupLocation="CenterScreen"
+        Background="#0F172A">
+
+    <Border Padding="25">
+        <StackPanel VerticalAlignment="Center">
+
+            <!-- Título -->
+            <TextBlock Text="Redefinir Senha"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="Gold"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
+
+            <!-- Email -->
+            <Label Content="Email"
+                   Foreground="Gold"/>
+            <TextBox x:Name="txtEmail"
+                     Height="35"
+                     Margin="0,0,0,10"
+                     Background="#1E293B"
+                     Foreground="White"
+                     BorderBrush="Gold"
+                     Padding="10"/>
+
+            <!-- Token -->
+            <Label Content="Token"
+                   Foreground="Gold"/>
+            <TextBox x:Name="txtToken"
+                     Height="35"
+                     Margin="0,0,0,10"
+                     Background="#1E293B"
+                     Foreground="White"
+                     BorderBrush="Gold"
+                     Padding="10"/>
+
+            <!-- Nova Senha -->
+            <Label Content="Nova Senha"
+                   Foreground="Gold"/>
+            <PasswordBox x:Name="txtNovaSenha"
+                         Height="35"
+                         Margin="0,0,0,10"
+                         Background="#1E293B"
+                         Foreground="White"
+                         BorderBrush="Gold"
+                         Padding="10"/>
+
+            <!-- Confirmar Senha -->
+            <Label Content="Confirmar Senha"
+                   Foreground="Gold"/>
+            <PasswordBox x:Name="txtConfirmarSenha"
+                         Height="35"
+                         Margin="0,0,0,15"
+                         Background="#1E293B"
+                         Foreground="White"
+                         BorderBrush="Gold"
+                         Padding="10"/>
+
+            <!-- Botão -->
+            <Button Content="Redefinir Senha"
+                    Height="40"
+                    Background="Gold"
+                    Foreground="#0F172A"
+                    FontWeight="Bold"
+                    Click="BtnRedefinir_Click"/>
+
+        </StackPanel>
+    </Border>
+</Window>
