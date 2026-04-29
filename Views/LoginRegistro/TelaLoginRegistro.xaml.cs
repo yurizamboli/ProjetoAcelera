@@ -1,5 +1,5 @@
 ﻿using ProjetoAcelera.Services;
-using ProjetoAcelera.Views.Teste;
+using ProjetoAcelera.Views.Home;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -182,7 +182,7 @@ namespace ProjetoAcelera.Views.LoginRegistro
 
             if (sucesso)
             {
-                Dashboard tela = new Dashboard();
+                TelaHome tela = new TelaHome();
                 tela.Show();
                 this.Close();
             }

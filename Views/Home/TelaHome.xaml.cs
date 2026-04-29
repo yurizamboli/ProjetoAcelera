@@ -1,3 +1,5 @@
+using ProjetoAcelera.Services;
+using ProjetoAcelera.Views.Artistas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,44 +10,23 @@ using System.Windows.Media.Imaging;
 
 namespace ProjetoAcelera.Views.Home
 {
-    public partial class Home
+    public partial class TelaHome : Window
     {
         private int indiceAtual = 0;
-        private List<Evento> eventos;
+        private EventoService eventoService;
 
-        public Home()
+        public TelaHome()
         {
             InitializeComponent();
-            CarregarEventos();
+            eventoService = new EventoService();
             MostrarEvento();
         }
 
-        private void CarregarEventos()
-        {
-            eventos = new List<Evento>
-            {
-                new Evento
-                {
-                    Titulo = "Evento Cultural",
-                    Data = "25 ABR | 19H",
-                    Descricao = "Evento cultural no Museu Major Novaes",
-                    Detalhes = "Uma noite especial com música ao vivo, exposições e literatura.",
-                    Imagem = "imagens/evento1.png"
-                },
-                new Evento
-                {
-                    Titulo = "Feira do Livro",
-                    Data = "10 MAI | 14H",
-                    Descricao = "Grande feira literária",
-                    Detalhes = "Diversos autores, livros e atividades culturais.",
-                    Imagem = "imagens/evento2.png"
-                }
-            };
-        }
+       
 
         private void MostrarEvento()
         {
-            var evento = eventos[indiceAtual];
+            var evento = eventoService.ObterEvento()[indiceAtual];
 
             txtTitulo.Text = evento.Titulo;
             txtData.Text = evento.Data;
@@ -58,7 +39,7 @@ namespace ProjetoAcelera.Views.Home
         private void BtnProximo_Click(object sender, RoutedEventArgs e)
         {
             indiceAtual++;
-            if (indiceAtual >= eventos.Count)
+            if (indiceAtual >= eventoService.ObterEvento().Count)
                 indiceAtual = 0;
 
             MostrarEvento();
@@ -68,7 +49,7 @@ namespace ProjetoAcelera.Views.Home
         {
             indiceAtual--;
             if (indiceAtual < 0)
-                indiceAtual = eventos.Count - 1;
+                indiceAtual = eventoService.ObterEvento().Count - 1;
 
             MostrarEvento();
         }
@@ -89,12 +70,5 @@ namespace ProjetoAcelera.Views.Home
         }
     }
 
-    public class Evento
-    {
-        public string Titulo { get; set; }
-        public string Data { get; set; }
-        public string Descricao { get; set; }
-        public string Detalhes { get; set; }
-        public string Imagem { get; set; }
-    }
+
 }
