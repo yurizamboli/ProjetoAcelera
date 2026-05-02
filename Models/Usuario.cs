@@ -17,5 +17,6 @@ namespace ProjetoAcelera.Models
         public Perfil Perfil { get; set; }
         public string TokenRecuperacao { get; set; }
         public DateTime? TokenExpiracao { get; set; }
+
     }
 }

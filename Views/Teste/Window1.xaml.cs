@@ -1,4 +1,7 @@
-﻿using ProjetoAcelera.Views.Perfil;
+﻿using ProjetoAcelera.Views.Admin;
+using ProjetoAcelera.Views.Artistas;
+using ProjetoAcelera.Views.Calendario;
+using ProjetoAcelera.Views.Perfil;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,8 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjetoAcelera.Views.Artistas;
-using ProjetoAcelera.Views.Calendario;
 
 namespace ProjetoAcelera.Views.Teste
 {
@@ -24,8 +25,17 @@ namespace ProjetoAcelera.Views.Teste
 
         private void Conta_Click(object sender, RoutedEventArgs e)
         {
-            TelaPerfil tela = new TelaPerfil();
-            tela.Show();
+            var usuario = App.UsuarioService.UsuarioLogado;
+
+            if (usuario.Cargo == "Admin")
+            {
+                new TelaAdmin().Show();
+            }
+            else
+            {
+                new TelaPerfil().Show();
+            }
+
             this.Close();
         }
 

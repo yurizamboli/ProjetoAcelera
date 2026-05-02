@@ -1,5 +1,7 @@
 using ProjetoAcelera.Services;
+using ProjetoAcelera.Views.Admin;
 using ProjetoAcelera.Views.Artistas;
+using ProjetoAcelera.Views.Perfil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +35,7 @@ namespace ProjetoAcelera.Views.Home
             txtDescricao.Text = evento.Descricao;
             txtDetalhes.Text = evento.Detalhes;
 
-            imgEvento.Source = new BitmapImage(new Uri(evento.Imagem, UriKind.Relative));
+          
         }
 
         private void BtnProximo_Click(object sender, RoutedEventArgs e)
@@ -54,19 +56,34 @@ namespace ProjetoAcelera.Views.Home
             MostrarEvento();
         }
 
+        private void Conta_Click(object sender, RoutedEventArgs e)
+        {
+            var usuario = App.UsuarioService.UsuarioLogado;
+
+            if (usuario.Cargo == "Admin")
+            {
+                new TelaAdmin().Show();
+            }
+            else
+            {
+                new TelaPerfil().Show();
+            }
+
+            this.Close();
+        }
+
         private void Artistas_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implementar navegação para Artistas
+            TelaArtista tela = new TelaArtista();
+            tela.Show();
+            this.Close();
         }
 
         private void NossaCidade_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implementar navegação para Nossa Cidade
-        }
-
-        private void Conta_Click(object sender, RoutedEventArgs e)
-        {
-            // TODO: Implementar navegação para Conta
+            var tela = new Views.Teste.Dashboard();
+            tela.Show();
+            this.Close();
         }
     }
 
