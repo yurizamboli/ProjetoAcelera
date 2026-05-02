@@ -9,9 +9,9 @@ A aplicação foi desenvolvida exclusivamente na linguagem C# e, atualmente, nã
 ## Colaboradores
 
 - Gabriel Henrique Carvalho Neves Cardoso - https://github.com/gabrielcardosogd
-- Gabriel Henrique Florentino Oliveira 
-- Gabriel Mariano Pinto
-- João Victor de Augusto Santos
+- Gabriel Henrique Oliveira Manchilha Florentino - https://github.com/Gabriel-Mancilha
+- Gabriel Mariano Pinto -
+- João Victor de Augusto Santos -
 - Marjorye Porto Picanço - https://github.com/Marjorye-Porto-Picanco 
 - Yuri Zamboli Corrêa - https://github.com/yurizamboli
 
@@ -23,6 +23,7 @@ A aplicação foi desenvolvida exclusivamente na linguagem C# e, atualmente, nã
 - Visual Studio 2026 Insiders
 - Figma
 - Trello
+- Canva
 
 ## Objetivo
 

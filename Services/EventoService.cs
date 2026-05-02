@@ -23,7 +23,8 @@ namespace ProjetoAcelera.Services
             return eventos;
         }
 
-        private void AdicionarEventos(string titulo, string data, string descricao, string detalhes, string imagem)
+        //Tava private, deixei public para poder adicionar eventos depois
+        public void AdicionarEventos(string titulo, string data, string descricao, string detalhes, string imagem)
         {       
                 Evento novoEvento = new Evento
                 {

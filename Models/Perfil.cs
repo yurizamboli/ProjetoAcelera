@@ -16,6 +16,7 @@ namespace ProjetoAcelera.Models
 
         public string FotoPerfil {  get; set; }
 
+        public bool Destaque { get; set; }
 
     }
 }
