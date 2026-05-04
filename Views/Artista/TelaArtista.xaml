@@ -13,9 +13,15 @@
 
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
-        <TextBlock Text="Home" Margin="15,0"/>
+                    <Button Content="Home"
+                Margin="15,0"
+                Background="Transparent"
+                BorderThickness="0"
+                Foreground="#1F3A5F"
+                Cursor="Hand"
+                Click="Home_Click"/>
 
-        <!-- PROGRAMAÇÃO -->
+                    <!-- PROGRAMAÇÃO -->
         <Button Content="Programação"
                 Margin="15,0"
                 Background="Transparent"
