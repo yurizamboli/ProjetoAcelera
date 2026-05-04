@@ -1,5 +1,6 @@
 ﻿using ProjetoAcelera.Views.Admin;
 using ProjetoAcelera.Views.Artistas;
+using ProjetoAcelera.Views.Home;
 using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Teste;
 using ProjetoAcelera.Views.Teste;
@@ -195,6 +196,13 @@ namespace ProjetoAcelera.Views.Calendario
         private void Artistas_Click(object sender, RoutedEventArgs e)
         {
             TelaArtista tela = new TelaArtista();
+            tela.Show();
+            this.Close();
+        }
+
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+            var tela = new Views.Home.TelaHome();
             tela.Show();
             this.Close();
         }

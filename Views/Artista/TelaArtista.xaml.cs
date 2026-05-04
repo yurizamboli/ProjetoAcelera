@@ -169,5 +169,12 @@ namespace ProjetoAcelera.Views.Artistas
             tela.Show();
             this.Close();
         }
+
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+            var tela = new Views.Home.TelaHome();
+            tela.Show();
+            this.Close();
+        }
     }
 }
