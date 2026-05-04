@@ -26,6 +26,9 @@ namespace ProjetoAcelera.Views.Home
         public TelaHome()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
+            this.WindowStyle = WindowStyle.None;
+            this.ResizeMode = ResizeMode.NoResize;
 
             eventoService = new EventoService();
 
@@ -57,14 +60,7 @@ namespace ProjetoAcelera.Views.Home
             txtDetalhes.Text = evento.Detalhes;
 
             // Tenta carregar a imagem; se falhar, deixa sem imagem (não trava o app)
-            try
-            {
-                imgEvento.Source = new BitmapImage(new Uri(evento.Imagem, UriKind.Relative));
-            }
-            catch
-            {
-                imgEvento.Source = null;
-            }
+           
         }
 
         // Navegação do carrossel//
