@@ -182,7 +182,7 @@
 
                                 <Border CornerRadius="6" ClipToBounds="True" Height="200">
                                     <Image x:Name="imgEvento"
-                                           Source="/ImagemAcelera/LogoALAHC.png"
+                                           
                                            Stretch="UniformToFill"
                                            />
                                     
