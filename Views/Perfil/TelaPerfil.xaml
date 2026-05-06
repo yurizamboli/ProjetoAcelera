@@ -1,8 +1,8 @@
 <Page x:Class="ProjetoAcelera.Views.Perfil.TelaPerfil"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Height="800" Width="1000"
-        Background="#0A2A3A">
+        MinHeight="800" MinWidth="1000"
+        Background="#0A2A3A" Width="1076">
 
     <Grid>
 
@@ -11,8 +11,8 @@
                 CornerRadius="15"
                 BorderBrush="#C9B27D"
                 BorderThickness="2"
-                Margin="40"
-                Padding="25">
+                Margin="40,40,0,40"
+                Padding="25" HorizontalAlignment="Left" Width="918">
 
             <Grid>
 
@@ -25,7 +25,7 @@
                 <Grid Margin="0,0,0,25">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="190"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="130"/>
                     </Grid.ColumnDefinitions>
@@ -35,25 +35,27 @@
                             BorderThickness="2"
                             CornerRadius="10"
                             Margin="5"
-                            Width="140"
-                            Height="140"
+                            Width="180"
+                            Height="180"
                             ClipToBounds="True"
                             VerticalAlignment="top">
 
                         <Image 
                             x:Name="imgPerfil"
                             Source="/ImagemAcelera/Hulkmagrelo.png"
-                            Stretch="UniformToFill"/>
+                            Stretch="Fill"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
                     </Border>
 
-                    
+
                     <StackPanel Grid.Column="1" Margin="15,0">
                         <TextBlock Text="Nome" Margin="0,0,0,0" Foreground="Black"/>
                         <TextBlock x:Name="txtNome"                                 
                                    Height="35"
                                    Margin="0,0,0,5"
                                    Background="#EAEAEA"                                   
-                                   Padding="10"/>       
+                                   Padding="10"/>
                         <TextBlock Text="Biografia" Margin="0,0,0,0" Foreground="Black"/>
                         <TextBlock x:Name="txtBiografia"  
                                    Height="70"                                  
@@ -97,7 +99,7 @@
                                 Foreground="Gold"
                                 FontWeight="Bold" Click="EditarPerfil_Button"/>
 
-                                <Button Content="Voltar"
+                        <Button Content="Voltar"
                                     Width="120"
                                     Height="35"
                                     Margin="0,10,0,0"

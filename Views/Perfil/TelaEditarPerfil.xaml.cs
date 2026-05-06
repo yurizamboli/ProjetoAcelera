@@ -46,7 +46,25 @@ namespace ProjetoAcelera.Views.Perfil.EditarPerfil
             if (dialog.ShowDialog() == true)
             {
                 caminhoImagemSelecionada = dialog.FileName;
-                imgPreview.Source = new BitmapImage(new Uri(caminhoImagemSelecionada));
+                var bitmap = new BitmapImage(new Uri(caminhoImagemSelecionada));
+
+                imgPreview.Source = bitmap;
+
+                int largura = bitmap.PixelWidth;
+                int altura = bitmap.PixelHeight;
+
+
+                if (largura == altura)
+                {
+                    if (largura < 180)
+                        MessageBox.Show("⚠️ A imagem está abaixo do mínimo recomendado (180x180). Pode perder qualidade.");
+                }
+                else
+                {
+                    MessageBox.Show("ℹ️ Dica: use uma imagem quadrada (ex: 180x180, 360x360, 540x540) para evitar distorções.", "Verificação da Foto", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+                
             }
         }
 
