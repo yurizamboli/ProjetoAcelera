@@ -11,9 +11,10 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 
+
 namespace ProjetoAcelera.Views.Calendario
 {
-    public partial class Calendario : Window
+    public partial class Calendario : Page
     {
         private int _anoAtual;
         private int _mesAtual;
@@ -170,41 +171,6 @@ namespace ProjetoAcelera.Views.Calendario
             GerarCalendario(_anoAtual, _mesAtual);
         }
 
-        private void NossaCidade_Click(object sender, RoutedEventArgs e)
-        {
-            var tela = new Dashboard();
-            tela.Show();
-            this.Close();
-        }
-
-        private void Conta_Click(object sender, RoutedEventArgs e)
-        {
-            var usuario = App.UsuarioService.UsuarioLogado;
-
-            if (usuario.Cargo == "Admin")
-            {
-                new TelaAdmin().Show();
-            }
-            else
-            {
-                new TelaPerfil().Show();
-            }
-
-            this.Close();
-        }
-
-        private void Artistas_Click(object sender, RoutedEventArgs e)
-        {
-            TelaArtista tela = new TelaArtista();
-            tela.Show();
-            this.Close();
-        }
-
-        private void Home_Click(object sender, RoutedEventArgs e)
-        {
-            var tela = new Views.Home.TelaHome();
-            tela.Show();
-            this.Close();
-        }
+        
     }
 }

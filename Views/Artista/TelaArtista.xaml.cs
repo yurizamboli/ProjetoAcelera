@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace ProjetoAcelera.Views.Artistas
 {
-    public partial class TelaArtista : Window
+    public partial class TelaArtista : Page
     {
         private UsuarioService usuarioService;
         private List<Usuario> listaCompleta;
@@ -149,32 +149,6 @@ namespace ProjetoAcelera.Views.Artistas
             }
         }
 
-        private void Conta_Click(object sender, RoutedEventArgs e)
-        {
-            var tela = new Views.Perfil.TelaPerfil();
-            tela.Show();
-            this.Close();
-        }
 
-        private void NossaCidade_Click(object sender, RoutedEventArgs e)
-        {
-            var tela = new Dashboard();
-            tela.Show();
-            this.Close();
-        }
-
-        private void Programacao_Click(object sender, RoutedEventArgs e)
-        {
-            var tela = new Views.Calendario.Calendario();
-            tela.Show();
-            this.Close();
-        }
-
-        private void Home_Click(object sender, RoutedEventArgs e)
-        {
-            var tela = new Views.Home.TelaHome();
-            tela.Show();
-            this.Close();
-        }
     }
 }

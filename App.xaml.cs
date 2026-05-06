@@ -18,8 +18,8 @@ namespace ProjetoAcelera
             UsuarioService = new UsuarioService();
             EmailService = new EmailService();
 
-            var login = new Views.LoginRegistro.TelaLoginRegistro();
-            login.Show();
+            var mainWindow = new Views.MainWindow.TelaMainWindow();
+            mainWindow.Show();
         }
 
         protected override void OnExit(ExitEventArgs e)

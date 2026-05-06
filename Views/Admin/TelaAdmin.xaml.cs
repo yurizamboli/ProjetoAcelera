@@ -5,10 +5,11 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Controls;
 
 namespace ProjetoAcelera.Views.Admin
 {
-    public partial class TelaAdmin : Window
+    public partial class TelaAdmin : Page
     {
         private UsuarioService usuarioService;
         private AdminService adminService;
@@ -30,7 +31,7 @@ namespace ProjetoAcelera.Views.Admin
             if (user == null)
             {
                 MessageBox.Show("Nenhum usuário logado.");
-                this.Close();
+                //this.Close();
                 return;
             }
             txtNome.Text = user.Nome;
@@ -114,8 +115,7 @@ namespace ProjetoAcelera.Views.Admin
 
         private void Voltar_Click(object sender, RoutedEventArgs e)
         {
-            new TelaHome().Show();
-            this.Close();
+            NavigationService.Navigate(new Views.Home.TelaHome());
         }
 
         private void Remover_Click(object sender, RoutedEventArgs e)

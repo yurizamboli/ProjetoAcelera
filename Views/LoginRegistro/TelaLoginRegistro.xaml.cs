@@ -1,5 +1,6 @@
 ﻿using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.Home;
+using ProjetoAcelera.Views.MainWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ProjetoAcelera.Views.LoginRegistro
 {
-    public partial class TelaLoginRegistro : Window
+    public partial class TelaLoginRegistro : Page
     {
         private UsuarioService usuarioService;
         private EmailService emailService;
@@ -182,9 +183,19 @@ namespace ProjetoAcelera.Views.LoginRegistro
 
             if (sucesso)
             {
-                TelaHome tela = new TelaHome();
-                tela.Show();
-                this.Close();
+                var usuario = App.UsuarioService.UsuarioLogado;
+
+                if (usuario.Cargo == "Admin")
+                {
+                    NavigationService.Navigate(new Views.Admin.TelaAdmin());
+                }
+                else
+                {
+                    NavigationService.Navigate(new Views.Perfil.TelaPerfil());
+                }
+
+                var main = Application.Current.MainWindow as TelaMainWindow;
+                main?.AtualizarNavbar();
             }
             else
             {

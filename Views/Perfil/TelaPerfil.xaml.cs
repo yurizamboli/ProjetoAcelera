@@ -1,22 +1,22 @@
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.EditarObras;
-using ProjetoAcelera.Views.PopUpObras;
+using ProjetoAcelera.Views.LoginRegistro;
+using ProjetoAcelera.Views.MainWindow;
+using ProjetoAcelera.Views.Obras;
 using ProjetoAcelera.Views.Perfil;
+using ProjetoAcelera.Views.Perfil.EditarPerfil;
+using ProjetoAcelera.Views.PopUpObras;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using ProjetoAcelera.Views.Obras;
-using ProjetoAcelera.Views.Perfil.EditarPerfil;
-using System.IO;
-using ProjetoAcelera.Views.LoginRegistro;
-
 namespace ProjetoAcelera.Views.Perfil
 {
-    public partial class TelaPerfil : Window
+    public partial class TelaPerfil : Page
     {
         private UsuarioService usuarioService;
 
@@ -167,9 +167,10 @@ namespace ProjetoAcelera.Views.Perfil
             MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) { return; }
             App.UsuarioService.Logout();
-            var login = new TelaLoginRegistro();
-            login.Show();
-            this.Close();
+
+            var main = Application.Current.MainWindow as TelaMainWindow;
+            main?.AtualizarNavbar();
+            NavigationService.Navigate(new Views.LoginRegistro.TelaLoginRegistro());
         }
 
         private void AbrirDetalhesObra(Obra obra)
@@ -203,9 +204,7 @@ namespace ProjetoAcelera.Views.Perfil
 
         private void Voltar_Click(object sender, RoutedEventArgs e)
         {
-            var tela = new Views.Teste.Dashboard();
-            tela.Show();
-            this.Close();
+            NavigationService.Navigate(new Views.Home.TelaHome());
         }
     }
 }
