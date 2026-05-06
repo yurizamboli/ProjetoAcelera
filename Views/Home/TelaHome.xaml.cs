@@ -58,8 +58,26 @@ namespace ProjetoAcelera.Views.Home
             txtDescricao.Text = evento.Descricao;
             txtDetalhes.Text = evento.Detalhes;
 
-            // Tenta carregar a imagem; se falhar, deixa sem imagem (não trava o app)
-           
+            // Carrega a imagem do evento
+            try
+            {
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(evento.Imagem, UriKind.Absolute);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                bitmap.Freeze();
+                imgEvento.Source = bitmap;
+            }
+            catch
+            {
+                // Se falhar, tenta carregar imagem padrão
+                try
+                {
+                    imgEvento.Source = new BitmapImage(new Uri("/ImagemAcelera/evento1.png", UriKind.Relative));
+                }
+                catch { }
+            }
         }
 
         // Navegação do carrossel//
