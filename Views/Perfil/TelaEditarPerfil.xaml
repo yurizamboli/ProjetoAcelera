@@ -27,14 +27,14 @@
                 <!-- container da foto-->
                 <StackPanel HorizontalAlignment="Center"
                             Margin="0,10,0,0">
-                    <Border Width="120" Height="120"
+                    <Border Width="180" Height="180"
                             BorderBrush="#1F3A5F"
                             BorderThickness="2"
                             CornerRadius="10"
                             ClipToBounds="True"
                             Margin="0,0,0,10">
                         <Image x:Name="imgPreview"
-                               Stretch="UniformToFill"/>
+                               Stretch="Fill"/>
                     </Border>
                     <Button Content="Escolher Foto"
                             Width="120"
