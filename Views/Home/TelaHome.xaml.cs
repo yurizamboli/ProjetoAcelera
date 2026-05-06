@@ -9,10 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Controls;
 
 namespace ProjetoAcelera.Views.Home
 {
-    public partial class TelaHome : Window
+    public partial class TelaHome : Page
     {
         // Índice do evento atual no carrossel
         private int indiceAtual = 0;
@@ -26,9 +27,7 @@ namespace ProjetoAcelera.Views.Home
         public TelaHome()
         {
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
-            this.WindowStyle = WindowStyle.None;
-            this.ResizeMode = ResizeMode.NoResize;
+           
 
             eventoService = new EventoService();
 
@@ -87,47 +86,25 @@ namespace ProjetoAcelera.Views.Home
             MostrarEvento();
         }
 
-        //  Navegação entre telas 
-        // Padrão: abre a nova tela, depois fecha a atual
 
         private void Programacao_Click(object sender, RoutedEventArgs e)
         {
-            new Views.Calendario.Calendario().Show();
-            this.Close();
-        }
-
-        private void Cultura_Click(object sender, RoutedEventArgs e)
-        {
-            
-            
+            NavigationService.Navigate(new Views.Calendario.Calendario());
         }
 
         private void Artistas_Click(object sender, RoutedEventArgs e)
         {
-            new TelaArtista().Show();
-            this.Close();
+            NavigationService.Navigate(new Views.Artistas.TelaArtista());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void NossaCidade_Click(object sender, RoutedEventArgs e)
         {
-            new Views.Teste.Dashboard().Show();
-            this.Close();
-        }
-
-        private void Conta_Click(object sender, RoutedEventArgs e)
-        {
-            var usuario = App.UsuarioService.UsuarioLogado;
-
-            if (usuario.Cargo == "Admin")
-            {
-                new TelaAdmin().Show();
-            }
-            else
-            {
-                new TelaPerfil().Show();
-            }
-
-            this.Close();
+            NavigationService.Navigate(new Views.Teste.Dashboard());
         }
     }
 }
