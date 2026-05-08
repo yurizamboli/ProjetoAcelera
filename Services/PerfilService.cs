@@ -29,8 +29,8 @@ namespace ProjetoAcelera.Services
             if (nome.Length > 50)
                 throw new Exception("Nome deve ter no máximo 50 caracteres.");
 
-            if (bio != null && bio.Length > 200)
-                throw new Exception("Bio deve ter no máximo 200 caracteres.");
+            if (bio != null && bio.Length > 250)
+                throw new Exception("Bio deve ter no máximo 250 caracteres.");
 
             if (!string.IsNullOrWhiteSpace(instagram) && !instagram.StartsWith("@"))
                 throw new Exception("Instagram deve começar com @");

@@ -91,18 +91,18 @@
                     </StackPanel>
                 </Border>
 
-                <!-- REMOVER -->
+                <!-- Banir -->
                 <Border Background="#D3D3D3" Margin="0,10" Padding="10">
                     <StackPanel>
-                        <TextBlock Text="Remover Usuário" FontWeight="Bold"/>
+                        <TextBlock Text="Banir Usuário" FontWeight="Bold"/>
 
-                        <ComboBox x:Name="comboRemover"
+                        <ComboBox x:Name="comboBanir"
                                   Margin="0,5"/>
 
-                        <Button Content="Remover"
+                        <Button Content="Banir"
                                 Background="DarkRed"
                                 Foreground="White"
-                                Click="Remover_Click"/>
+                                Click="Banir_Click"/>
                     </StackPanel>
                 </Border>
 

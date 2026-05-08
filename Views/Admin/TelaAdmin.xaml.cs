@@ -31,46 +31,46 @@ namespace ProjetoAcelera.Views.Admin
             if (user == null)
             {
                 MessageBox.Show("Nenhum usuário logado.");
-                //this.Close();
                 return;
             }
+
             txtNome.Text = user.Nome;
 
             if (user.Perfil != null)
             {
-                
-                txtNome.Text = user.Nome;
+                txtBio.Text = user.Perfil.Bio;
             }
             else
             {
                 txtBio.Text = "";
-                
             }
 
-
-            // CARREGAR LISTA DE USUÁRIOS PARA COMBOBOX, EXCLUINDO O USUÁRIO LOGADO
+            // LISTA DE USUÁRIOS (SEM O ADMIN LOGADO)
             var lista = usuarioService.ObterTodos()
-            .Where(u => u.Email != user.Email).ToList();
+                .Where(u => u.Email != user.Email)
+                .ToList();
 
             comboUsuarios.ItemsSource = lista;
-            comboUsuarios.DisplayMemberPath = "Nome";
+            comboUsuarios.DisplayMemberPath = "NomeCompleto";
 
             comboPromover.ItemsSource = lista;
-            comboPromover.DisplayMemberPath = "Nome";
+            comboPromover.DisplayMemberPath = "NomeCompleto";
 
-            comboRemover.ItemsSource = lista;
-            comboRemover.DisplayMemberPath = "Nome";
+            comboBanir.ItemsSource = lista;
+            comboBanir.DisplayMemberPath = "NomeCompleto";
 
-            // foto
+            // FOTO
             try
             {
-                if (user.Perfil != null && !string.IsNullOrEmpty(user.Perfil.FotoPerfil))
+                if (user.Perfil != null &&
+                    !string.IsNullOrEmpty(user.Perfil.FotoPerfil))
                 {
-                    imgPerfil.Source = new BitmapImage(new Uri(user.Perfil.FotoPerfil));
+                    imgPerfil.Source =
+                        new BitmapImage(new Uri(user.Perfil.FotoPerfil));
                 }
             }
-            catch 
-            { 
+            catch
+            {
 
             }
         }
@@ -86,41 +86,13 @@ namespace ProjetoAcelera.Views.Admin
                 return;
             }
 
-            //Nao ta ligado com evento
-            MessageBox.Show("Evento criado)");
+            // ainda não ligado com EventoService
+            MessageBox.Show("Evento criado!");
         }
 
         private void Destaque_Click(object sender, RoutedEventArgs e)
         {
-            //ainda não tem tela de destaque, então só vai mostrar a mensagem
             var user = comboUsuarios.SelectedItem as Usuario;
-
-            if (user != null)
-            {
-                adminService.TornarDestaque(user.Nome);
-                MessageBox.Show("Usuário em destaque!");
-            }
-        }
-
-        private void Promover_Click(object sender, RoutedEventArgs e)
-        {
-            var user = comboPromover.SelectedItem as Usuario;
-
-            if (user != null)
-            {
-                adminService.PromoverParaAdmin(user.Nome);
-                MessageBox.Show("Promovido!");
-            }
-        }
-
-        private void Voltar_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Views.Home.TelaHome());
-        }
-
-        private void Remover_Click(object sender, RoutedEventArgs e)
-        {
-            var user = comboRemover.SelectedItem as Usuario;
 
             if (user == null)
             {
@@ -128,7 +100,38 @@ namespace ProjetoAcelera.Views.Admin
                 return;
             }
 
-            string mensagem = string.Format("Deseja remover {0}?", user.Nome);
+            adminService.TornarDestaque(user.Email);
+
+            MessageBox.Show("Usuário em destaque!");
+        }
+
+        private void Promover_Click(object sender, RoutedEventArgs e)
+        {
+            var user = comboPromover.SelectedItem as Usuario;
+
+            if (user == null)
+            {
+                MessageBox.Show("Selecione um usuário.");
+                return;
+            }
+
+            adminService.PromoverParaAdmin(user.Email);
+
+            MessageBox.Show("Promovido!");
+        }
+
+        private void Banir_Click(object sender, RoutedEventArgs e)
+        {
+            var user = comboBanir.SelectedItem as Usuario;
+
+            if (user == null)
+            {
+                MessageBox.Show("Selecione um usuário.");
+                return;
+            }
+
+            string mensagem =
+                "Deseja banir o usuário " + user.Nome + "?";
 
             var confirm = MessageBox.Show(
                 mensagem,
@@ -138,11 +141,19 @@ namespace ProjetoAcelera.Views.Admin
 
             if (confirm == MessageBoxResult.Yes)
             {
-                adminService.RemoverUsuario(user.Nome);
-                MessageBox.Show("Usuário removido!");
+                adminService.BanirUsuario(user.Email);
+
+                MessageBox.Show("Usuário banido!");
 
                 CarregarDados();
             }
         }
+
+        private void Voltar_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new TelaHome());
         }
+
+
     }
+}

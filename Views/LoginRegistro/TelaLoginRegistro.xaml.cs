@@ -199,7 +199,17 @@ namespace ProjetoAcelera.Views.LoginRegistro
             }
             else
             {
-                MessageBox.Show("Email ou senha inválidos");
+                var usuario = usuarioService.ObterTodos()
+                    .FirstOrDefault(u => u.Email == email);
+
+                if (usuario != null && usuario.Banido)
+                {
+                    MessageBox.Show("Usuário banido.");
+                }
+                else
+                {
+                    MessageBox.Show("Email ou senha inválidos");
+                }
             }
         }
 
