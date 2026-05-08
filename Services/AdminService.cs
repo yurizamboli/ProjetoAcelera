@@ -21,41 +21,37 @@ namespace ProjetoAcelera.Services
                 throw new Exception("Acesso negado");
         }
 
-        public void PromoverParaAdmin(string nome)
+        public void PromoverParaAdmin(string email)
         {
             VerificarAdmin();
 
             var user = usuarioService.ObterTodos()
-                .FirstOrDefault(u => u.Nome == nome);
+                .FirstOrDefault(u => u.Email == email);
 
             if (user != null)
                 user.Cargo = "Admin";
         }
 
-        public void TornarDestaque(string nome)
+        public void TornarDestaque(string email)
         {
             VerificarAdmin();
 
             var user = usuarioService.ObterTodos()
-                .FirstOrDefault(u => u.Nome == nome);
+                .FirstOrDefault(u => u.Email == email);
 
             if (user != null && user.Perfil != null)
                 user.Perfil.Destaque = true;
         }
-        public void RemoverUsuario(string nome)
+        public void BanirUsuario(string email)
         {
-            var userLogado = usuarioService.UsuarioLogado;
+            VerificarAdmin();
 
-            if (userLogado == null || userLogado.Cargo != "Admin")
-                throw new Exception("Acesso negado");
-
-            var lista = usuarioService.ObterTodos();
-
-            var user = lista.FirstOrDefault(u => u.Nome == nome);
+            var user = usuarioService.ObterTodos()
+                .FirstOrDefault(u => u.Email == email);
 
             if (user != null)
             {
-                lista.Remove(user);
+                user.Banido = true;
             }
         }
 

@@ -174,6 +174,11 @@ namespace ProjetoAcelera.Services
                 return false;
             }
 
+            if (usuario.Banido)
+            {
+                return false;
+            }
+
             if (!VerificarSenha(senha, usuario.SenhaHash))
             {
                 return false;
