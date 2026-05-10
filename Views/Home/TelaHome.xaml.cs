@@ -5,8 +5,10 @@ using ProjetoAcelera.Views.Artistas;
 using ProjetoAcelera.Views.Teste;
 using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Calendario;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
@@ -17,12 +19,14 @@ namespace ProjetoAcelera.Views.Home
     {
         // Índice do evento atual no carrossel
         private int indiceAtual = 0;
+        private string? caminhoImagemPostagem;
+        private string? caminhoVideoPostagem;
 
         // Serviço que busca os eventos (de um banco, arquivo, etc.)
         private EventoService eventoService;
 
         // Lista de eventos carregada uma única vez
-        private List<Evento> listaEventos;
+        private List<Evento> listaEventos = new List<Evento>();
 
         public TelaHome()
         {
@@ -46,8 +50,27 @@ namespace ProjetoAcelera.Views.Home
 
             // Mostra o primeiro evento
             MostrarEvento();
+            InicializarPostagem();
         }
 
+        private void InicializarPostagem()
+        {
+            var usuario = App.UsuarioService.UsuarioLogado;
+
+            txtStatusPostagem.Text = string.Empty;
+            txtAnexoStatus.Text = string.Empty;
+            caminhoImagemPostagem = null;
+            caminhoVideoPostagem = null;
+
+            if (usuario != null)
+            {
+                txtUsuarioPostagem.Text = $"Olá, {usuario.Nome}";
+            }
+            else
+            {
+                txtUsuarioPostagem.Text = "Faça login para publicar uma postagem.";
+            }
+        }
 
         private void MostrarEvento()
         {
@@ -78,6 +101,74 @@ namespace ProjetoAcelera.Views.Home
                 }
                 catch { }
             }
+        }
+
+        private void AdicionarFoto_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Imagens|*.jpg;*.jpeg;*.png;*.gif"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                caminhoImagemPostagem = dialog.FileName;
+                caminhoVideoPostagem = null;
+                txtAnexoStatus.Text = $"Imagem selecionada: {Path.GetFileName(caminhoImagemPostagem)}";
+                txtStatusPostagem.Text = string.Empty;
+            }
+        }
+
+        private void AdicionarVideo_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Vídeos|*.mp4;*.mov;*.avi;*.wmv"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                caminhoVideoPostagem = dialog.FileName;
+                caminhoImagemPostagem = null;
+                txtAnexoStatus.Text = $"Vídeo selecionado: {Path.GetFileName(caminhoVideoPostagem)}";
+                txtStatusPostagem.Text = string.Empty;
+            }
+        }
+
+        private void Postar_Click(object sender, RoutedEventArgs e)
+        {
+            var usuario = App.UsuarioService.UsuarioLogado;
+
+            if (usuario == null)
+            {
+                MessageBox.Show("Faça login para publicar uma postagem.", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPostTexto.Text))
+            {
+                MessageBox.Show("Escreva algo antes de postar.", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var postagem = new Postagem
+            {
+                AutorEmail = usuario.Email,
+                AutorNome = usuario.Nome,
+                Texto = txtPostTexto.Text.Trim(),
+                CaminhoImagem = caminhoImagemPostagem,
+                CaminhoVideo = caminhoVideoPostagem,
+                Status = "Aguardando aprovação",
+                DataCriacao = DateTime.Now
+            };
+
+            App.PostagemService.AdicionarPostagem(postagem);
+
+            txtPostTexto.Text = string.Empty;
+            txtAnexoStatus.Text = string.Empty;
+            txtStatusPostagem.Text = "Sua postagem está sendo analisada pelo administrador.";
+            caminhoImagemPostagem = null;
+            caminhoVideoPostagem = null;
         }
 
         // Navegação do carrossel//

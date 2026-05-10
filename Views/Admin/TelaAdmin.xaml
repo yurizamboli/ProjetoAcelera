@@ -106,6 +106,37 @@
                     </StackPanel>
                 </Border>
 
+                <!-- Postagens pendentes -->
+                <Border Background="#D3D3D3" Margin="0,10" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Postagens pendentes" FontWeight="Bold"/>
+                        <ListView x:Name="listaPostagensPendentes" Margin="0,10,0,0" Height="260" SelectionMode="None">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="White" CornerRadius="10" Padding="12" Margin="0,0,0,10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding AutorNome}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Texto}" TextWrapping="Wrap" Margin="0,6,0,0"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                                <TextBlock Text="Imagem: " FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding CaminhoImagem}" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                                <TextBlock Text="Vídeo: " FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding CaminhoVideo}" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                                                <Button Content="Aprovar" Padding="8,4" Margin="0,0,8,0" Click="AprovarPostagem_Click" Tag="{Binding}"/>
+                                                <Button Content="Reprovar" Padding="8,4" Background="#C0392B" Foreground="White" Click="ReprovarPostagem_Click" Tag="{Binding}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </Border>
+
             </StackPanel>
 
         </Border>

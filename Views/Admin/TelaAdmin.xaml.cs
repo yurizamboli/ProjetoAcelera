@@ -13,6 +13,7 @@ namespace ProjetoAcelera.Views.Admin
     {
         private UsuarioService usuarioService;
         private AdminService adminService;
+        private PostagemService postagemService;
 
         public TelaAdmin()
         {
@@ -20,8 +21,10 @@ namespace ProjetoAcelera.Views.Admin
 
             usuarioService = App.UsuarioService;
             adminService = new AdminService(usuarioService);
+            postagemService = App.PostagemService;
 
             CarregarDados();
+            CarregarPostagensPendentes();
         }
 
         private void CarregarDados()
@@ -154,6 +157,33 @@ namespace ProjetoAcelera.Views.Admin
             NavigationService.Navigate(new TelaHome());
         }
 
+        private void CarregarPostagensPendentes()
+        {
+            listaPostagensPendentes.ItemsSource = null;
+            listaPostagensPendentes.ItemsSource = postagemService.ObterPendentes();
+        }
+
+        private void AprovarPostagem_Click(object sender, RoutedEventArgs e)
+        {
+            var botao = sender as System.Windows.Controls.Button;
+            var postagem = botao?.Tag as Postagem;
+            if (postagem == null) return;
+
+            postagemService.AprovarPostagem(postagem.Id);
+            CarregarPostagensPendentes();
+            MessageBox.Show("Postagem aprovada com sucesso.");
+        }
+
+        private void ReprovarPostagem_Click(object sender, RoutedEventArgs e)
+        {
+            var botao = sender as System.Windows.Controls.Button;
+            var postagem = botao?.Tag as Postagem;
+            if (postagem == null) return;
+
+            postagemService.ReprovarPostagem(postagem.Id);
+            CarregarPostagensPendentes();
+            MessageBox.Show("Postagem rejeitada.");
+        }
 
     }
 }

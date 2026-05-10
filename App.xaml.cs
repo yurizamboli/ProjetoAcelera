@@ -8,14 +8,16 @@ namespace ProjetoAcelera
     /// </summary>
     public partial class App : Application
     {
-        public static UsuarioService UsuarioService;
-        public static EmailService EmailService { get; private set; }
+        public static UsuarioService UsuarioService { get; private set; } = default!;
+        public static PostagemService PostagemService { get; private set; } = default!;
+        public static EmailService EmailService { get; private set; } = default!;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             UsuarioService = new UsuarioService();
+            PostagemService = new PostagemService();
             EmailService = new EmailService();
 
             var mainWindow = new Views.MainWindow.TelaMainWindow();

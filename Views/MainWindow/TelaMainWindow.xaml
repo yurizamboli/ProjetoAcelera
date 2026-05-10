@@ -75,11 +75,13 @@
                         <Border Width="32" Height="32"
                                 CornerRadius="16"
                                 Background="#1F3A5F"
+                                ClipToBounds="True"
                                 Margin="0,0,10,0">
 
                             <Image Source="/ImagemAcelera/LogoALAHC.png"
-                                   Stretch="Uniform"
-                                   Margin="3"/>
+                                   Stretch="UniformToFill"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
                         </Border>
 
                         <TextBlock Text="ACADEMIA DE LETRAS, ARTES E HISTÓRIA DE CRUZEIRO"

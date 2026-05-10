@@ -44,7 +44,7 @@ namespace ProjetoAcelera.Views.MainWindow
         }
         private void Cultura_Click(object sender, RoutedEventArgs e) 
         {
-
+            SwitchFrame.Navigate(new Views.Cultura.TelaCultura());
         }
         private void Artistas_Click(object sender, RoutedEventArgs e) 
         {
