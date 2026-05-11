@@ -14,7 +14,7 @@ namespace ProjetoAcelera.Models
             public string Capa { get; set; }
             public bool Favorito { get; set; }
         //pra não dar erro
-        public List<Obra> Obras { get; set; } = new List<Obra>();
+
     }
 
     }

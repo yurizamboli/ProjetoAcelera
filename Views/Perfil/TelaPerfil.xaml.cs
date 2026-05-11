@@ -1,19 +1,13 @@
-using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
-using ProjetoAcelera.Views.EditarObras;
 using ProjetoAcelera.Views.LoginRegistro;
 using ProjetoAcelera.Views.MainWindow;
-using ProjetoAcelera.Views.Obras;
-using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Perfil.EditarPerfil;
-using ProjetoAcelera.Views.PopUpObras;
 using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 namespace ProjetoAcelera.Views.Perfil
 {
     public partial class TelaPerfil : Page
@@ -23,188 +17,143 @@ namespace ProjetoAcelera.Views.Perfil
         public TelaPerfil()
         {
             InitializeComponent();
-            this.usuarioService = App.UsuarioService;
+
+            usuarioService = App.UsuarioService;
 
             CarregarPerfil();
-            CarregarObras();
+
+            // abre obras por padrão
+            framePerfil.Navigate(new ContainerObras());
+            SelecionarAba(btnObras);
         }
-        //OBRAS
-        private void CarregarObras()
+        private void SelecionarAba(Button botaoSelecionado)
         {
-            var usuario = usuarioService.UsuarioLogado;
+            btnPosts.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
+            btnObras.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
+            btnGaleria.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
 
-            if (usuario == null) return;
-
-            painelObras.Children.Clear();
-
-            painelObras.Children.Add(CriarBotaoAdicionar());
-
-            foreach (var obra in usuario.Obras)
-            {
-                painelObras.Children.Add(CriarCardObra(obra));
-            }
+            botaoSelecionado.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D7C48E"));
         }
-        //NOMEZINHO LA NA CONTA
         private void CarregarPerfil()
         {
             var usuario = usuarioService.UsuarioLogado;
-            if (usuario == null) return;
+
+            if (usuario == null)
+            {
+                return;
+            }
 
             txtNome.Text = usuario.Nome;
-            if (usuario.Perfil != null) 
+
+            if (usuario.Perfil != null)
             {
                 txtBiografia.Text = usuario.Perfil.Bio;
-                textBlockFacebook.Text = usuario.Perfil.Facebook;
-                textBlockInstagram.Text = usuario.Perfil.Instagram;
-                string caminhoFoto = usuario.Perfil.FotoPerfil;
-                // se nao for nas propriedades da imagem e colocar  build action = resource , copy to output directory = do not copy , vai crashar
-                string caminhoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
+
+                textBlockFacebook.Text =
+                    usuario.Perfil.Facebook;
+
+                textBlockInstagram.Text =
+                    usuario.Perfil.Instagram;
+
+                string caminhoFoto =
+                    usuario.Perfil.FotoPerfil;
+
+                string caminhoPadrao =
+                    "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
+
                 try
                 {
-                    if (!string.IsNullOrWhiteSpace(caminhoFoto) && File.Exists(caminhoFoto))
+                    if (!string.IsNullOrWhiteSpace(caminhoFoto)
+                        && File.Exists(caminhoFoto))
                     {
-                        imgPerfil.Source = new BitmapImage(new Uri(caminhoFoto, UriKind.Absolute));
+                        imgPerfil.Source =
+                            new BitmapImage(
+                                new Uri(caminhoFoto));
                     }
                     else
                     {
-                        imgPerfil.Source = new BitmapImage(new Uri(caminhoPadrao));
+                        imgPerfil.Source =
+                            new BitmapImage(
+                                new Uri(caminhoPadrao));
                     }
                 }
                 catch
                 {
-                    imgPerfil.Source = new BitmapImage(new Uri(caminhoPadrao));
+                    imgPerfil.Source =
+                        new BitmapImage(
+                            new Uri(caminhoPadrao));
                 }
             }
         }
 
-        private Border CriarBotaoAdicionar()
+        private void Obras_Button(object sender, RoutedEventArgs e)
         {
-            Border border = new Border
-            {
-                Width = 120,
-                Height = 160,
-                Margin = new Thickness(5),
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EAEAEA")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
-                BorderThickness = new Thickness(2),
-                CornerRadius = new CornerRadius(10)
-            };
-
-            border.MouseDown += AdicionarObra_Click;
-
-            border.Child = new TextBlock
-            {
-                Text = "+",
-                FontSize = 40,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            return border;
+            SelecionarAba(btnObras);
+            framePerfil.Navigate(new ContainerObras());
         }
 
-        private Border CriarCardObra(Obra obra)
+        private void Publicacoes_Button(object sender, RoutedEventArgs e)
         {
-            StackPanel container = new StackPanel();
-
-            // IMAGEM
-            Image img = new Image
-            {
-                Height = 120,
-                Stretch = Stretch.UniformToFill
-            };
-
-            try
-            {
-                img.Source = new BitmapImage(new Uri(obra.Capa));
-            }
-            catch { }
-
-            // TÍTULO
-            TextBlock titulo = new TextBlock
-            {
-                Text = obra.Titulo,
-                TextAlignment = TextAlignment.Center,
-                TextWrapping = TextWrapping.Wrap,
-                FontSize = 12
-            };
-              
-            // MONTAGEM FINAL
-            container.Children.Add(img);
-            container.Children.Add(titulo);
-            
-
-            Border border = new Border
-            {
-                Width = 120,
-                Height = 160,
-                Margin = new Thickness(5),
-                CornerRadius = new CornerRadius(10),
-                BorderBrush = Brushes.DarkBlue,
-                BorderThickness = new Thickness(2),
-                Child = container
-            };
-
-            border.MouseDown += (s, e) => AbrirDetalhesObra(obra);
-
-            return border;
+            SelecionarAba(btnPosts);
+            framePerfil.Navigate(new ContainerPublicacoes());
         }
-
-        private void AdicionarObra_Click(object sender, MouseButtonEventArgs e)
+        private void Galeria_Button(object sender, RoutedEventArgs e)
         {
-            var tela = new TelaAdicionarObra();
-            tela.ShowDialog();
-
-            CarregarObras();
+            SelecionarAba(btnGaleria);
+            framePerfil.Navigate(new ContainerGaleria());
         }
-
-        private void Logout_Button(object sender, RoutedEventArgs e)
+        private void Logout_Button(
+            object sender,
+            RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-            "Deseja realmente sair?",
-            "Logout",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) { return; }
+                "Deseja realmente sair?",
+                "Logout",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
             App.UsuarioService.Logout();
 
-            var main = Application.Current.MainWindow as TelaMainWindow;
+            var main =
+                Application.Current.MainWindow
+                as TelaMainWindow;
+
             main?.AtualizarNavbar();
-            NavigationService.Navigate(new Views.LoginRegistro.TelaLoginRegistro());
+
+            NavigationService.Navigate(
+                new TelaLoginRegistro());
         }
 
-        private void AbrirDetalhesObra(Obra obra)
-        {
-            var tela = new ObrasPopUp(obra);
-            tela.ShowDialog();
-
-            CarregarObras();
-        }
-
-        private void EditarPerfil_Button(object sender, RoutedEventArgs e)
+        private void EditarPerfil_Button(
+            object sender,
+            RoutedEventArgs e)
         {
             var tela = new TelaEditarPerfil();
+
             switch (tela.ShowDialog())
             {
                 case true:
+
                     CarregarPerfil();
-                    MessageBox.Show("Perfil atualizado!");
+
+                    MessageBox.Show(
+                        "Perfil atualizado!");
+
                     break;
+
                 case false:
                 case null:
-                    MessageBox.Show("Edição cancelada!");
+
+                    MessageBox.Show(
+                        "Edição cancelada!");
+
                     break;
             }
-        }
-
-        private void txtNome_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void Voltar_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Views.Home.TelaHome());
         }
     }
 }

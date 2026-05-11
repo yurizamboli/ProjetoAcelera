@@ -69,21 +69,29 @@ namespace ProjetoAcelera.Services
         {
             try
             {
-                string pastaPerfil = Path.Combine(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    "ImagemAcelera",
-                    "Perfil"
-                );
+                string pastaPerfil = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ImagemAcelera", "Perfil");
 
-                if (!Directory.Exists(pastaPerfil))
+                string pastaPublicacoes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ImagemAcelera", "Publicacoes");
+
+
+                if (!Directory.Exists(pastaPerfil)) 
+                {
                     Directory.CreateDirectory(pastaPerfil);
+                }
+
+                if (!Directory.Exists(pastaPublicacoes)) 
+                { 
+                    Directory.CreateDirectory(pastaPublicacoes);
+                }
 
                 foreach (var usuario in usuarios)
                 {
                     if (usuario?.Perfil?.FotoPerfil == null)
+                    {
                         continue;
+                    }
 
-                    string caminhoImagem = usuario.Perfil.FotoPerfil;           
+                    string caminhoImagem = usuario.Perfil.FotoPerfil;
                     if (File.Exists(caminhoImagem))
                     {
                         string nomeArquivo = Guid.NewGuid() + Path.GetExtension(caminhoImagem);
@@ -92,8 +100,34 @@ namespace ProjetoAcelera.Services
                         File.Copy(caminhoImagem, destinoFinal, true);
                         usuario.Perfil.FotoPerfil = destinoFinal;
                     }
+
+
+                    if (usuario?.Publicacoes != null)
+                    {
+                        foreach (var publicacao in usuario.Publicacoes)
+                        {
+                            if (publicacao.ImagemUrl == null)
+                            {
+                                continue;
+                            }
+
+                            string caminhoImagemPublicacao = publicacao.ImagemUrl;
+
+                            if (File.Exists(caminhoImagemPublicacao))
+                            {
+                                string nomeArquivo = Guid.NewGuid() + Path.GetExtension(caminhoImagemPublicacao);
+
+                                string destinoFinal = Path.Combine(pastaPublicacoes, nomeArquivo);
+
+                                File.Copy(caminhoImagemPublicacao, destinoFinal, true);
+
+                                publicacao.ImagemUrl = destinoFinal;
+                            }
+                        }
+                    }
                 }
-                Salvar(usuarios);
+            
+                 Salvar(usuarios);
             }
             catch
             {
