@@ -31,6 +31,7 @@ namespace ProjetoAcelera.Services
                 EmailAutor = usuarioLogado.Email,
                 Conteudo = conteudo,
                 ImagemUrl = caminhoImagemOriginal,
+                Status = "Aguardando aprovação",
 
                 DataPublicacao = DateTime.Now
             };
@@ -132,8 +133,85 @@ namespace ProjetoAcelera.Services
             return usuarios
                 .Where(u => u.Publicacoes != null)
                 .SelectMany(u => u.Publicacoes)
+                .Where(p => p.Status == "Aprovado")
                 .OrderByDescending(p => p.DataPublicacao)
                 .ToList();
+        }
+        public List<Publicacao> ObterPendentes()
+        {
+            var usuarios = usuarioService.ObterTodos();
+
+            if (usuarios == null)
+            {
+                return new List<Publicacao>();
+            }
+
+            return usuarios
+                .Where(u => u != null && u.Publicacoes != null)
+                .SelectMany(u => u.Publicacoes)
+                .Where(p => p != null && p.Status == "Aguardando aprovação")
+                .OrderByDescending(p => p.DataPublicacao)
+                .ToList();
+        }
+
+
+        public void AprovarPublicacao(Guid id)
+        {
+            var publicacao = usuarioService.ObterTodos()
+                .Where(u => u.Publicacoes != null)
+                .SelectMany(u => u.Publicacoes)
+                .FirstOrDefault(p => p.Id == id);
+
+            if (publicacao != null)
+            {
+                publicacao.Status = "Aprovado";
+            }
+        }
+        public void ReprovarPublicacao(Guid id)
+        {
+            var usuarios = usuarioService.ObterTodos();
+            if (usuarios == null)
+            {
+                return;
+            }
+            foreach (var usuario in usuarios)
+            {
+                if (usuario.Publicacoes == null)
+                {
+                    continue;
+                }
+                var publicacao = usuario.Publicacoes.FirstOrDefault(p => p.Id == id);
+                if (publicacao != null)
+                {
+                    usuario.Publicacoes.Remove(publicacao);
+                    return;
+                }
+            }
+        }
+        public void AtualizarNomeAutor(string email, string novoNome)
+        {
+            var usuarios = usuarioService.ObterTodos();
+
+            if (usuarios == null)
+            {
+                return;
+            }
+
+            foreach (var usuario in usuarios)
+            {
+                if (usuario.Publicacoes == null)
+                {
+                    continue;
+                }
+
+                foreach (var publicacao in usuario.Publicacoes)
+                {
+                    if (publicacao.EmailAutor == email)
+                    {
+                        publicacao.NomeAutor = novoNome;
+                    }
+                }
+            }
         }
     }
 }

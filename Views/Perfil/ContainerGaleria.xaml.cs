@@ -28,11 +28,12 @@ namespace ProjetoAcelera.Views.Perfil
             painelGaleria.Children.Clear();
 
             var publicacoes = publicacaoService
-                .ObterFeedGlobal()
-                .Where(p =>
-                    !string.IsNullOrWhiteSpace(p.ImagemUrl)
-                    && File.Exists(p.ImagemUrl))
-                .ToList();
+                            .ObterPublicacoesPerfil()
+                            .Where(p =>
+                                p.Status == "Aprovado" &&
+                                !string.IsNullOrWhiteSpace(p.ImagemUrl) &&
+                                File.Exists(p.ImagemUrl))
+                            .ToList();
 
             foreach (var pub in publicacoes)
             {

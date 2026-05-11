@@ -1,11 +1,15 @@
 ﻿using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.Home;
+using ProjetoAcelera.Views.LoginRegistro;
+using ProjetoAcelera.Views.MainWindow;
+using ProjetoAcelera.Views.Perfil;
 using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace ProjetoAcelera.Views.Admin
 {
@@ -13,18 +17,17 @@ namespace ProjetoAcelera.Views.Admin
     {
         private UsuarioService usuarioService;
         private AdminService adminService;
-        private PostagemService postagemService;
-
+        private PublicacaoService publicacaoService;
         public TelaAdmin()
         {
             InitializeComponent();
 
             usuarioService = App.UsuarioService;
             adminService = new AdminService(usuarioService);
-            postagemService = App.PostagemService;
+            publicacaoService = new PublicacaoService();
 
             CarregarDados();
-            CarregarPostagensPendentes();
+            CarregarPublicacoesPendentes();
         }
 
         private void CarregarDados()
@@ -157,33 +160,83 @@ namespace ProjetoAcelera.Views.Admin
             NavigationService.Navigate(new TelaHome());
         }
 
-        private void CarregarPostagensPendentes()
+        private void CarregarPublicacoesPendentes()
         {
             listaPostagensPendentes.ItemsSource = null;
-            listaPostagensPendentes.ItemsSource = postagemService.ObterPendentes();
+            listaPostagensPendentes.ItemsSource = publicacaoService.ObterPendentes();
         }
 
         private void AprovarPostagem_Click(object sender, RoutedEventArgs e)
         {
-            var botao = sender as System.Windows.Controls.Button;
-            var postagem = botao?.Tag as Postagem;
+            var botao = sender as Button;
+            var postagem = botao?.Tag as Publicacao;
             if (postagem == null) return;
 
-            postagemService.AprovarPostagem(postagem.Id);
-            CarregarPostagensPendentes();
+            publicacaoService.AprovarPublicacao(postagem.Id);
+            CarregarPublicacoesPendentes();
             MessageBox.Show("Postagem aprovada com sucesso.");
         }
 
         private void ReprovarPostagem_Click(object sender, RoutedEventArgs e)
         {
-            var botao = sender as System.Windows.Controls.Button;
-            var postagem = botao?.Tag as Postagem;
+            var botao = sender as Button;
+            var postagem = botao?.Tag as Publicacao;
             if (postagem == null) return;
 
-            postagemService.ReprovarPostagem(postagem.Id);
-            CarregarPostagensPendentes();
+            publicacaoService.ReprovarPublicacao(postagem.Id);
+            CarregarPublicacoesPendentes();
             MessageBox.Show("Postagem rejeitada.");
         }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+                var result = MessageBox.Show(
+                    "Deseja realmente sair?",
+                    "Logout",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+
+                App.UsuarioService.Logout();
+
+                var main =
+                    Application.Current.MainWindow
+                    as TelaMainWindow;
+
+                main?.AtualizarNavbar();
+
+                NavigationService.Navigate(
+                    new TelaLoginRegistro());
+            }
+        private void AbrirImagem_Click(object sender, MouseButtonEventArgs e)
+        {
+            var imagem = sender as Image;
+
+            if (imagem == null)
+            {
+                return;
+            }
+
+            var publicacao = imagem.DataContext as Publicacao;
+
+            if (publicacao == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(publicacao.ImagemUrl))
+            {
+                return;
+            }
+
+            JanelaImagemFull janela = new JanelaImagemFull(publicacao.ImagemUrl);
+            janela.ShowDialog();
+        }
+
 
     }
 }
