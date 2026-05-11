@@ -20,6 +20,8 @@ namespace ProjetoAcelera.Models
         public string ImagemUrl { get; set; }
 
         public List<string> CurtidoPor { get; set; } = new List<string>();
+        public string? CaminhoVideo { get; set; }
+        public string Status { get; set; } = "Aguardando aprovação";
 
         public int Curtidas
         {

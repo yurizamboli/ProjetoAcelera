@@ -1,17 +1,19 @@
+using Microsoft.Win32;
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.Admin;
 using ProjetoAcelera.Views.Artistas;
-using ProjetoAcelera.Views.Teste;
-using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Calendario;
-using Microsoft.Win32;
+using ProjetoAcelera.Views.Perfil;
+using ProjetoAcelera.Views.Teste;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using System.Windows.Media.Imaging;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ProjetoAcelera.Views.Home
 {
@@ -22,10 +24,8 @@ namespace ProjetoAcelera.Views.Home
         private string? caminhoImagemPostagem;
         private string? caminhoVideoPostagem;
 
-        // Serviço que busca os eventos (de um banco, arquivo, etc.)
         private EventoService eventoService;
-
-        // Lista de eventos carregada uma única vez
+        private PublicacaoService publicacaoService;
         private List<Evento> listaEventos = new List<Evento>();
 
         public TelaHome()
@@ -34,11 +34,9 @@ namespace ProjetoAcelera.Views.Home
            
 
             eventoService = new EventoService();
-
-            // Carrega todos os eventos de uma vez só (mais eficiente)
+            publicacaoService = new PublicacaoService();
             listaEventos = eventoService.ObterEvento();
 
-            // Verificação de segurança: se não houver eventos, avisa e para
             if (listaEventos == null || listaEventos.Count == 0)
             {
                 MessageBox.Show("Nenhum evento encontrado.",
@@ -47,10 +45,9 @@ namespace ProjetoAcelera.Views.Home
                                 MessageBoxImage.Warning);
                 return;
             }
-
-            // Mostra o primeiro evento
             MostrarEvento();
             InicializarPostagem();
+            CarregarFeedPublicacoes();
         }
 
         private void InicializarPostagem()
@@ -81,7 +78,6 @@ namespace ProjetoAcelera.Views.Home
             txtDescricao.Text = evento.Descricao;
             txtDetalhes.Text = evento.Detalhes;
 
-            // Carrega a imagem do evento
             try
             {
                 BitmapImage bitmap = new BitmapImage();
@@ -94,7 +90,6 @@ namespace ProjetoAcelera.Views.Home
             }
             catch
             {
-                // Se falhar, tenta carregar imagem padrão
                 try
                 {
                     imgEvento.Source = new BitmapImage(new Uri("/ImagemAcelera/evento1.png", UriKind.Relative));
@@ -141,43 +136,160 @@ namespace ProjetoAcelera.Views.Home
 
             if (usuario == null)
             {
-                MessageBox.Show("Faça login para publicar uma postagem.", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "Faça login para publicar.",
+                    "Aviso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtPostTexto.Text))
             {
-                MessageBox.Show("Escreva algo antes de postar.", "Atenção", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "Digite algo antes de publicar.",
+                    "Aviso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
                 return;
             }
 
-            var postagem = new Postagem
-            {
-                AutorEmail = usuario.Email,
-                AutorNome = usuario.Nome,
-                Texto = txtPostTexto.Text.Trim(),
-                CaminhoImagem = caminhoImagemPostagem,
-                CaminhoVideo = caminhoVideoPostagem,
-                Status = "Aguardando aprovação",
-                DataCriacao = DateTime.Now
-            };
-
-            App.PostagemService.AdicionarPostagem(postagem);
-
-            txtPostTexto.Text = string.Empty;
-            txtAnexoStatus.Text = string.Empty;
-            txtStatusPostagem.Text = "Sua postagem está sendo analisada pelo administrador.";
+            publicacaoService.AdicionarPublicacao(txtPostTexto.Text.Trim(),caminhoImagemPostagem);
+            txtPostTexto.Clear();
+            txtAnexoStatus.Text = "";
+            txtStatusPostagem.Text = "Sua publicação está aguardando aprovação.";
             caminhoImagemPostagem = null;
             caminhoVideoPostagem = null;
-        }
 
-        // Navegação do carrossel//
+            CarregarFeedPublicacoes();
+        }
+        private void CarregarFeedPublicacoes()
+        {
+            painelFeedPublicacoes.Children.Clear();
+
+            var publicacoes = publicacaoService.ObterFeedGlobal();
+
+            foreach (var pub in publicacoes)
+            {
+                Border card = new Border
+                {
+                    Background = Brushes.White,
+                    CornerRadius = new CornerRadius(14),
+                    Margin = new Thickness(0, 0, 0, 20),
+                    Padding = new Thickness(15),
+                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D6C28F")),
+                    BorderThickness = new Thickness(1)
+                };
+                StackPanel stack = new StackPanel();
+                TextBlock autor = new TextBlock
+                {
+                    Text = pub.NomeAutor,
+                    FontSize = 16,
+                    FontWeight = FontWeights.Bold,
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F"))
+                };
+
+                TextBlock data = new TextBlock
+                {
+                    Text = pub.DataPublicacao.ToString("dd/MM/yyyy HH:mm"),
+                    FontSize = 11,
+                    Foreground = Brushes.Gray,
+                    Margin = new Thickness(0, 0, 0, 10)
+                };
+                TextBlock conteudo = new TextBlock
+                {
+                    Text = pub.Conteudo,
+                    FontSize = 14,
+                    TextWrapping = TextWrapping.Wrap,
+                    Foreground = Brushes.Black,
+                    Margin = new Thickness(0, 0, 0, 12)
+                };
+                stack.Children.Add(autor);
+                stack.Children.Add(data);
+                stack.Children.Add(conteudo);
+
+                if (!string.IsNullOrWhiteSpace(pub.ImagemUrl)&& File.Exists(pub.ImagemUrl))
+                {
+                    Border borderImagem = new Border
+                    {
+                        CornerRadius = new CornerRadius(10),
+                        ClipToBounds = true,
+                        Margin = new Thickness(0, 0, 0, 10),
+                        Background = Brushes.Black
+                    };
+                    Image imagem = new Image
+                    {
+                        Stretch = Stretch.Uniform,
+                        MaxHeight = 500,
+                        Cursor = Cursors.Hand
+                    };
+                    try
+                    {
+                        imagem.Source = new BitmapImage(new Uri(pub.ImagemUrl,UriKind.RelativeOrAbsolute));
+
+                        imagem.MouseDown += (s, e) =>
+                        {
+                            var janela = new JanelaImagemFull(pub.ImagemUrl);
+                            janela.ShowDialog();
+                        };
+
+                        borderImagem.Child = imagem;
+                        stack.Children.Add(borderImagem);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                Grid areaCurtidas = new Grid
+                {
+                    Margin = new Thickness(0, 4, 0, 0)
+                };
+
+                areaCurtidas.ColumnDefinitions.Add(new ColumnDefinition());
+                areaCurtidas.ColumnDefinitions.Add(new ColumnDefinition{Width = GridLength.Auto});
+
+                TextBlock txtCurtidas = new TextBlock
+                {
+                    Text = $"❤️ {pub.Curtidas} curtidas",
+                    FontWeight = FontWeights.Bold,
+                    FontSize = 13,
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                Grid.SetColumn(txtCurtidas, 0);
+                bool usuarioCurtiu = publicacaoService.UsuarioCurtiu(pub);
+                Button btnCurtir = new Button
+                {
+                    Content = usuarioCurtiu? "Gostei" : "Curtir",
+                    Width = 95,
+                    Height = 30,
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    Background = usuarioCurtiu ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")) : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                    Foreground = Brushes.White,
+                    FontWeight = FontWeights.Bold,
+                    BorderThickness = new Thickness(0),
+                    Cursor = Cursors.Hand
+                };
+
+                btnCurtir.Click += (s, e) =>{publicacaoService.AlternarCurtida(pub.Id); CarregarFeedPublicacoes();};
+
+                Grid.SetColumn(btnCurtir, 1);
+                areaCurtidas.Children.Add(txtCurtidas);
+                areaCurtidas.Children.Add(btnCurtir);
+                stack.Children.Add(areaCurtidas);
+                card.Child = stack;
+                painelFeedPublicacoes.Children.Add(card);
+            }
+        } 
 
         private void BtnProximo_Click(object sender, RoutedEventArgs e)
         {
             indiceAtual++;
 
-            // Volta ao início quando passar do último//
             if (indiceAtual >= listaEventos.Count)
                 indiceAtual = 0;
 
@@ -187,8 +299,6 @@ namespace ProjetoAcelera.Views.Home
         private void BtnAnterior_Click(object sender, RoutedEventArgs e)
         {
             indiceAtual--;
-
-            // Vai ao último quando estiver no primeiro e clicar em "anterior"
             if (indiceAtual < 0)
                 indiceAtual = listaEventos.Count - 1;
 

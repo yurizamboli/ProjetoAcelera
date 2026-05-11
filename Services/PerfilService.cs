@@ -36,6 +36,8 @@ namespace ProjetoAcelera.Services
                 throw new Exception("Instagram deve começar com @");
 
             UsuarioLogado.Nome = nome;
+            var publicacaoService = new PublicacaoService();
+            publicacaoService.AtualizarNomeAutor(UsuarioLogado.Email, nome);
             UsuarioLogado.Perfil.Bio = bio;
             UsuarioLogado.Perfil.Facebook = facebook;
             UsuarioLogado.Perfil.Instagram = instagram;

@@ -1,145 +1,194 @@
 <Page x:Class="ProjetoAcelera.Views.Admin.TelaAdmin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Height="800" Width="900"
         Background="#0A2A3A">
 
     <Grid>
+        
+        <ScrollViewer VerticalScrollBarVisibility="Hidden"
+                        HorizontalScrollBarVisibility="Disabled" >
 
-        <Border Background="#F3E6C9"
+            <Border Background="#F3E6C9"
                 CornerRadius="15"
-                Margin="30"
-                Padding="20">
+                Margin="5,15,5,30"
+                Padding="20"
+                MinWidth="1000"
+                MaxWidth="1076">
 
-            <StackPanel>
+                <StackPanel Margin="0,0,0,40">
 
-                <!-- PERFIL -->
-                <StackPanel Orientation="Horizontal">
+                    <!-- PERFIL -->
+                    <StackPanel Orientation="Horizontal">
 
-                    <!-- FOTO -->
-                    <Border Width="140" Height="140"
+                        <!-- FOTO -->
+                        <Border Width="140" Height="140"
                             CornerRadius="10"
                             ClipToBounds="True"
                             BorderBrush="#1F3A5F"
                             BorderThickness="2">
 
-                        <Image x:Name="imgPerfil"
+                            <Image x:Name="imgPerfil"
                                Stretch="UniformToFill"/>
-                    </Border>
+                        </Border>
 
-                    <!-- INFO -->
-                    <StackPanel Margin="15,0" Width="500">
+                        <!-- INFO -->
+                        <StackPanel Margin="15,0" Width="500">
 
-                        <TextBlock x:Name="txtNome"
+                            <TextBlock x:Name="txtNome"
                                    Background="#EAEAEA"
                                    Padding="10"
                                    Margin="0,0,0,10"/>
 
-                        <TextBlock x:Name="txtBio"
+                            <TextBlock x:Name="txtBio"
                                    Background="#EAEAEA"
                                    Padding="10"
                                    TextWrapping="Wrap"
                                    Height="70"/>
+                        </StackPanel>
+
+                        <!-- BOTÕES -->
+                        <StackPanel Margin="10,0"
+            VerticalAlignment="Top">
+
+                            <Button Content="Voltar"
+            Height="32"
+            Margin="0,0,0,8"
+            Background="#1F3A5F"
+            Foreground="Gold"
+            FontWeight="Bold"
+            BorderThickness="0"
+            Click="Voltar_Click" Width="72"/>
+
+                            <Button Content="Sair"
+            Height="32"
+            Background="#1F3A5F"
+            Foreground="Gold"
+            FontWeight="Bold"
+            BorderThickness="0"
+            Click="Logout_Click"/>
+
+                        </StackPanel>
+
                     </StackPanel>
 
-                    <!-- BOTÃO -->
-                    <StackPanel Margin="10,0">
-                        <Button Content="Voltar"
-                                Click="Voltar_Click"/>
-                    </StackPanel>
+                    <!-- EVENTO -->
+                    <Border Background="#D3D3D3" Margin="0,20" Padding="10" Height="159">
+                        <StackPanel>
+                            <TextBlock Text="Criar Evento" FontWeight="Bold"/>
 
-                </StackPanel>
+                            <TextBox x:Name="txtTituloEvento" Margin="0,5"/>
+                            <TextBox x:Name="txtDescEvento" Margin="0,5"/>
+                            <DatePicker x:Name="dateEvento" Margin="0,5"/>
 
-                <!-- EVENTO -->
-                <Border Background="#D3D3D3" Margin="0,20" Padding="10">
-                    <StackPanel>
-                        <TextBlock Text="Criar Evento" FontWeight="Bold"/>
-
-                        <TextBox x:Name="txtTituloEvento" Margin="0,5"/>
-                        <TextBox x:Name="txtDescEvento" Margin="0,5"/>
-                        <DatePicker x:Name="dateEvento" Margin="0,5"/>
-
-                        <Button Content="Adicionar Evento"
+                            <Button Content="Adicionar Evento"
                                 Click="AdicionarEvento_Click"
                                 Margin="0,10"/>
-                    </StackPanel>
-                </Border>
+                        </StackPanel>
+                    </Border>
 
-                <!-- DESTAQUE -->
-                <Border Background="#D3D3D3" Margin="0,10" Padding="10">
-                    <StackPanel>
-                        <TextBlock Text="Destacar Usuário" FontWeight="Bold"/>
+                    <!-- DESTAQUE -->
+                    <Border Background="#D3D3D3" Margin="0,10" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="Destacar Usuário" FontWeight="Bold"/>
 
-                        <ComboBox x:Name="comboUsuarios" Margin="0,5"/>
+                            <ComboBox x:Name="comboUsuarios" Margin="0,5"/>
 
-                        <Button Content="Colocar em destaque"
+                            <Button Content="Colocar em destaque"
                                 Click="Destaque_Click"/>
-                    </StackPanel>
-                </Border>
+                        </StackPanel>
+                    </Border>
 
-                <!-- PROMOVER -->
-                <Border Background="#D3D3D3" Margin="0,10" Padding="10">
-                    <StackPanel>
-                        <TextBlock Text="Promover para Admin" FontWeight="Bold"/>
+                    <!-- PROMOVER -->
+                    <Border Background="#D3D3D3" Margin="0,10" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="Promover para Admin" FontWeight="Bold"/>
 
-                        <ComboBox x:Name="comboPromover" Margin="0,5"/>
+                            <ComboBox x:Name="comboPromover" Margin="0,5"/>
 
-                        <Button Content="Promover"
+                            <Button Content="Promover"
                                 Background="Green"
                                 Foreground="White"
                                 Click="Promover_Click"/>
-                    </StackPanel>
-                </Border>
+                        </StackPanel>
+                    </Border>
 
-                <!-- Banir -->
-                <Border Background="#D3D3D3" Margin="0,10" Padding="10">
-                    <StackPanel>
-                        <TextBlock Text="Banir Usuário" FontWeight="Bold"/>
+                    <!-- Banir -->
+                    <Border Background="#D3D3D3" Margin="0,10" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="Banir Usuário" FontWeight="Bold"/>
 
-                        <ComboBox x:Name="comboBanir"
+                            <ComboBox x:Name="comboBanir"
                                   Margin="0,5"/>
 
-                        <Button Content="Banir"
+                            <Button Content="Banir"
                                 Background="DarkRed"
                                 Foreground="White"
                                 Click="Banir_Click"/>
-                    </StackPanel>
-                </Border>
+                        </StackPanel>
+                    </Border>
 
-                <!-- Postagens pendentes -->
-                <Border Background="#D3D3D3" Margin="0,10" Padding="10">
-                    <StackPanel>
-                        <TextBlock Text="Postagens pendentes" FontWeight="Bold"/>
-                        <ListView x:Name="listaPostagensPendentes" Margin="0,10,0,0" Height="260" SelectionMode="None">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="White" CornerRadius="10" Padding="12" Margin="0,0,0,10">
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding AutorNome}" FontWeight="Bold"/>
-                                            <TextBlock Text="{Binding Texto}" TextWrapping="Wrap" Margin="0,6,0,0"/>
-                                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
-                                                <TextBlock Text="Imagem: " FontWeight="Bold"/>
-                                                <TextBlock Text="{Binding CaminhoImagem}" TextWrapping="Wrap"/>
+                    <!-- Postagens pendentes -->
+                    <Border Background="#D3D3D3" Margin="0,10" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="Postagens pendentes" FontWeight="Bold"/>
+                            <ListView x:Name="listaPostagensPendentes" Margin="0,10,0,0" Height="420" SelectionMode="Single" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment"
+                                                 Value="Stretch"/>
+
+                                        <Setter Property="Padding"
+                                                 Value="0"/>
+
+                                        <Setter Property="Margin"
+                                                Value="0,0,0,10"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#F8F1DF" BorderBrush="#1F3A5F" BorderThickness="2" MaxWidth="950" Height="410" CornerRadius="12" Padding="12" Margin="0,0,0,15" HorizontalAlignment="Stretch">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding NomeAutor}" FontWeight="Bold"/>
+                                                <ScrollViewer MaxHeight="100"
+                                                              VerticalScrollBarVisibility="Auto"
+                                                              HorizontalScrollBarVisibility="Disabled"
+                                                              Margin="0,6,0,0">
+
+                                                    <TextBlock Text="{Binding Conteudo}"
+                                                               TextWrapping="Wrap"/>
+
+                                                </ScrollViewer>
+                                                <Border CornerRadius="10"
+                                                    Margin="0,10,0,0"
+                                                    ClipToBounds="True"
+                                                    BorderBrush="#C9B27D"
+                                                    BorderThickness="1">
+
+                                                    <Image Source="{Binding ImagemUrl}"
+                                                           MaxHeight="180"                                                          
+                                                           Stretch="UniformToFill"
+                                                           Cursor="Hand"
+                                                           MouseDown="AbrirImagem_Click"/>
+                                                </Border>
+                                                <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                                    <TextBlock Text="Vídeo: " FontWeight="Bold"/>
+                                                    <TextBlock Text="{Binding CaminhoVideo}" TextWrapping="Wrap"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                                                    <Button Content="Aprovar" Padding="8,4" Margin="0,0,8,0" Click="AprovarPostagem_Click" Tag="{Binding}"/>
+                                                    <Button Content="Reprovar" Padding="8,4" Background="#C0392B" Foreground="White" Click="ReprovarPostagem_Click" Tag="{Binding}"/>
+                                                </StackPanel>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
-                                                <TextBlock Text="Vídeo: " FontWeight="Bold"/>
-                                                <TextBlock Text="{Binding CaminhoVideo}" TextWrapping="Wrap"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                                                <Button Content="Aprovar" Padding="8,4" Margin="0,0,8,0" Click="AprovarPostagem_Click" Tag="{Binding}"/>
-                                                <Button Content="Reprovar" Padding="8,4" Background="#C0392B" Foreground="White" Click="ReprovarPostagem_Click" Tag="{Binding}"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </StackPanel>
-                </Border>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
 
-            </StackPanel>
+                </StackPanel>
 
-        </Border>
-
+            </Border>
+        </ScrollViewer>
     </Grid>
 </Page>
