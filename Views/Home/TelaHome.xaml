@@ -298,13 +298,13 @@
                         </Grid>
                     </StackPanel>
                 </Border>
-                
-                <Border Background="#EDE3D1" Margin="20,16" CornerRadius="16" Padding="20" MinWidth="1196" MinHeight="400">
+
+                <Border BorderBrush="#B8860B" BorderThickness="2" Margin="20,16" CornerRadius="16" Padding="5" MinWidth="1196" MinHeight="400">
                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                   HorizontalScrollBarVisibility="Disabled"
                                   MaxHeight="500">
 
-                        <StackPanel x:Name="painelFeedPublicacoes"/>
+                        <StackPanel x:Name="painelFeedPublicacoes" />
 
                     </ScrollViewer>
                 </Border>

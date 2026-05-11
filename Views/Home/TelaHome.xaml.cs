@@ -165,6 +165,12 @@ namespace ProjetoAcelera.Views.Home
 
             CarregarFeedPublicacoes();
         }
+        private string ObterFotoAutor(string emailAutor)
+        {
+            var usuario = App.UsuarioService.ObterTodos().FirstOrDefault(u => u.Email == emailAutor);
+
+            return usuario?.Perfil?.FotoPerfil ?? "";
+        }
         private void CarregarFeedPublicacoes()
         {
             painelFeedPublicacoes.Children.Clear();
@@ -175,7 +181,8 @@ namespace ProjetoAcelera.Views.Home
             {
                 Border card = new Border
                 {
-                    Background = Brushes.White,
+                    MinWidth = 1190,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9")),
                     CornerRadius = new CornerRadius(14),
                     Margin = new Thickness(0, 0, 0, 20),
                     Padding = new Thickness(15),
@@ -183,10 +190,61 @@ namespace ProjetoAcelera.Views.Home
                     BorderThickness = new Thickness(1)
                 };
                 StackPanel stack = new StackPanel();
+                StackPanel topoPost = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Margin = new Thickness(0, 0, 0, 10)
+                };
+                
+                Border avatarBorder = new Border
+                {
+                    Width = 45,
+                    Height = 45,
+                    CornerRadius = new CornerRadius(22.5),
+                    ClipToBounds = true,
+                    Background = Brushes.LightGray,
+                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                    BorderThickness = new Thickness(1)
+                };
+
+                Image avatar = new Image
+                {
+                    Stretch = Stretch.UniformToFill
+                };
+
+                try
+                {
+                    var usuarioAutor = App.UsuarioService.ObterTodos().FirstOrDefault(u => u.Email == pub.EmailAutor);
+
+                    string fotoAutor =usuarioAutor?.Perfil?.FotoPerfil ?? "";
+
+                    if (!string.IsNullOrWhiteSpace(fotoAutor) && File.Exists(fotoAutor))
+                    {
+                        avatar.Source = new BitmapImage(new Uri(fotoAutor, UriKind.Absolute));
+                    }
+                    else
+                    {
+                        avatar.Source = new BitmapImage(
+                            new Uri("/ImagemAcelera/AvatarPadrao.png", UriKind.Relative));
+                    }
+                }
+                catch
+                {
+
+                }
+
+                avatarBorder.Child = avatar;
+
+                StackPanel infoAutor = new StackPanel
+                {
+                    Margin = new Thickness(10, 0, 0, 0),
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
                 TextBlock autor = new TextBlock
                 {
                     Text = pub.NomeAutor,
-                    FontSize = 16,
+                    FontSize = 15,
                     FontWeight = FontWeights.Bold,
                     Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F"))
                 };
@@ -195,20 +253,26 @@ namespace ProjetoAcelera.Views.Home
                 {
                     Text = pub.DataPublicacao.ToString("dd/MM/yyyy HH:mm"),
                     FontSize = 11,
-                    Foreground = Brushes.Gray,
-                    Margin = new Thickness(0, 0, 0, 10)
+                    Foreground = Brushes.Gray
                 };
-                TextBlock conteudo = new TextBlock
+
+                infoAutor.Children.Add(autor);
+                infoAutor.Children.Add(data);
+
+                topoPost.Children.Add(avatarBorder);
+                topoPost.Children.Add(infoAutor);
+                stack.Children.Add(topoPost);
+                Border linhaAutor = new Border
                 {
-                    Text = pub.Conteudo,
-                    FontSize = 14,
-                    TextWrapping = TextWrapping.Wrap,
-                    Foreground = Brushes.Black,
-                    Margin = new Thickness(0, 0, 0, 12)
+                    Height = 2,
+
+                    Background = new SolidColorBrush(
+                (Color)ColorConverter.ConvertFromString("#1F3A5F")),
+
+                    Margin = new Thickness(0, 8, 0, 10)
                 };
-                stack.Children.Add(autor);
-                stack.Children.Add(data);
-                stack.Children.Add(conteudo);
+
+                stack.Children.Add(linhaAutor);
 
                 if (!string.IsNullOrWhiteSpace(pub.ImagemUrl)&& File.Exists(pub.ImagemUrl))
                 {
@@ -237,11 +301,43 @@ namespace ProjetoAcelera.Views.Home
 
                         borderImagem.Child = imagem;
                         stack.Children.Add(borderImagem);
+                        Border linhaSeparadora = new Border
+                        {
+                            Height = 2,
+                            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                            Margin = new Thickness(0, 8, 0, 10)
+                        };
+
+                        stack.Children.Add(linhaSeparadora);
                     }
                     catch
                     {
 
                     }
+                    TextBlock conteudo = new TextBlock
+                    {
+                        Text = pub.Conteudo,
+                        FontSize = 14,
+                        FontWeight = FontWeights.Bold,
+                        TextWrapping = TextWrapping.Wrap,
+                        Foreground = Brushes.Black,
+                        Margin = new Thickness(0, 5, 0, 12)
+                    };
+
+                    stack.Children.Add(conteudo);
+
+                    Border linhaTexto = new Border
+                    {
+                        Height = 2,
+
+                        Background = new SolidColorBrush(
+                            (Color)ColorConverter.ConvertFromString("#1F3A5F")),
+
+                        Margin = new Thickness(0, 0, 0, 10)
+                    };
+
+                    stack.Children.Add(linhaTexto);
+
                 }
                 Grid areaCurtidas = new Grid
                 {
