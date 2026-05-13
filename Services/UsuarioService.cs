@@ -84,14 +84,20 @@ namespace ProjetoAcelera.Services
                 MessageBox.Show(string.Join("\n", erros));
                 return false;
             }
+            //Agora todos os primeiros usuarios são adm
+            string Cargos = "Usuario";
 
+            if(usuarios.Count == 0)
+            {
+                Cargos = "Admin";           
+            }
             Usuario novoUsuario = new Usuario
             {
                 Nome = nome,
                 SenhaHash = GerarHash(senha),
                 Email = email,
                 DataCadastro = DateTime.Now,
-                Cargo = "Usuario", // nivel basico
+                Cargo = Cargos, // nivel basico
                 Obras = new List<Obra>(),
                 Perfil = new Perfil 
                 { 

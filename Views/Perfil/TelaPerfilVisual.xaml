@@ -1,94 +1,136 @@
-<Window x:Class="ProjetoAcelera.Views.Perfil.TelaPerfilVisual"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Perfil do Artista"
-        Height="700" Width="900"
-        WindowStartupLocation="CenterScreen"
-        Background="#0A2A3A">
+<Page x:Class="ProjetoAcelera.Views.Perfil.TelaPerfilVisual"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      MinHeight="800"
+      MinWidth="1000"
+      Background="#0A2A3A">
 
-    <Grid>
+    <Grid Width="1076">
 
-        <Border Background="#F3E6C9"
-                CornerRadius="15"
-                Margin="30"
-                Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- PERFIL -->
+        <Border Grid.Row="0"
+                Background="#F3E6C9"
+                CornerRadius="20"
+                BorderBrush="#C9B27D"
+                BorderThickness="2"
+                Margin="20,15,20,15"
+                Padding="25">
 
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
 
-                <!-- PERFIL -->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                    <!-- FOTO -->
-                    <Border Width="140" Height="140"
-                            CornerRadius="10"
-                            ClipToBounds="True"
-                            BorderBrush="#1F3A5F"
-                            BorderThickness="2">
+                <!-- FOTO -->
+                <Border BorderBrush="#1F3A5F"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        Width="130"
+                        Height="140"
+                        Background="#D8D3C7"
+                        ClipToBounds="True"
+                        VerticalAlignment="Top">
 
-                        <Image x:Name="imgPerfil"
-                               Stretch="UniformToFill"/>
+                    <Image x:Name="imgPerfil"
+                           Stretch="UniformToFill"/>
+                </Border>
+
+                <!-- INFO -->
+                <StackPanel Grid.Column="1"
+                            Margin="15,0">
+
+                    <!-- NOME -->
+                    <TextBlock Text="Nome"
+                               Foreground="#1F3A5F"
+                               FontWeight="Bold"
+                               FontSize="12"/>
+
+                    <Border Background="#E8E1CF"
+                            BorderBrush="#BDAE84"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Margin="0,3,0,8"
+                            Padding="8">
+
+                        <TextBlock x:Name="txtNome"
+                                   Foreground="#2B2B2B"/>
                     </Border>
 
-                    <!-- INFO -->
-                    <StackPanel Grid.Column="1" Margin="15,0">
+                    <!-- BIO -->
+                    <TextBlock Text="Biografia"
+                               Foreground="#1F3A5F"
+                               FontWeight="Bold"
+                               FontSize="12"/>
 
-                        <TextBlock Text="Nome"/>
-                        <TextBlock x:Name="txtNome"
-                                   Background="#EAEAEA"
-                                   Padding="10"
-                                   Margin="0,5"/>
+                    <Border Background="#E8E1CF"
+                            BorderBrush="#BDAE84"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Margin="0,3,0,8"
+                            Padding="8">
 
-                        <TextBlock Text="Biografia"/>
                         <TextBlock x:Name="txtBio"
-                                   Background="#EAEAEA"
-                                   Padding="10"
+                                   Height="60"
                                    TextWrapping="Wrap"
-                                   Height="70"/>
+                                   Foreground="#2B2B2B"/>
+                    </Border>
 
-                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <!-- REDES -->
+                    <StackPanel Orientation="Horizontal">
 
-                            <StackPanel Margin="0,0,20,0">
-                                <TextBlock Text="Facebook"/>
+                        <!-- FACEBOOK -->
+                        <StackPanel Margin="0,0,20,0">
+
+                            <TextBlock Text="Facebook"
+                                       Foreground="#1F3A5F"
+                                       FontWeight="Bold"
+                                       FontSize="12"/>
+
+                            <Border Background="#E8E1CF"
+                                    BorderBrush="#BDAE84"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    Margin="0,3,0,0"
+                                    Padding="6">
+
                                 <TextBlock x:Name="txtFacebook"
-                                           Background="#EAEAEA"
-                                           Padding="5"
-                                           Width="150"/>
-                            </StackPanel>
+                                           Width="180"
+                                           Foreground="#2B2B2B"/>
+                            </Border>
 
-                            <StackPanel>
-                                <TextBlock Text="Instagram"/>
+                        </StackPanel>
+
+                        <!-- INSTAGRAM -->
+                        <StackPanel>
+
+                            <TextBlock Text="Instagram"
+                                       Foreground="#1F3A5F"
+                                       FontWeight="Bold"
+                                       FontSize="12"/>
+
+                            <Border Background="#E8E1CF"
+                                    BorderBrush="#BDAE84"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    Margin="0,3,0,0"
+                                    Padding="6">
+
                                 <TextBlock x:Name="txtInstagram"
-                                           Background="#EAEAEA"
-                                           Padding="5"
-                                           Width="150"/>
-                            </StackPanel>
+                                           Width="180"
+                                           Foreground="#2B2B2B"/>
+                            </Border>
 
                         </StackPanel>
 
                     </StackPanel>
-                </Grid>
-
-                <!-- OBRAS -->
-                <StackPanel Grid.Row="1" Margin="0,20,0,0">
-
-                    <TextBlock Text="Obras"
-                               FontSize="18"
-                               FontWeight="Bold"
-                               Foreground="#1F3A5F"
-                               Margin="0,0,0,10"/>
-
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="painelObras"
-                                    Orientation="Horizontal"/>
-                    </ScrollViewer>
 
                 </StackPanel>
 
@@ -96,5 +138,81 @@
 
         </Border>
 
+        <!-- ABAS -->
+        <Grid Grid.Row="1"
+              Margin="25,0,25,20">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+
+                <!-- POSTS -->
+                <Button x:Name="btnPosts"
+                        Content="Posts"
+                        Width="180"
+                        Height="45"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="#F3E6C9"
+                        FontSize="26"
+                        FontWeight="Bold"
+                        Click="Posts_Button"
+                        Cursor="Hand"/>
+
+                <!-- OBRAS -->
+                <Button x:Name="btnObras"
+                        Content="Obras"
+                        Width="180"
+                        Height="45"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="#F3E6C9"
+                        FontSize="26"
+                        FontWeight="Bold"
+                        Click="Obras_Button"
+                        Cursor="Hand"/>
+
+                <!-- GALERIA -->
+                <Button x:Name="btnGaleria"
+                        Content="Galeria"
+                        Width="180"
+                        Height="45"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="#F3E6C9"
+                        FontSize="26"
+                        FontWeight="Bold"
+                        Click="Galeria_Button"
+                        Cursor="Hand"/>
+
+            </StackPanel>
+
+            <!-- LINHA -->
+            <Border Grid.Row="1"
+                    Background="#C9B27D"
+                    Height="1"/>
+
+        </Grid>
+
+        <!-- CONTEÚDO -->
+        <Border Grid.Row="2"
+                Background="#F3E6C9"
+                CornerRadius="20"
+                BorderBrush="#C9B27D"
+                BorderThickness="2"
+                Margin="20,0,20,20"
+                Padding="15">
+
+            <Frame x:Name="framePerfilVisual"
+                   NavigationUIVisibility="Hidden"
+                   Background="Transparent"/>
+
+        </Border>
+
     </Grid>
-</Window>
+
+</Page>

@@ -1,13 +1,14 @@
 ﻿using ProjetoAcelera.Models;
+using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using System;
+using System.Windows.Media.Imaging;
 
 namespace ProjetoAcelera.Views.Perfil
 {
-    public partial class TelaPerfilVisual : Window
+    public partial class TelaPerfilVisual : Page
     {
         private Usuario usuario;
 
@@ -18,78 +19,96 @@ namespace ProjetoAcelera.Views.Perfil
             usuario = user;
 
             CarregarPerfil();
-            CarregarObras();
+
+            framePerfilVisual.Navigate(new ContainerObrasVisual(usuario));
+
+            SelecionarAba(btnObras);
+        }
+
+        private void SelecionarAba(Button botaoSelecionado)
+        {
+            btnPosts.Foreground =
+                new SolidColorBrush(
+                    (Color)ColorConverter.ConvertFromString("#F3E6C9"));
+
+            btnObras.Foreground =
+                new SolidColorBrush(
+                    (Color)ColorConverter.ConvertFromString("#F3E6C9"));
+
+            btnGaleria.Foreground =
+                new SolidColorBrush(
+                    (Color)ColorConverter.ConvertFromString("#F3E6C9"));
+
+            botaoSelecionado.Foreground =
+                new SolidColorBrush(
+                    (Color)ColorConverter.ConvertFromString("#D7C48E"));
         }
 
         private void CarregarPerfil()
         {
             txtNome.Text = usuario.Nome;
-            txtBio.Text = usuario.Perfil?.Bio;
-            txtFacebook.Text = usuario.Perfil?.Facebook;
-            txtInstagram.Text = usuario.Perfil?.Instagram;
+
+            txtBio.Text =
+                usuario.Perfil?.Bio;
+
+            txtFacebook.Text =
+                usuario.Perfil?.Facebook;
+
+            txtInstagram.Text =
+                usuario.Perfil?.Instagram;
+
+            string caminhoPadrao =
+                "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
 
             try
             {
-                imgPerfil.Source = new BitmapImage(new Uri(usuario.Perfil.FotoPerfil));
+                if (!string.IsNullOrWhiteSpace(usuario.Perfil?.FotoPerfil)
+                    && File.Exists(usuario.Perfil.FotoPerfil))
+                {
+                    imgPerfil.Source =
+                        new BitmapImage(
+                            new Uri(usuario.Perfil.FotoPerfil));
+                }
+                else
+                {
+                    imgPerfil.Source =
+                        new BitmapImage(
+                            new Uri(caminhoPadrao));
+                }
             }
-            catch 
+            catch
             {
-                
+                imgPerfil.Source =
+                    new BitmapImage(
+                        new Uri(caminhoPadrao));
             }
         }
 
-        private void CarregarObras()
+        private void Obras_Button(
+            object sender,
+            RoutedEventArgs e)
         {
-            painelObras.Children.Clear();
+            SelecionarAba(btnObras);
 
-            if (usuario.Obras == null || usuario.Obras.Count == 0)
-                return;
-
-            foreach (var obra in usuario.Obras)
-            {
-                painelObras.Children.Add(CriarCardObra(obra));
-            }
+            framePerfilVisual.Navigate(new ContainerObrasVisual(usuario));
         }
 
-        private Border CriarCardObra(Obra obra)
+        private void Posts_Button(
+            object sender,
+            RoutedEventArgs e)
         {
-            StackPanel container = new StackPanel();
+            SelecionarAba(btnPosts);
 
-            Image img = new Image
-            {
-                Height = 100,
-                Stretch = Stretch.UniformToFill
-            };
+            framePerfilVisual.Navigate(new ContainerPostsVisual(usuario));
+        }
 
-            try
-            {
-                img.Source = new BitmapImage(new Uri(obra.Capa));
-            }
+        private void Galeria_Button(
+            object sender,
+            RoutedEventArgs e)
+        {
+            SelecionarAba(btnGaleria);
 
-            catch 
-            {
-                
-            }
-            TextBlock titulo = new TextBlock
-            {
-                Text = obra.Titulo,
-                TextAlignment = TextAlignment.Center,
-                FontSize = 12
-            };
-
-            container.Children.Add(img);
-            container.Children.Add(titulo);
-
-            return new Border
-            {
-                Width = 100,
-                Height = 130,
-                Margin = new Thickness(5),
-                BorderBrush = Brushes.DarkBlue,
-                BorderThickness = new Thickness(2),
-                CornerRadius = new CornerRadius(10),
-                Child = container
-            };
+            framePerfilVisual.Navigate(new ContainerGaleriaVisual(usuario));
         }
     }
 }
