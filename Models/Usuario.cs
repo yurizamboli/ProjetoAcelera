@@ -8,14 +8,15 @@ namespace ProjetoAcelera.Models
 {
     public class Usuario
     {
-        public string Nome { get; set; }
-        public string SenhaHash { get; set; }
-        public string Email { get; set; }
+        //Compilador tava enchendo o saco pra colocar = "";
+        public string Nome { get; set; } = "";
+        public string SenhaHash { get; set; } = "";
+        public string Email { get; set; } = "";
         public DateTime DataCadastro { get; set; }
-        public string Cargo { get; set; }
+        public string Cargo { get; set; } = "";
         public List<Obra> Obras { get; set; } = new List<Obra>();
-        public Perfil Perfil { get; set; }
-        public string TokenRecuperacao { get; set; }
+        public Perfil Perfil { get; set; } = new Perfil();
+        public string TokenRecuperacao { get; set; } = "";
         public DateTime? TokenExpiracao { get; set; }
         public bool Banido { get; set; }
         

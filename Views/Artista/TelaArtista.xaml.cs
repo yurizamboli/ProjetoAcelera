@@ -1,12 +1,13 @@
 ﻿using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
+using ProjetoAcelera.Views.Calendario;
+using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Teste;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using ProjetoAcelera.Views.Calendario;
 using System.Windows.Media.Imaging;
 
 namespace ProjetoAcelera.Views.Artistas
@@ -25,7 +26,7 @@ namespace ProjetoAcelera.Views.Artistas
             txtBusca.TextChanged += TxtBusca_TextChanged;
 
             usuarioService = App.UsuarioService;
-            listaCompleta = usuarioService.ObterTodos();
+            listaCompleta = usuarioService.ObterTodos().Where(u => !u.Banido).ToList();
 
             CarregarArtistas();
         }
@@ -98,7 +99,7 @@ namespace ProjetoAcelera.Views.Artistas
             card.MouseDown += (s, e) =>
             {
                 var tela = new Views.Perfil.TelaPerfilVisual(user);
-                tela.ShowDialog();
+                NavigationService.Navigate(new TelaPerfilVisual(user));
             };
 
             return card;
