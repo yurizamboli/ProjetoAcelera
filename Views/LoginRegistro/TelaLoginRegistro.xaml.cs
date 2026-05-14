@@ -38,6 +38,12 @@ namespace ProjetoAcelera.Views.LoginRegistro
             string nome = LimparPlaceholder(txtNomeRegistro.Text, "Nome");
             string email = LimparPlaceholder(txtEmailRegistro.Text, "Email");
             string senha = txtSenhaRegistro.Password;
+            
+            if (chkTermos.IsChecked != true)
+            {
+                MessageBox.Show("Você precisa aceitar os termos de uso e política de privacidade para se cadastrar.");
+                return;
+            }
 
             bool sucesso = usuarioService.Cadastrar(nome, senha, email);
 
@@ -310,6 +316,18 @@ namespace ProjetoAcelera.Views.LoginRegistro
             MessageBox.Show("Token enviado para seu email!");
 
             var tela = new RedefinirSenha();
+            tela.ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TelaTermosDeUso tela = new TelaTermosDeUso();
+            tela.ShowDialog();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            TelaPoliticaPrivacidade tela = new TelaPoliticaPrivacidade();
             tela.ShowDialog();
         }
     }
