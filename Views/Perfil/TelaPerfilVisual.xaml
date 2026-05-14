@@ -152,7 +152,7 @@
 
                 <!-- POSTS -->
                 <Button x:Name="btnPosts"
-                        Content="Posts"
+                        Content="Publicações"
                         Width="180"
                         Height="45"
                         Background="Transparent"

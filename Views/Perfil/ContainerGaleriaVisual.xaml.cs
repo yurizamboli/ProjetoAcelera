@@ -31,7 +31,8 @@ namespace ProjetoAcelera.Views.Perfil
 
             var posts = usuario.Publicacoes
                 .Where(p => p.Status == "Aprovado" && !string.IsNullOrWhiteSpace(p.ImagemUrl)).ToList();
-
+            
+           
             foreach (var post in posts)
             {
                 painelGaleria.Children.Add(CriarImagem(post.ImagemUrl));
@@ -49,16 +50,13 @@ namespace ProjetoAcelera.Views.Perfil
 
             try
             {
-                img.Source =
-                    new BitmapImage(
-                        new Uri(caminho));
+                img.Source = new BitmapImage(new Uri(caminho));
             }
             catch
             {
 
-            }
-
-            return new Border
+            }        
+            Border border = new Border
             {
                 Width = 180,
                 Height = 180,
@@ -69,6 +67,11 @@ namespace ProjetoAcelera.Views.Perfil
                 BorderThickness = new Thickness(2),
                 Child = img
             };
+            border.MouseDown += (s, e) =>
+            { 
+                var janela = new JanelaImagemFull(caminho); janela.ShowDialog(); 
+            };
+            return border;
         }
     }
 }

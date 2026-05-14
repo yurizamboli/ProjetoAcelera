@@ -187,6 +187,10 @@
                         </Grid>
                     </StackPanel>
                 </Border>
+                <!-- COLOCAR UM CAMPO PARA A MENSAGEM " O PROXIMO PODE SER VOCE"-->
+                <!-- COLOCAR UM CAMPO PARA A MENSAGEM " O PROXIMO PODE SER VOCE"-->
+                <!-- COLOCAR UM CAMPO PARA A MENSAGEM " O PROXIMO PODE SER VOCE"-->
+                <!-- COLOCAR UM CAMPO PARA A MENSAGEM " O PROXIMO PODE SER VOCE"-->
                 <Border Background="#0D3348" CornerRadius="10"
                         BorderBrush="#B8860B" BorderThickness="1" Padding="20,16" MinWidth="1204" Margin="20,16">
                     <StackPanel>
@@ -265,7 +269,7 @@
                                     Background="#B8860B"
                                     Click="AdicionarFoto_Click"
                                     Margin="0,0,8,0"/>
-                            <Button Content="Adicionar vídeo"
+                            <Button Content="Adicionar vídeo"                             
                                     Style="{StaticResource CTAButtonStyle}"
                                     Background="#1F3A5F"
                                     Click="AdicionarVideo_Click"/>
@@ -291,7 +295,7 @@
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"/>
                             <Button Grid.Column="1"
-                                    Content="POSTAR"
+                                    Content="Publicar"
                                     Style="{StaticResource CTAButtonStyle}"
                                     Width="140"
                                     Click="Postar_Click"/>

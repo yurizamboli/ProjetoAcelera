@@ -40,6 +40,7 @@ namespace ProjetoAcelera.Views.Perfil
 
         private Border CriarPost(Publicacao post)
         {
+
             StackPanel container = new StackPanel();
 
             TextBlock texto = new TextBlock
@@ -55,24 +56,34 @@ namespace ProjetoAcelera.Views.Perfil
 
             if (!string.IsNullOrWhiteSpace(post.ImagemUrl))
             {
+                Border bordaImagem = new Border
+                {
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E8E1CF")),
+                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#BDAE84")),
+                    BorderThickness = new Thickness(1),
+                    CornerRadius = new CornerRadius(12),
+                    Padding = new Thickness(6),
+                    Margin = new Thickness(0, 0, 0, 12)
+                };
                 Image img = new Image
                 {
-                    Height = 250,
-                    Stretch = Stretch.UniformToFill
+                    MaxHeight = 420,
+                    Stretch = Stretch.Uniform,
+                    HorizontalAlignment = HorizontalAlignment.Center
                 };
 
                 try
                 {
-                    img.Source =
-                        new BitmapImage(
-                            new Uri(post.ImagemUrl));
+                    img.Source = new BitmapImage(new Uri(post.ImagemUrl));
+                    bordaImagem.Child = img;
+                   
                 }
                 catch
                 {
 
                 }
 
-                container.Children.Add(img);
+                container.Children.Add(bordaImagem);
             }
 
             TextBlock likes = new TextBlock
@@ -87,9 +98,9 @@ namespace ProjetoAcelera.Views.Perfil
 
             return new Border
             {
-                Background = Brushes.White,
-                CornerRadius = new CornerRadius(12),
-                BorderBrush = Brushes.DarkGoldenrod,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF7E1")),
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C9B27D")),
+                CornerRadius = new CornerRadius(16),
                 BorderThickness = new Thickness(2),
                 Margin = new Thickness(0, 0, 0, 20),
                 Padding = new Thickness(15),
