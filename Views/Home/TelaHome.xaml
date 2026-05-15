@@ -112,26 +112,15 @@
                                    FontSize="22"
                                    FontWeight="Bold"
                                    Foreground="#F3E6C9"
-                                   HorizontalAlignment="Center"
                                    Margin="0,0,0,16"/>
 
                         <Grid MaxWidth="1100" MinHeight="420">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
                                 <ColumnDefinition Width="440"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="50"/>
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="0" 
-                                    Style="{StaticResource ArrowButtonStyle}"
-                                    Content="◀"
-                                    Width="40"
-                                    Height="40"
-                                    VerticalAlignment="Center"
-                                    Click="BtnAnterior_Click"/>
-
-                            <Border Grid.Column="1"
+                            <Border Grid.Column="0"
                                     Background="#EDE3D1" BorderBrush="#B8860B"
                                     BorderThickness="1.5" CornerRadius="20"
                                     Padding="16" Margin="0,0,20,0">
@@ -158,7 +147,7 @@
                                 </StackPanel>
                             </Border>
 
-                            <Border Grid.Column="2"
+                            <Border Grid.Column="1"
                                     Background="#EDE3D1" BorderBrush="#B8860B"
                                     BorderThickness="1.5" CornerRadius="20"
                                     Padding="24">
@@ -169,7 +158,6 @@
                                                FontWeight="Bold"
                                                Foreground="#1F3A5F"
                                                TextWrapping="Wrap"
-                                               TextAlignment="Center"
                                                Margin="0,0,0,10"/>
 
                                     <TextBlock x:Name="txtDescricao"
@@ -185,7 +173,7 @@
 
                                     <ScrollViewer VerticalScrollBarVisibility="Disabled"
                                                   HorizontalScrollBarVisibility="Disabled"
-                                                  Height="120">
+                                                  Height="152">
                                         <TextBlock x:Name="txtDetalhes"
                                                    TextWrapping="Wrap"
                                                    FontFamily="Georgia"
@@ -197,20 +185,26 @@
                                     <Button Content="VER PROGRAMAÇÃO"
                                             Style="{StaticResource CTAButtonStyle}"
                                             Width="180"
-                                            HorizontalAlignment="Center"
-                                            Margin="0,20,0,0"
+                                            HorizontalAlignment="Left"
+                                            Margin="0,16,0,0"
                                             Click="Programacao_Click"/>
                                 </StackPanel>
                             </Border>
+                        </Grid>
 
-                            <Button Grid.Column="3"
-                                    Style="{StaticResource ArrowButtonStyle}"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+                            <Button Style="{StaticResource ArrowButtonStyle}"
+                                    Content="◀"
+                                    Width="40"
+                                    Height="40"
+                                    Click="BtnAnterior_Click"/>
+                            <Button Style="{StaticResource ArrowButtonStyle}"
                                     Content="▶"
                                     Width="40"
                                     Height="40"
-                                    VerticalAlignment="Center"
+                                    Margin="10,0,0,0"
                                     Click="BtnProximo_Click"/>
-                        </Grid>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
                 <!-- COLOCAR UM CAMPO PARA A MENSAGEM " O PROXIMO PODE SER VOCE"-->
@@ -224,7 +218,28 @@
                                    Foreground="#F3E6C9" HorizontalAlignment="Center"
                                    Margin="0,0,0,14"/>
 
-                        <WrapPanel x:Name="wrapArtistasDestaque" HorizontalAlignment="Center"/>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Border Width="70" Height="70" CornerRadius="35"
+                                    Background="#1F3A5F" BorderBrush="#B8860B"
+                                    BorderThickness="2" Margin="10,0" ClipToBounds="True">
+                                <Image Source="/ImagemAcelera/AvatarPadrao.png" Stretch="UniformToFill"/>
+                            </Border>
+                            <Border Width="70" Height="70" CornerRadius="35"
+                                    Background="#1F3A5F" BorderBrush="#B8860B"
+                                    BorderThickness="2" Margin="10,0" ClipToBounds="True">
+                                <Image Source="/ImagemAcelera/AvatarPadrao.png" Stretch="UniformToFill"/>
+                            </Border>
+                            <Border Width="70" Height="70" CornerRadius="35"
+                                    Background="#1F3A5F" BorderBrush="#B8860B"
+                                    BorderThickness="2" Margin="10,0" ClipToBounds="True">
+                                <Image Source="/ImagemAcelera/AvatarPadrao.png" Stretch="UniformToFill"/>
+                            </Border>
+                            <Border Width="70" Height="70" CornerRadius="35"
+                                    Background="#1F3A5F" BorderBrush="#B8860B"
+                                    BorderThickness="2" Margin="10,0" ClipToBounds="True">
+                                <Image Source="/ImagemAcelera/AvatarPadrao.png" Stretch="UniformToFill"/>
+                            </Border>
+                        </WrapPanel>
 
                         <Button Content="VEJA MAIS ARTISTAS"
                                 Style="{StaticResource CTAButtonStyle}"
@@ -232,97 +247,6 @@
                                 HorizontalAlignment="Center"
                                 Margin="0,14,0,0"
                                 Click="Artistas_Click"/>
-                    </StackPanel>
-                </Border>
-
-                <Border Background="#EDE3D1" CornerRadius="16" Padding="20" MinWidth="1196" Height="390" Margin="20,16">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,14">
-                            <Border Width="46" Height="46"
-                                    CornerRadius="0"
-                                    Background="#1F3A5F"
-                                    ClipToBounds="True">
-                                <Image x:Name="imgUsuarioPost" Source="/ImagemAcelera/AvatarPadrao.png"
-                                       Stretch="UniformToFill"/>
-                            </Border>
-                            <StackPanel Margin="12,0">
-                                <TextBlock Text="Compartilhe com a comunidade"
-                                           FontFamily="Georgia"
-                                           FontSize="16"
-                                           FontWeight="Bold"
-                                           Foreground="#1F3A5F"/>
-                                <TextBlock x:Name="txtUsuarioPostagem"
-                                           FontFamily="Georgia"
-                                           FontSize="12"
-                                           Foreground="#666666"/>
-                            </StackPanel>
-                        </StackPanel>
-
-                        <TextBlock Text="Adicione alguma coisa, se quiser"
-                                   FontFamily="Georgia"
-                                   FontSize="14"
-                                   Foreground="#8B6914"
-                                   Margin="0,0,0,8"/>
-
-                        <TextBox x:Name="txtPostTexto"
-                                 AcceptsReturn="True"
-                                 TextWrapping="Wrap"
-                                 Height="120"
-                                 FontFamily="Georgia"
-                                 FontSize="13"
-                                 Foreground="#1F3A5F"
-                                 Background="White"
-                                 BorderBrush="#B8860B"
-                                 BorderThickness="1"
-                                 Padding="12"
-                                 Text=""
-                                 VerticalScrollBarVisibility="Auto"/>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,14,0,0">
-                            <Button Content="Adicionar foto"
-                                    Style="{StaticResource CTAButtonStyle}"
-                                    Background="#B8860B"
-                                    Click="AdicionarFoto_Click"
-                                    Margin="0,0,8,0"/>
-                            <Button Content="Adicionar vídeo"
-                                    Style="{StaticResource CTAButtonStyle}"
-                                    Background="#1F3A5F"
-                                    Click="AdicionarVideo_Click"/>
-                        </StackPanel>
-
-                        <CheckBox x:Name="chkPermiteComentarios"
-                                  Content="Permitir comentários"
-                                  FontFamily="Georgia"
-                                  FontSize="13"
-                                  Foreground="#1F3A5F"
-                                  Margin="0,12,0,0"
-                                  IsChecked="True"/>
-
-                        <TextBlock x:Name="txtAnexoStatus"
-                                   FontFamily="Georgia"
-                                   FontSize="12"
-                                   Foreground="#444444"
-                                   Margin="0,10,0,0" Height="21"/>
-
-                        <Grid Margin="0,14,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="txtStatusPostagem"
-                                       Grid.Column="0"
-                                       FontFamily="Georgia"
-                                       FontSize="14"
-                                       FontWeight="Bold"
-                                       Foreground="#1F3A5F"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"/>
-                            <Button Grid.Column="1"
-                                    Content="Publicar"
-                                    Style="{StaticResource CTAButtonStyle}"
-                                    Width="140"
-                                    Click="Postar_Click"/>
-                        </Grid>
                     </StackPanel>
                 </Border>
 
