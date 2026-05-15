@@ -16,7 +16,12 @@ namespace ProjetoAcelera.Services
             this.usuarioService = App.UsuarioService;
         }
 
-        public void AdicionarPublicacao(string conteudo,string caminhoImagemOriginal)
+        public void AdicionarPublicacao(string conteudo, string caminhoImagemOriginal)
+        {
+            AdicionarPublicacao(conteudo, caminhoImagemOriginal, string.Empty, true);
+        }
+
+        public void AdicionarPublicacao(string conteudo, string caminhoImagemOriginal, string caminhoVideoOriginal, bool comentariosPermitidos)
         {
             var usuarioLogado = usuarioService.UsuarioLogado;
 
@@ -31,8 +36,10 @@ namespace ProjetoAcelera.Services
                 EmailAutor = usuarioLogado.Email,
                 Conteudo = conteudo,
                 ImagemUrl = caminhoImagemOriginal,
+                CaminhoVideo = caminhoVideoOriginal,
+                ComentariosPermitidos = comentariosPermitidos,
+                Visualizacoes = 0,
                 Status = "Aguardando aprovação",
-
                 DataPublicacao = DateTime.Now
             };
 

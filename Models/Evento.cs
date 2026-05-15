@@ -8,14 +8,12 @@ namespace ProjetoAcelera.Models
 {
     public class Evento
     {
-        public string Titulo { get; set; }
+        public string Titulo { get; set; } = string.Empty;
 
         //tem que ver a data ainda, se vai colocar ou puxar do pc//
-        public string Data { get; set; }
-        public string Descricao { get; set; }
-        public string Detalhes { get; set; }
-        public string Imagem { get; set; }
-        
-
+        public string Data { get; set; } = string.Empty;
+        public string Descricao { get; set; } = string.Empty;
+        public string Detalhes { get; set; } = string.Empty;
+        public string Imagem { get; set; } = string.Empty;
     }
 }

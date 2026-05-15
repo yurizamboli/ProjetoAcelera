@@ -104,90 +104,109 @@
                          MaxWidth="1366" 
                         Margin="0,0,0,70">
 
-                <!-- ── Carrossel dos eventos ── -->
-                <Border Margin="20,16" CornerRadius="24" Background="#0F3A5F" Padding="20">
+                <!-- ── Card do evento ── -->
+                <Border Margin="20,16" CornerRadius="24" Background="#0F3A5F" Padding="24">
                     <StackPanel>
-                        <TextBlock Text="Eventos em destaque"
+                        <TextBlock Text="Evento em destaque"
                                    FontFamily="Georgia"
                                    FontSize="22"
                                    FontWeight="Bold"
                                    Foreground="#F3E6C9"
-                                   Margin="0,0,0,12"/>
+                                   Margin="0,0,0,16"/>
 
-                        <Grid MaxWidth="1000" MinHeight="420">
+                        <Grid MaxWidth="1100" MinHeight="420">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="440"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0"
+                                    Background="#EDE3D1" BorderBrush="#B8860B"
+                                    BorderThickness="1.5" CornerRadius="20"
+                                    Padding="16" Margin="0,0,20,0">
+                                <StackPanel>
+                                    <TextBlock Text="EVENTO CULTURAL"
+                                               FontFamily="Georgia"
+                                               FontSize="11"
+                                               FontWeight="Bold"
+                                               Foreground="#8B6914"
+                                               Margin="0,0,0,12"/>
+
+                                    <Border CornerRadius="18" ClipToBounds="True" Height="320">
+                                        <Image x:Name="imgEvento"
+                                               Source="/ImagemAcelera/evento1.png"
+                                               Stretch="UniformToFill"/>
+                                    </Border>
+
+                                    <TextBlock x:Name="txtData"
+                                               FontFamily="Georgia"
+                                               FontSize="12"
+                                               Foreground="#1F3A5F"
+                                               TextAlignment="Center"
+                                               Margin="0,12,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="1"
+                                    Background="#EDE3D1" BorderBrush="#B8860B"
+                                    BorderThickness="1.5" CornerRadius="20"
+                                    Padding="24">
+                                <StackPanel>
+                                    <TextBlock x:Name="txtTitulo"
+                                               FontFamily="Georgia"
+                                               FontSize="26"
+                                               FontWeight="Bold"
+                                               Foreground="#1F3A5F"
+                                               TextWrapping="Wrap"
+                                               Margin="0,0,0,10"/>
+
+                                    <TextBlock x:Name="txtDescricao"
+                                               FontFamily="Georgia"
+                                               FontSize="14"
+                                               FontWeight="Bold"
+                                               Foreground="#1F3A5F"
+                                               TextWrapping="Wrap"
+                                               LineHeight="22"
+                                               Margin="0,0,0,12"/>
+
+                                    <Rectangle Height="1" Fill="#B8860B" Margin="0,0,0,14"/>
+
+                                    <ScrollViewer VerticalScrollBarVisibility="Disabled"
+                                                  HorizontalScrollBarVisibility="Disabled"
+                                                  Height="152">
+                                        <TextBlock x:Name="txtDetalhes"
+                                                   TextWrapping="Wrap"
+                                                   FontFamily="Georgia"
+                                                   FontSize="13"
+                                                   Foreground="#444444"
+                                                   LineHeight="22"/>
+                                    </ScrollViewer>
+
+                                    <Button Content="VER PROGRAMAÇÃO"
+                                            Style="{StaticResource CTAButtonStyle}"
+                                            Width="180"
+                                            HorizontalAlignment="Left"
+                                            Margin="0,16,0,0"
+                                            Click="Programacao_Click"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
                             <Button Style="{StaticResource ArrowButtonStyle}"
                                     Content="◀"
-                                    HorizontalAlignment="Left" VerticalAlignment="Center"
-                                    Panel.ZIndex="1"
+                                    Width="40"
+                                    Height="40"
                                     Click="BtnAnterior_Click"/>
-
                             <Button Style="{StaticResource ArrowButtonStyle}"
                                     Content="▶"
-                                    HorizontalAlignment="Right" VerticalAlignment="Center"
-                                    Panel.ZIndex="1"
+                                    Width="40"
+                                    Height="40"
+                                    Margin="10,0,0,0"
                                     Click="BtnProximo_Click"/>
-
-                            <Grid Margin="54,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Border Grid.Column="0"
-                                        Background="#EDE3D1" BorderBrush="#B8860B"
-                                        BorderThickness="1.5" CornerRadius="16"
-                                        Margin="0,0,26,0" Padding="18">
-                                    <StackPanel>
-                                        <TextBlock Text="EVENTO EM DESTAQUE"
-                                                   HorizontalAlignment="Center"
-                                                   FontFamily="Georgia" FontWeight="Bold"
-                                                   FontSize="11" Foreground="#8B6914"
-                                                   Margin="0,0,0,10"/>
-
-                                        <Border CornerRadius="10" ClipToBounds="True" Height="340" Width="330">
-                                            <Image x:Name="imgEvento"
-                                                   Source="/ImagemAcelera/evento1.png"
-                                                   Stretch="UniformToFill"/>
-                                        </Border>
-
-                                        <TextBlock x:Name="txtTitulo"
-                                                   FontFamily="Georgia" FontSize="18" FontWeight="Bold"
-                                                   Foreground="#1F3A5F" TextAlignment="Center"
-                                                   TextWrapping="Wrap" Margin="0,14,0,4"/>
-
-                                        <TextBlock x:Name="txtData"
-                                                   TextAlignment="Center" FontFamily="Georgia"
-                                                   FontSize="13" Foreground="#8B6914" Margin="0,0,0,12"/>
-
-                                        <Button Content="VER PROGRAMAÇÃO"
-                                                Style="{StaticResource CTAButtonStyle}"
-                                                HorizontalAlignment="Center"
-                                                Click="Programacao_Click"/>
-                                    </StackPanel>
-                                </Border>
-
-                                <Border Grid.Column="1"
-                                        Background="#EDE3D1" BorderBrush="#B8860B"
-                                        BorderThickness="1.5" CornerRadius="16"
-                                        Padding="20" Margin="5,0,0,0">
-                                    <StackPanel>
-                                        <TextBlock x:Name="txtDescricao"
-                                                   FontFamily="Georgia" FontWeight="Bold"
-                                                   FontSize="14" Foreground="#1F3A5F"
-                                                   TextWrapping="Wrap" Margin="0,0,0,12" LineHeight="22"/>
-
-                                        <Rectangle Height="1" Fill="#B8860B" Margin="0,0,0,12"/>
-
-                                        <TextBlock x:Name="txtDetalhes"
-                                                   TextWrapping="Wrap" FontFamily="Georgia"
-                                                   FontSize="12" Foreground="#444444" LineHeight="22"/>
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-                        </Grid>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
-                <!-- COLOCAR UM CAMPO PARA A MENSAGEM " O PROXIMO PODE SER VOCE"-->
                 <!-- COLOCAR UM CAMPO PARA A MENSAGEM " O PROXIMO PODE SER VOCE"-->
                 <!-- COLOCAR UM CAMPO PARA A MENSAGEM " O PROXIMO PODE SER VOCE"-->
                 <!-- COLOCAR UM CAMPO PARA A MENSAGEM " O PROXIMO PODE SER VOCE"-->
@@ -215,6 +234,11 @@
                                     BorderThickness="2" Margin="10,0" ClipToBounds="True">
                                 <Image Source="/ImagemAcelera/AvatarPadrao.png" Stretch="UniformToFill"/>
                             </Border>
+                            <Border Width="70" Height="70" CornerRadius="35"
+                                    Background="#1F3A5F" BorderBrush="#B8860B"
+                                    BorderThickness="2" Margin="10,0" ClipToBounds="True">
+                                <Image Source="/ImagemAcelera/AvatarPadrao.png" Stretch="UniformToFill"/>
+                            </Border>
                         </WrapPanel>
 
                         <Button Content="VEJA MAIS ARTISTAS"
@@ -226,7 +250,7 @@
                     </StackPanel>
                 </Border>
 
-                <Border Background="#EDE3D1" CornerRadius="16" Padding="20" MinWidth="1196" Height="341" Margin="20,16">
+                <Border Background="#EDE3D1" CornerRadius="16" Padding="20" MinWidth="1196" Height="390" Margin="20,16">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,14">
                             <Border Width="46" Height="46"
@@ -249,6 +273,12 @@
                             </StackPanel>
                         </StackPanel>
 
+                        <TextBlock Text="Adicione alguma coisa, se quiser"
+                                   FontFamily="Georgia"
+                                   FontSize="14"
+                                   Foreground="#8B6914"
+                                   Margin="0,0,0,8"/>
+
                         <TextBox x:Name="txtPostTexto"
                                  AcceptsReturn="True"
                                  TextWrapping="Wrap"
@@ -269,11 +299,19 @@
                                     Background="#B8860B"
                                     Click="AdicionarFoto_Click"
                                     Margin="0,0,8,0"/>
-                            <Button Content="Adicionar vídeo"                             
+                            <Button Content="Adicionar vídeo"
                                     Style="{StaticResource CTAButtonStyle}"
                                     Background="#1F3A5F"
                                     Click="AdicionarVideo_Click"/>
                         </StackPanel>
+
+                        <CheckBox x:Name="chkPermiteComentarios"
+                                  Content="Permitir comentários"
+                                  FontFamily="Georgia"
+                                  FontSize="13"
+                                  Foreground="#1F3A5F"
+                                  Margin="0,12,0,0"
+                                  IsChecked="True"/>
 
                         <TextBlock x:Name="txtAnexoStatus"
                                    FontFamily="Georgia"

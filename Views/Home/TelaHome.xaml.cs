@@ -8,6 +8,7 @@ using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Teste;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -58,6 +59,7 @@ namespace ProjetoAcelera.Views.Home
             txtAnexoStatus.Text = string.Empty;
             caminhoImagemPostagem = null;
             caminhoVideoPostagem = null;
+            chkPermiteComentarios.IsChecked = true;
 
             if (usuario != null)
             {
@@ -156,12 +158,22 @@ namespace ProjetoAcelera.Views.Home
                 return;
             }
 
-            publicacaoService.AdicionarPublicacao(txtPostTexto.Text.Trim(),caminhoImagemPostagem);
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8604 // Possible null reference argument.
+            publicacaoService.AdicionarPublicacao(
+                txtPostTexto.Text.Trim(),
+                caminhoImagemPostagem,
+                caminhoVideoPostagem,
+                chkPermiteComentarios.IsChecked == true);
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore CS8604 // Possible null reference argument.
+
             txtPostTexto.Clear();
             txtAnexoStatus.Text = "";
             txtStatusPostagem.Text = "Sua publicação está aguardando aprovação.";
             caminhoImagemPostagem = null;
             caminhoVideoPostagem = null;
+            chkPermiteComentarios.IsChecked = true;
 
             CarregarFeedPublicacoes();
         }
@@ -274,7 +286,7 @@ namespace ProjetoAcelera.Views.Home
 
                 stack.Children.Add(linhaAutor);
 
-                if (!string.IsNullOrWhiteSpace(pub.ImagemUrl)&& File.Exists(pub.ImagemUrl))
+                if (!string.IsNullOrWhiteSpace(pub.ImagemUrl) && File.Exists(pub.ImagemUrl))
                 {
                     Border borderImagem = new Border
                     {
@@ -291,8 +303,7 @@ namespace ProjetoAcelera.Views.Home
                     };
                     try
                     {
-                        imagem.Source = new BitmapImage(new Uri(pub.ImagemUrl,UriKind.RelativeOrAbsolute));
-
+                        imagem.Source = new BitmapImage(new Uri(pub.ImagemUrl, UriKind.RelativeOrAbsolute));
                         imagem.MouseDown += (s, e) =>
                         {
                             var janela = new JanelaImagemFull(pub.ImagemUrl);
@@ -314,6 +325,58 @@ namespace ProjetoAcelera.Views.Home
                     {
 
                     }
+                }
+
+                if (!string.IsNullOrWhiteSpace(pub.CaminhoVideo) && File.Exists(pub.CaminhoVideo))
+                {
+                    Border borderVideo = new Border
+                    {
+                        CornerRadius = new CornerRadius(10),
+                        Background = Brushes.Black,
+                        Padding = new Thickness(12),
+                        Margin = new Thickness(0, 0, 0, 10)
+                    };
+
+                    StackPanel painelVideo = new StackPanel();
+                    TextBlock labelVideo = new TextBlock
+                    {
+                        Text = "Vídeo anexado",
+                        FontSize = 14,
+                        FontWeight = FontWeights.Bold,
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0, 0, 0, 6)
+                    };
+
+                    Button btnAbrirVideo = new Button
+                    {
+                        Content = "Abrir vídeo",
+                        Width = 120,
+                        Height = 30,
+                        Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")),
+                        Foreground = Brushes.White,
+                        BorderThickness = new Thickness(0),
+                        Cursor = Cursors.Hand
+                    };
+
+                    btnAbrirVideo.Click += (s, e) =>
+                    {
+                        try
+                        {
+                            Process.Start(new ProcessStartInfo(pub.CaminhoVideo) { UseShellExecute = true });
+                        }
+                        catch
+                        {
+                        }
+                    };
+
+                    painelVideo.Children.Add(labelVideo);
+                    painelVideo.Children.Add(btnAbrirVideo);
+                    borderVideo.Child = painelVideo;
+                    stack.Children.Add(borderVideo);
+                }
+
+                if (!string.IsNullOrWhiteSpace(pub.Conteudo))
+                {
                     TextBlock conteudo = new TextBlock
                     {
                         Text = pub.Conteudo,
@@ -325,58 +388,45 @@ namespace ProjetoAcelera.Views.Home
                     };
 
                     stack.Children.Add(conteudo);
-
-                    Border linhaTexto = new Border
-                    {
-                        Height = 2,
-
-                        Background = new SolidColorBrush(
-                            (Color)ColorConverter.ConvertFromString("#1F3A5F")),
-
-                        Margin = new Thickness(0, 0, 0, 10)
-                    };
-
-                    stack.Children.Add(linhaTexto);
-
                 }
-                Grid areaCurtidas = new Grid
+
+                Border linhaTexto = new Border
                 {
+                    Height = 2,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                    Margin = new Thickness(0, 0, 0, 10)
+                };
+
+                stack.Children.Add(linhaTexto);
+
+                StackPanel areaStats = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
                     Margin = new Thickness(0, 4, 0, 0)
                 };
 
-                areaCurtidas.ColumnDefinitions.Add(new ColumnDefinition());
-                areaCurtidas.ColumnDefinitions.Add(new ColumnDefinition{Width = GridLength.Auto});
-
-                TextBlock txtCurtidas = new TextBlock
+                TextBlock txtVisualizacoes = new TextBlock
                 {
-                    Text = $"❤️ {pub.Curtidas} curtidas",
+                    Text = $"👁️ {pub.Visualizacoes} visualizações",
                     FontWeight = FontWeights.Bold,
                     FontSize = 13,
                     Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
                     VerticalAlignment = VerticalAlignment.Center
                 };
 
-                Grid.SetColumn(txtCurtidas, 0);
-                bool usuarioCurtiu = publicacaoService.UsuarioCurtiu(pub);
-                Button btnCurtir = new Button
+                TextBlock txtComentarios = new TextBlock
                 {
-                    Content = usuarioCurtiu? "Gostei" : "Curtir",
-                    Width = 95,
-                    Height = 30,
-                    HorizontalAlignment = HorizontalAlignment.Right,
-                    Background = usuarioCurtiu ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")) : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
-                    Foreground = Brushes.White,
+                    Text = pub.ComentariosPermitidos ? "💬 Comentários permitidos" : "🚫 Comentários desativados",
                     FontWeight = FontWeights.Bold,
-                    BorderThickness = new Thickness(0),
-                    Cursor = Cursors.Hand
+                    FontSize = 13,
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(24, 0, 0, 0)
                 };
 
-                btnCurtir.Click += (s, e) =>{publicacaoService.AlternarCurtida(pub.Id); CarregarFeedPublicacoes();};
-
-                Grid.SetColumn(btnCurtir, 1);
-                areaCurtidas.Children.Add(txtCurtidas);
-                areaCurtidas.Children.Add(btnCurtir);
-                stack.Children.Add(areaCurtidas);
+                areaStats.Children.Add(txtVisualizacoes);
+                areaStats.Children.Add(txtComentarios);
+                stack.Children.Add(areaStats);
                 card.Child = stack;
                 painelFeedPublicacoes.Children.Add(card);
             }

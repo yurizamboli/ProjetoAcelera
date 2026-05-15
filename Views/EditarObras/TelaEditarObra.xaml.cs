@@ -11,7 +11,7 @@ namespace ProjetoAcelera.Views.EditarObras
     {
         private ObraService obraService;
         private Obra obraAtual;
-        private string caminhoImagem;
+        private string caminhoImagem = string.Empty;
 
         public TelaEditarObra(Obra obra)
         {
