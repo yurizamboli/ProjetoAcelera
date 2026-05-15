@@ -71,8 +71,15 @@
 
 							</StackPanel>
 						</Border>
-
-						<Button Content="Publicar"
+                            <StackPanel Orientation="Horizontal"
+             HorizontalAlignment="Right">
+                                <CheckBox x:Name="chkPermiteComentarios"
+                                      Content="Permitir comentários"
+                                      IsChecked="True"
+                                      Foreground="#1F3A5F"
+                                      FontWeight="Bold"
+                                      Margin="0,10,15,0"/>
+                            <Button Content="Publicar"
                                 Width="130"
                                 Height="38"
                                 Margin="0,12,0,0"
@@ -82,8 +89,8 @@
                                 FontWeight="Bold"
                                 BorderThickness="0"
                                 Click="Publicar_Button"/>
-
-					</StackPanel>
+                            </StackPanel>
+                        </StackPanel>
 				</Border>
 
 				<!-- FEED -->
