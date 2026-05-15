@@ -48,7 +48,60 @@ namespace ProjetoAcelera.Views.Home
             }
             MostrarEvento();
             InicializarPostagem();
+            CarregarArtistasDestaque();
             CarregarFeedPublicacoes();
+        }
+
+        private void CarregarArtistasDestaque()
+        {
+            try
+            {
+                wrapArtistasDestaque.Children.Clear();
+
+                var usuarios = App.UsuarioService.ObterTodos()
+                    .Where(u => !u.Banido)
+                    .Take(4);
+
+                foreach (var u in usuarios)
+                {
+                    Border b = new Border
+                    {
+                        Width = 70,
+                        Height = 70,
+                        CornerRadius = new CornerRadius(0),
+                        Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                        BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")),
+                        BorderThickness = new Thickness(2),
+                        Margin = new Thickness(10,0,10,0),
+                        ClipToBounds = true
+                    };
+
+                    Image img = new Image { Stretch = Stretch.UniformToFill };
+                    try
+                    {
+                        if (!string.IsNullOrWhiteSpace(u?.Perfil?.FotoPerfil) && File.Exists(u.Perfil.FotoPerfil))
+                            img.Source = new BitmapImage(new Uri(u.Perfil.FotoPerfil, UriKind.Absolute));
+                        else
+                            img.Source = new BitmapImage(new Uri("/ImagemAcelera/AvatarPadrao.png", UriKind.Relative));
+                    }
+                    catch
+                    {
+                        try { img.Source = new BitmapImage(new Uri("/ImagemAcelera/AvatarPadrao.png", UriKind.Relative)); } catch { }
+                    }
+
+                    b.Child = img;
+                    wrapArtistasDestaque.Children.Add(b);
+                }
+
+                // composer avatar
+                var usuario = App.UsuarioService.UsuarioLogado;
+                if (usuario != null && !string.IsNullOrWhiteSpace(usuario.Perfil?.FotoPerfil) && File.Exists(usuario.Perfil.FotoPerfil))
+                {
+                    try { imgUsuarioPost.Source = new BitmapImage(new Uri(usuario.Perfil.FotoPerfil, UriKind.Absolute)); }
+                    catch { }
+                }
+            }
+            catch { }
         }
 
         private void InicializarPostagem()
@@ -158,15 +211,11 @@ namespace ProjetoAcelera.Views.Home
                 return;
             }
 
-#pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
             publicacaoService.AdicionarPublicacao(
                 txtPostTexto.Text.Trim(),
                 caminhoImagemPostagem,
                 caminhoVideoPostagem,
                 chkPermiteComentarios.IsChecked == true);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning restore CS8604 // Possible null reference argument.
 
             txtPostTexto.Clear();
             txtAnexoStatus.Text = "";
@@ -402,16 +451,35 @@ namespace ProjetoAcelera.Views.Home
                 StackPanel areaStats = new StackPanel
                 {
                     Orientation = Orientation.Horizontal,
-                    Margin = new Thickness(0, 4, 0, 0)
+                    Margin = new Thickness(0, 4, 0, 0),
+                    VerticalAlignment = VerticalAlignment.Center
                 };
 
-                TextBlock txtVisualizacoes = new TextBlock
+                // Botão de curtir com coração
+                Button btnCurtir = new Button
                 {
-                    Text = $"👁️ {pub.Visualizacoes} visualizações",
+                    Background = Brushes.Transparent,
+                    BorderThickness = new Thickness(0),
+                    Cursor = Cursors.Hand,
+                    Padding = new Thickness(4),
+                };
+
+                bool usuarioCurtiu = publicacaoService.UsuarioCurtiu(pub);
+                string coracao = usuarioCurtiu ? "♥" : "♡";
+                TextBlock txtCurtir = new TextBlock
+                {
+                    Text = $"{coracao} {pub.Curtidas}",
                     FontWeight = FontWeights.Bold,
                     FontSize = 13,
-                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                    Foreground = usuarioCurtiu ? Brushes.Red : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
                     VerticalAlignment = VerticalAlignment.Center
+                };
+
+                btnCurtir.Content = txtCurtir;
+                btnCurtir.Click += (s, e) =>
+                {
+                    publicacaoService.AlternarCurtida(pub.Id);
+                    CarregarFeedPublicacoes();
                 };
 
                 TextBlock txtComentarios = new TextBlock
@@ -424,7 +492,7 @@ namespace ProjetoAcelera.Views.Home
                     Margin = new Thickness(24, 0, 0, 0)
                 };
 
-                areaStats.Children.Add(txtVisualizacoes);
+                areaStats.Children.Add(btnCurtir);
                 areaStats.Children.Add(txtComentarios);
                 stack.Children.Add(areaStats);
                 card.Child = stack;

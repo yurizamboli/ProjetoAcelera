@@ -224,28 +224,7 @@
                                    Foreground="#F3E6C9" HorizontalAlignment="Center"
                                    Margin="0,0,0,14"/>
 
-                        <WrapPanel HorizontalAlignment="Center">
-                            <Border Width="70" Height="70" CornerRadius="35"
-                                    Background="#1F3A5F" BorderBrush="#B8860B"
-                                    BorderThickness="2" Margin="10,0" ClipToBounds="True">
-                                <Image Source="/ImagemAcelera/AvatarPadrao.png" Stretch="UniformToFill"/>
-                            </Border>
-                            <Border Width="70" Height="70" CornerRadius="35"
-                                    Background="#1F3A5F" BorderBrush="#B8860B"
-                                    BorderThickness="2" Margin="10,0" ClipToBounds="True">
-                                <Image Source="/ImagemAcelera/AvatarPadrao.png" Stretch="UniformToFill"/>
-                            </Border>
-                            <Border Width="70" Height="70" CornerRadius="35"
-                                    Background="#1F3A5F" BorderBrush="#B8860B"
-                                    BorderThickness="2" Margin="10,0" ClipToBounds="True">
-                                <Image Source="/ImagemAcelera/AvatarPadrao.png" Stretch="UniformToFill"/>
-                            </Border>
-                            <Border Width="70" Height="70" CornerRadius="35"
-                                    Background="#1F3A5F" BorderBrush="#B8860B"
-                                    BorderThickness="2" Margin="10,0" ClipToBounds="True">
-                                <Image Source="/ImagemAcelera/AvatarPadrao.png" Stretch="UniformToFill"/>
-                            </Border>
-                        </WrapPanel>
+                        <WrapPanel x:Name="wrapArtistasDestaque" HorizontalAlignment="Center"/>
 
                         <Button Content="VEJA MAIS ARTISTAS"
                                 Style="{StaticResource CTAButtonStyle}"
@@ -260,10 +239,10 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,14">
                             <Border Width="46" Height="46"
-                                    CornerRadius="23"
+                                    CornerRadius="0"
                                     Background="#1F3A5F"
                                     ClipToBounds="True">
-                                <Image Source="/ImagemAcelera/AvatarPadrao.png"
+                                <Image x:Name="imgUsuarioPost" Source="/ImagemAcelera/AvatarPadrao.png"
                                        Stretch="UniformToFill"/>
                             </Border>
                             <StackPanel Margin="12,0">

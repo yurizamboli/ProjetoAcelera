@@ -60,18 +60,25 @@ namespace ProjetoAcelera.Views.Artistas
 
             try
             {
-                img.Source = new BitmapImage(new System.Uri(user.Perfil.FotoPerfil));
+                if (!string.IsNullOrWhiteSpace(user?.Perfil?.FotoPerfil) && System.IO.File.Exists(user.Perfil.FotoPerfil))
+                {
+                    img.Source = new BitmapImage(new System.Uri(user.Perfil.FotoPerfil));
+                }
+                else
+                {
+                    img.Source = new BitmapImage(new System.Uri("/ImagemAcelera/AvatarPadrao.png", System.UriKind.Relative));
+                }
             }
             catch 
             { 
-            
+                try { img.Source = new BitmapImage(new System.Uri("/ImagemAcelera/AvatarPadrao.png", System.UriKind.Relative)); } catch { }
             }
 
             Border foto = new Border
             {
                 Width = 90,
                 Height = 90,
-                CornerRadius = new CornerRadius(45),
+                CornerRadius = new CornerRadius(0),
                 ClipToBounds = true,
                 Child = img,
                 Background = Brushes.LightGray
