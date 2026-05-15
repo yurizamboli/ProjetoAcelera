@@ -9,7 +9,7 @@
         <!-- MENU SUPERIOR -->
 
         <!-- CONTEÚDO -->
-        <ScrollViewer Margin="0,60,0,0">
+        <ScrollViewer Margin="0,60,0,0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
 
                 <!-- IMAGEM PRINCIPAL -->
