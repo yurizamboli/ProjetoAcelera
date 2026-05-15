@@ -1,4 +1,5 @@
-﻿using ProjetoAcelera.Models;
+﻿using Microsoft.Win32;
+using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.Home;
 using ProjetoAcelera.Views.LoginRegistro;
@@ -18,6 +19,9 @@ namespace ProjetoAcelera.Views.Admin
         private UsuarioService usuarioService;
         private AdminService adminService;
         private PublicacaoService publicacaoService;
+        private EventoService eventoService;
+        private string caminhoImagemEvento;
+
         public TelaAdmin()
         {
             InitializeComponent();
@@ -25,8 +29,10 @@ namespace ProjetoAcelera.Views.Admin
             usuarioService = App.UsuarioService;
             adminService = new AdminService(usuarioService);
             publicacaoService = new PublicacaoService();
+            eventoService = new EventoService();
 
             CarregarDados();
+            CarregarEventos();
             CarregarPublicacoesPendentes();
         }
 
@@ -81,10 +87,40 @@ namespace ProjetoAcelera.Views.Admin
             }
         }
 
+        private void CarregarEventos()
+        {
+            listaEventos.ItemsSource = null;
+            listaEventos.ItemsSource = eventoService.ObterEvento();
+
+            comboEventosProgramacao.ItemsSource = null;
+            comboEventosProgramacao.ItemsSource = eventoService.ObterEvento();
+            comboEventosProgramacao.DisplayMemberPath = "Titulo";
+        }
+
+        private void SelecionarImagemEvento_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Imagens|*.jpg;*.jpeg;*.png;*.gif"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                caminhoImagemEvento = dialog.FileName;
+                txtCaminhoImagem.Text = System.IO.Path.GetFileName(caminhoImagemEvento);
+            }
+        }
+
         private void AdicionarEvento_Click(object sender, RoutedEventArgs e)
         {
             string titulo = txtTituloEvento.Text;
             string descricao = txtDescEvento.Text;
+
+            if (string.IsNullOrWhiteSpace(titulo))
+            {
+                MessageBox.Show("Digite o título do evento.");
+                return;
+            }
 
             if (dateEvento.SelectedDate == null)
             {
@@ -92,8 +128,103 @@ namespace ProjetoAcelera.Views.Admin
                 return;
             }
 
-            // ainda não ligado com EventoService
-            MessageBox.Show("Evento criado!");
+            if (string.IsNullOrWhiteSpace(caminhoImagemEvento))
+            {
+                MessageBox.Show("Selecione uma imagem para o evento.");
+                return;
+            }
+
+            string data = dateEvento.SelectedDate.Value.ToString("dd/MM/yyyy");
+
+            eventoService.AdicionarEventos(titulo, data, descricao, "", caminhoImagemEvento);
+
+            MessageBox.Show("Evento criado com sucesso!");
+            
+            txtTituloEvento.Clear();
+            txtDescEvento.Clear();
+            dateEvento.SelectedDate = null;
+            caminhoImagemEvento = null;
+            txtCaminhoImagem.Text = "Selecione uma imagem...";
+
+            CarregarEventos();
+        }
+
+        private void EditarEvento_Click(object sender, RoutedEventArgs e)
+        {
+            var evento = listaEventos.SelectedItem as Evento;
+
+            if (evento == null)
+            {
+                MessageBox.Show("Selecione um evento para editar.");
+                return;
+            }
+
+            txtTituloEvento.Text = evento.Titulo;
+            txtDescEvento.Text = evento.Descricao;
+            caminhoImagemEvento = evento.Imagem;
+            txtCaminhoImagem.Text = System.IO.Path.GetFileName(evento.Imagem);
+
+            try
+            {
+                dateEvento.SelectedDate = DateTime.ParseExact(evento.Data, "dd/MM/yyyy", null);
+            }
+            catch { }
+        }
+
+        private void DeletarEvento_Click(object sender, RoutedEventArgs e)
+        {
+            var evento = listaEventos.SelectedItem as Evento;
+
+            if (evento == null)
+            {
+                MessageBox.Show("Selecione um evento para deletar.");
+                return;
+            }
+
+            var confirm = MessageBox.Show(
+                $"Deseja deletar o evento '{evento.Titulo}'?",
+                "Confirmar",
+                MessageBoxButton.YesNo);
+
+            if (confirm == MessageBoxResult.Yes)
+            {
+                var eventos = eventoService.ObterEvento();
+                eventos.Remove(evento);
+
+                MessageBox.Show("Evento deletado com sucesso!");
+                CarregarEventos();
+            }
+        }
+
+        private void AdicionarProgramacao_Click(object sender, RoutedEventArgs e)
+        {
+            var evento = comboEventosProgramacao.SelectedItem as Evento;
+
+            if (evento == null)
+            {
+                MessageBox.Show("Selecione um evento.");
+                return;
+            }
+
+            if (dateProgramacao.SelectedDate == null)
+            {
+                MessageBox.Show("Selecione uma data.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtNomeProgramacao.Text))
+            {
+                MessageBox.Show("Digite o nome da atividade.");
+                return;
+            }
+
+            // Aqui você poderia adicionar a programação em uma lista ou banco de dados
+            // Por enquanto, apenas mostra a mensagem de sucesso
+            MessageBox.Show($"Programação '{txtNomeProgramacao.Text}' adicionada ao evento '{evento.Titulo}'");
+
+            txtNomeProgramacao.Clear();
+            txtDescProgramacao.Clear();
+            dateProgramacao.SelectedDate = null;
         }
 
         private void Destaque_Click(object sender, RoutedEventArgs e)

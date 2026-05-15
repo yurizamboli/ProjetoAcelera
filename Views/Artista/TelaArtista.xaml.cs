@@ -71,8 +71,7 @@ namespace ProjetoAcelera.Views.Artistas
             {
                 Width = 90,
                 Height = 90,
-                //Se quiser deixar as fotinhos redondas só mudar o CornerRadius pra 45
-                CornerRadius = new CornerRadius(0),
+                CornerRadius = new CornerRadius(45),
                 ClipToBounds = true,
                 Child = img,
                 Background = Brushes.LightGray

@@ -72,16 +72,51 @@
                     </StackPanel>
 
                     <!-- EVENTO -->
-                    <Border Background="#D3D3D3" Margin="0,20" Padding="10" Height="159">
+                    <Border Background="#D3D3D3" Margin="0,20" Padding="10">
                         <StackPanel>
                             <TextBlock Text="Criar Evento" FontWeight="Bold"/>
 
                             <TextBox x:Name="txtTituloEvento" Margin="0,5"/>
-                            <TextBox x:Name="txtDescEvento" Margin="0,5"/>
+                            <TextBox x:Name="txtDescEvento" Margin="0,5" Height="60" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                             <DatePicker x:Name="dateEvento" Margin="0,5"/>
+                            
+                            <StackPanel Orientation="Horizontal" Margin="0,5">
+                                <Button Content="Selecionar Imagem" Click="SelecionarImagemEvento_Click" Padding="8,4" Margin="0,0,8,0"/>
+                                <TextBox x:Name="txtCaminhoImagem" Text="Selecione uma imagem..." IsReadOnly="True" Foreground="#666666"/>
+                            </StackPanel>
 
                             <Button Content="Adicionar Evento"
                                 Click="AdicionarEvento_Click"
+                                Margin="0,10"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- GERENCIAR EVENTOS -->
+                    <Border Background="#D3D3D3" Margin="0,10" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="Gerenciar Eventos" FontWeight="Bold"/>
+
+                            <ListBox x:Name="listaEventos" Margin="0,5,0,0" Height="150" SelectionMode="Single"/>
+                            
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <Button Content="Editar" Click="EditarEvento_Click" Padding="8,4" Margin="0,0,8,0"/>
+                                <Button Content="Deletar" Click="DeletarEvento_Click" Padding="8,4" Background="#C0392B" Foreground="White"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- PROGRAMAÇÃO -->
+                    <Border Background="#D3D3D3" Margin="0,10" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="Adicionar Programação ao Evento" FontWeight="Bold"/>
+
+                            <ComboBox x:Name="comboEventosProgramacao" Margin="0,5"/>
+                            <DatePicker x:Name="dateProgramacao" Margin="0,5"/>
+                            <TextBox x:Name="txtNomeProgramacao" Margin="0,5"/>
+                            <TextBox x:Name="txtDescProgramacao" Margin="0,5" Height="60" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+
+                            <Button Content="Adicionar Programação"
+                                Click="AdicionarProgramacao_Click"
                                 Margin="0,10"/>
                         </StackPanel>
                     </Border>
