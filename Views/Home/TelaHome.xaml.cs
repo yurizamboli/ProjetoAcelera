@@ -15,7 +15,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
 namespace ProjetoAcelera.Views.Home
 {
     public partial class TelaHome : Page
@@ -157,16 +156,12 @@ namespace ProjetoAcelera.Views.Home
 
                 return;
             }
-
-#pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS8604 // Possible null reference argument.
             publicacaoService.AdicionarPublicacao(
                 txtPostTexto.Text.Trim(),
                 caminhoImagemPostagem,
                 caminhoVideoPostagem,
                 chkPermiteComentarios.IsChecked == true);
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning restore CS8604 // Possible null reference argument.
+
 
             txtPostTexto.Clear();
             txtAnexoStatus.Text = "";
@@ -427,6 +422,112 @@ namespace ProjetoAcelera.Views.Home
                 areaStats.Children.Add(txtVisualizacoes);
                 areaStats.Children.Add(txtComentarios);
                 stack.Children.Add(areaStats);
+
+
+                foreach (var comentario in pub.Comentarios.Where(c => c.Status == "Aprovado"))
+                {
+                    Border comentarioBorder = new Border
+                    {
+                        Background = new SolidColorBrush(
+                            (Color)ColorConverter.ConvertFromString("#EFE4C8")),
+
+                        CornerRadius = new CornerRadius(8),
+                        Padding = new Thickness(10),
+                        Margin = new Thickness(0, 8, 0, 0)
+                    };
+
+                    StackPanel comentarioStack = new StackPanel();
+
+                    TextBlock nomeComentario = new TextBlock
+                    {
+                        Text = comentario.NomeAutor,
+                        FontWeight = FontWeights.Bold,
+                        Foreground = new SolidColorBrush(
+                            (Color)ColorConverter.ConvertFromString("#1F3A5F"))
+                    };
+
+                    TextBlock textoComentario = new TextBlock
+                    {
+                        Text = comentario.Conteudo,
+                        TextWrapping = TextWrapping.Wrap,
+                        Margin = new Thickness(0, 3, 0, 0),
+                        Foreground = Brushes.Black
+                    };
+
+                    comentarioStack.Children.Add(nomeComentario);
+                    comentarioStack.Children.Add(textoComentario);
+
+                    comentarioBorder.Child = comentarioStack;
+                    stack.Children.Add(comentarioBorder);
+                }
+
+                if (pub.ComentariosPermitidos)
+                {
+                    StackPanel areaComentario = new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal,
+                        Margin = new Thickness(0, 10, 0, 0)
+                    };
+
+                    TextBox txtComentario = new TextBox
+                    {
+                        Width = 350,
+                        Height = 32,
+                        FontSize = 13,
+                        Padding = new Thickness(8)
+                    };
+
+                    Button btnComentar = new Button
+                    {
+                        Content = "Comentar",
+                        Width = 100,
+                        Height = 32,
+                        Margin = new Thickness(10, 0, 0, 0),
+                        Background = new SolidColorBrush(
+                            (Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                        Foreground = Brushes.White,
+                        BorderThickness = new Thickness(0),
+                        Cursor = Cursors.Hand
+                    };
+
+                    btnComentar.Click += (s, e) =>
+                    {
+                        var usuarioLogado = App.UsuarioService.UsuarioLogado;
+
+                        if (usuarioLogado == null)
+                        {
+                            MessageBox.Show("Faça login para comentar.");
+                            return;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(txtComentario.Text))
+                        {
+                            return;
+                        }
+
+                        publicacaoService.AdicionarComentario(
+                            pub.Id,
+                            usuarioLogado.Nome,
+                            usuarioLogado.Email,
+                            txtComentario.Text.Trim()
+                        );
+                        MessageBox.Show(
+                                        "Comentário enviado para análise do autor da publicação.",
+                                        "Comentário enviado",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information
+);
+
+                        txtComentario.Clear();
+
+                        CarregarFeedPublicacoes();
+                    };
+
+                    areaComentario.Children.Add(txtComentario);
+                    areaComentario.Children.Add(btnComentar);
+                    stack.Children.Add(areaComentario);
+                }
+
                 card.Child = stack;
                 painelFeedPublicacoes.Children.Add(card);
             }
@@ -471,5 +572,7 @@ namespace ProjetoAcelera.Views.Home
         {
             NavigationService.Navigate(new Views.Teste.Dashboard());
         }
+
+
     }
 }

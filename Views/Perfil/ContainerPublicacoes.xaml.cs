@@ -109,7 +109,10 @@ namespace ProjetoAcelera.Views.Perfil
                         bordaImagem.Child = imagemPost;
                         stack.Children.Add(bordaImagem);
                     }
-                    catch { }
+                    catch
+                    {
+
+                    }
                 }
 
                 TextBlock curtidas = new TextBlock
@@ -122,30 +125,124 @@ namespace ProjetoAcelera.Views.Perfil
 
                 stack.Children.Add(curtidas);
 
-                bool usuarioCurtiu = publicacaoService.UsuarioCurtiu(pub);
+                if (pub.Comentarios != null && pub.Comentarios.Count > 0)
+                {
+                    TextBlock tituloComentarios = new TextBlock
+                    {
+                        Text = "Comentários",
+                        FontWeight = FontWeights.Bold,
+                        FontSize = 14,
+                        Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                        Margin = new Thickness(0, 10, 0, 6)
+                    };
+
+                    stack.Children.Add(tituloComentarios);
+
+                    foreach (var comentario in pub.Comentarios)
+                    {
+                        Border comentarioCard = new Border
+                        {
+                            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EFE4C8")),
+                            BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C9B27D")),
+                            BorderThickness = new Thickness(1),
+                            CornerRadius = new CornerRadius(10),
+                            Padding = new Thickness(10),
+                            Margin = new Thickness(0, 0, 0, 8)
+                        };
+
+                        StackPanel comentarioStack = new StackPanel();
+
+                        TextBlock nomeComentario = new TextBlock
+                        {
+                            Text = comentario.NomeAutor,
+                            FontWeight = FontWeights.Bold,
+                            Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F"))
+                        };
+
+                        TextBlock textoComentario = new TextBlock
+                        {
+                            Text = comentario.Conteudo,
+                            TextWrapping = TextWrapping.Wrap,
+                            Foreground = Brushes.Black,
+                            Margin = new Thickness(0, 3, 0, 5)
+                        };
+
+                        TextBlock statusComentario = new TextBlock
+                        {
+                            Text = "Status: " + comentario.Status,
+                            FontSize = 11,
+                            FontWeight = FontWeights.Bold,
+                            Foreground = comentario.Status == "Aprovado"
+                                ? Brushes.Green
+                                : Brushes.DarkOrange,
+                            Margin = new Thickness(0, 0, 0, 6)
+                        };
+
+                        comentarioStack.Children.Add(nomeComentario);
+                        comentarioStack.Children.Add(textoComentario);
+                        comentarioStack.Children.Add(statusComentario);
+
+                        if (comentario.Status == "Aguardando aprovação")
+                        {
+                            StackPanel botoesComentario = new StackPanel
+                            {
+                                Orientation = Orientation.Horizontal,
+                                HorizontalAlignment = HorizontalAlignment.Right
+                            };
+
+                            Button btnAprovarComentario = new Button
+                            {
+                                Content = "Aprovar",
+                                Width = 90,
+                                Height = 28,
+                                Margin = new Thickness(0, 0, 8, 0),
+                                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                                Foreground = Brushes.White,
+                                FontWeight = FontWeights.Bold,
+                                BorderThickness = new Thickness(0),
+                                Cursor = Cursors.Hand
+                            };
+
+                            btnAprovarComentario.Click += (s, e) =>
+                            {
+                                publicacaoService.AprovarComentario(comentario.Id);
+                                CarregarPublicacoes();
+                            };
+
+                            Button btnReprovarComentario = new Button
+                            {
+                                Content = "Reprovar",
+                                Width = 90,
+                                Height = 28,
+                                Background = Brushes.DarkRed,
+                                Foreground = Brushes.White,
+                                FontWeight = FontWeights.Bold,
+                                BorderThickness = new Thickness(0),
+                                Cursor = Cursors.Hand
+                            };
+
+                            btnReprovarComentario.Click += (s, e) =>
+                            {
+                                publicacaoService.ReprovarComentario(comentario.Id);
+                                CarregarPublicacoes();
+                            };
+
+                            botoesComentario.Children.Add(btnAprovarComentario);
+                            botoesComentario.Children.Add(btnReprovarComentario);
+
+                            comentarioStack.Children.Add(botoesComentario);
+                        }
+
+                        comentarioCard.Child = comentarioStack;
+                        stack.Children.Add(comentarioCard);
+                    }
+                }
 
                 StackPanel botoes = new StackPanel
                 {
                     Orientation = Orientation.Horizontal,
-                    HorizontalAlignment = HorizontalAlignment.Right
-                };
-
-                Button btnCurtir = new Button
-                {
-                    Content = usuarioCurtiu ? "❤️ Curtido" : "🤍 Curtir",
-                    Width = 110,
-                    Height = 32,
-                    Margin = new Thickness(0, 0, 8, 0),
-                    Background = usuarioCurtiu ? Brushes.IndianRed : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
-                    Foreground = Brushes.White,
-                    FontWeight = FontWeights.Bold,
-                    BorderThickness = new Thickness(0)
-                };
-
-                btnCurtir.Click += (s, e) =>
-                {
-                    publicacaoService.AlternarCurtida(pub.Id);
-                    CarregarPublicacoes();
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    Margin = new Thickness(0, 10, 0, 0)
                 };
 
                 Button btnRemover = new Button
@@ -156,7 +253,8 @@ namespace ProjetoAcelera.Views.Perfil
                     Background = Brushes.DarkRed,
                     Foreground = Brushes.White,
                     FontWeight = FontWeights.Bold,
-                    BorderThickness = new Thickness(0)
+                    BorderThickness = new Thickness(0),
+                    Cursor = Cursors.Hand
                 };
 
                 btnRemover.Click += (s, e) =>
@@ -174,7 +272,6 @@ namespace ProjetoAcelera.Views.Perfil
                     CarregarPublicacoes();
                 };
 
-                botoes.Children.Add(btnCurtir);
                 botoes.Children.Add(btnRemover);
 
                 stack.Children.Add(botoes);
@@ -183,7 +280,6 @@ namespace ProjetoAcelera.Views.Perfil
                 painelPublicacoes.Children.Add(card);
             }
         }
-
         private void Publicar_Button(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtNovaPublicacao.Text))
@@ -193,13 +289,16 @@ namespace ProjetoAcelera.Views.Perfil
 
             publicacaoService.AdicionarPublicacao(
                 txtNovaPublicacao.Text,
-                caminhoImagemSelecionada
+                caminhoImagemSelecionada,
+                "",
+                chkPermiteComentarios.IsChecked == true
             );
 
             txtNovaPublicacao.Clear();
 
             caminhoImagemSelecionada = "";
             txtImagemSelecionada.Text = "Clique para selecionar uma imagem";
+            chkPermiteComentarios.IsChecked = true;
 
             CarregarPublicacoes();
         }

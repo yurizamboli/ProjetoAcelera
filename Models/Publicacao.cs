@@ -32,5 +32,7 @@ namespace ProjetoAcelera.Models
                 return CurtidoPor.Count;
             }
         }
+
+        public List<Comentario> Comentarios { get; set; } = new List<Comentario>();
     }
 }

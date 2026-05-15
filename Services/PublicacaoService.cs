@@ -220,5 +220,63 @@ namespace ProjetoAcelera.Services
                 }
             }
         }
+
+        public void AdicionarComentario(Guid idPublicacao, string nomeAutor, string emailAutor, string conteudo)
+        {
+            var usuarios = usuarioService.ObterTodos();
+            if (usuarios == null)
+            {
+                return;
+            }
+            var publicacao = usuarios
+                .Where(u => u.Publicacoes != null)
+                .SelectMany(u => u.Publicacoes)
+                .FirstOrDefault(p => p.Id == idPublicacao);
+            if (publicacao == null || !publicacao.ComentariosPermitidos)
+            {
+                return;
+            }
+            Comentario novoComentario = new Comentario
+            {
+                NomeAutor = nomeAutor,
+                EmailAutor = emailAutor,
+                Conteudo = conteudo,
+                DataComentario = DateTime.Now
+            };
+            publicacao.Comentarios.Add(novoComentario);
+        }
+        public void AprovarComentario(Guid idComentario)
+        {
+            var comentario = usuarioService.ObterTodos()
+                .Where(u => u.Publicacoes != null)
+                .SelectMany(u => u.Publicacoes)
+                .Where(p => p.Comentarios != null)
+                .SelectMany(p => p.Comentarios)
+                .FirstOrDefault(c => c.Id == idComentario);
+
+            if (comentario != null)
+            {
+                comentario.Status = "Aprovado";
+            }
+        }
+
+        public void ReprovarComentario(Guid idComentario)
+        {
+            var publicacoes = usuarioService.ObterTodos()
+                .Where(u => u.Publicacoes != null)
+                .SelectMany(u => u.Publicacoes);
+
+            foreach (var publicacao in publicacoes)
+            {
+                var comentario = publicacao.Comentarios
+                    .FirstOrDefault(c => c.Id == idComentario);
+
+                if (comentario != null)
+                {
+                    publicacao.Comentarios.Remove(comentario);
+                    return;
+                }
+            }
+        }
     }
 }
