@@ -46,29 +46,11 @@ namespace ProjetoAcelera.Views.Home
                 return;
             }
             MostrarEvento();
-            InicializarPostagem();
+            ;
             CarregarFeedPublicacoes();
         }
 
-        private void InicializarPostagem()
-        {
-            var usuario = App.UsuarioService.UsuarioLogado;
 
-            txtStatusPostagem.Text = string.Empty;
-            txtAnexoStatus.Text = string.Empty;
-            caminhoImagemPostagem = null;
-            caminhoVideoPostagem = null;
-            chkPermiteComentarios.IsChecked = true;
-
-            if (usuario != null)
-            {
-                txtUsuarioPostagem.Text = $"Olá, {usuario.Nome}";
-            }
-            else
-            {
-                txtUsuarioPostagem.Text = "Faça login para publicar uma postagem.";
-            }
-        }
 
         private void MostrarEvento()
         {
@@ -99,79 +81,11 @@ namespace ProjetoAcelera.Views.Home
             }
         }
 
-        private void AdicionarFoto_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new OpenFileDialog
-            {
-                Filter = "Imagens|*.jpg;*.jpeg;*.png;*.gif"
-            };
+        
 
-            if (dialog.ShowDialog() == true)
-            {
-                caminhoImagemPostagem = dialog.FileName;
-                caminhoVideoPostagem = null;
-                txtAnexoStatus.Text = $"Imagem selecionada: {Path.GetFileName(caminhoImagemPostagem)}";
-                txtStatusPostagem.Text = string.Empty;
-            }
-        }
+        
 
-        private void AdicionarVideo_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new OpenFileDialog
-            {
-                Filter = "Vídeos|*.mp4;*.mov;*.avi;*.wmv"
-            };
-
-            if (dialog.ShowDialog() == true)
-            {
-                caminhoVideoPostagem = dialog.FileName;
-                caminhoImagemPostagem = null;
-                txtAnexoStatus.Text = $"Vídeo selecionado: {Path.GetFileName(caminhoVideoPostagem)}";
-                txtStatusPostagem.Text = string.Empty;
-            }
-        }
-
-        private void Postar_Click(object sender, RoutedEventArgs e)
-        {
-            var usuario = App.UsuarioService.UsuarioLogado;
-
-            if (usuario == null)
-            {
-                MessageBox.Show(
-                    "Faça login para publicar.",
-                    "Aviso",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtPostTexto.Text))
-            {
-                MessageBox.Show(
-                    "Digite algo antes de publicar.",
-                    "Aviso",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-
-                return;
-            }
-            publicacaoService.AdicionarPublicacao(
-                txtPostTexto.Text.Trim(),
-                caminhoImagemPostagem,
-                caminhoVideoPostagem,
-                chkPermiteComentarios.IsChecked == true);
-
-
-            txtPostTexto.Clear();
-            txtAnexoStatus.Text = "";
-            txtStatusPostagem.Text = "Sua publicação está aguardando aprovação.";
-            caminhoImagemPostagem = null;
-            caminhoVideoPostagem = null;
-            chkPermiteComentarios.IsChecked = true;
-
-            CarregarFeedPublicacoes();
-        }
+      
         private string ObterFotoAutor(string emailAutor)
         {
             var usuario = App.UsuarioService.ObterTodos().FirstOrDefault(u => u.Email == emailAutor);

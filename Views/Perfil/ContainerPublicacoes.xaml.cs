@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using ProjetoAcelera.Services;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -71,6 +72,18 @@ namespace ProjetoAcelera.Views.Perfil
                     Margin = new Thickness(0, 2, 0, 10)
                 };
 
+                TextBlock status = new TextBlock
+                {
+                    Text = "🌎 Postagem em destaque no feed global",
+                    FontWeight = FontWeights.Bold,
+                    FontSize = 12,
+                    Foreground = Brushes.Green,
+                    Margin = new Thickness(0, 0, 0, 8),
+                    Visibility = pub.Status == "Aprovado"
+                        ? Visibility.Visible
+                        : Visibility.Collapsed
+                };
+
                 TextBlock conteudo = new TextBlock
                 {
                     Text = pub.Conteudo,
@@ -82,6 +95,7 @@ namespace ProjetoAcelera.Views.Perfil
 
                 stack.Children.Add(autor);
                 stack.Children.Add(data);
+                stack.Children.Add(status);
                 stack.Children.Add(conteudo);
 
                 if (!string.IsNullOrWhiteSpace(pub.ImagemUrl) && File.Exists(pub.ImagemUrl))
@@ -266,7 +280,9 @@ namespace ProjetoAcelera.Views.Perfil
                         MessageBoxImage.Question);
 
                     if (resultado != MessageBoxResult.Yes)
-                        return;
+                    { 
+                        return; 
+                    }
 
                     publicacaoService.RemoverPublicacao(pub.Id);
                     CarregarPublicacoes();

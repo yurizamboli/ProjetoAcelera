@@ -30,8 +30,8 @@ namespace ProjetoAcelera.Views.Perfil
                 return;
 
             var posts = usuario.Publicacoes
-                .Where(p => p.Status == "Aprovado").OrderByDescending(p => p.DataPublicacao).ToList();
-
+     .OrderByDescending(p => p.DataPublicacao)
+     .ToList();
             foreach (var post in posts)
             {
                 painelPosts.Children.Add(CriarPost(post));

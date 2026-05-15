@@ -176,23 +176,14 @@ namespace ProjetoAcelera.Services
         }
         public void ReprovarPublicacao(Guid id)
         {
-            var usuarios = usuarioService.ObterTodos();
-            if (usuarios == null)
+            var publicacao = usuarioService.ObterTodos()
+                .Where(u => u.Publicacoes != null)
+                .SelectMany(u => u.Publicacoes)
+                .FirstOrDefault(p => p.Id == id);
+
+            if (publicacao != null)
             {
-                return;
-            }
-            foreach (var usuario in usuarios)
-            {
-                if (usuario.Publicacoes == null)
-                {
-                    continue;
-                }
-                var publicacao = usuario.Publicacoes.FirstOrDefault(p => p.Id == id);
-                if (publicacao != null)
-                {
-                    usuario.Publicacoes.Remove(publicacao);
-                    return;
-                }
+                publicacao.Status = "Reprovada";
             }
         }
         public void AtualizarNomeAutor(string email, string novoNome)
