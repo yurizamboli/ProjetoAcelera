@@ -146,13 +146,13 @@
                             HorizontalAlignment="Center"
                             Margin="0,3,0,0">
 
-                    <Button Content="🏠 Início " Style="{StaticResource MenuButtonStyle}" Click="Home_Click"/>
-                    <Button Content="Sobre Nós" Style="{StaticResource MenuButtonStyle}" Click="Cultura_Click"/>
-                    <Button Content="Nossa Cidade" Style="{StaticResource MenuButtonStyle}" Click="NossaCidade_Click"/>
-                    <Button Content="Programação" Style="{StaticResource MenuButtonStyle}" Click="Programacao_Click"/>
-                    <Button Content="Artistas" Style="{StaticResource MenuButtonStyle}" Click="Artistas_Click"/>
-                    <Button x:Name="BtnConta" Content="Perfil" Style="{StaticResource MenuButtonStyle}" Click="Conta_Click"/>
-                    <Button x:Name="BtnLogin" Content="Entrar/Cadastrar" Style="{StaticResource MenuButtonStyle}" Click="Login_Click"/>
+                    <Button Content="🏡  Início" Style="{StaticResource MenuButtonStyle}" Click="Home_Click"/>
+                    <Button Content="🏞️  Nossa Cidade" Style="{StaticResource MenuButtonStyle}" Click="NossaCidade_Click"/>
+                    <Button Content="📅  Programação" Style="{StaticResource MenuButtonStyle}" Click="Programacao_Click"/>
+                    <Button Content="🎭  Artistas" Style="{StaticResource MenuButtonStyle}" Click="Artistas_Click"/>
+                    <Button Content="❔  Sobre Nós" Style="{StaticResource MenuButtonStyle}" Click="Cultura_Click"/>
+                    <Button x:Name="BtnConta" Content="👤 Perfil" Style="{StaticResource MenuButtonStyle}" Click="Conta_Click"/>
+                    <Button x:Name="BtnLogin" Content="🔐 Entrar / Cadastrar" Style="{StaticResource MenuButtonStyle}" Click="Login_Click"/>
 
                 </StackPanel>
 
