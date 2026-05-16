@@ -305,37 +305,85 @@ namespace ProjetoAcelera.Views.Home
                     Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
                     Margin = new Thickness(0, 0, 0, 10)
                 };
-
-                stack.Children.Add(linhaTexto);
-
-                StackPanel areaStats = new StackPanel
+                Grid areaCurtidas = new Grid
                 {
-                    Orientation = Orientation.Horizontal,
                     Margin = new Thickness(0, 4, 0, 0)
                 };
 
-                TextBlock txtVisualizacoes = new TextBlock
+                areaCurtidas.ColumnDefinitions.Add(new ColumnDefinition());
+                areaCurtidas.ColumnDefinitions.Add(new ColumnDefinition
                 {
-                    Text = $"👁️ {pub.Visualizacoes} visualizações",
+                    Width = GridLength.Auto
+                });
+
+                StackPanel infoEsquerda = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal
+                };
+
+                TextBlock txtCurtidas = new TextBlock
+                {
+                    Text = $"❤️ {pub.Curtidas} curtidas",
                     FontWeight = FontWeights.Bold,
                     FontSize = 13,
-                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                    Foreground = new SolidColorBrush(
+                        (Color)ColorConverter.ConvertFromString("#1F3A5F")),
                     VerticalAlignment = VerticalAlignment.Center
                 };
 
                 TextBlock txtComentarios = new TextBlock
                 {
-                    Text = pub.ComentariosPermitidos ? "💬 Comentários permitidos" : "🚫 Comentários desativados",
+                    Text = pub.ComentariosPermitidos
+                        ? "💬 Comentários permitidos"
+                        : "🚫 Comentários desativados",
+
                     FontWeight = FontWeights.Bold,
                     FontSize = 13,
-                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                    Foreground = new SolidColorBrush(
+                        (Color)ColorConverter.ConvertFromString("#1F3A5F")),
+
                     VerticalAlignment = VerticalAlignment.Center,
                     Margin = new Thickness(24, 0, 0, 0)
                 };
 
-                areaStats.Children.Add(txtVisualizacoes);
-                areaStats.Children.Add(txtComentarios);
-                stack.Children.Add(areaStats);
+                infoEsquerda.Children.Add(txtCurtidas);
+                infoEsquerda.Children.Add(txtComentarios);
+
+                Grid.SetColumn(infoEsquerda, 0);
+
+                bool usuarioCurtiu = publicacaoService.UsuarioCurtiu(pub);
+
+                Button btnCurtir = new Button
+                {
+                    Content = usuarioCurtiu ? "Curtido ❤️" : "Curtir",
+                    Width = 110,
+                    Height = 32,
+                    HorizontalAlignment = HorizontalAlignment.Right,
+
+                    Background = usuarioCurtiu
+                        ? new SolidColorBrush(
+                            (Color)ColorConverter.ConvertFromString("#B8860B"))
+                        : new SolidColorBrush(
+                            (Color)ColorConverter.ConvertFromString("#1F3A5F")),
+
+                    Foreground = Brushes.White,
+                    FontWeight = FontWeights.Bold,
+                    BorderThickness = new Thickness(0),
+                    Cursor = Cursors.Hand
+                };
+
+                btnCurtir.Click += (s, e) =>
+                {
+                    publicacaoService.AlternarCurtida(pub.Id);
+                    CarregarFeedPublicacoes();
+                };
+
+                Grid.SetColumn(btnCurtir, 1);
+
+                areaCurtidas.Children.Add(infoEsquerda);
+                areaCurtidas.Children.Add(btnCurtir);
+
+                stack.Children.Add(areaCurtidas);
 
 
                 foreach (var comentario in pub.Comentarios.Where(c => c.Status == "Aprovado"))
