@@ -36,11 +36,19 @@ namespace ProjetoAcelera.Services
         {
             VerificarAdmin();
 
-            var user = usuarioService.ObterTodos()
-                .FirstOrDefault(u => u.Email == email);
+            var usuario = usuarioService.ObterTodos().FirstOrDefault(u => u.Email == email);
 
-            if (user != null && user.Perfil != null)
-                user.Perfil.Destaque = true;
+            if (usuario == null)
+            {
+                throw new Exception("Usuário não encontrado.");
+            }
+
+            if (usuario.Perfil == null)
+            {
+                usuario.Perfil = new Perfil();
+            }
+
+            usuario.Perfil.Destaque = true;
         }
         public void BanirUsuario(string email)
         {
