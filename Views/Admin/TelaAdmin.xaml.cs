@@ -57,19 +57,25 @@ namespace ProjetoAcelera.Views.Admin
                 txtBio.Text = "";
             }
 
-            // LISTA DE USUÁRIOS (SEM O ADMIN LOGADO)
-            var lista = usuarioService.ObterTodos()
-                .Where(u => u.Email != user.Email)
-                .ToList();
+            // LISTA DE USUÁRIOS
+            var lista = usuarioService.ObterTodos().Where(u => u.Email != user.Email && !u.Banido).ToList();
 
+            comboUsuarios.ItemsSource = null;
             comboUsuarios.ItemsSource = lista;
             comboUsuarios.DisplayMemberPath = "NomeCompleto";
 
+            comboPromover.ItemsSource = null;
             comboPromover.ItemsSource = lista;
             comboPromover.DisplayMemberPath = "NomeCompleto";
 
+            comboBanir.ItemsSource = null;
             comboBanir.ItemsSource = lista;
             comboBanir.DisplayMemberPath = "NomeCompleto";
+
+            // LISTA DE DESTAQUES
+            listaDestaques.ItemsSource = null;
+
+            listaDestaques.ItemsSource = usuarioService.ObterTodos().Where(u => u.Perfil != null && u.Perfil.Destaque && !u.Banido).ToList();
 
             // FOTO
             try
@@ -136,10 +142,15 @@ namespace ProjetoAcelera.Views.Admin
 
             string data = dateEvento.SelectedDate.Value.ToString("dd/MM/yyyy");
 
-            eventoService.AdicionarEventos(titulo, data, descricao, "", caminhoImagemEvento);
+            eventoService.AdicionarEventos(
+                titulo,
+                data,
+                descricao,
+                "",
+                caminhoImagemEvento);
 
             MessageBox.Show("Evento criado com sucesso!");
-            
+
             txtTituloEvento.Clear();
             txtDescEvento.Clear();
             dateEvento.SelectedDate = null;
@@ -162,13 +173,22 @@ namespace ProjetoAcelera.Views.Admin
             txtTituloEvento.Text = evento.Titulo;
             txtDescEvento.Text = evento.Descricao;
             caminhoImagemEvento = evento.Imagem;
-            txtCaminhoImagem.Text = System.IO.Path.GetFileName(evento.Imagem);
+
+            txtCaminhoImagem.Text =
+                System.IO.Path.GetFileName(evento.Imagem);
 
             try
             {
-                dateEvento.SelectedDate = DateTime.ParseExact(evento.Data, "dd/MM/yyyy", null);
+                dateEvento.SelectedDate =
+                    DateTime.ParseExact(
+                        evento.Data,
+                        "dd/MM/yyyy",
+                        null);
             }
-            catch { }
+            catch
+            {
+
+            }
         }
 
         private void DeletarEvento_Click(object sender, RoutedEventArgs e)
@@ -189,9 +209,11 @@ namespace ProjetoAcelera.Views.Admin
             if (confirm == MessageBoxResult.Yes)
             {
                 var eventos = eventoService.ObterEvento();
+
                 eventos.Remove(evento);
 
                 MessageBox.Show("Evento deletado com sucesso!");
+
                 CarregarEventos();
             }
         }
@@ -218,9 +240,8 @@ namespace ProjetoAcelera.Views.Admin
                 return;
             }
 
-            // Aqui você poderia adicionar a programação em uma lista ou banco de dados
-            // Por enquanto, apenas mostra a mensagem de sucesso
-            MessageBox.Show($"Programação '{txtNomeProgramacao.Text}' adicionada ao evento '{evento.Titulo}'");
+            MessageBox.Show(
+                $"Programação '{txtNomeProgramacao.Text}' adicionada ao evento '{evento.Titulo}'");
 
             txtNomeProgramacao.Clear();
             txtDescProgramacao.Clear();
@@ -240,6 +261,8 @@ namespace ProjetoAcelera.Views.Admin
             adminService.TornarDestaque(user.Email);
 
             MessageBox.Show("Usuário em destaque!");
+
+            CarregarDados();
         }
 
         private void Promover_Click(object sender, RoutedEventArgs e)
@@ -294,17 +317,22 @@ namespace ProjetoAcelera.Views.Admin
         private void CarregarPublicacoesPendentes()
         {
             listaPostagensPendentes.ItemsSource = null;
-            listaPostagensPendentes.ItemsSource = publicacaoService.ObterPendentes();
+            listaPostagensPendentes.ItemsSource =
+                publicacaoService.ObterPendentes();
         }
 
         private void AprovarPostagem_Click(object sender, RoutedEventArgs e)
         {
             var botao = sender as Button;
             var postagem = botao?.Tag as Publicacao;
-            if (postagem == null) return;
+
+            if (postagem == null)
+                return;
 
             publicacaoService.AprovarPublicacao(postagem.Id);
+
             CarregarPublicacoesPendentes();
+
             MessageBox.Show("Postagem aprovada com sucesso.");
         }
 
@@ -312,37 +340,42 @@ namespace ProjetoAcelera.Views.Admin
         {
             var botao = sender as Button;
             var postagem = botao?.Tag as Publicacao;
-            if (postagem == null) return;
+
+            if (postagem == null)
+                return;
 
             publicacaoService.ReprovarPublicacao(postagem.Id);
+
             CarregarPublicacoesPendentes();
+
             MessageBox.Show("Postagem rejeitada.");
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-                var result = MessageBox.Show(
-                    "Deseja realmente sair?",
-                    "Logout",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question);
+            var result = MessageBox.Show(
+                "Deseja realmente sair?",
+                "Logout",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
 
-                if (result != MessageBoxResult.Yes)
-                {
-                    return;
-                }
-
-                App.UsuarioService.Logout();
-
-                var main =
-                    Application.Current.MainWindow
-                    as TelaMainWindow;
-
-                main?.AtualizarNavbar();
-
-                NavigationService.Navigate(
-                    new TelaLoginRegistro());
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
             }
+
+            App.UsuarioService.Logout();
+
+            var main =
+                Application.Current.MainWindow
+                as TelaMainWindow;
+
+            main?.AtualizarNavbar();
+
+            NavigationService.Navigate(
+                new TelaLoginRegistro());
+        }
+
         private void AbrirImagem_Click(object sender, MouseButtonEventArgs e)
         {
             var imagem = sender as Image;
@@ -364,10 +397,31 @@ namespace ProjetoAcelera.Views.Admin
                 return;
             }
 
-            JanelaImagemFull janela = new JanelaImagemFull(publicacao.ImagemUrl);
+            JanelaImagemFull janela =
+                new JanelaImagemFull(publicacao.ImagemUrl);
+
             janela.ShowDialog();
         }
 
+        private void RemoverDestaque_Click(object sender, RoutedEventArgs e)
+        {
+            Button botao = (Button)sender;
 
+            Usuario usuario = (Usuario)botao.Tag;
+
+            if (usuario == null)
+            {
+                return;
+            }
+
+            if (usuario.Perfil != null)
+            {
+                usuario.Perfil.Destaque = false;
+            }
+
+            MessageBox.Show("Usuário removido dos destaques.");
+
+            CarregarDados();
+        }
     }
 }

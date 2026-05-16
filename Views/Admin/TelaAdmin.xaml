@@ -121,32 +121,72 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- DESTAQUE -->
-                    <Border Background="#D3D3D3" Margin="0,10" Padding="10">
-                        <StackPanel>
-                            <TextBlock Text="Destacar Usuário" FontWeight="Bold"/>
+					<!-- DESTAQUE -->
+					<Border Background="#D3D3D3" Margin="0,10" Padding="10">
+						<StackPanel>
 
-                            <ComboBox x:Name="comboUsuarios" Margin="0,5"/>
+							<TextBlock Text="Destacar Usuário"
+									   FontWeight="Bold"/>
 
-                            <Button Content="Colocar em destaque"
-                                Click="Destaque_Click"/>
-                        </StackPanel>
-                    </Border>
+							<ComboBox x:Name="comboUsuarios"
+									  Margin="0,5"/>
 
-                    <!-- PROMOVER -->
-                    <Border Background="#D3D3D3" Margin="0,10" Padding="10">
-                        <StackPanel>
-                            <TextBlock Text="Promover para Admin" FontWeight="Bold"/>
+							<Button Content="Colocar em destaque"
+									Click="Destaque_Click"
+									Margin="0,0,0,12"/>
+							<TextBlock Text="Artistas em destaque"
+									   FontWeight="Bold"
+									   Margin="0,10,0,5"/>
 
-                            <ComboBox x:Name="comboPromover" Margin="0,5"/>
+							<ListBox x:Name="listaDestaques"
+									 Height="180">
+								
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Border Background="#F3E6C9"
+												BorderBrush="#1F3A5F"
+												BorderThickness="1"
+												Padding="8"
+												Margin="0,0,0,8">
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="*"/>
+													<ColumnDefinition Width="Auto"/>
+												</Grid.ColumnDefinitions>
+												<TextBlock Text="{Binding Nome}"
+														   VerticalAlignment="Center"
+														   FontWeight="Bold"/>
+												
+												<Button Grid.Column="1"
+														Content="Remover"
+														Background="#C0392B"
+														Foreground="White"
+														Padding="8,4"
+														Tag="{Binding}"
+														Click="RemoverDestaque_Click"/>
+											</Grid>
+										</Border>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+						</StackPanel>
+					</Border>
+					<!-- PROMOVER -->
+					<Border Background="#D3D3D3" Margin="0,10" Padding="10">
+						<StackPanel>
 
-                            <Button Content="Promover"
-                                Background="Green"
-                                Foreground="White"
-                                Click="Promover_Click"/>
-                        </StackPanel>
-                    </Border>
+							<TextBlock Text="Promover para Admin"
+									   FontWeight="Bold"/>
 
+							<ComboBox x:Name="comboPromover"
+									  Margin="0,5"/>
+
+							<Button Content="Promover"
+									Background="Green"
+									Foreground="White"
+									Click="Promover_Click"/>
+						</StackPanel>
+					</Border>
                     <!-- Banir -->
                     <Border Background="#D3D3D3" Margin="0,10" Padding="10">
                         <StackPanel>
