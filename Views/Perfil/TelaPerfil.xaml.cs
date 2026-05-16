@@ -1,3 +1,4 @@
+using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.LoginRegistro;
 using ProjetoAcelera.Views.MainWindow;
@@ -6,7 +7,6 @@ using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
 namespace ProjetoAcelera.Views.Perfil
 {
@@ -45,46 +45,36 @@ namespace ProjetoAcelera.Views.Perfil
 
             txtNome.Text = usuario.Nome;
 
-            if (usuario.Perfil != null)
+            string caminhoPadrao ="pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
+
+            if (usuario.Perfil == null)
             {
-                txtBiografia.Text = usuario.Perfil.Bio;
+                imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,250);
+                return;
+            }
 
-                textBlockFacebook.Text =
-                    usuario.Perfil.Facebook;
+            txtBiografia.Text = usuario.Perfil.Bio;
+            textBlockFacebook.Text = usuario.Perfil.Facebook;
+            textBlockInstagram.Text = usuario.Perfil.Instagram;
+            string caminhoFoto = usuario.Perfil.FotoPerfil;
 
-                textBlockInstagram.Text =
-                    usuario.Perfil.Instagram;
-
-                string caminhoFoto =
-                    usuario.Perfil.FotoPerfil;
-
-                string caminhoPadrao =
-                    "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
-
-                try
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(caminhoFoto) && File.Exists(caminhoFoto))
                 {
-                    if (!string.IsNullOrWhiteSpace(caminhoFoto)
-                        && File.Exists(caminhoFoto))
-                    {
-                        imgPerfil.Source =
-                            new BitmapImage(
-                                new Uri(caminhoFoto));
-                    }
-                    else
-                    {
-                        imgPerfil.Source =
-                            new BitmapImage(
-                                new Uri(caminhoPadrao));
-                    }
+                    imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoFoto,250);
                 }
-                catch
+                else
                 {
-                    imgPerfil.Source =
-                        new BitmapImage(
-                            new Uri(caminhoPadrao));
+                    imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,250);
                 }
             }
+            catch
+            {
+                imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao, 250);
+            }
         }
+
 
         private void Obras_Button(object sender, RoutedEventArgs e)
         {

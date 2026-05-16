@@ -42,7 +42,7 @@ namespace ProjetoAcelera.Views.Perfil
         {
             painelPublicacoes.Children.Clear();
             var publicacoes = publicacaoService.ObterPublicacoesPerfil();
-
+            var usuarios = App.UsuarioService.ObterTodos();
             foreach (var pub in publicacoes)
             {
                 Border card = PublicacaoComponentesVisual.CriarCardPublicacao();
@@ -61,24 +61,24 @@ namespace ProjetoAcelera.Views.Perfil
                 {
                     Stretch = Stretch.UniformToFill
                 };
-
+                string caminhoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
                 try
                 {
-                    var usuarioAutor = App.UsuarioService.ObterTodos().FirstOrDefault(u => u.Email == pub.EmailAutor);
+                    var usuarioAutor = usuarios.FirstOrDefault(u => u.Email == pub.EmailAutor);
                     string fotoAutor = usuarioAutor?.Perfil?.FotoPerfil ?? "";
 
                     if (!string.IsNullOrWhiteSpace(fotoAutor) && File.Exists(fotoAutor))
                     {
-                        avatar.Source = new BitmapImage(new Uri(fotoAutor, UriKind.Absolute));
+                        avatar.Source = AuxilioImagens.CarregarImgOtimizada(fotoAutor, 80);
                     }
                     else
                     {
-                        avatar.Source = new BitmapImage(new Uri("/ImagemAcelera/AvatarPadrao.png", UriKind.Relative));
+                        avatar.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao, 80);
                     }
                 }
                 catch
                 {
-                    //vazio
+                    avatar.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,80);
                 }
                 avatarBorder.Child = avatar;
                 StackPanel infoAutor = new StackPanel
@@ -124,7 +124,7 @@ namespace ProjetoAcelera.Views.Perfil
 
                     try
                     {
-                        imagemPost.Source = new BitmapImage(new Uri(pub.ImagemUrl, UriKind.Absolute));
+                        imagemPost.Source = AuxilioImagens.CarregarImgOtimizada(pub.ImagemUrl,800);
                         bordaImagem.Child = imagemPost;
                         stack.Children.Add(bordaImagem);
                         stack.Children.Add(PublicacaoComponentesVisual.CriarLinhaAzul(new Thickness(-15, 8, -15, 10)));

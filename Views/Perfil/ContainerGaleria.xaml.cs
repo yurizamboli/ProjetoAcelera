@@ -1,4 +1,5 @@
-﻿using ProjetoAcelera.Services;
+﻿using ProjetoAcelera.Ferramentas;
+using ProjetoAcelera.Services;
 using System;
 using System.IO;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+
 
 namespace ProjetoAcelera.Views.Perfil
 {
@@ -28,12 +29,12 @@ namespace ProjetoAcelera.Views.Perfil
             painelGaleria.Children.Clear();
 
             var publicacoes = publicacaoService
-                            .ObterPublicacoesPerfil()
-                            .Where(p =>
-                                p.Status == "Aprovado" &&
-                                !string.IsNullOrWhiteSpace(p.ImagemUrl) &&
-                                File.Exists(p.ImagemUrl))
-                            .ToList();
+                .ObterPublicacoesPerfil()
+                .Where(p =>
+                    !string.IsNullOrWhiteSpace(p.ImagemUrl) &&
+                    File.Exists(p.ImagemUrl))
+                .OrderByDescending(p => p.DataPublicacao)
+                .ToList();
 
             foreach (var pub in publicacoes)
             {
@@ -59,8 +60,7 @@ namespace ProjetoAcelera.Views.Perfil
 
                 try
                 {
-                    imagem.Source = new BitmapImage(
-                        new Uri(pub.ImagemUrl, UriKind.RelativeOrAbsolute));
+                    imagem.Source = AuxilioImagens.CarregarImgOtimizada(pub.ImagemUrl, 400);
                 }
                 catch
                 {

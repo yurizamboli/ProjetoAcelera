@@ -1,39 +1,31 @@
-using Microsoft.Win32;
 using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
-using ProjetoAcelera.Views.Admin;
-using ProjetoAcelera.Views.Artistas;
-using ProjetoAcelera.Views.Calendario;
 using ProjetoAcelera.Views.Perfil;
-using ProjetoAcelera.Views.Teste;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 namespace ProjetoAcelera.Views.Home
 {
     public partial class TelaHome : Page
     {
         // Índice do evento atual no carrossel
         private int indiceAtual = 0;
-        private string? caminhoImagemPostagem;
-        private string? caminhoVideoPostagem;
-
         private EventoService eventoService;
         private PublicacaoService publicacaoService;
         private List<Evento> listaEventos = new List<Evento>();
+        private int quantidadePublicacoesExibidas = 10;
+        private const int quantidadeCarregarMais = 10;
 
         public TelaHome()
         {
             InitializeComponent();
            
-
             eventoService = new EventoService();
             publicacaoService = new PublicacaoService();
             listaEventos = eventoService.ObterEvento();
@@ -65,21 +57,18 @@ namespace ProjetoAcelera.Views.Home
 
             try
             {
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(evento.Imagem, UriKind.Absolute);
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
-                bitmap.Freeze();
-                imgEvento.Source = bitmap;
+                imgEvento.Source = AuxilioImagens.CarregarImgOtimizada(evento.Imagem, 900);
             }
             catch
             {
                 try
                 {
-                    imgEvento.Source = new BitmapImage(new Uri("/ImagemAcelera/evento1.png", UriKind.Relative));
+                    imgEvento.Source = AuxilioImagens.CarregarImgOtimizada("pack://application:,,,/ImagemAcelera/evento1.png",900);
                 }
-                catch { }
+                catch 
+                { 
+                    //vazio
+                }
             }
         }
 
@@ -89,8 +78,7 @@ namespace ProjetoAcelera.Views.Home
         {
             painelArtistasRecentes.Children.Clear();
 
-            var artistas = App.UsuarioService
-                .ObterTodos().Where(u => u.Publicacoes != null && u.Publicacoes.Count > 0 && !u.Banido).OrderByDescending(u => u.Publicacoes.Max(p => p.DataPublicacao)).Take(6).ToList(); //Olha, esse take X ai pega o numero de artistas para aparecer la, botei só 6 pra evitar coisa
+            var artistas = App.UsuarioService.ObterTodos().Where(u => u.Publicacoes != null && u.Publicacoes.Count > 0 && !u.Banido).OrderByDescending(u => u.Publicacoes.Max(p => p.DataPublicacao)).Take(6).ToList(); //Olha, esse take X ai pega o numero de artistas para aparecer la, botei só 6 pra evitar coisa
 
             foreach (var artista in artistas)
             {
@@ -101,9 +89,7 @@ namespace ProjetoAcelera.Views.Home
 
                 Border card = new Border
                 {
-                    Background = new SolidColorBrush(
-                        (Color)ColorConverter.ConvertFromString("#F3E6C9")),
-
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9")),
                     CornerRadius = new CornerRadius(0),
                     Margin = new Thickness(0, 0, 0, 12),
                     Padding = new Thickness(10),
@@ -134,11 +120,11 @@ namespace ProjetoAcelera.Views.Home
                 {
                     if (!string.IsNullOrWhiteSpace(artista.Perfil?.FotoPerfil) && File.Exists(artista.Perfil.FotoPerfil))
                     {
-                        avatar.Source = new BitmapImage(new Uri(artista.Perfil.FotoPerfil));
+                        avatar.Source = AuxilioImagens.CarregarImgOtimizada( artista.Perfil.FotoPerfil,120);
                     }
                     else
                     {
-                        avatar.Source = new BitmapImage(new Uri("/ImagemAcelera/AvatarPadrao.png",UriKind.Relative));
+                        avatar.Source = AuxilioImagens.CarregarImgOtimizada("pack://application:,,,/ImagemAcelera/AvatarPadrao.png", 120);
                     }
                 }
                 catch
@@ -196,9 +182,7 @@ namespace ProjetoAcelera.Views.Home
         {
             painelArtistasDestaque.Children.Clear();
 
-            var artistas = App.UsuarioService
-    .ObterTodos()
-    .Where(u => u.Perfil != null && u.Perfil.Destaque && !u.Banido).Take(4).ToList();
+            var artistas = App.UsuarioService.ObterTodos().Where(u => u.Perfil != null && u.Perfil.Destaque && !u.Banido).Take(4).ToList();
 
             foreach (var artista in artistas)
             {
@@ -207,12 +191,8 @@ namespace ProjetoAcelera.Views.Home
                     Width = 90,
                     Height = 90,
                     CornerRadius = new CornerRadius(0),
-                    Background = new SolidColorBrush(
-                        (Color)ColorConverter.ConvertFromString("#1F3A5F")),
-
-                    BorderBrush = new SolidColorBrush(
-                        (Color)ColorConverter.ConvertFromString("#B8860B")),
-
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")),
                     BorderThickness = new Thickness(2),
                     Margin = new Thickness(10, 0, 10, 0),
                     ClipToBounds = true,
@@ -228,16 +208,16 @@ namespace ProjetoAcelera.Views.Home
                 {
                     if (!string.IsNullOrWhiteSpace(artista.Perfil?.FotoPerfil) && File.Exists(artista.Perfil.FotoPerfil))
                     {
-                        avatar.Source = new BitmapImage(new Uri(artista.Perfil.FotoPerfil));
+                        avatar.Source = AuxilioImagens.CarregarImgOtimizada( artista.Perfil.FotoPerfil,200);
                     }
                     else
                     {
-                        avatar.Source = new BitmapImage(new Uri("/ImagemAcelera/AvatarPadrao.png",UriKind.Relative));
+                        avatar.Source = AuxilioImagens.CarregarImgOtimizada("pack://application:,,,/ImagemAcelera/AvatarPadrao.png", 200);
                     }
                 }
                 catch
                 {
-
+                    //vazio
                 }
 
                 avatarBorder.Child = avatar;
@@ -254,8 +234,10 @@ namespace ProjetoAcelera.Views.Home
         private void CarregarFeedPublicacoes()
         {
             painelFeedPublicacoes.Children.Clear();
-            var publicacoes = publicacaoService.ObterFeedGlobal();
 
+            var todasPublicacoes = publicacaoService.ObterFeedGlobal();
+            var publicacoes = todasPublicacoes.Take(quantidadePublicacoesExibidas).ToList();
+            var usuarios = App.UsuarioService.ObterTodos();
             foreach (var pub in publicacoes)
             {
                 Border card = PublicacaoComponentesVisual.CriarCardPublicacao();
@@ -280,16 +262,16 @@ namespace ProjetoAcelera.Views.Home
                 };
                 try
                 {
-                    var usuarioAutor = App.UsuarioService.ObterTodos().FirstOrDefault(u => u.Email == pub.EmailAutor);
+                    var usuarioAutor = usuarios.FirstOrDefault(u => u.Email == pub.EmailAutor);
                     string fotoAutor = usuarioAutor?.Perfil?.FotoPerfil ?? "";
 
                     if (!string.IsNullOrWhiteSpace(fotoAutor) && File.Exists(fotoAutor))
                     {
-                        avatar.Source = new BitmapImage(new Uri(fotoAutor, UriKind.Absolute));
+                        avatar.Source = AuxilioImagens.CarregarImgOtimizada(fotoAutor, 120);
                     }
                     else
                     {
-                        avatar.Source = new BitmapImage( new Uri("/ImagemAcelera/AvatarPadrao.png", UriKind.Relative));
+                        avatar.Source = AuxilioImagens.CarregarImgOtimizada("pack://application:,,,/ImagemAcelera/AvatarPadrao.png", 120);
                     }
                 }
                 catch
@@ -327,7 +309,7 @@ namespace ProjetoAcelera.Views.Home
                     };
                     try
                     {
-                        imagem.Source = new BitmapImage(new Uri(pub.ImagemUrl, UriKind.RelativeOrAbsolute));
+                        imagem.Source = AuxilioImagens.CarregarImgOtimizada(pub.ImagemUrl, 900);
                         imagem.MouseDown += (s, e) =>
                         {
                             var janela = new JanelaImagemFull(pub.ImagemUrl);
@@ -390,7 +372,10 @@ namespace ProjetoAcelera.Views.Home
                         return;
                     }
                     publicacaoService.AlternarCurtida(pub.Id);
-                    CarregarFeedPublicacoes();
+                    bool curtiuAgora = publicacaoService.UsuarioCurtiu(pub);
+                    curtidas.Text = $"❤️ {pub.Curtidas} curtidas";
+                    btnCurtir.Content = curtiuAgora ? "Curtido ❤️" : "Curtir";
+                    btnCurtir.Background = curtiuAgora ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")) : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F"));
                 };
 
                 Grid.SetColumn(btnCurtir, 1);
@@ -415,13 +400,36 @@ namespace ProjetoAcelera.Views.Home
                             "Comentário enviado",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information
-                        );
-                        CarregarFeedPublicacoes();
+                        );                    
                     }
                 );
                 stack.Children.Add(campoComentario);
                 card.Child = stack;
-                painelFeedPublicacoes.Children.Add(card);
+                painelFeedPublicacoes.Children.Add(card);             
+                }
+            if (quantidadePublicacoesExibidas < todasPublicacoes.Count)
+            {
+                Button btnCarregarMais = new Button
+                {
+                    Content = "Carregar mais publicações",
+                    Height = 38,
+                    Width = 230,
+                    Margin = new Thickness(0, 10, 0, 20),
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")),
+                    Foreground = Brushes.White,
+                    FontWeight = FontWeights.Bold,
+                    BorderThickness = new Thickness(0),
+                    Cursor = Cursors.Hand
+                };
+
+                btnCarregarMais.Click += (s, e) =>
+                {
+                    quantidadePublicacoesExibidas += quantidadeCarregarMais;
+                    CarregarFeedPublicacoes();
+                };
+
+                painelFeedPublicacoes.Children.Add(btnCarregarMais);
             }
         }
         private void BtnProximo_Click(object sender, RoutedEventArgs e)

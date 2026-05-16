@@ -14,9 +14,9 @@ namespace ProjetoAcelera.Services
        
         public EventoService()
         {
-            AdicionarEventos("Evento de Tecnologia", "2024-07-15", "Um evento para discutir as últimas tendências em tecnologia.", "Participe de palestras, workshops e networking com profissionais da área.", "https://example.com/imagem-tecnologia.jpg");
-            AdicionarEventos("Feira de Ciências", "2024-08-20", "Uma feira para apresentar projetos científicos inovadores.", "Explore experimentos, apresentações e interaja com cientistas de todas as idades.", "https://example.com/imagem-feira-ciencias.jpg");
-            AdicionarEventos("Festival de Música", "2024-09-10", "Um festival para celebrar a diversidade musical.", "Desfrute de performances ao vivo, food trucks e atividades para toda a família.", "https://example.com/imagem-festival-musica.jpg");
+            AdicionarEventos("Evento de Tecnologia", "2024-07-15", "Um evento para discutir as últimas tendências em tecnologia.", "Participe de palestras, workshops e networking com profissionais da área.", "pack://application:,,,/ImagemAcelera/evento1.png");
+            AdicionarEventos("Feira de Ciências", "2024-08-20", "Uma feira para apresentar projetos científicos inovadores.", "Explore experimentos, apresentações e interaja com cientistas de todas as idades.", "pack://application:,,,/ImagemAcelera/evento2.png");
+            AdicionarEventos("Festival de Música", "2024-09-10", "Um festival para celebrar a diversidade musical.", "Desfrute de performances ao vivo, food trucks e atividades para toda a família.", "pack://application:,,,/ImagemAcelera/evento3.png");
         }
         public List<Evento> ObterEvento()
         {
