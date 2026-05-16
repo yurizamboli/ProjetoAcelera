@@ -1,4 +1,5 @@
-﻿using ProjetoAcelera.Models;
+﻿using ProjetoAcelera.Ferramentas;
+using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.Calendario;
 using ProjetoAcelera.Views.Perfil;
@@ -50,28 +51,21 @@ namespace ProjetoAcelera.Views.Artistas
                 Height = 120,
                 Stretch = Stretch.UniformToFill
             };
-
+            string caminhoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
             try
             {
                 if (!string.IsNullOrWhiteSpace(user.Perfil?.FotoPerfil) && System.IO.File.Exists(user.Perfil.FotoPerfil))
                 {
-                    img.Source = new BitmapImage(new System.Uri(user.Perfil.FotoPerfil));
+                    img.Source = AuxilioImagens.CarregarImgOtimizada(user.Perfil.FotoPerfil, 90);
                 }
                 else
                 {
-                    img.Source = new BitmapImage(new System.Uri("/ImagemAcelera/AvatarPadrao.png", System.UriKind.Relative));
+                    img.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao, 90);
                 }
             }
-            catch
-            {
-                try
-                {
-                    img.Source = new BitmapImage(new System.Uri("/ImagemAcelera/AvatarPadrao.png", System.UriKind.Relative));
-                }
-                catch
-                {
-
-                }
+            catch 
+            { 
+                 img.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao, 90);
             }
 
             Border foto = new Border

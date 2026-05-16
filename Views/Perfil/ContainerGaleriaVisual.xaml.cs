@@ -4,8 +4,8 @@ using System;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows;
+using ProjetoAcelera.Ferramentas;
 
 namespace ProjetoAcelera.Views.Perfil
 {
@@ -29,10 +29,9 @@ namespace ProjetoAcelera.Views.Perfil
             if (usuario.Publicacoes == null)
                 return;
 
-            var posts = usuario.Publicacoes
-                .Where(p => p.Status == "Aprovado" && !string.IsNullOrWhiteSpace(p.ImagemUrl)).ToList();
-            
-           
+            var posts = usuario.Publicacoes.Where(p => !string.IsNullOrWhiteSpace(p.ImagemUrl)).OrderByDescending(p => p.DataPublicacao).ToList();
+
+
             foreach (var post in posts)
             {
                 painelGaleria.Children.Add(CriarImagem(post.ImagemUrl));
@@ -50,7 +49,7 @@ namespace ProjetoAcelera.Views.Perfil
 
             try
             {
-                img.Source = new BitmapImage(new Uri(caminho));
+                img.Source = AuxilioImagens.CarregarImgOtimizada(caminho, 400);
             }
             catch
             {

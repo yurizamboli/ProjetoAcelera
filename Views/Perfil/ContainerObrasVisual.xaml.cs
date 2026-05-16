@@ -1,9 +1,10 @@
-﻿using ProjetoAcelera.Models;
+﻿using ProjetoAcelera.Ferramentas;
+using ProjetoAcelera.Models;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows;
+
 
 namespace ProjetoAcelera.Views.Perfil
 {
@@ -24,7 +25,7 @@ namespace ProjetoAcelera.Views.Perfil
         {
             painelObras.Children.Clear();
 
-            if (usuario.Obras == null)
+            if (usuario?.Obras == null)
                 return;
 
             foreach (var obra in usuario.Obras)
@@ -40,19 +41,20 @@ namespace ProjetoAcelera.Views.Perfil
             Image img = new Image
             {
                 Height = 150,
-                Stretch = Stretch.UniformToFill
+                Stretch = Stretch.Uniform
             };
 
             try
             {
-                img.Source =
-                    new BitmapImage(
-                        new Uri(obra.Capa));
+                if (!string.IsNullOrWhiteSpace(obra.Capa))
+                {
+                    img.Source = AuxilioImagens.CarregarImgOtimizada(obra.Capa,300);
+                }
             }
             catch
             {
-
-            }
+                // vazio
+            }    
 
             TextBlock titulo = new TextBlock
             {

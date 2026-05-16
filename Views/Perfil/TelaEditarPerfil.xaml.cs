@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using Microsoft.Win32;
+using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.Perfil;
-using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Windows.Media.Imaging;
 using System.Linq.Expressions;
+using System.Text;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace ProjetoAcelera.Views.Perfil.EditarPerfil
 {
@@ -23,20 +24,34 @@ namespace ProjetoAcelera.Views.Perfil.EditarPerfil
         private void CarregarDadosPerfil()
         {
             var usuario = App.UsuarioService.UsuarioLogado;
-            if (usuario == null) return;
+            if (usuario == null) 
+            {
+                return;
+            }
 
             txtNome.Text = usuario.Nome ?? "";
             txtBio.Text = usuario.Perfil?.Bio ?? "";
             txtFacebook.Text = usuario.Perfil?.Facebook ?? "";
             txtInstagram.Text = usuario.Perfil?.Instagram ?? "";
             string foto = usuario.Perfil?.FotoPerfil ?? "";
-            if (string.IsNullOrWhiteSpace(foto))
+            string fotoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
+            try
             {
-                foto = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
+                if (!string.IsNullOrWhiteSpace(foto) && File.Exists(foto))
+                {
+                    imgPreview.Source = AuxilioImagens.CarregarImgOtimizada(foto,250);
+                }
+                else
+                {
+                    imgPreview.Source = AuxilioImagens.CarregarImgOtimizada(fotoPadrao,250);
+                }
             }
-
-            imgPreview.Source = new BitmapImage(new Uri(foto));
+            catch
+            {
+                imgPreview.Source = AuxilioImagens.CarregarImgOtimizada(fotoPadrao,250);
+            }
         }
+        
 
 
         private void EscolherFoto_Click(object sender, RoutedEventArgs e)
@@ -46,26 +61,22 @@ namespace ProjetoAcelera.Views.Perfil.EditarPerfil
             if (dialog.ShowDialog() == true)
             {
                 caminhoImagemSelecionada = dialog.FileName;
-                var bitmap = new BitmapImage(new Uri(caminhoImagemSelecionada));
+                imgPreview.Source = AuxilioImagens.CarregarImgOtimizada(caminhoImagemSelecionada,250);
 
-                imgPreview.Source = bitmap;
+                BitmapImage bitmapOriginal = new BitmapImage(new Uri(caminhoImagemSelecionada, UriKind.Absolute));
+                int largura = bitmapOriginal.PixelWidth;
+                int altura = bitmapOriginal.PixelHeight;
 
-                int largura = bitmap.PixelWidth;
-                int altura = bitmap.PixelHeight;
-
-
-                if (largura == altura)
+                if (largura != altura)
                 {
-                    if (largura < 180)
-                        MessageBox.Show("⚠️ A imagem está abaixo do mínimo recomendado (180x180). Pode perder qualidade.");
+                    MessageBox.Show(
+                        "ℹ️ Dica: use uma imagem quadrada (ex: 180x180, 360x360, 540x540) para evitar distorções.",
+                        "Verificação da Foto",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
                 }
-                else
-                {
-                    MessageBox.Show("ℹ️ Dica: use uma imagem quadrada (ex: 180x180, 360x360, 540x540) para evitar distorções.", "Verificação da Foto", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-
-                
-            }
+             }
         }
 
         private void Salvar_Click(object sender, RoutedEventArgs e)

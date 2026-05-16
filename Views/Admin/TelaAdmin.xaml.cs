@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.Home;
@@ -76,20 +77,22 @@ namespace ProjetoAcelera.Views.Admin
             listaDestaques.ItemsSource = null;
 
             listaDestaques.ItemsSource = usuarioService.ObterTodos().Where(u => u.Perfil != null && u.Perfil.Destaque && !u.Banido).ToList();
-
+            string caminhoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
             // FOTO
             try
             {
-                if (user.Perfil != null &&
-                    !string.IsNullOrEmpty(user.Perfil.FotoPerfil))
+                if (user.Perfil != null && !string.IsNullOrEmpty(user.Perfil.FotoPerfil))
                 {
-                    imgPerfil.Source =
-                        new BitmapImage(new Uri(user.Perfil.FotoPerfil));
-                }
+                    imgPerfil.Source =AuxilioImagens.CarregarImgOtimizada(user.Perfil.FotoPerfil,250);
+                }        
+                else
+            {
+                imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,250);
             }
+        }
             catch
             {
-
+                imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,250);
             }
         }
 

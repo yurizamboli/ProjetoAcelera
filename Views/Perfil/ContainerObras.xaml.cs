@@ -1,4 +1,5 @@
-﻿using ProjetoAcelera.Models;
+﻿using ProjetoAcelera.Ferramentas;
+using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.EditarObras;
 using ProjetoAcelera.Views.Obras;
@@ -8,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+
 
 namespace ProjetoAcelera.Views.Perfil
 {
@@ -111,9 +112,12 @@ namespace ProjetoAcelera.Views.Perfil
 
             try
             {
-                img.Source = new BitmapImage(new Uri(obra.Capa, UriKind.RelativeOrAbsolute));
+                img.Source =AuxilioImagens.CarregarImgOtimizada(obra.Capa,300);
             }
-            catch { }
+            catch
+            { 
+                //vazio
+            }
 
             imagemBox.Child = img;
 

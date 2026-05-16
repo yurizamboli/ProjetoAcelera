@@ -64,22 +64,22 @@ namespace ProjetoAcelera.Views.Perfil
             {
                 Stretch = Stretch.UniformToFill
             };
-
+            string caminhoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
             try
             {
                 string fotoAutor = usuario?.Perfil?.FotoPerfil ?? "";
                 if (!string.IsNullOrWhiteSpace(fotoAutor) && File.Exists(fotoAutor))
                 {
-                    avatar.Source = new BitmapImage(new Uri(fotoAutor, UriKind.Absolute));
+                    avatar.Source = AuxilioImagens.CarregarImgOtimizada(fotoAutor, 80);
                 }
                 else
                 {
-                    avatar.Source = new BitmapImage(new Uri("/ImagemAcelera/AvatarPadrao.png", UriKind.Relative));
+                    avatar.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao, 80);
                 }
             }
             catch
             {
-
+                avatar.Source = AuxilioImagens.CarregarImgOtimizada( caminhoPadrao, 80);
             }
             avatarBorder.Child = avatar;
 
@@ -113,7 +113,7 @@ namespace ProjetoAcelera.Views.Perfil
 
                 try
                 {
-                    img.Source = new BitmapImage(new Uri(post.ImagemUrl, UriKind.RelativeOrAbsolute));
+                    img.Source = AuxilioImagens.CarregarImgOtimizada(post.ImagemUrl, 800);
 
                     img.MouseDown += (s, e) =>
                     {

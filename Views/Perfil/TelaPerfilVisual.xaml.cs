@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using ProjetoAcelera.Ferramentas;
 
 namespace ProjetoAcelera.Views.Perfil
 {
@@ -28,16 +28,18 @@ namespace ProjetoAcelera.Views.Perfil
         private void SelecionarAba(Button botaoSelecionado)
         {
             btnPosts.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
-
             btnObras.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
-
             btnGaleria.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
-
             botaoSelecionado.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D7C48E"));
         }
 
         private void CarregarPerfil()
         {
+            if (usuario == null)
+            {
+                return;
+            }
+
             txtNome.Text = usuario.Nome;
 
             txtBio.Text = usuario.Perfil?.Bio;
@@ -52,16 +54,16 @@ namespace ProjetoAcelera.Views.Perfil
             {
                 if (!string.IsNullOrWhiteSpace(usuario.Perfil?.FotoPerfil) && File.Exists(usuario.Perfil.FotoPerfil))
                 {
-                    imgPerfil.Source = new BitmapImage(new Uri(usuario.Perfil.FotoPerfil));
+                    imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada( usuario.Perfil.FotoPerfil,250);
                 }
                 else
                 {
-                    imgPerfil.Source = new BitmapImage(new Uri(caminhoPadrao));
+                    imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,250);
                 }
             }
             catch
             {
-                imgPerfil.Source = new BitmapImage(new Uri(caminhoPadrao));
+                imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,250);
             }
         }
 

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using ProjetoAcelera.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjetoAcelera.Models;
-using System.Text.Json;
 using System.Data.SqlTypes;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace ProjetoAcelera.Services
 {
@@ -69,70 +70,67 @@ namespace ProjetoAcelera.Services
         {
             try
             {
-                string pastaPerfil = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ImagemAcelera", "Perfil");
+                string pastaPerfil = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"ImagemAcelera","Perfil");
+                string pastaPublicacoes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"ImagemAcelera","Publicacoes");
 
-                string pastaPublicacoes = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ImagemAcelera", "Publicacoes");
-
-
-                if (!Directory.Exists(pastaPerfil)) 
-                {
-                    Directory.CreateDirectory(pastaPerfil);
-                }
-
-                if (!Directory.Exists(pastaPublicacoes)) 
-                { 
-                    Directory.CreateDirectory(pastaPublicacoes);
-                }
+                Directory.CreateDirectory(pastaPerfil);
+                Directory.CreateDirectory(pastaPublicacoes);
 
                 foreach (var usuario in usuarios)
                 {
-                    if (usuario?.Perfil?.FotoPerfil == null)
+                    // FOTO DE PERFIL
+                    if (!string.IsNullOrWhiteSpace(usuario?.Perfil?.FotoPerfil))
                     {
-                        continue;
+                        usuario.Perfil.FotoPerfil = CopiarImagemSeNecessario(usuario.Perfil.FotoPerfil,pastaPerfil);
                     }
 
-                    string caminhoImagem = usuario.Perfil.FotoPerfil;
-                    if (File.Exists(caminhoImagem))
-                    {
-                        string nomeArquivo = Guid.NewGuid() + Path.GetExtension(caminhoImagem);
-                        string destinoFinal = Path.Combine(pastaPerfil, nomeArquivo);
-
-                        File.Copy(caminhoImagem, destinoFinal, true);
-                        usuario.Perfil.FotoPerfil = destinoFinal;
-                    }
-
-
+                    // IMAGENS DAS PUBLICAÇÕES
                     if (usuario?.Publicacoes != null)
                     {
                         foreach (var publicacao in usuario.Publicacoes)
                         {
-                            if (publicacao.ImagemUrl == null)
+                            if (!string.IsNullOrWhiteSpace(publicacao.ImagemUrl))
                             {
-                                continue;
-                            }
-
-                            string caminhoImagemPublicacao = publicacao.ImagemUrl;
-
-                            if (File.Exists(caminhoImagemPublicacao))
-                            {
-                                string nomeArquivo = Guid.NewGuid() + Path.GetExtension(caminhoImagemPublicacao);
-
-                                string destinoFinal = Path.Combine(pastaPublicacoes, nomeArquivo);
-
-                                File.Copy(caminhoImagemPublicacao, destinoFinal, true);
-
-                                publicacao.ImagemUrl = destinoFinal;
+                                publicacao.ImagemUrl = CopiarImagemSeNecessario(
+                                    publicacao.ImagemUrl,
+                                    pastaPublicacoes
+                                );
                             }
                         }
                     }
                 }
-            
-                 Salvar(usuarios);
+
+                Salvar(usuarios);
             }
-            catch
+            catch (Exception ex)
             {
-                // msg de erro
+                MessageBox.Show("Erro ao salvar usuários com imagens: " + ex.Message);
             }
+        }
+        private string CopiarImagemSeNecessario(string caminhoImagem, string pastaDestino)
+        {
+            if (string.IsNullOrWhiteSpace(caminhoImagem))
+                return caminhoImagem;
+
+            if (!File.Exists(caminhoImagem))
+                return caminhoImagem;
+
+            Directory.CreateDirectory(pastaDestino);
+
+            string caminhoCompletoImagem = Path.GetFullPath(caminhoImagem);
+            string caminhoCompletoPasta = Path.GetFullPath(pastaDestino);
+
+            // Se a imagem ta dentro da pasta de destino, n copia de novo
+            if (caminhoCompletoImagem.StartsWith(caminhoCompletoPasta))
+            {
+                return caminhoImagem;
+            }
+
+            string nomeArquivo = Guid.NewGuid().ToString() + Path.GetExtension(caminhoImagem);
+            string destinoFinal = Path.Combine(pastaDestino, nomeArquivo);
+            File.Copy(caminhoImagem, destinoFinal, true);
+
+            return destinoFinal;
         }
     }
 }
