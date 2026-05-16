@@ -23,8 +23,8 @@ namespace ProjetoAcelera.Views.Perfil
             CarregarPerfil();
 
             // abre obras por padrão
-            framePerfil.Navigate(new ContainerObras());
-            SelecionarAba(btnObras);
+            framePerfil.Navigate(new ContainerPublicacoes());
+            SelecionarAba(btnPosts);
         }
         private void SelecionarAba(Button botaoSelecionado)
         {

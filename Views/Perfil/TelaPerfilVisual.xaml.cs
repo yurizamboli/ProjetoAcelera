@@ -20,9 +20,9 @@ namespace ProjetoAcelera.Views.Perfil
 
             CarregarPerfil();
 
-            framePerfilVisual.Navigate(new ContainerObrasVisual(usuario));
+            framePerfilVisual.Navigate(new ContainerPostsVisual(usuario));
 
-            SelecionarAba(btnObras);
+            SelecionarAba(btnPosts);
         }
 
         private void SelecionarAba(Button botaoSelecionado)
