@@ -17,8 +17,7 @@ namespace ProjetoAcelera.Views.Artistas
     {
         private UsuarioService usuarioService;
         private List<Usuario> listaCompleta;
-        //Vai aparecer 10 artistas por vez, e quando clicar no botão "Ver mais" vai aparecer mais 10 pra não ferrar com a performance
-        private int quantidadeAtual = 10;
+ 
 
         public TelaArtista()
         {
@@ -27,7 +26,7 @@ namespace ProjetoAcelera.Views.Artistas
             txtBusca.TextChanged += TxtBusca_TextChanged;
 
             usuarioService = App.UsuarioService;
-            listaCompleta = usuarioService.ObterTodos().Where(u => !u.Banido).ToList();
+            listaCompleta = usuarioService.ObterTodos().Where(u => !u.Banido).OrderByDescending(u => u.Perfil != null && u.Perfil.Destaque).ThenBy(u => u.Nome).ToList();
 
             CarregarArtistas();
         }
@@ -36,7 +35,7 @@ namespace ProjetoAcelera.Views.Artistas
         {
             painelArtistas.Children.Clear();
 
-            var lista = listaCompleta.Take(quantidadeAtual);
+            var lista = listaCompleta;
             //Adiciona os cards dos artistas no painel
             foreach (var user in lista)
             {
@@ -46,22 +45,16 @@ namespace ProjetoAcelera.Views.Artistas
 
         private Border CriarCard(Usuario user)
         {
-            StackPanel container = new StackPanel
-            {
-                Margin = new Thickness(10),
-                Width = 100
-            };
-
             Image img = new Image
             {
-                Width = 90,
-                Height = 90,
+                Width = 120,
+                Height = 120,
                 Stretch = Stretch.UniformToFill
             };
             string caminhoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
             try
             {
-                if (!string.IsNullOrWhiteSpace(user?.Perfil?.FotoPerfil) && System.IO.File.Exists(user.Perfil.FotoPerfil))
+                if (!string.IsNullOrWhiteSpace(user.Perfil?.FotoPerfil) && System.IO.File.Exists(user.Perfil.FotoPerfil))
                 {
                     img.Source = AuxilioImagens.CarregarImgOtimizada(user.Perfil.FotoPerfil, 90);
                 }
@@ -77,35 +70,118 @@ namespace ProjetoAcelera.Views.Artistas
 
             Border foto = new Border
             {
-                Width = 90,
-                Height = 90,
+                Width = 120,
+                Height = 120,
                 CornerRadius = new CornerRadius(0),
                 ClipToBounds = true,
                 Child = img,
-                Background = Brushes.LightGray
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D4AF37")),
+                BorderThickness = new Thickness(3),
+                Margin = new Thickness(0, 0, 0, 10)
             };
-
+       
             TextBlock nome = new TextBlock
             {
                 Text = user.Nome,
+                FontWeight = FontWeights.Bold,
+                FontSize = 16,
                 Foreground = Brushes.White,
-                TextAlignment = TextAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
                 TextWrapping = TextWrapping.Wrap,
-                FontSize = 12
+                TextAlignment = TextAlignment.Center
             };
 
-            container.Children.Add(foto);
-            container.Children.Add(nome);
+            TextBlock destaque = new TextBlock
+            {
+                Foreground = Brushes.Gold,
+                FontSize = 12,
+                FontWeight = FontWeights.Bold,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(0, 6, 0, 0)
+            };
+
+            if (user.Perfil != null)
+            {
+                if (user.Perfil.Destaque)
+                {
+                    destaque.Text = "⭐ ARTISTA EM DESTAQUE";
+                }
+                else
+                {
+                    destaque.Text = "";
+                }
+            }
+            else
+            {
+                destaque.Text = "";
+            }
+
+            Border linha = new Border
+            {
+                Width = 60,
+                Height = 2,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D4AF37")),
+                Margin = new Thickness(0, 8, 0, 0),
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            TextBlock totalPosts = new TextBlock
+            {
+                Foreground = Brushes.LightGray,
+                FontSize = 11,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(0, 8, 0, 0)
+            };
+
+            if (user.Publicacoes != null)
+            {
+                int quantidade = user.Publicacoes.Count;
+
+                if (quantidade == 1)
+                {
+                    totalPosts.Text = "1 publicação";
+                }
+                else
+                {
+                    totalPosts.Text = quantidade + " publicações";
+                }
+            }
+            else
+            {
+                totalPosts.Text = "0 publicações";
+            }
+            StackPanel conteudo = new StackPanel();
+
+            conteudo.Children.Add(foto);
+            conteudo.Children.Add(nome);
+            conteudo.Children.Add(linha);
+            conteudo.Children.Add(destaque);
+            conteudo.Children.Add(totalPosts);
 
             Border card = new Border
             {
-                Child = container,
-                Cursor = System.Windows.Input.Cursors.Hand
+                Width = 190,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#163545")),
+                CornerRadius = new CornerRadius(0),
+                Padding = new Thickness(18),
+                Margin = new Thickness(12),
+                Cursor = System.Windows.Input.Cursors.Hand,
+                Child = conteudo,
+                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#244B5A")),
+                BorderThickness = new Thickness(2)
+            };
+
+            card.MouseEnter += (s, e) =>
+            {
+                card.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F4A5D"));
+            };
+
+            card.MouseLeave += (s, e) =>
+            {
+                card.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#163545"));
             };
 
             card.MouseDown += (s, e) =>
             {
-                var tela = new Views.Perfil.TelaPerfilVisual(user);
                 NavigationService.Navigate(new TelaPerfilVisual(user));
             };
 
@@ -125,9 +201,8 @@ namespace ProjetoAcelera.Views.Artistas
             texto = texto.ToLower();
             painelArtistas.Children.Clear();
 
-            var filtrados = listaCompleta
-                .Where(u => u.Nome.ToLower().Contains(texto))
-                .Take(quantidadeAtual);
+            var filtrados = listaCompleta.Where(u => u.Nome.ToLower().Contains(texto)).OrderByDescending(u => u.Perfil != null && u.Perfil.Destaque).ThenBy(u => u.Nome);
+
 
             foreach (var user in filtrados)
             {
@@ -137,7 +212,6 @@ namespace ProjetoAcelera.Views.Artistas
 
         private void BtnVerMais_Click(object sender, RoutedEventArgs e)
         {
-            quantidadeAtual += 10;
             CarregarArtistas();
         }
         private void TxtBusca_GotFocus(object sender, RoutedEventArgs e)
