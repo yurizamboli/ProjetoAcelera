@@ -27,87 +27,59 @@ namespace ProjetoAcelera.Views.Perfil
 
         private void SelecionarAba(Button botaoSelecionado)
         {
-            btnPosts.Foreground =
-                new SolidColorBrush(
-                    (Color)ColorConverter.ConvertFromString("#F3E6C9"));
+            btnPosts.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
 
-            btnObras.Foreground =
-                new SolidColorBrush(
-                    (Color)ColorConverter.ConvertFromString("#F3E6C9"));
+            btnObras.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
 
-            btnGaleria.Foreground =
-                new SolidColorBrush(
-                    (Color)ColorConverter.ConvertFromString("#F3E6C9"));
+            btnGaleria.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
 
-            botaoSelecionado.Foreground =
-                new SolidColorBrush(
-                    (Color)ColorConverter.ConvertFromString("#D7C48E"));
+            botaoSelecionado.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D7C48E"));
         }
 
         private void CarregarPerfil()
         {
             txtNome.Text = usuario.Nome;
 
-            txtBio.Text =
-                usuario.Perfil?.Bio;
+            txtBio.Text = usuario.Perfil?.Bio;
 
-            txtFacebook.Text =
-                usuario.Perfil?.Facebook;
+            txtFacebook.Text = usuario.Perfil?.Facebook;
 
-            txtInstagram.Text =
-                usuario.Perfil?.Instagram;
+            txtInstagram.Text = usuario.Perfil?.Instagram;
 
-            string caminhoPadrao =
-                "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
+            string caminhoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
 
             try
             {
-                if (!string.IsNullOrWhiteSpace(usuario.Perfil?.FotoPerfil)
-                    && File.Exists(usuario.Perfil.FotoPerfil))
+                if (!string.IsNullOrWhiteSpace(usuario.Perfil?.FotoPerfil) && File.Exists(usuario.Perfil.FotoPerfil))
                 {
-                    imgPerfil.Source =
-                        new BitmapImage(
-                            new Uri(usuario.Perfil.FotoPerfil));
+                    imgPerfil.Source = new BitmapImage(new Uri(usuario.Perfil.FotoPerfil));
                 }
                 else
                 {
-                    imgPerfil.Source =
-                        new BitmapImage(
-                            new Uri(caminhoPadrao));
+                    imgPerfil.Source = new BitmapImage(new Uri(caminhoPadrao));
                 }
             }
             catch
             {
-                imgPerfil.Source =
-                    new BitmapImage(
-                        new Uri(caminhoPadrao));
+                imgPerfil.Source = new BitmapImage(new Uri(caminhoPadrao));
             }
         }
 
-        private void Obras_Button(
-            object sender,
-            RoutedEventArgs e)
+        private void Obras_Button(object sender,RoutedEventArgs e)
         {
             SelecionarAba(btnObras);
-
             framePerfilVisual.Navigate(new ContainerObrasVisual(usuario));
         }
 
-        private void Posts_Button(
-            object sender,
-            RoutedEventArgs e)
+        private void Posts_Button(object sender,RoutedEventArgs e)
         {
             SelecionarAba(btnPosts);
-
             framePerfilVisual.Navigate(new ContainerPostsVisual(usuario));
         }
 
-        private void Galeria_Button(
-            object sender,
-            RoutedEventArgs e)
+        private void Galeria_Button(object sender, RoutedEventArgs e)
         {
             SelecionarAba(btnGaleria);
-
             framePerfilVisual.Navigate(new ContainerGaleriaVisual(usuario));
         }
     }

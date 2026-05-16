@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.Admin;
@@ -253,49 +254,34 @@ namespace ProjetoAcelera.Views.Home
         private void CarregarFeedPublicacoes()
         {
             painelFeedPublicacoes.Children.Clear();
-
             var publicacoes = publicacaoService.ObterFeedGlobal();
 
             foreach (var pub in publicacoes)
             {
-                Border card = new Border
-                {
-                    MinWidth = 1190,
-                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9")),
-                    CornerRadius = new CornerRadius(14),
-                    Margin = new Thickness(0, 0, 0, 20),
-                    Padding = new Thickness(15),
-                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D6C28F")),
-                    BorderThickness = new Thickness(1)
-                };
+                Border card = PublicacaoComponentesVisual.CriarCardPublicacao();
+                card.MinWidth = 1190;
+                card.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
+                card.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D6C28F"));
+                card.BorderThickness = new Thickness(1);
+                card.CornerRadius = new CornerRadius(14);
                 StackPanel stack = new StackPanel();
+
+                // TOPO: autor + data
                 StackPanel topoPost = new StackPanel
                 {
                     Orientation = Orientation.Horizontal,
                     Margin = new Thickness(0, 0, 0, 10)
                 };
-                
-                Border avatarBorder = new Border
-                {
-                    Width = 45,
-                    Height = 45,
-                    CornerRadius = new CornerRadius(22.5),
-                    ClipToBounds = true,
-                    Background = Brushes.LightGray,
-                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
-                    BorderThickness = new Thickness(1)
-                };
 
+                Border avatarBorder = PublicacaoComponentesVisual.CriarMolduraAvatar();
                 Image avatar = new Image
                 {
                     Stretch = Stretch.UniformToFill
                 };
-
                 try
                 {
                     var usuarioAutor = App.UsuarioService.ObterTodos().FirstOrDefault(u => u.Email == pub.EmailAutor);
-
-                    string fotoAutor =usuarioAutor?.Perfil?.FotoPerfil ?? "";
+                    string fotoAutor = usuarioAutor?.Perfil?.FotoPerfil ?? "";
 
                     if (!string.IsNullOrWhiteSpace(fotoAutor) && File.Exists(fotoAutor))
                     {
@@ -303,15 +289,13 @@ namespace ProjetoAcelera.Views.Home
                     }
                     else
                     {
-                        avatar.Source = new BitmapImage(
-                            new Uri("/ImagemAcelera/AvatarPadrao.png", UriKind.Relative));
+                        avatar.Source = new BitmapImage( new Uri("/ImagemAcelera/AvatarPadrao.png", UriKind.Relative));
                     }
                 }
                 catch
                 {
-
+                    //vazio
                 }
-
                 avatarBorder.Child = avatar;
 
                 StackPanel infoAutor = new StackPanel
@@ -320,53 +304,26 @@ namespace ProjetoAcelera.Views.Home
                     VerticalAlignment = VerticalAlignment.Center
                 };
 
-                TextBlock autor = new TextBlock
-                {
-                    Text = pub.NomeAutor,
-                    FontSize = 15,
-                    FontWeight = FontWeights.Bold,
-                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F"))
-                };
-
-                TextBlock data = new TextBlock
-                {
-                    Text = pub.DataPublicacao.ToString("dd/MM/yyyy HH:mm"),
-                    FontSize = 11,
-                    Foreground = Brushes.Gray
-                };
-
+                TextBlock autor = PublicacaoComponentesVisual.CriarTextoAutor(pub.NomeAutor);
+                TextBlock data = PublicacaoComponentesVisual.CriarTextoData(pub.DataPublicacao.ToString("dd/MM/yyyy HH:mm"));
                 infoAutor.Children.Add(autor);
                 infoAutor.Children.Add(data);
-
                 topoPost.Children.Add(avatarBorder);
                 topoPost.Children.Add(infoAutor);
                 stack.Children.Add(topoPost);
-                Border linhaAutor = new Border
-                {
-                    Height = 2,
+                stack.Children.Add(
+                    PublicacaoComponentesVisual.CriarLinhaAzul(new Thickness(-15, 8, -15, 10)));
 
-                    Background = new SolidColorBrush(
-                (Color)ColorConverter.ConvertFromString("#1F3A5F")),
-
-                    Margin = new Thickness(0, 8, 0, 10)
-                };
-
-                stack.Children.Add(linhaAutor);
-
+                // IMAGEM
                 if (!string.IsNullOrWhiteSpace(pub.ImagemUrl) && File.Exists(pub.ImagemUrl))
                 {
-                    Border borderImagem = new Border
-                    {
-                        CornerRadius = new CornerRadius(0),
-                        ClipToBounds = true,
-                        Margin = new Thickness(0, 0, 0, 10),
-                        Background = Brushes.Black
-                    };
+                    Border bordaImagem = PublicacaoComponentesVisual.CriarMolduraImagem();
                     Image imagem = new Image
                     {
                         Stretch = Stretch.Uniform,
                         MaxHeight = 500,
-                        Cursor = Cursors.Hand
+                        Cursor = Cursors.Hand,
+                        HorizontalAlignment = HorizontalAlignment.Center
                     };
                     try
                     {
@@ -377,139 +334,31 @@ namespace ProjetoAcelera.Views.Home
                             janela.ShowDialog();
                         };
 
-                        borderImagem.Child = imagem;
-                        stack.Children.Add(borderImagem);
-                        Border linhaSeparadora = new Border
-                        {
-                            Height = 2,
-                            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
-                            Margin = new Thickness(0, 8, 0, 10)
-                        };
-
-                        stack.Children.Add(linhaSeparadora);
+                        bordaImagem.Child = imagem;
+                        stack.Children.Add(bordaImagem);
+                        stack.Children.Add(PublicacaoComponentesVisual.CriarLinhaAzul(new Thickness(-15, 8, -15, 10)));
                     }
                     catch
                     {
-
+                        //vazio
                     }
                 }
-
-                if (!string.IsNullOrWhiteSpace(pub.CaminhoVideo) && File.Exists(pub.CaminhoVideo))
-                {
-                    Border borderVideo = new Border
-                    {
-                        CornerRadius = new CornerRadius(0),
-                        Background = Brushes.Black,
-                        Padding = new Thickness(12),
-                        Margin = new Thickness(0, 0, 0, 10)
-                    };
-
-                    StackPanel painelVideo = new StackPanel();
-                    TextBlock labelVideo = new TextBlock
-                    {
-                        Text = "Vídeo anexado",
-                        FontSize = 14,
-                        FontWeight = FontWeights.Bold,
-                        Foreground = Brushes.White,
-                        Margin = new Thickness(0, 0, 0, 6)
-                    };
-
-                    Button btnAbrirVideo = new Button
-                    {
-                        Content = "Abrir vídeo",
-                        Width = 120,
-                        Height = 30,
-                        Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")),
-                        Foreground = Brushes.White,
-                        BorderThickness = new Thickness(0),
-                        Cursor = Cursors.Hand
-                    };
-                    //Fazer isso aqui direito 
-                    btnAbrirVideo.Click += (s, e) =>
-                    {
-                        try
-                        {
-                            Process.Start(new ProcessStartInfo(pub.CaminhoVideo) { UseShellExecute = true });
-                        }
-                        catch
-                        {
-
-                        }
-                    };
-
-                    painelVideo.Children.Add(labelVideo);
-                    painelVideo.Children.Add(btnAbrirVideo);
-                    borderVideo.Child = painelVideo;
-                    stack.Children.Add(borderVideo);
-                }
-
+                
+                // TEXTO
                 if (!string.IsNullOrWhiteSpace(pub.Conteudo))
                 {
-                    TextBlock conteudo = new TextBlock
-                    {
-                        Text = pub.Conteudo,
-                        FontSize = 14,
-                        FontWeight = FontWeights.Bold,
-                        TextWrapping = TextWrapping.Wrap,
-                        Foreground = Brushes.Black,
-                        Margin = new Thickness(0, 5, 0, 12)
-                    };
-
-                    stack.Children.Add(conteudo);
+                    stack.Children.Add(PublicacaoComponentesVisual.CriarTextoConteudo(pub.Conteudo));
                 }
 
-                Border linhaTexto = new Border
-                {
-                    Height = 2,
-                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
-                    Margin = new Thickness(0, 0, 0, 10)
-                };
-                Grid areaCurtidas = new Grid
-                {
-                    Margin = new Thickness(0, 4, 0, 0)
-                };
+                stack.Children.Add(PublicacaoComponentesVisual.CriarLinhaAzul(new Thickness(-15, 0, -15, 10)));
 
-                areaCurtidas.ColumnDefinitions.Add(new ColumnDefinition());
-                areaCurtidas.ColumnDefinitions.Add(new ColumnDefinition
-                {
-                    Width = GridLength.Auto
-                });
-
-                StackPanel infoEsquerda = new StackPanel
-                {
-                    Orientation = Orientation.Horizontal
-                };
-
-                TextBlock txtCurtidas = new TextBlock
-                {
-                    Text = $"❤️ {pub.Curtidas} curtidas",
-                    FontWeight = FontWeights.Bold,
-                    FontSize = 13,
-                    Foreground = new SolidColorBrush(
-                        (Color)ColorConverter.ConvertFromString("#1F3A5F")),
-                    VerticalAlignment = VerticalAlignment.Center
-                };
-
-                TextBlock txtComentarios = new TextBlock
-                {
-                    Text = pub.ComentariosPermitidos
-                        ? "💬 Comentários permitidos"
-                        : "🚫 Comentários desativados",
-
-                    FontWeight = FontWeights.Bold,
-                    FontSize = 13,
-                    Foreground = new SolidColorBrush(
-                        (Color)ColorConverter.ConvertFromString("#1F3A5F")),
-
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(24, 0, 0, 0)
-                };
-
-                infoEsquerda.Children.Add(txtCurtidas);
-                infoEsquerda.Children.Add(txtComentarios);
-
-                Grid.SetColumn(infoEsquerda, 0);
-
+                // CURTIDAS / COMENTÁRIOS / CURTIR
+                Grid areaStats = PublicacaoComponentesVisual.CriarAreaStats();
+                StackPanel statsEsquerda = PublicacaoComponentesVisual.CriarStatsEsquerda();
+                TextBlock curtidas = PublicacaoComponentesVisual.CriarTextoCurtidas(pub.Curtidas);
+                statsEsquerda.Children.Add(curtidas);
+                Grid.SetColumn(statsEsquerda, 0);
+                areaStats.Children.Add(statsEsquerda);
                 bool usuarioCurtiu = publicacaoService.UsuarioCurtiu(pub);
 
                 Button btnCurtir = new Button
@@ -517,143 +366,64 @@ namespace ProjetoAcelera.Views.Home
                     Content = usuarioCurtiu ? "Curtido ❤️" : "Curtir",
                     Width = 110,
                     Height = 32,
-                    HorizontalAlignment = HorizontalAlignment.Right,
-
-                    Background = usuarioCurtiu
-                        ? new SolidColorBrush(
-                            (Color)ColorConverter.ConvertFromString("#B8860B"))
-                        : new SolidColorBrush(
-                            (Color)ColorConverter.ConvertFromString("#1F3A5F")),
-
+                    Background = usuarioCurtiu? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")): new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
                     Foreground = Brushes.White,
                     FontWeight = FontWeights.Bold,
                     BorderThickness = new Thickness(0),
-                    Cursor = Cursors.Hand
+                    Cursor = Cursors.Hand,
+                    VerticalAlignment = VerticalAlignment.Center
                 };
 
                 btnCurtir.Click += (s, e) =>
                 {
+                    var usuarioLogado = App.UsuarioService.UsuarioLogado;
+
+                    if (usuarioLogado == null)
+                    {
+                        MessageBox.Show(
+                            "Faça login para curtir esta publicação.",
+                            "Login necessário",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning
+                        );
+
+                        return;
+                    }
                     publicacaoService.AlternarCurtida(pub.Id);
                     CarregarFeedPublicacoes();
                 };
 
                 Grid.SetColumn(btnCurtir, 1);
+                areaStats.Children.Add(btnCurtir);
+                stack.Children.Add(areaStats);
 
-                areaCurtidas.Children.Add(infoEsquerda);
-                areaCurtidas.Children.Add(btnCurtir);
+                // ÁREA DE COMENTÁRIOS
+                PublicacaoComponentesVisual.CriarAreaComentarios( pub, statsEsquerda, stack, false, false, id => { }, id => { });
 
-                stack.Children.Add(areaCurtidas);
-
-
-                foreach (var comentario in pub.Comentarios.Where(c => c.Status == "Aprovado"))
-                {
-                    Border comentarioBorder = new Border
-                    {
-                        Background = new SolidColorBrush(
-                            (Color)ColorConverter.ConvertFromString("#EFE4C8")),
-
-                        CornerRadius = new CornerRadius(8),
-                        Padding = new Thickness(10),
-                        Margin = new Thickness(0, 8, 0, 0)
-                    };
-
-                    StackPanel comentarioStack = new StackPanel();
-
-                    TextBlock nomeComentario = new TextBlock
-                    {
-                        Text = comentario.NomeAutor,
-                        FontWeight = FontWeights.Bold,
-                        Foreground = new SolidColorBrush(
-                            (Color)ColorConverter.ConvertFromString("#1F3A5F"))
-                    };
-
-                    TextBlock textoComentario = new TextBlock
-                    {
-                        Text = comentario.Conteudo,
-                        TextWrapping = TextWrapping.Wrap,
-                        Margin = new Thickness(0, 3, 0, 0),
-                        Foreground = Brushes.Black
-                    };
-
-                    comentarioStack.Children.Add(nomeComentario);
-                    comentarioStack.Children.Add(textoComentario);
-
-                    comentarioBorder.Child = comentarioStack;
-                    stack.Children.Add(comentarioBorder);
-                }
-
-                if (pub.ComentariosPermitidos)
-                {
-                    StackPanel areaComentario = new StackPanel
-                    {
-                        Orientation = Orientation.Horizontal,
-                        Margin = new Thickness(0, 10, 0, 0)
-                    };
-
-                    TextBox txtComentario = new TextBox
-                    {
-                        Width = 350,
-                        Height = 32,
-                        FontSize = 13,
-                        Padding = new Thickness(8)
-                    };
-
-                    Button btnComentar = new Button
-                    {
-                        Content = "Comentar",
-                        Width = 100,
-                        Height = 32,
-                        Margin = new Thickness(10, 0, 0, 0),
-                        Background = new SolidColorBrush(
-                            (Color)ColorConverter.ConvertFromString("#1F3A5F")),
-                        Foreground = Brushes.White,
-                        BorderThickness = new Thickness(0),
-                        Cursor = Cursors.Hand
-                    };
-
-                    btnComentar.Click += (s, e) =>
+                // CAMPO PARA COMENTAR
+                StackPanel campoComentario = PublicacaoComponentesVisual.CriarCampoComentario( pub, textoComentario =>
                     {
                         var usuarioLogado = App.UsuarioService.UsuarioLogado;
-
                         if (usuarioLogado == null)
                         {
                             MessageBox.Show("Faça login para comentar.");
                             return;
                         }
-
-                        if (string.IsNullOrWhiteSpace(txtComentario.Text))
-                        {
-                            return;
-                        }
-
-                        publicacaoService.AdicionarComentario(
-                            pub.Id,
-                            usuarioLogado.Nome,
-                            usuarioLogado.Email,
-                            txtComentario.Text.Trim()
-                        );
+                        publicacaoService.AdicionarComentario(pub.Id, usuarioLogado.Nome, usuarioLogado.Email, textoComentario);
                         MessageBox.Show(
-                                        "Comentário enviado para análise do autor da publicação.",
-                                        "Comentário enviado",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Information
-);
-
-                        txtComentario.Clear();
-
+                            "Comentário enviado para análise do autor da publicação.",
+                            "Comentário enviado",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
                         CarregarFeedPublicacoes();
-                    };
-
-                    areaComentario.Children.Add(txtComentario);
-                    areaComentario.Children.Add(btnComentar);
-                    stack.Children.Add(areaComentario);
-                }
-
+                    }
+                );
+                stack.Children.Add(campoComentario);
                 card.Child = stack;
                 painelFeedPublicacoes.Children.Add(card);
             }
-        } 
-
+        }
         private void BtnProximo_Click(object sender, RoutedEventArgs e)
         {
             indiceAtual++;
