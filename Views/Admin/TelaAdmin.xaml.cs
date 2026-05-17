@@ -77,6 +77,11 @@ namespace ProjetoAcelera.Views.Admin
             listaDestaques.ItemsSource = null;
 
             listaDestaques.ItemsSource = usuarioService.ObterTodos().Where(u => u.Perfil != null && u.Perfil.Destaque && !u.Banido).ToList();
+
+            //Lista Banidos
+            listaBanidos.ItemsSource = null;
+
+            listaBanidos.ItemsSource = usuarioService.ObterTodos().Where(u => u.Banido).ToList();
             string caminhoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
             // FOTO
             try
@@ -94,6 +99,7 @@ namespace ProjetoAcelera.Views.Admin
             {
                 imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,250);
             }
+            
         }
 
         private void CarregarEventos()
@@ -423,6 +429,23 @@ namespace ProjetoAcelera.Views.Admin
             }
 
             MessageBox.Show("Usuário removido dos destaques.");
+
+            CarregarDados();
+        }
+        private void Desbanir_Click(object sender, RoutedEventArgs e)
+        {
+            Button botao = (Button)sender;
+
+            Usuario usuario = (Usuario)botao.Tag;
+
+            if (usuario == null)
+            {
+                return;
+            }
+
+            usuario.Banido = false;
+
+            MessageBox.Show("Usuário desbanido!");
 
             CarregarDados();
         }
