@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ProjetoAcelera.Views.MainWindow
 {
@@ -78,6 +79,12 @@ namespace ProjetoAcelera.Views.MainWindow
         private void Fechar_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+        private void SwitchFrame_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            double velocidadeScroll = 3.0;
+            ScrollPrincipal.ScrollToVerticalOffset(ScrollPrincipal.VerticalOffset - (e.Delta / velocidadeScroll));
+            e.Handled = true;
         }
     }
 }

@@ -16,8 +16,50 @@
         <ImageBrush ImageSource="/ImagemAcelera/solid-navy-blue-concrete-textured-wall.jpg"
                     Stretch="UniformToFill"/>
     </Window.Background>
+    
     <Window.Resources>
+        <!-- SCROLLBAR PERSONALIZADA -->
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Width" Value="12"/>
+            <Setter Property="Background" Value="#D6C28F"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid Background="#D6C28F">
+                            <Track x:Name="PART_Track"
+                           IsDirectionReversed="True"
+                           Focusable="False">
 
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand"
+                                          Opacity="0"
+                                          Focusable="False"/>
+                                </Track.DecreaseRepeatButton>
+
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="{x:Type Thumb}">
+                                                <Border Background="#B8860B"
+                                                CornerRadius="6"
+                                                Margin="2"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand"
+                                          Opacity="0"
+                                          Focusable="False"/>
+                                </Track.IncreaseRepeatButton>
+
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="MenuButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -142,11 +184,22 @@
                     </Button>
                 </Grid>
 
-                <Rectangle Height="1" Fill="#B8860B" Margin="16,0"/>
+                <Rectangle Height="3">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="/ImagemAcelera/cor-dourada-abstrack-plano-de-fundo-design_805663-177.avif"
+                    Stretch="UniformToFill"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Border Margin="0,0,0,-3"
+                        Padding="0,4,0,4">
 
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Center"
-                            Margin="0,3,0,0">
+                    <Border.Background>
+                        <ImageBrush ImageSource="/ImagemAcelera/fundo-pintado-mao-da-aguarela_24972-1199.avif"
+                                    Stretch="UniformToFill"/>
+                    </Border.Background>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0,3,0,0">
 
                     <Button Content="🏡  Início" Style="{StaticResource MenuButtonStyle}" Click="Home_Click"/>
                     <Button Content="🏞️  Nossa Cidade" Style="{StaticResource MenuButtonStyle}" Click="NossaCidade_Click"/>
@@ -157,13 +210,60 @@
                     <Button x:Name="BtnLogin" Content="🔐 Entrar / Cadastrar" Style="{StaticResource MenuButtonStyle}" Click="Login_Click"/>
 
                 </StackPanel>
-
+                </Border>
             </StackPanel>
+                
         </Border>
 
-        <Frame x:Name="SwitchFrame"
-               Grid.Row="1"
-               NavigationUIVisibility="Hidden"/>
+        <ScrollViewer x:Name="ScrollPrincipal"
+              Grid.Row="1"
+              VerticalScrollBarVisibility="Auto"
+              HorizontalScrollBarVisibility="Disabled">
+
+            <Grid MinHeight="{Binding ActualHeight, ElementName=ScrollPrincipal}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Frame x:Name="SwitchFrame"
+               Grid.Row="0"
+               NavigationUIVisibility="Hidden"
+               PreviewMouseWheel="SwitchFrame_PreviewMouseWheel"/>
+
+                <!-- Espaço vazio que empurra o rodapé para baixo quando a tela é pequena -->
+                <Border Grid.Row="1"
+                Background="Transparent"/>
+
+                <!-- Rodapé decorativo -->
+                <StackPanel Grid.Row="2">
+
+                    <Rectangle Height="4">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="/ImagemAcelera/cor-dourada-abstrack-plano-de-fundo-design_805663-177.avif"
+                                Stretch="UniformToFill"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Border Height="90"
+                    Background="#F3E6C9">
+
+                        <Image Source="/ImagemAcelera/frufru.png"
+                       Width="188"
+                       Height="120"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+
+                    </Border>
+
+                </StackPanel>
+
+            </Grid>
+
+        </ScrollViewer>
 
     </Grid>
 </Window>
