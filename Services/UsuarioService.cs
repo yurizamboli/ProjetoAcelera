@@ -85,11 +85,13 @@ namespace ProjetoAcelera.Services
                 return false;
             }
             //Agora todos os primeiros usuarios são adm
-            string Cargos = "Usuario";
+            bool primeiroUsuario = usuarios.Count == 0;
 
-            if(usuarios.Count == 0)
+            string cargo = "Usuario";
+
+            if (primeiroUsuario)
             {
-                Cargos = "Admin";           
+                cargo = "Admin";
             }
             Usuario novoUsuario = new Usuario
             {
@@ -97,7 +99,8 @@ namespace ProjetoAcelera.Services
                 SenhaHash = GerarHash(senha),
                 Email = email,
                 DataCadastro = DateTime.Now,
-                Cargo = Cargos, // nivel basico
+                Cargo = cargo, // nivel basico
+                AdminPrincipal = primeiroUsuario, // o primeiro usuario é o admin principal
                 Obras = new List<Obra>(),
                 Perfil = new Perfil 
                 { 

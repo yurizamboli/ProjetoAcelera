@@ -189,16 +189,7 @@ namespace ProjetoAcelera.Views.LoginRegistro
 
             if (sucesso)
             {
-                var usuario = App.UsuarioService.UsuarioLogado;
-
-                if (usuario.Cargo == "Admin")
-                {
-                    NavigationService.Navigate(new Views.Admin.TelaAdmin());
-                }
-                else
-                {
-                    NavigationService.Navigate(new Views.Perfil.TelaPerfil());
-                }
+                NavigationService.Navigate(new Views.Perfil.TelaPerfil());
 
                 var main = Application.Current.MainWindow as TelaMainWindow;
                 main?.AtualizarNavbar();
