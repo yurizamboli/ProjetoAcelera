@@ -18,16 +18,21 @@
 
 
   <ItemGroup>
+    <Content Remove="ImagemAcelera\cor-dourada-abstrack-plano-de-fundo-design_805663-177.avif" />
+
+  </ItemGroup>
+
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Amqp" Version="2.7.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="ImagemAcelera\AvatarPadrao.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="ImagemAcelera\cor-dourada-abstrack-plano-de-fundo-design_805663-177.avif" />
     <Resource Include="ImagemAcelera\Hulkmagrelo.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="ImagemAcelera\IcoALAHC.ico" />
   </ItemGroup>
 
   <ItemGroup>
