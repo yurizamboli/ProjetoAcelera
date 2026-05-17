@@ -8,12 +8,14 @@
         Title="Academia de Letras, Artes e História de Cruzeiro"
         Height="650" Width="900"
         MinWidth="700" MinHeight="550"
-        Background="#0B2A3A"
         WindowState="Maximized"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
-
+    <Window.Background>
+        <ImageBrush ImageSource="/ImagemAcelera/solid-navy-blue-concrete-textured-wall.jpg"
+                    Stretch="UniformToFill"/>
+    </Window.Background>
     <Window.Resources>
 
         <Style x:Key="MenuButtonStyle" TargetType="{x:Type Button}">

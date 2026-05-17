@@ -1,9 +1,7 @@
 <Page x:Class="ProjetoAcelera.Views.Cultura.TelaCultura"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Height="Auto" Width="1000"
-      Background="#0A2A3A">
-
+      Height="Auto" Width="1000">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="20">
             <TextBlock Text="CULTURA DA REGIÃO"

@@ -4,9 +4,11 @@
         Title="Editar Perfil"
         Height="600"
         Width="1000"
-        WindowStartupLocation="CenterScreen"
-        Background="#0A2A3A">
-
+        WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <ImageBrush ImageSource="/ImagemAcelera/solid-navy-blue-concrete-textured-wall.jpg"
+                Stretch="UniformToFill"/>
+    </Window.Background>
     <Grid>
         <Border Width="780"
                 Height="455"

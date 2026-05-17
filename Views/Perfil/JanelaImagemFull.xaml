@@ -4,9 +4,11 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#0A2A3A"
         SizeToContent="WidthAndHeight">
-
+    <Window.Background>
+        <ImageBrush ImageSource="/ImagemAcelera/solid-navy-blue-concrete-textured-wall.jpg"
+                Stretch="UniformToFill"/>
+    </Window.Background>
 	<Grid Margin="10">
 		<Border Background="#111111"
                 CornerRadius="12"

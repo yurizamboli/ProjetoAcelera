@@ -16,7 +16,8 @@ namespace ProjetoAcelera.Views.Perfil
     public partial class ContainerObras : Page
     {
         private UsuarioService usuarioService;
-
+        private int quantidadeObrasExibidas = 9;
+        private const int quantidadeCarregarMais = 10;
         public ContainerObras()
         {
             InitializeComponent();
@@ -37,14 +38,23 @@ namespace ProjetoAcelera.Views.Perfil
 
             painelObras.Children.Clear();
 
-            painelObras.Children.Add(CriarBotaoAdicionar());
-
-            foreach (var obra in usuario.Obras)
+            painelObras.Children.Add(CriarBotaoAdicionar()); 
+            
+            if (usuario.Obras == null)
+            {
+                btnCarregarMais.Visibility = Visibility.Collapsed;
+                return;
+            }
+            var todasObras = usuario.Obras.ToList();
+            var obrasExibidas = todasObras.Take(quantidadeObrasExibidas).ToList();
+            foreach (var obra in obrasExibidas)
             {
                 painelObras.Children.Add(CriarCardObra(obra));
             }
-        }
+            btnCarregarMais.Visibility = todasObras.Count > obrasExibidas.Count ? Visibility.Visible: Visibility.Collapsed;
 
+        }
+        
         private Border CriarBotaoAdicionar()
         {
             StackPanel stack = new StackPanel
@@ -173,6 +183,12 @@ namespace ProjetoAcelera.Views.Perfil
 
             tela.ShowDialog();
 
+            CarregarObras();
+        }
+
+        private void BtnCarregarMais_Click(object sender, RoutedEventArgs e)
+        {
+            quantidadeObrasExibidas += quantidadeCarregarMais;
             CarregarObras();
         }
     }
