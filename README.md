@@ -10,8 +10,7 @@ A aplicação foi desenvolvida exclusivamente na linguagem C# e, atualmente, nã
 
 - Gabriel Henrique Carvalho Neves Cardoso - https://github.com/gabrielcardosogd
 - Gabriel Henrique Oliveira Manchilha Florentino - https://github.com/Gabriel-Mancilha
-- Gabriel Mariano Pinto -
-- João Victor de Augusto Santos -
+- Gabriel Mariano Pinto - https://github.com/
 - Marjorye Porto Picanço - https://github.com/Marjorye-Porto-Picanco 
 - Yuri Zamboli Corrêa - https://github.com/yurizamboli
 
@@ -24,6 +23,8 @@ A aplicação foi desenvolvida exclusivamente na linguagem C# e, atualmente, nã
 - Figma
 - Trello
 - Canva
+- GitHub
+- Git
 
 ## Objetivo
 
