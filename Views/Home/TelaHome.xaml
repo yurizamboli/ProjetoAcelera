@@ -39,88 +39,43 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
-        <!-- SCROLLBAR PERSONALIZADA -->
-        <Style TargetType="{x:Type ScrollBar}">
-            <Setter Property="Width" Value="12"/>
-            <Setter Property="Background" Value="#D6C28F"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ScrollBar}">
-                        <Grid Background="#D6C28F">
-                            <Track x:Name="PART_Track"
-                           IsDirectionReversed="True"
-                           Focusable="False">
-
-                                <Track.DecreaseRepeatButton>
-                                    <RepeatButton Command="ScrollBar.PageUpCommand"
-                                          Opacity="0"
-                                          Focusable="False"/>
-
-                                </Track.DecreaseRepeatButton>
-
-                                <Track.Thumb>
-                                    <Thumb>
-                                        <Thumb.Template>
-                                            <ControlTemplate TargetType="{x:Type Thumb}">
-                                                <Border Background="#B8860B"
-                                                CornerRadius="6"
-                                                Margin="2"/>
-                                            </ControlTemplate>
-                                        </Thumb.Template>
-                                    </Thumb>
-                                </Track.Thumb>
-
-                                <Track.IncreaseRepeatButton>
-                                    <RepeatButton Command="ScrollBar.PageDownCommand"
-                                          Opacity="0"
-                                          Focusable="False"/>
-                                </Track.IncreaseRepeatButton>
-
-                            </Track>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+       
     </Page.Resources>
 
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            
         </Grid.RowDefinitions>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto"
-                      HorizontalScrollBarVisibility="Disabled">
+        <StackPanel>
 
-            
-            <StackPanel Margin="0,0,0,70">
-
-                <!-- EVENTO -->
-                <Border Margin="20,16"
+            <!-- EVENTO -->
+            <Border Margin="20,16"
                         CornerRadius="24"
                         Background="#0F3A5F"
                         Padding="24">
 
-                    <StackPanel>
+                <StackPanel>
 
-                        <TextBlock Text="Evento em destaque"
+                    <TextBlock Text="Evento em destaque"
                                    FontFamily="Georgia"
                                    FontSize="22"
                                    FontWeight="Bold"
                                    Foreground="#F3E6C9"
                                    Margin="0,0,0,16"/>
 
-                        
-                        <Grid MinHeight="420">
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="440"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                    <Grid MinHeight="420">
 
-                            <!-- IMAGEM -->
-                            <Border Grid.Column="0"
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="440"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- IMAGEM -->
+                        <Border Grid.Column="0"
                                     Background="#EDE3D1"
                                     BorderBrush="#B8860B"
                                     BorderThickness="1.5"
@@ -128,47 +83,47 @@
                                     Padding="16"
                                     Margin="0,0,20,0">
 
-                                <StackPanel>
+                            <StackPanel>
 
-                                    <TextBlock Text="EVENTO CULTURAL"
+                                <TextBlock Text="EVENTO CULTURAL"
                                                FontFamily="Georgia"
                                                FontSize="11"
                                                FontWeight="Bold"
                                                Foreground="#8B6914"
                                                Margin="0,0,0,12"/>
 
-                                    <Border CornerRadius="18"
+                                <Border CornerRadius="18"
                                             ClipToBounds="True"
                                             Height="320">
 
-                                        <Image x:Name="imgEvento"
+                                    <Image x:Name="imgEvento"
                                                Source="/ImagemAcelera/evento1.png"
                                                Stretch="UniformToFill"/>
 
-                                    </Border>
+                                </Border>
 
-                                    <TextBlock x:Name="txtData"
+                                <TextBlock x:Name="txtData"
                                                FontFamily="Georgia"
                                                FontSize="12"
                                                Foreground="#1F3A5F"
                                                TextAlignment="Center"
                                                Margin="0,12,0,0"/>
 
-                                </StackPanel>
+                            </StackPanel>
 
-                            </Border>
+                        </Border>
 
-                            <!-- TEXTO -->
-                            <Border Grid.Column="1"
+                        <!-- TEXTO -->
+                        <Border Grid.Column="1"
                                     Background="#EDE3D1"
                                     BorderBrush="#B8860B"
                                     BorderThickness="1.5"
                                     CornerRadius="20"
                                     Padding="24">
 
-                                <StackPanel>
+                            <StackPanel>
 
-                                    <TextBlock x:Name="txtTitulo"
+                                <TextBlock x:Name="txtTitulo"
                                                FontFamily="Georgia"
                                                FontSize="26"
                                                FontWeight="Bold"
@@ -176,7 +131,7 @@
                                                TextWrapping="Wrap"
                                                Margin="0,0,0,10"/>
 
-                                    <TextBlock x:Name="txtDescricao"
+                                <TextBlock x:Name="txtDescricao"
                                                FontFamily="Georgia"
                                                FontSize="14"
                                                FontWeight="Bold"
@@ -185,65 +140,65 @@
                                                LineHeight="22"
                                                Margin="0,0,0,12"/>
 
-                                    <Rectangle Height="1"
+                                <Rectangle Height="1"
                                                Fill="#B8860B"
                                                Margin="0,0,0,14"/>
 
-                                    <TextBlock x:Name="txtDetalhes"
+                                <TextBlock x:Name="txtDetalhes"
                                                TextWrapping="Wrap"
                                                FontFamily="Georgia"
                                                FontSize="13"
                                                Foreground="#444444"
                                                LineHeight="22"/>
 
-                                    <Button Content="VER PROGRAMAÇÃO"
+                                <Button Content="VER PROGRAMAÇÃO"
                                             Style="{StaticResource CTAButtonStyle}"
                                             Width="220"
                                             HorizontalAlignment="Left"
                                             Margin="0,16,0,0"
                                             Click="Programacao_Click"/>
 
-                                </StackPanel>
+                            </StackPanel>
 
-                            </Border>
+                        </Border>
 
-                        </Grid>
+                    </Grid>
 
-                        <!-- SETAS -->
-                        <StackPanel Orientation="Horizontal"
+                    <!-- SETAS -->
+                    <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Right"
                                     Margin="0,18,0,0">
 
-                            <Button Style="{StaticResource ArrowButtonStyle}"
+                        <Button Style="{StaticResource ArrowButtonStyle}"
                                     Content="◀"
                                     Width="40"
                                     Height="40"
                                     Click="BtnAnterior_Click"/>
 
-                            <Button Style="{StaticResource ArrowButtonStyle}"
+                        <Button Style="{StaticResource ArrowButtonStyle}"
                                     Content="▶"
                                     Width="40"
                                     Height="40"
                                     Margin="10,0,0,0"
                                     Click="BtnProximo_Click"/>
 
-                        </StackPanel>
-
                     </StackPanel>
 
-                </Border>
+                </StackPanel>
 
-                <!-- ARTISTAS EM DESTAQUE -->
-                <Border Background="#0D3348"
+            </Border>
+
+            <!-- ARTISTAS EM DESTAQUE -->
+            <Border Background="#0D3348"
                         CornerRadius="10"
                         BorderBrush="#B8860B"
                         BorderThickness="1"
                         Padding="20,16"
                         Margin="20,16">
 
-                    <StackPanel>
+                <StackPanel>
 
-                        <TextBlock Text="ARTISTAS EM DESTAQUE"
+                    <TextBlock Text="ARTISTAS EM DESTAQUE"
                                    FontFamily="Georgia"
                                    FontSize="16"
                                    FontWeight="Bold"
@@ -251,37 +206,37 @@
                                    HorizontalAlignment="Center"
                                    Margin="0,0,0,14"/>
 
-                        
-                        <WrapPanel x:Name="painelArtistasDestaque"
-                        HorizontalAlignment="Center"/>
-                        
 
-                        <Button Content="VEJA MAIS ARTISTAS"
+                    <WrapPanel x:Name="painelArtistasDestaque"
+                        HorizontalAlignment="Center"/>
+
+
+                    <Button Content="VEJA MAIS ARTISTAS"
                                 Style="{StaticResource CTAButtonStyle}"
                                 Background="#B8860B"
                                 HorizontalAlignment="Center"
                                 Margin="0,14,0,0"
                                 Click="Artistas_Click"/>
 
-                    </StackPanel>
+                </StackPanel>
 
-                </Border>
+            </Border>
 
-                <!-- FEED E ARTISTAS RECENTES -->
-                <Grid Margin="20,16">
+            <!-- FEED E ARTISTAS RECENTES -->
+            <Grid Margin="20,16">
 
-                    <Grid.ColumnDefinitions>
-
-                        
-                        <ColumnDefinition Width="5*"/>
-
-                        
-                        <ColumnDefinition Width="280"/>
-
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
 
 
-                    <Border Grid.Column="0"
+                    <ColumnDefinition Width="5*"/>
+
+
+                    <ColumnDefinition Width="280"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <Border Grid.Column="0"
                             BorderBrush="#B8860B"
                             BorderThickness="2"
                             CornerRadius="16"
@@ -289,21 +244,21 @@
                             Margin="0,0,20,0"
                             MinHeight="400">
 
-                        <StackPanel x:Name="painelFeedPublicacoes"/>
+                    <StackPanel x:Name="painelFeedPublicacoes"/>
 
-                    </Border>
+                </Border>
 
-                    <!-- ARTISTAS RECENTES -->
-                    <Border Grid.Column="1"
+                <!-- ARTISTAS RECENTES -->
+                <Border Grid.Column="1"
                             Background="#0D3348"
                             BorderBrush="#B8860B"
                             BorderThickness="2"
                             CornerRadius="16"
                             Padding="12">
 
-                        <StackPanel>
+                    <StackPanel>
 
-                            <TextBlock Text="ARTISTAS RECENTES"
+                        <TextBlock Text="ARTISTAS RECENTES"
                                        FontSize="18"
                                        FontWeight="Bold"
                                        FontFamily="Georgia"
@@ -311,31 +266,31 @@
                                        Margin="0,0,0,15"
                                        HorizontalAlignment="Center"/>
 
-                            <StackPanel x:Name="painelArtistasRecentes"/>
+                        <StackPanel x:Name="painelArtistasRecentes"/>
 
-                        </StackPanel>
+                    </StackPanel>
 
-                    </Border>
+                </Border>
 
-                </Grid>
+            </Grid>
 
-                <!-- CRUZEIRO -->
-                <Border Margin="20,6,20,20"
+            <!-- CRUZEIRO -->
+            <Border Margin="20,6,20,20"
                         CornerRadius="10"
                         ClipToBounds="True"
                         Height="170">
 
-                    <Grid>
+                <Grid>
 
-                        <Image Source="/ImagemAcelera/cruzeiro.png"
+                    <Image Source="/ImagemAcelera/cruzeiro.png"
                                Stretch="UniformToFill"/>
 
-                        <Border Background="#90000000"/>
+                    <Border Background="#90000000"/>
 
-                        <StackPanel VerticalAlignment="Center"
+                    <StackPanel VerticalAlignment="Center"
                                     HorizontalAlignment="Center">
 
-                            <TextBlock Text="CONHEÇA CRUZEIRO"
+                        <TextBlock Text="CONHEÇA CRUZEIRO"
                                        Foreground="#F3E6C9"
                                        FontFamily="Georgia"
                                        FontSize="22"
@@ -343,22 +298,21 @@
                                        HorizontalAlignment="Center"
                                        Margin="0,0,0,6"/>
 
-                            <TextBlock Text="O orgulho do Vale do Paraíba"
+                        <TextBlock Text="O orgulho do Vale do Paraíba"
                                        Foreground="#EDD89A"
                                        FontFamily="Georgia"
                                        FontSize="12"
                                        HorizontalAlignment="Center"
                                        Margin="0,0,0,12"/>
 
-                            <Button Content="VEJA MAIS"
+                        <Button Content="VEJA MAIS"
                                     Style="{StaticResource CTAButtonStyle}"
                                     HorizontalAlignment="Center"
                                     Click="NossaCidade_Click"/>
 
-                        </StackPanel>
-                    </Grid>
-                </Border>
-            </StackPanel>
-        </ScrollViewer>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>
