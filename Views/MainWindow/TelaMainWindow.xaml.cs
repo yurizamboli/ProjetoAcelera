@@ -57,18 +57,7 @@ namespace ProjetoAcelera.Views.MainWindow
         }       
         private void Conta_Click(object sender, RoutedEventArgs e)
         {
-            var usuario = App.UsuarioService.UsuarioLogado;
-
-            if (usuario.Cargo == "Admin")
-            {
-                SwitchFrame.Navigate(new Views.Admin.TelaAdmin());
-            }
-            else
-            {
                 SwitchFrame.Navigate(new Views.Perfil.TelaPerfil());
-            }
-
-
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
