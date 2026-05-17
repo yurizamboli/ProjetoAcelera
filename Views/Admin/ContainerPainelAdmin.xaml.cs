@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 
 namespace ProjetoAcelera.Views.Admin
 {
-    public partial class TelaAdmin : Page
+    public partial class ContainerPainelAdmin : Page
     {
         private UsuarioService usuarioService;
         private AdminService adminService;
@@ -23,7 +23,7 @@ namespace ProjetoAcelera.Views.Admin
         private EventoService eventoService;
         private string caminhoImagemEvento;
 
-        public TelaAdmin()
+        public ContainerPainelAdmin()
         {
             InitializeComponent();
 
@@ -47,53 +47,37 @@ namespace ProjetoAcelera.Views.Admin
                 return;
             }
 
-            txtNome.Text = user.Nome;
-
-            if (user.Perfil != null)
-            {
-                txtBio.Text = user.Perfil.Bio;
-            }
-            else
-            {
-                txtBio.Text = "";
-            }
-
             // LISTA DE USUÁRIOS
-            var lista = usuarioService.ObterTodos().Where(u => u.Email != user.Email && !u.Banido).ToList();
+            var listaUsuarios = usuarioService.ObterTodos().Where(u => u.Email != user.Email && !u.Banido).ToList();
+
+            var listaParaPromover = usuarioService.ObterTodos().Where(u => u.Email != user.Email &&u.Cargo != "Admin" &&!u.Banido).ToList();
+            var listaParaBanir = usuarioService.ObterTodos().Where(u => u.Email != user.Email &&!u.Banido &&!u.AdminPrincipal).ToList();
 
             comboUsuarios.ItemsSource = null;
-            comboUsuarios.ItemsSource = lista;
+            comboUsuarios.ItemsSource = listaUsuarios;
             comboUsuarios.DisplayMemberPath = "NomeCompleto";
 
             comboPromover.ItemsSource = null;
-            comboPromover.ItemsSource = lista;
+            comboPromover.ItemsSource = listaParaPromover;
             comboPromover.DisplayMemberPath = "NomeCompleto";
 
             comboBanir.ItemsSource = null;
-            comboBanir.ItemsSource = lista;
+            comboBanir.ItemsSource = listaParaBanir;
             comboBanir.DisplayMemberPath = "NomeCompleto";
 
             // LISTA DE DESTAQUES
             listaDestaques.ItemsSource = null;
-
             listaDestaques.ItemsSource = usuarioService.ObterTodos().Where(u => u.Perfil != null && u.Perfil.Destaque && !u.Banido).ToList();
-            string caminhoPadrao = "pack://application:,,,/ImagemAcelera/AvatarPadrao.png";
-            // FOTO
-            try
-            {
-                if (user.Perfil != null && !string.IsNullOrEmpty(user.Perfil.FotoPerfil))
-                {
-                    imgPerfil.Source =AuxilioImagens.CarregarImgOtimizada(user.Perfil.FotoPerfil,250);
-                }        
-                else
-            {
-                imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,250);
-            }
-        }
-            catch
-            {
-                imgPerfil.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,250);
-            }
+
+            // LISTA DE ADMINS PROMOVIDOS
+            listaAdmins.ItemsSource = null;
+            var admins = usuarioService.ObterTodos().Where(u => u.Cargo == "Admin" && !u.AdminPrincipal && !u.Banido).ToList();
+            listaAdmins.ItemsSource = admins;
+
+            // LISTA DE USUÁRIOS BANIDOS
+            listaBanidos.ItemsSource = null;
+            var banidos = usuarioService.ObterTodos().Where(u => u.Banido && !u.AdminPrincipal).ToList();
+            listaBanidos.ItemsSource = banidos;
         }
 
         private void CarregarEventos()
@@ -279,8 +263,9 @@ namespace ProjetoAcelera.Views.Admin
             }
 
             adminService.PromoverParaAdmin(user.Email);
-
+            user.AdminPrincipal = false;
             MessageBox.Show("Promovido!");
+            CarregarDados();
         }
 
         private void Banir_Click(object sender, RoutedEventArgs e)
@@ -292,7 +277,11 @@ namespace ProjetoAcelera.Views.Admin
                 MessageBox.Show("Selecione um usuário.");
                 return;
             }
-
+            if (user.AdminPrincipal)
+            {
+                MessageBox.Show("O administrador principal não pode ser banido.");
+                return;
+            }
             string mensagem =
                 "Deseja banir o usuário " + user.Nome + "?";
 
@@ -311,7 +300,34 @@ namespace ProjetoAcelera.Views.Admin
                 CarregarDados();
             }
         }
+        private void RemoverBanimento_Click(object sender, RoutedEventArgs e)
+        {
+            Button botao = (Button)sender;
 
+            Usuario usuario = (Usuario)botao.Tag;
+
+            if (usuario == null)
+            {
+                return;
+            }
+
+            var confirm = MessageBox.Show(
+                "Deseja retirar o banimento de " + usuario.Nome + "?",
+                "Confirmar",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (confirm != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            usuario.Banido = false;
+
+            MessageBox.Show("Banimento removido.");
+
+            CarregarDados();
+        }
         private void Voltar_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new TelaHome());
@@ -424,6 +440,37 @@ namespace ProjetoAcelera.Views.Admin
 
             MessageBox.Show("Usuário removido dos destaques.");
 
+            CarregarDados();
+        }
+        private void RemoverAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            Button botao = (Button)sender;
+            Usuario usuario = (Usuario)botao.Tag;
+
+            if (usuario == null)
+            {
+                return;
+            }
+            if (usuario.AdminPrincipal)
+            {
+                MessageBox.Show("O administrador principal não pode ser removido.");
+                return;
+            }
+
+            var confirm = MessageBox.Show(
+                "Deseja remover o acesso de administrador de " + usuario.Nome + "?",
+                "Confirmar",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (confirm != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            usuario.Cargo = "Usuario";
+            usuario.AdminPrincipal = false;
+            MessageBox.Show("Usuário voltou a ser usuário comum.");
             CarregarDados();
         }
     }

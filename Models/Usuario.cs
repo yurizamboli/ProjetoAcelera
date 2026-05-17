@@ -31,5 +31,6 @@ namespace ProjetoAcelera.Models
                 return Nome + " - " + Email;
             }
         }
+        public bool AdminPrincipal { get; set; } = false;
     }
 }

@@ -8,6 +8,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using ProjetoAcelera.Views.Admin;
+
 namespace ProjetoAcelera.Views.Perfil
 {
     public partial class TelaPerfil : Page
@@ -21,7 +23,7 @@ namespace ProjetoAcelera.Views.Perfil
             usuarioService = App.UsuarioService;
 
             CarregarPerfil();
-
+            VerificarPermissaoAdmin();
             // abre obras por padrão
             framePerfil.Navigate(new ContainerPublicacoes());
             SelecionarAba(btnPosts);
@@ -31,8 +33,21 @@ namespace ProjetoAcelera.Views.Perfil
             btnPosts.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
             btnObras.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
             btnGaleria.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
-
+            btnAdmin.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
             botaoSelecionado.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D7C48E"));
+        }
+        private void VerificarPermissaoAdmin()
+        {
+            var usuario = App.UsuarioService.UsuarioLogado;
+
+            if (usuario != null && usuario.Cargo == "Admin")
+            {
+                btnAdmin.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnAdmin.Visibility = Visibility.Collapsed;
+            }
         }
         private void CarregarPerfil()
         {
@@ -91,6 +106,11 @@ namespace ProjetoAcelera.Views.Perfil
         {
             SelecionarAba(btnGaleria);
             framePerfil.Navigate(new ContainerGaleria());
+        }
+        private void Admin_Button(object sender, RoutedEventArgs e)
+        {
+            SelecionarAba(btnAdmin);
+            framePerfil.Navigate(new ContainerPainelAdmin());
         }
         private void Logout_Button(
             object sender,

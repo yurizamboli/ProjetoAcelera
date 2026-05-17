@@ -190,6 +190,18 @@
                         FontWeight="Bold"
                         Click="Galeria_Button"
                         Cursor="Hand"/>
+                <Button x:Name="btnAdmin"
+                        Content="Painel Admin"
+                        Width="220"
+                        Height="45"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="#F3E6C9"
+                        FontSize="26"
+                        FontWeight="Bold"
+                        Click="Admin_Button"
+                        Cursor="Hand"
+                        Visibility="Collapsed"/>
 
             </StackPanel>
 
