@@ -359,90 +359,53 @@
                                            Style="{StaticResource Subtitulo}"/>
 
                                 <ComboBox x:Name="comboUsuarios"/>
-								
-								<Button Content="Colocar em destaque"
-										Style="{StaticResource BotaoDourado}"
-										Margin="0,10,0,0"
-										Click="Destaque_Click"/>
+
+                                <Button Content="Colocar em destaque"
+                                        Style="{StaticResource BotaoDourado}"
+                                        HorizontalAlignment="Right"
+                                        Click="Destaque_Click"/>
 
                                 <TextBlock Text="Artistas em destaque"
                                            FontWeight="Bold"
                                            Foreground="#1F3A5F"
                                            Margin="0,14,0,6"/>
 
+                                <ListBox x:Name="listaDestaques"
+                                         Height="180"
+                                         Background="#F3E6C9"
+                                         BorderBrush="#C9B27D">
 
-								<ListBox x:Name="listaDestaques"
-										 Height="260"
-										 Background="#F3E6C9"
-										 BorderBrush="#C9B27D"
-										 ScrollViewer.VerticalScrollBarVisibility="Visible"
-										 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#FFF7E1"
+                                                    BorderBrush="#1F3A5F"
+                                                    BorderThickness="1"
+                                                    Padding="8"
+                                                    MaxWidth="980"
+                                                    Height="410"
+                                                    Margin="0,0,0,8">
 
-									<ListBox.ItemTemplate>
-										<DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
 
-											<Border Background="#FFF7E1"
-													BorderBrush="#D6C28F"
-													BorderThickness="1"
-													CornerRadius="10"
-													Height="72"
-													Margin="0,0,0,8"
-													Padding="10">
+                                                    <TextBlock Text="{Binding Nome}"
+                                                               VerticalAlignment="Center"
+                                                               FontWeight="Bold"
+                                                               Foreground="#1F3A5F"/>
 
-												<Grid>
-
-													<Grid.ColumnDefinitions>
-														<ColumnDefinition Width="58"/>
-														<ColumnDefinition Width="*"/>
-														<ColumnDefinition Width="90"/>
-													</Grid.ColumnDefinitions>
-
-													<!-- FOTO -->
-													<Border Width="48"
-															Height="48"
-															CornerRadius="8"
-															ClipToBounds="True"
-															BorderBrush="#1F3A5F"
-															BorderThickness="1.5"
-															VerticalAlignment="Center">
-
-														<Image Source="{Binding Perfil.FotoPerfil}"
-															   Stretch="UniformToFill"/>
-													</Border>
-
-													<!-- TEXTO -->
-													<StackPanel Grid.Column="1"
-																VerticalAlignment="Center"
-																Margin="8,0,0,0">
-
-														<TextBlock Text="{Binding Nome}"
-																   FontWeight="Bold"
-																   FontSize="14"
-																   Foreground="#1F3A5F"
-																   TextTrimming="CharacterEllipsis"/>
-
-														<TextBlock Text="Artista em destaque"
-																   FontSize="11"
-																   Foreground="#8A7A55"/>
-													</StackPanel>
-
-													<!-- BOTÃO -->
-													<Button Grid.Column="2"
-															Content="Remover"
-															Width="78"
-															Height="30"
-															FontSize="11"
-															HorizontalAlignment="Right"
-															VerticalAlignment="Center"
-															Style="{StaticResource BotaoVermelho}"
-															Padding="0"
-															Margin="0"
-															Tag="{Binding}"
-															Click="RemoverDestaque_Click"/>
-												</Grid>
-											</Border>
-										</DataTemplate>
-									</ListBox.ItemTemplate>
+                                                    <Button Grid.Column="1"
+                                                            Content="Remover"
+                                                            Style="{StaticResource BotaoVermelho}"
+                                                            Padding="8,4"
+                                                            Tag="{Binding}"
+                                                            Click="RemoverDestaque_Click"/>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
                                 </ListBox>
                             </StackPanel>
                         </Border>
@@ -499,91 +462,6 @@
                                         Style="{StaticResource BotaoVermelho}"
                                         Margin="0,10,0,0"
                                         Click="Banir_Click"/>
-								<TextBlock Text="Usuários Banidos"
-			   FontWeight="Bold"
-			   Foreground="#1F3A5F"
-			   Margin="0,14,0,6"/>
-
-								<ListBox x:Name="listaBanidos"
-										 Height="260"
-										 Background="#F3E6C9"
-										 BorderBrush="#C9B27D"
-										 ScrollViewer.VerticalScrollBarVisibility="Visible"
-										 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
-									<ListBox.ItemTemplate>
-										<DataTemplate>
-
-											<Border Background="#FFF7E1"
-													BorderBrush="#D6C28F"
-													BorderThickness="1"
-													CornerRadius="10"
-													Height="72"
-													Margin="0,0,0,8"
-													Padding="10">
-
-												<Grid>
-
-													<Grid.ColumnDefinitions>
-														<ColumnDefinition Width="58"/>
-														<ColumnDefinition Width="*"/>
-														<ColumnDefinition Width="90"/>
-													</Grid.ColumnDefinitions>
-
-													<!-- FOTO -->
-													<Border Width="48"
-															Height="48"
-															CornerRadius="8"
-															ClipToBounds="True"
-															BorderBrush="#8B1E1E"
-															BorderThickness="1.5"
-															VerticalAlignment="Center">
-
-														<Image Source="{Binding Perfil.FotoPerfil}"
-															   Stretch="UniformToFill"/>
-													</Border>
-
-													<!-- TEXTO -->
-													<StackPanel Grid.Column="1"
-																VerticalAlignment="Center"
-																Margin="8,0,0,0">
-
-														<TextBlock Text="{Binding Nome}"
-																   FontWeight="Bold"
-																   FontSize="14"
-																   Foreground="#8B1E1E"
-																   TextTrimming="CharacterEllipsis"/>
-
-														<TextBlock Text="Usuário banido"
-																   FontSize="11"
-																   Foreground="#8A7A55"/>
-													</StackPanel>
-
-													<!-- BOTÃO -->
-													<Button Grid.Column="2"
-															Content="Desbanir"
-															Width="78"
-															Height="30"
-															FontSize="11"
-															HorizontalAlignment="Right"
-															VerticalAlignment="Center"
-															Background="#2E7D32"
-															Foreground="White"
-															FontWeight="Bold"
-															BorderThickness="0"
-															Cursor="Hand"
-															Tag="{Binding}"
-															Click="Desbanir_Click"/>
-												</Grid>
-
-											</Border>
-
-										</DataTemplate>
-									</ListBox.ItemTemplate>
-								</ListBox>
-
-							
-								
                             </StackPanel>
                         </Border>
                     </Grid>
