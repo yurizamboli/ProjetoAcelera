@@ -11,7 +11,8 @@ namespace ProjetoAcelera.Views.Perfil
     public partial class ContainerObrasVisual : Page
     {
         private Usuario usuario;
-
+        private int quantidadeObrasExibidas = 8;
+        private const int quantidadeCarregarMais = 8;
         public ContainerObrasVisual(Usuario user)
         {
             InitializeComponent();
@@ -26,12 +27,17 @@ namespace ProjetoAcelera.Views.Perfil
             painelObras.Children.Clear();
 
             if (usuario?.Obras == null)
-                return;
-
-            foreach (var obra in usuario.Obras)
+            {
+                btnCarregarMais.Visibility = Visibility.Collapsed;
+                return; 
+            }
+            var todasObras = usuario.Obras.ToList();
+            var obrasExibidas = todasObras.Take(quantidadeObrasExibidas).ToList();
+            foreach (var obra in obrasExibidas)
             {
                 painelObras.Children.Add(CriarCard(obra));
             }
+            btnCarregarMais.Visibility = quantidadeObrasExibidas < todasObras.Count ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private Border CriarCard(Obra obra)
@@ -78,6 +84,11 @@ namespace ProjetoAcelera.Views.Perfil
                 Background = Brushes.White,
                 Child = container
             };
+        }
+        private void BtnCarregarMais_Click(object sender, RoutedEventArgs e)
+        {
+            quantidadeObrasExibidas += quantidadeCarregarMais;
+            CarregarObras();
         }
     }
 }

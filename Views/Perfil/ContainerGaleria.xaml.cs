@@ -14,7 +14,8 @@ namespace ProjetoAcelera.Views.Perfil
     public partial class ContainerGaleria : Page
     {
         private PublicacaoService publicacaoService;
-
+        private int quantidadeImagensExibidas = 12;
+        private const int quantidadeCarregarMais = 12;
         public ContainerGaleria()
         {
             InitializeComponent();
@@ -28,13 +29,10 @@ namespace ProjetoAcelera.Views.Perfil
         {
             painelGaleria.Children.Clear();
 
-            var publicacoes = publicacaoService
-                .ObterPublicacoesPerfil()
-                .Where(p =>
-                    !string.IsNullOrWhiteSpace(p.ImagemUrl) &&
-                    File.Exists(p.ImagemUrl))
-                .OrderByDescending(p => p.DataPublicacao)
-                .ToList();
+            var todasPublicacoes = publicacaoService.ObterPublicacoesPerfil().Where(p =>!string.IsNullOrWhiteSpace(p.ImagemUrl) &&
+                    File.Exists(p.ImagemUrl)).OrderByDescending(p => p.DataPublicacao).ToList();
+
+            var publicacoes = todasPublicacoes.Take(quantidadeImagensExibidas).ToList();
 
             foreach (var pub in publicacoes)
             {
@@ -77,6 +75,16 @@ namespace ProjetoAcelera.Views.Perfil
 
                 painelGaleria.Children.Add(card);
             }
+
+            btnCarregarMais.Visibility = quantidadeImagensExibidas < todasPublicacoes.Count ? Visibility.Visible: Visibility.Collapsed;
+
+            }
+
+        private void BtnCarregarMais_Click(object sender, RoutedEventArgs e)
+        {
+            quantidadeImagensExibidas += quantidadeCarregarMais;
+            CarregarGaleria();
         }
     }
 }
+ 

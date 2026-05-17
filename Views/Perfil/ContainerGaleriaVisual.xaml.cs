@@ -12,7 +12,8 @@ namespace ProjetoAcelera.Views.Perfil
     public partial class ContainerGaleriaVisual : Page
     {
         private Usuario usuario;
-
+        private int quantidadeImagensExibidas = 12;
+        private const int quantidadeCarregarMais = 12;
         public ContainerGaleriaVisual(Usuario user)
         {
             InitializeComponent();
@@ -21,22 +22,27 @@ namespace ProjetoAcelera.Views.Perfil
 
             CarregarGaleria();
         }
-
         private void CarregarGaleria()
         {
             painelGaleria.Children.Clear();
 
             if (usuario.Publicacoes == null)
-                return;
+            { 
+                return; 
+            }
 
-            var posts = usuario.Publicacoes.Where(p => !string.IsNullOrWhiteSpace(p.ImagemUrl)).OrderByDescending(p => p.DataPublicacao).ToList();
 
+            var todosPosts = usuario.Publicacoes.Where(p => !string.IsNullOrWhiteSpace(p.ImagemUrl)).OrderByDescending(p => p.DataPublicacao).ToList();
+
+            var posts = todosPosts.Take(quantidadeImagensExibidas).ToList();
 
             foreach (var post in posts)
             {
                 painelGaleria.Children.Add(CriarImagem(post.ImagemUrl));
             }
+            btnCarregarMais.Visibility = quantidadeImagensExibidas < todosPosts.Count? Visibility.Visible : Visibility.Collapsed;
         }
+        
 
         private Border CriarImagem(string caminho)
         {
@@ -71,6 +77,12 @@ namespace ProjetoAcelera.Views.Perfil
                 var janela = new JanelaImagemFull(caminho); janela.ShowDialog(); 
             };
             return border;
+        }
+
+        private void BtnCarregarMais_Click(object sender, RoutedEventArgs e)
+        {
+            quantidadeImagensExibidas += quantidadeCarregarMais;
+            CarregarGaleria();
         }
     }
 }

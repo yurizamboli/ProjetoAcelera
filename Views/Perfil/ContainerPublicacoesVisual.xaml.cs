@@ -16,7 +16,8 @@ namespace ProjetoAcelera.Views.Perfil
     {
         private Usuario usuario;
         private PublicacaoService publicacaoService;
-
+        private int quantidadePostsExibidos = 10;
+        private const int quantidadeCarregarMais = 10;
         public ContainerPostsVisual(Usuario user)
         {
             InitializeComponent();
@@ -33,19 +34,25 @@ namespace ProjetoAcelera.Views.Perfil
 
             if (usuario.Publicacoes == null)
             {
+                btnCarregarMais.Visibility = Visibility.Collapsed;
                 return;
             }
 
-            var posts = usuario.Publicacoes
-                .OrderByDescending(p => p.DataPublicacao)
-                .ToList();
+            var todosPosts = usuario.Publicacoes.OrderByDescending(p => p.DataPublicacao).ToList();
 
-            foreach (var post in posts)
+            var postsExibidos = todosPosts.Take(quantidadePostsExibidos).ToList();
+
+            foreach (var post in postsExibidos)
             {
                 painelPosts.Children.Add(CriarPost(post));
             }
+            btnCarregarMais.Visibility = quantidadePostsExibidos < todosPosts.Count ? Visibility.Visible : Visibility.Collapsed;
         }
-
+        private void BtnCarregarMais_Click(object sender, RoutedEventArgs e)
+        {
+            quantidadePostsExibidos += quantidadeCarregarMais;
+            CarregarPosts();
+        }
         private Border CriarPost(Publicacao post)
         {
             Border card = PublicacaoComponentesVisual.CriarCardPublicacao();
@@ -174,7 +181,11 @@ namespace ProjetoAcelera.Views.Perfil
                     return;
                 }
                 publicacaoService.AlternarCurtida(post.Id);
-                CarregarPosts();
+
+                bool curtiuAgora = publicacaoService.UsuarioCurtiu(post);
+                curtidas.Text = $"❤️ {post.Curtidas} curtidas";
+                btnCurtir.Content = curtiuAgora ? "Gostei" : "Curtir";
+                btnCurtir.Background = curtiuAgora ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")): new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F"));
             };
 
             Grid.SetColumn(btnCurtir, 1);
@@ -195,15 +206,6 @@ namespace ProjetoAcelera.Views.Perfil
                     }
 
                     publicacaoService.AdicionarComentario( post.Id, usuarioLogado.Nome, usuarioLogado.Email, textoComentario);
-
-                    MessageBox.Show(
-                        "Comentário enviado para análise do autor da publicação.",
-                        "Comentário enviado",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information
-                    );
-
-                    CarregarPosts();
                 }
             );
 

@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       MinHeight="800"
       MinWidth="1000"
-      Background="#0A2A3A">
+      Background="Transparent">
 
     <Grid Width="1076">
 

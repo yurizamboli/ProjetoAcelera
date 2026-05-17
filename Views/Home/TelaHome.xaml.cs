@@ -395,12 +395,7 @@ namespace ProjetoAcelera.Views.Home
                             return;
                         }
                         publicacaoService.AdicionarComentario(pub.Id, usuarioLogado.Nome, usuarioLogado.Email, textoComentario);
-                        MessageBox.Show(
-                            "Comentário enviado para análise do autor da publicação.",
-                            "Comentário enviado",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information
-                        );                    
+                        
                     }
                 );
                 stack.Children.Add(campoComentario);

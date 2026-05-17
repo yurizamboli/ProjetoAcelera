@@ -17,14 +17,29 @@
                        Foreground="#1F3A5F"
                        Margin="0,0,0,15"/>
 
-            <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                          VerticalScrollBarVisibility="Disabled">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          MaxHeight="500">
+                <StackPanel>
+                    <WrapPanel x:Name="painelObras"
+                             Orientation="Horizontal"
+                           HorizontalAlignment="Center"/>
 
-                <StackPanel x:Name="painelObras"
-                            Orientation="Horizontal"/>
-
+                <Button x:Name="btnCarregarMais"
+                        Content="Carregar mais obras"
+                        Height="38"
+                        Width="210"
+                        Margin="0,14,0,20"
+                        Background="#B8860B"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        HorizontalAlignment="Center"
+                        Click="BtnCarregarMais_Click"/>
+                </StackPanel>
             </ScrollViewer>
-
+            
         </StackPanel>
 
     </Border>

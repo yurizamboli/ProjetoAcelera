@@ -24,8 +24,27 @@
             <ScrollViewer Grid.Row="1"
                           VerticalScrollBarVisibility="Auto">
 
-                <WrapPanel x:Name="painelGaleria"
-                           HorizontalAlignment="Center"/>
+                <StackPanel>
+
+                    <WrapPanel x:Name="painelGaleria"
+                               Orientation="Horizontal"
+                               HorizontalAlignment="Center"/>
+
+                    <Button x:Name="btnCarregarMais"
+                            Content="Carregar mais imagens"
+                            Height="38"
+                            Width="210"
+                            Margin="0,14,0,20"
+                            Background="#B8860B"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            HorizontalAlignment="Center"
+                            Click="BtnCarregarMais_Click"/>
+
+                </StackPanel>
+
 
             </ScrollViewer>
         </Grid>

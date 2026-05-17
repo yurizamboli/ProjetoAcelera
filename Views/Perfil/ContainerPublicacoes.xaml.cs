@@ -16,13 +16,19 @@ namespace ProjetoAcelera.Views.Perfil
     {
         private PublicacaoService publicacaoService;
         private string caminhoImagemSelecionada = "";
+        private int quantidadePublicacoesExibidas = 10;
+        private const int quantidadeCarregarMais = 10;
+        private Guid? publicacaoComentariosAberta = null;
 
         public ContainerPublicacoes()
         {
             InitializeComponent();
 
             publicacaoService = new PublicacaoService();
-
+            if (cmbFiltroPublicacoes != null)
+            {
+                cmbFiltroPublicacoes.SelectedIndex = 0;
+            }
             CarregarPublicacoes();
         }
 
@@ -40,10 +46,21 @@ namespace ProjetoAcelera.Views.Perfil
 
         private void CarregarPublicacoes()
         {
+            if (painelPublicacoes == null || btnCarregarMais == null || publicacaoService == null)
+            {
+                return;
+            }
             painelPublicacoes.Children.Clear();
-            var publicacoes = publicacaoService.ObterPublicacoesPerfil();
+            var todasPublicacoes = publicacaoService.ObterPublicacoesPerfil();
+            if (cmbFiltroPublicacoes != null && cmbFiltroPublicacoes.SelectedIndex == 1)
+            {
+                todasPublicacoes = todasPublicacoes.Where(p => p.Status == "Aprovado").ToList();
+            }
+            todasPublicacoes = todasPublicacoes.OrderByDescending(p => p.DataPublicacao).ToList();
+            var publicacoesExibidas = todasPublicacoes.Take(quantidadePublicacoesExibidas).ToList();
             var usuarios = App.UsuarioService.ObterTodos();
-            foreach (var pub in publicacoes)
+
+            foreach (var pub in publicacoesExibidas)
             {
                 Border card = PublicacaoComponentesVisual.CriarCardPublicacao();
                 StackPanel stack = new StackPanel();
@@ -78,7 +95,7 @@ namespace ProjetoAcelera.Views.Perfil
                 }
                 catch
                 {
-                    avatar.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao,80);
+                    avatar.Source = AuxilioImagens.CarregarImgOtimizada(caminhoPadrao, 80);
                 }
                 avatarBorder.Child = avatar;
                 StackPanel infoAutor = new StackPanel
@@ -124,7 +141,7 @@ namespace ProjetoAcelera.Views.Perfil
 
                     try
                     {
-                        imagemPost.Source = AuxilioImagens.CarregarImgOtimizada(pub.ImagemUrl,800);
+                        imagemPost.Source = AuxilioImagens.CarregarImgOtimizada(pub.ImagemUrl, 800);
                         bordaImagem.Child = imagemPost;
                         stack.Children.Add(bordaImagem);
                         stack.Children.Add(PublicacaoComponentesVisual.CriarLinhaAzul(new Thickness(-15, 8, -15, 10)));
@@ -152,16 +169,19 @@ namespace ProjetoAcelera.Views.Perfil
                 Grid.SetColumn(statsEsquerda, 0);
                 areaStats.Children.Add(statsEsquerda);
 
-                PublicacaoComponentesVisual.CriarAreaComentarios(pub,statsEsquerda,stack,true,true,id =>
+                PublicacaoComponentesVisual.CriarAreaComentarios(pub, statsEsquerda, stack, true, true, id =>
                 {
+                    publicacaoComentariosAberta = pub.Id;
                     publicacaoService.AprovarComentario(id);
                     CarregarPublicacoes();
                 },
                 id =>
                 {
+                    publicacaoComentariosAberta = pub.Id;
                     publicacaoService.ReprovarComentario(id);
                     CarregarPublicacoes();
-                }
+                },
+                publicacaoComentariosAberta == pub.Id
                 );
 
                 Button btnRemover = new Button
@@ -199,8 +219,9 @@ namespace ProjetoAcelera.Views.Perfil
                 card.Child = stack;
                 painelPublicacoes.Children.Add(card);
             }
+            btnCarregarMais.Visibility = quantidadePublicacoesExibidas < todasPublicacoes.Count ? Visibility.Visible : Visibility.Collapsed;
         }
-      private void Publicar_Button(object sender, RoutedEventArgs e)
+        private void Publicar_Button(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtNovaPublicacao.Text))
             {
@@ -220,6 +241,19 @@ namespace ProjetoAcelera.Views.Perfil
             txtImagemSelecionada.Text = "Clique para selecionar uma imagem";
             chkPermiteComentarios.IsChecked = true;
 
+            CarregarPublicacoes();
+        }
+
+        private void BtnCarregarMais_Click(object sender, RoutedEventArgs e)
+        {
+            quantidadePublicacoesExibidas += quantidadeCarregarMais;
+            CarregarPublicacoes();
+        }
+
+        private void cmbFiltroPublicacoes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            quantidadePublicacoesExibidas = 10;
+            publicacaoComentariosAberta = null;
             CarregarPublicacoes();
         }
     }

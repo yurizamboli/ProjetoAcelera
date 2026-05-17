@@ -84,7 +84,7 @@ namespace ProjetoAcelera.Ferramentas
         {
             return new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E8E1CF")),
+                Background = Brushes.Transparent,
                 CornerRadius = new CornerRadius(12),
                 ClipToBounds = true,
                 Margin = new Thickness(0, 0, 0, 10)
@@ -208,7 +208,7 @@ namespace ProjetoAcelera.Ferramentas
 
 
         ///////////////////////////COMENTARIOS/////////////////////////
-        public static void CriarAreaComentarios(Publicacao pub,StackPanel areaStats,StackPanel stack,bool mostrarTodosComentarios, bool permitirAprovacao,Action<Guid> aprovarComentario,Action<Guid> reprovarComentario)
+        public static void CriarAreaComentarios(Publicacao pub, StackPanel areaStats, StackPanel stack, bool mostrarTodosComentarios, bool permitirAprovacao, Action<Guid> aprovarComentario, Action<Guid> reprovarComentario, bool iniciarAberto = false)
         {
             var comentariosParaExibir = pub.Comentarios ?? new List<Comentario>();
 
@@ -216,13 +216,12 @@ namespace ProjetoAcelera.Ferramentas
             {
                 comentariosParaExibir = comentariosParaExibir.Where(c => c.Status == "Aprovado").ToList();
             }
-
+            comentariosParaExibir = comentariosParaExibir.OrderByDescending(c => c.DataComentario).ToList();
             int totalComentarios = comentariosParaExibir.Count;
 
             if (!pub.ComentariosPermitidos)
             {
                 TextBlock comentariosBloqueados = CriarTextoComentariosBloqueados();
-
                 areaStats.Children.Add(comentariosBloqueados);
                 return;
             }
@@ -243,6 +242,134 @@ namespace ProjetoAcelera.Ferramentas
             };
 
             Button btnExibirComentarios = CriarBotaoExibirComentarios(totalComentarios);
+            int quantidadeComentariosExibidos = 10;
+            const int quantidadeCarregarMaisComentarios = 10;
+
+            void AdicionarComentarioNaTela(Comentario comentario)
+            {
+                Border comentarioCard = CriarCardComentario();
+
+                StackPanel comentarioStack = new StackPanel();
+
+                TextBlock nomeComentario = CriarNomeComentario(comentario.NomeAutor);
+                TextBlock textoComentario = CriarTextoComentario(comentario.Conteudo);
+
+                comentarioStack.Children.Add(nomeComentario);
+                comentarioStack.Children.Add(textoComentario);
+
+                if (mostrarTodosComentarios)
+                {
+                    TextBlock statusComentario = CriarStatusComentario(comentario.Status);
+                    comentarioStack.Children.Add(statusComentario);
+                }
+
+                if (permitirAprovacao && comentario.Status == "Aguardando aprovação")
+                {
+                    StackPanel botoesComentario = new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal,
+                        HorizontalAlignment = HorizontalAlignment.Right
+                    };
+
+                    Button btnAprovarComentario = new Button
+                    {
+                        Content = "Aprovar",
+                        Width = 90,
+                        Height = 28,
+                        Margin = new Thickness(0, 0, 8, 0),
+                        Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                        Foreground = Brushes.White,
+                        FontWeight = FontWeights.Bold,
+                        BorderThickness = new Thickness(0),
+                        Cursor = Cursors.Hand
+                    };
+
+                    btnAprovarComentario.Click += (s, e) =>
+                    {
+                        aprovarComentario(comentario.Id);
+                    };
+
+                    Button btnReprovarComentario = new Button
+                    {
+                        Content = "Reprovar",
+                        Width = 90,
+                        Height = 28,
+                        Background = Brushes.DarkRed,
+                        Foreground = Brushes.White,
+                        FontWeight = FontWeights.Bold,
+                        BorderThickness = new Thickness(0),
+                        Cursor = Cursors.Hand
+                    };
+
+                    btnReprovarComentario.Click += (s, e) =>
+                    {
+                        reprovarComentario(comentario.Id);
+                    };
+
+                    botoesComentario.Children.Add(btnAprovarComentario);
+                    botoesComentario.Children.Add(btnReprovarComentario);
+
+                    comentarioStack.Children.Add(botoesComentario);
+                }
+
+                comentarioCard.Child = comentarioStack;
+                comentariosContainer.Children.Add(comentarioCard);
+            }
+
+            void RenderizarComentarios()
+            {
+                comentariosContainer.Children.Clear();
+
+                if (totalComentarios == 0)
+                {
+                    Border semComentariosCard = CriarCardComentario();
+
+                    TextBlock semComentariosTexto = new TextBlock
+                    {
+                        Text = "Nenhum comentário ainda.",
+                        FontWeight = FontWeights.Bold,
+                        Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F"))
+                    };
+
+                    semComentariosCard.Child = semComentariosTexto;
+                    comentariosContainer.Children.Add(semComentariosCard);
+                    return;
+                }
+
+                var comentariosExibidos = comentariosParaExibir
+                    .Take(quantidadeComentariosExibidos)
+                    .ToList();
+
+                foreach (var comentario in comentariosExibidos)
+                {
+                    AdicionarComentarioNaTela(comentario);
+                }
+
+                if (quantidadeComentariosExibidos < totalComentarios)
+                {
+                    Button btnCarregarMaisComentarios = new Button
+                    {
+                        Content = "Carregar mais comentários",
+                        Height = 30,
+                        Width = 230,
+                        Margin = new Thickness(0, 10, 0, 8),
+                        Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")),
+                        Foreground = Brushes.White,
+                        FontWeight = FontWeights.Bold,
+                        BorderThickness = new Thickness(0),
+                        Cursor = Cursors.Hand,
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    };
+
+                    btnCarregarMaisComentarios.Click += (s, e) =>
+                    {
+                        quantidadeComentariosExibidos += quantidadeCarregarMaisComentarios;
+                        RenderizarComentarios();
+                    };
+
+                    comentariosContainer.Children.Add(btnCarregarMaisComentarios);
+                }
+            }
 
             btnExibirComentarios.Click += (s, e) =>
             {
@@ -255,97 +382,16 @@ namespace ProjetoAcelera.Ferramentas
                 {
                     scrollComentarios.Visibility = Visibility.Visible;
                     btnExibirComentarios.Content = $"▲ Ocultar comentários ({totalComentarios})";
+
+                    RenderizarComentarios();
                 }
             };
-
-            if (totalComentarios == 0)
+            if (iniciarAberto)
             {
-                Border semComentariosCard = CriarCardComentario();
-
-                TextBlock semComentariosTexto = new TextBlock
-                {
-                    Text = "Nenhum comentário ainda.",
-                    FontWeight = FontWeights.Bold,
-                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F"))
-                };
-
-                semComentariosCard.Child = semComentariosTexto;
-                comentariosContainer.Children.Add(semComentariosCard);
+                scrollComentarios.Visibility = Visibility.Visible;
+                btnExibirComentarios.Content = $"▲ Ocultar comentários ({totalComentarios})";
+                RenderizarComentarios();
             }
-            else
-            {
-                foreach (var comentario in comentariosParaExibir)   
-                {
-                    if (!mostrarTodosComentarios && comentario.Status != "Aprovado")
-                    {
-                        continue;
-                    }
-
-                    Border comentarioCard = CriarCardComentario();
-                    StackPanel comentarioStack = new StackPanel();
-                    TextBlock nomeComentario = CriarNomeComentario(comentario.NomeAutor);
-                    TextBlock textoComentario = CriarTextoComentario(comentario.Conteudo);
-                    comentarioStack.Children.Add(nomeComentario);
-                    comentarioStack.Children.Add(textoComentario);
-
-                    if (mostrarTodosComentarios)
-                    {
-                        TextBlock statusComentario = CriarStatusComentario(comentario.Status);
-                        comentarioStack.Children.Add(statusComentario);
-                    }
-
-                    if (permitirAprovacao && comentario.Status == "Aguardando aprovação")
-                    {
-                        StackPanel botoesComentario = new StackPanel
-                        {
-                            Orientation = Orientation.Horizontal,
-                            HorizontalAlignment = HorizontalAlignment.Right
-                        };
-
-                        Button btnAprovarComentario = new Button
-                        {
-                            Content = "Aprovar",
-                            Width = 90,
-                            Height = 28,
-                            Margin = new Thickness(0, 0, 8, 0),
-                            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
-                            Foreground = Brushes.White,
-                            FontWeight = FontWeights.Bold,
-                            BorderThickness = new Thickness(0),
-                            Cursor = Cursors.Hand
-                        };
-
-                        btnAprovarComentario.Click += (s, e) =>
-                        {
-                            aprovarComentario(comentario.Id);
-                        };
-
-                        Button btnReprovarComentario = new Button
-                        {
-                            Content = "Reprovar",
-                            Width = 90,
-                            Height = 28,
-                            Background = Brushes.DarkRed,
-                            Foreground = Brushes.White,
-                            FontWeight = FontWeights.Bold,
-                            BorderThickness = new Thickness(0),
-                            Cursor = Cursors.Hand
-                        };
-
-                        btnReprovarComentario.Click += (s, e) =>
-                        {
-                            reprovarComentario(comentario.Id);
-                        };
-
-                        botoesComentario.Children.Add(btnAprovarComentario);
-                        botoesComentario.Children.Add(btnReprovarComentario);
-                        comentarioStack.Children.Add(botoesComentario);
-                    }
-                    comentarioCard.Child = comentarioStack;
-                    comentariosContainer.Children.Add(comentarioCard);
-                }
-            }
-
             areaStats.Children.Add(btnExibirComentarios);
             stack.Children.Add(scrollComentarios);
         }
@@ -353,9 +399,14 @@ namespace ProjetoAcelera.Ferramentas
         {
             StackPanel areaComentario = new StackPanel
             {
-                Orientation = Orientation.Horizontal,
+                Orientation = Orientation.Vertical,
                 Margin = new Thickness(0, 12, 0, 0),
                 Visibility = pub.ComentariosPermitidos ? Visibility.Visible : Visibility.Collapsed
+            };
+
+            StackPanel linhaComentario = new StackPanel
+            {
+                Orientation = Orientation.Horizontal
             };
 
             Border campoBorder = new Border
@@ -390,14 +441,24 @@ namespace ProjetoAcelera.Ferramentas
                 IsHitTestVisible = false
             };
 
+            TextBlock avisoComentario = new TextBlock
+            {
+                Text = "Comentário enviado para análise do autor.",
+                Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
+                FontWeight = FontWeights.Bold,
+                FontSize = 12,
+                Margin = new Thickness(12, 6, 0, 0),
+                Visibility = Visibility.Collapsed
+            };
+
             txtComentario.TextChanged += (s, e) =>
             {
-                placeholder.Visibility = string.IsNullOrWhiteSpace(txtComentario.Text)? Visibility.Visible: Visibility.Collapsed;
+                placeholder.Visibility = string.IsNullOrWhiteSpace(txtComentario.Text) ? Visibility.Visible : Visibility.Collapsed;
+                avisoComentario.Visibility = Visibility.Collapsed;
             };
 
             gridCampo.Children.Add(txtComentario);
             gridCampo.Children.Add(placeholder);
-
             campoBorder.Child = gridCampo;
 
             Button btnComentar = new Button
@@ -424,10 +485,14 @@ namespace ProjetoAcelera.Ferramentas
 
                 txtComentario.Clear();
                 placeholder.Visibility = Visibility.Visible;
+                avisoComentario.Visibility = Visibility.Visible;
             };
 
-            areaComentario.Children.Add(campoBorder);
-            areaComentario.Children.Add(btnComentar);
+            linhaComentario.Children.Add(campoBorder);
+            linhaComentario.Children.Add(btnComentar);
+
+            areaComentario.Children.Add(linhaComentario);
+            areaComentario.Children.Add(avisoComentario);
 
             return areaComentario;
         }

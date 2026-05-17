@@ -92,11 +92,68 @@
                             </StackPanel>
                         </StackPanel>
 				</Border>
+                    <!-- FILTRO -->
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,0,12">
 
-				<!-- FEED -->
+                        <TextBlock Text="Filtrar:"
+                                   Foreground="#1F3A5F"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,8,0"/>
+
+                        <ComboBox x:Name="cmbFiltroPublicacoes"
+                                    Width="190"
+                                    Height="34"
+                                    SelectedIndex="0"
+                                    SelectionChanged="cmbFiltroPublicacoes_SelectionChanged"
+                                    Background="#FFF7E1"
+                                    Foreground="#1F3A5F"
+                                    BorderBrush="#C9B27D"
+                                    BorderThickness="2"
+                                    FontWeight="Bold"
+                                    FontSize="13"
+                                    Padding="8,0"
+                                    Cursor="Hand"
+                                    VerticalContentAlignment="Center"
+                                    HorizontalContentAlignment="Left">
+
+                            <ComboBoxItem Content="Todos os posts"
+                                          Background="#FFF7E1"
+                                          Foreground="#1F3A5F"
+                                          FontWeight="Bold"
+                                          Height="32"
+                                          VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Left"/>
+
+                            <ComboBoxItem Content="Feed global"
+                                          Background="#FFF7E1"
+                                          Foreground="#1F3A5F"
+                                          FontWeight="Bold"
+                                          Height="32"
+                                          VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Left"/>
+
+                        </ComboBox>
+
+                    </StackPanel>
+                    <!-- FEED -->
 				<StackPanel x:Name="painelPublicacoes"/>
+                    <Button x:Name="btnCarregarMais"
+                            Content="Carregar mais postagens"
+                            Width="230"
+                            Height="38"
+                            Margin="0,14,0,20"
+                            HorizontalAlignment="Center"
+                            Background="#B8860B"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="BtnCarregarMais_Click"/>
 
-			</StackPanel>
+                </StackPanel>
 
 		</ScrollViewer>
 		</Grid>
