@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/bin/Debug/net8.0-windows7.0/ProjetoAcelera.dll
+/bin/Debug/net8.0-windows7.0/ProjetoAcelera.exe
