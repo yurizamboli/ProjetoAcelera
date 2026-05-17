@@ -160,8 +160,6 @@ namespace ProjetoAcelera.Services
                 .OrderByDescending(p => p.DataPublicacao)
                 .ToList();
         }
-
-
         public void AprovarPublicacao(Guid id)
         {
             var publicacao = usuarioService.ObterTodos()
