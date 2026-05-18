@@ -51,6 +51,8 @@ namespace ProjetoAcelera.Views.Obras
                 caminhoImagem = dialog.FileName;
 
                 imgPreview.Source = new BitmapImage(new Uri(caminhoImagem));
+
+                placeholderImagem.Visibility = Visibility.Collapsed;
             }
         }
         // DESCRIÇÃO
@@ -88,7 +90,9 @@ namespace ProjetoAcelera.Views.Obras
 
         }
 
-
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

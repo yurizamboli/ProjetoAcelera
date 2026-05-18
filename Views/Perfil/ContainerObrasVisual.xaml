@@ -28,7 +28,7 @@
 
                     <WrapPanel x:Name="painelObras"
                                Orientation="Horizontal"
-                               HorizontalAlignment="Center"/>
+                               HorizontalAlignment="Left"/>
 
                     <Button x:Name="btnCarregarMais"
                             Content="Carregar mais obras"

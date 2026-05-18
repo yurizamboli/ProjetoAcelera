@@ -9,7 +9,7 @@
             Padding="15"
             Background="#F3E6C9">
 
-        <StackPanel>
+        <StackPanel HorizontalAlignment="Stretch">
 
             <TextBlock Text="Minhas Obras"
                        FontWeight="Bold"
@@ -23,7 +23,7 @@
                 <StackPanel>
                     <WrapPanel x:Name="painelObras"
                              Orientation="Horizontal"
-                           HorizontalAlignment="Center"/>
+                           HorizontalAlignment="Left"/> <!-- O erro tava aqui yuri, do baguio começar no meio, tinha que ser left n center -->
 
                 <Button x:Name="btnCarregarMais"
                         Content="Carregar mais obras"
