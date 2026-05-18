@@ -257,13 +257,35 @@ namespace ProjetoAcelera.Views.LoginRegistro
         private void txtSenhaLogin_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (!senhaVisivelLogin)
+            {
                 txtSenhaVisivelLogin.Text = txtSenhaLogin.Password;
+            }
+
+            if (string.IsNullOrEmpty(txtSenhaLogin.Password))
+            {
+                txtSenhaPlaceholderLogin.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txtSenhaPlaceholderLogin.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void txtSenhaVisivelLogin_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (senhaVisivelLogin)
+            {
                 txtSenhaLogin.Password = txtSenhaVisivelLogin.Text;
+            }
+
+            if (string.IsNullOrEmpty(txtSenhaVisivelLogin.Text))
+            {
+                txtSenhaPlaceholderLogin.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txtSenhaPlaceholderLogin.Visibility = Visibility.Collapsed;
+            }
         }
         private void BtnToggleSenha_ClickLogin(object sender, RoutedEventArgs e)
         {

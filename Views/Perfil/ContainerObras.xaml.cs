@@ -5,6 +5,7 @@ using ProjetoAcelera.Views.EditarObras;
 using ProjetoAcelera.Views.Obras;
 using ProjetoAcelera.Views.PopUpObras;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -45,7 +46,7 @@ namespace ProjetoAcelera.Views.Perfil
                 btnCarregarMais.Visibility = Visibility.Collapsed;
                 return;
             }
-            var todasObras = usuario.Obras.ToList();
+            var todasObras = usuario.Obras.OrderByDescending(o => o.Favorito).ToList();
             var obrasExibidas = todasObras.Take(quantidadeObrasExibidas).ToList();
             foreach (var obra in obrasExibidas)
             {
@@ -103,6 +104,8 @@ namespace ProjetoAcelera.Views.Perfil
         {
             StackPanel container = new StackPanel();
 
+            Grid gridImagem = new Grid();
+
             Border imagemBox = new Border
             {
                 Height = 140,
@@ -129,7 +132,37 @@ namespace ProjetoAcelera.Views.Perfil
                 //vazio
             }
 
-            imagemBox.Child = img;
+            gridImagem.Children.Add(img);
+
+            if (obra.Favorito)
+            {
+                Border estrela = new Border
+                {
+                    Width = 32,
+                    Height = 32,
+                    CornerRadius = new CornerRadius(16),
+                    Background = new SolidColorBrush(
+                        Color.FromArgb(170, 0, 0, 0)),
+
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Margin = new Thickness(8)
+                };
+
+                TextBlock txtEstrela = new TextBlock
+                {
+                    Text = "★",
+                    FontSize = 18,
+                    Foreground = Brushes.Gold,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    TextAlignment = TextAlignment.Center
+                };
+
+                estrela.Child = txtEstrela;
+
+                gridImagem.Children.Add(estrela);
+            }
 
             TextBlock titulo = new TextBlock
             {
@@ -142,6 +175,7 @@ namespace ProjetoAcelera.Views.Perfil
                 Margin = new Thickness(8, 4, 8, 8)
             };
 
+            imagemBox.Child = gridImagem;
             container.Children.Add(imagemBox);
             container.Children.Add(titulo);
 

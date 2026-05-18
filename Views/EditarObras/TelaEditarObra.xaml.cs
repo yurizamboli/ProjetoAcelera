@@ -29,11 +29,45 @@ namespace ProjetoAcelera.Views.EditarObras
             txtDescricao.Text = obraAtual.Descricao;
             caminhoImagem = obraAtual.Capa;
 
+            //placeholder do titulo
+            if (string.IsNullOrWhiteSpace(txtTitulo.Text))
+            {
+                txtTituloPlaceholder.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txtTituloPlaceholder.Visibility = Visibility.Hidden;
+            }
             try
             {
                 imgPreview.Source = new BitmapImage(new Uri(caminhoImagem));
             }
-            catch { }
+            catch 
+            {
+                
+            }
+
+            // placeholder da descrição
+            if (string.IsNullOrWhiteSpace(txtDescricao.Text))
+            {
+                txtDescricaoPlaceholder.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txtDescricaoPlaceholder.Visibility = Visibility.Hidden;
+            }
+
+            try
+            {
+                imgPreview.Source = new BitmapImage(new Uri(caminhoImagem));
+
+                placeholderImagem.Visibility = Visibility.Hidden;
+            }
+            catch
+            {
+
+            }
+
         }
 
         private void BtnSalvar_Click(object sender, RoutedEventArgs e)
@@ -57,6 +91,7 @@ namespace ProjetoAcelera.Views.EditarObras
             {
                 caminhoImagem = dialog.FileName;
                 imgPreview.Source = new BitmapImage(new Uri(caminhoImagem));
+                placeholderImagem.Visibility = Visibility.Hidden;
             }
         }
 
@@ -91,6 +126,11 @@ namespace ProjetoAcelera.Views.EditarObras
         private void txtTitulo_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
