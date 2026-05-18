@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Obra"
-        Height="760"
-        Width="620"
+        Height="770"
+        Width="661"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow">
@@ -24,7 +24,7 @@
                 BorderBrush="#C9B27D"
                 BorderThickness="2">
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
 
                 <StackPanel>
 
@@ -102,10 +102,7 @@
                             Click="Button_Click"/>
 
                 </StackPanel>
-
-            </ScrollViewer>
-
+            </StackPanel>
         </Border>
-
     </Grid>
 </Window>
