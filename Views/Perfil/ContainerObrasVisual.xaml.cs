@@ -67,7 +67,7 @@ namespace ProjetoAcelera.Views.Perfil
 
             Image img = new Image
             {
-                Stretch = Stretch.UniformToFill,
+                Stretch = Stretch.Uniform,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch
             };
