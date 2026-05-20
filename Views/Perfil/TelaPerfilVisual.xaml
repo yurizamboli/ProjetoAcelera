@@ -4,7 +4,60 @@
       MinHeight="800"
       MinWidth="1000"
       Background="Transparent">
+      <Page.Resources>
 
+    <Style x:Key="PerfilTabButtonStyle" TargetType="Button">
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="#F3E6C9"/>
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="bd"
+                            Background="{TemplateBinding Background}"
+                            Padding="6">
+
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <!-- HOVER -->
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+
+                            <Setter TargetName="bd"
+                                    Property="Background"
+                                    Value="#30D4AF37"/>
+                        </Trigger>
+
+                        <!-- CLICK -->
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+
+                            <Setter TargetName="bd"
+                                    Property="Background"
+                                    Value="#60D4AF37"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+</Page.Resources>
     <Grid Width="1076">
 
         <Grid.RowDefinitions>
@@ -152,42 +205,27 @@
 
                 <!-- POSTS -->
                 <Button x:Name="btnPosts"
+                        Style="{StaticResource PerfilTabButtonStyle}"
                         Content="Publicações"
                         Width="180"
                         Height="45"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Foreground="#F3E6C9"
-                        FontSize="26"
-                        FontWeight="Bold"
-                        Click="Posts_Button"
-                        Cursor="Hand"/>
+                        Click="Posts_Button"/>
 
                 <!-- OBRAS -->
-                <Button x:Name="btnObras"
-                        Content="Obras"
-                        Width="180"
-                        Height="45"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Foreground="#F3E6C9"
-                        FontSize="26"
-                        FontWeight="Bold"
-                        Click="Obras_Button"
-                        Cursor="Hand"/>
+                    <Button x:Name="btnObras"
+                            Style="{StaticResource PerfilTabButtonStyle}"
+                            Content="Obras"
+                            Width="180"
+                            Height="45"
+                            Click="Obras_Button"/>
 
                 <!-- GALERIA -->
-                <Button x:Name="btnGaleria"
-                        Content="Galeria"
-                        Width="180"
-                        Height="45"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Foreground="#F3E6C9"
-                        FontSize="26"
-                        FontWeight="Bold"
-                        Click="Galeria_Button"
-                        Cursor="Hand"/>
+                    <Button x:Name="btnGaleria"
+                            Style="{StaticResource PerfilTabButtonStyle}"
+                            Content="Galeria"
+                            Width="180"
+                            Height="45"
+                            Click="Galeria_Button"/>
 
             </StackPanel>
 

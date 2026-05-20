@@ -5,6 +5,7 @@
         Height="770"
         Width="661"
         ResizeMode="NoResize"
+        SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow">
 

@@ -69,11 +69,11 @@
                     <Border Grid.Column="1"
                             CornerRadius="14"
                             ClipToBounds="True"
-                            Background="#C8B48A"
+                            Background="Transparent"
                             Height="150">
 
-                        <Image Source="/ImagemAcelera/LogoALAHC.png"
-                               Stretch="UniformToFill"/>
+                        <Image Source="/ImagemAcelera/ALAHCPNG.png"
+                               Stretch="UniformToFill" RenderTransformOrigin="0.127,0.579" Margin="-25,-5,4,-5"/>
 
                     </Border>
 
@@ -200,7 +200,7 @@
 
             </Grid>
 
-            <!-- TECNOLOGIAS -->
+            <!-- IMORTAIS -->
             <Border Background="#EDE3D1"
                     CornerRadius="18"
                     Padding="20"
@@ -208,7 +208,7 @@
 
                 <StackPanel>
 
-                    <TextBlock Text="Tecnologias Utilizadas"
+                    <TextBlock Text="Imortais"
                                FontSize="24"
                                FontWeight="Bold"
                                Foreground="#1F3A5F"
@@ -216,41 +216,7 @@
 
                     <WrapPanel>
 
-                        <Border Background="#1F3A5F"
-                                CornerRadius="10"
-                                Padding="14,8"
-                                Margin="0,0,10,10">
-                            <TextBlock Text="C#"
-                                       Foreground="White"
-                                       FontWeight="Bold"/>
-                        </Border>
-
-                        <Border Background="#1F3A5F"
-                                CornerRadius="10"
-                                Padding="14,8"
-                                Margin="0,0,10,10">
-                            <TextBlock Text="WPF"
-                                       Foreground="White"
-                                       FontWeight="Bold"/>
-                        </Border>
-
-                        <Border Background="#1F3A5F"
-                                CornerRadius="10"
-                                Padding="14,8"
-                                Margin="0,0,10,10">
-                            <TextBlock Text="XAML"
-                                       Foreground="White"
-                                       FontWeight="Bold"/>
-                        </Border>
-
-                        <Border Background="#1F3A5F"
-                                CornerRadius="10"
-                                Padding="14,8"
-                                Margin="0,0,10,10">
-                            <TextBlock Text="GitHub"
-                                       Foreground="White"
-                                       FontWeight="Bold"/>
-                        </Border>
+                       
 
 
                     </WrapPanel>
@@ -375,7 +341,7 @@
                                            Foreground="#777777"
                                            Margin="0,3,0,8" Height="37"/>
 
-                                <TextBlock Text="Email: @gmail.com"
+                                <TextBlock Text="Email: gabrielmariano2@hotmail.com"
                                            Foreground="#444444"/>
 
                                 <TextBlock Text="Contato: (12) 98256-8171"
@@ -445,7 +411,7 @@
                                            Foreground="#777777"
                                            Margin="0,3,0,8" Height="32"/>
 
-                                <TextBlock Text="Email: @gmail.com"
+                                <TextBlock Text="Email: yurizamboli47@gmail.com"
                                            Foreground="#444444"/>
 
                                 <TextBlock Text="Contato: (12) 98145-2712"

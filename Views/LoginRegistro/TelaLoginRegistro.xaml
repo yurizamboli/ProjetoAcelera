@@ -19,9 +19,9 @@
                     Width="148"
                     Height="105">
 
-            <Image Source="/ImagemAcelera/LogoALAHC.png"
-                   Width="123"
-                   Height="113"
+            <Image Source="/ImagemAcelera/ALAHCPNG.png"
+                   Width="147"
+                   Height="126"
                    Margin="0,0,0,10"/>
         </StackPanel>
 
@@ -299,8 +299,8 @@
                             Click="BtnEsqueceuSenha_Click"/>
                 </StackPanel>
             </Border>
-            
+
         </Grid>
-         
+
     </Grid>
 </Page>

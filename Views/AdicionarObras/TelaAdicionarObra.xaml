@@ -4,6 +4,7 @@
         Title="Adicionar Obra"
         Height="961"
         Width="848"
+        SizeToContent="Height"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow">
