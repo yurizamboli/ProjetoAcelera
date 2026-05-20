@@ -4,7 +4,78 @@
       MinHeight="800"
       MinWidth="1000"
       Background="Transparent">
+      <!--Estilo dos botoes de aba do perfil-->
+      <Page.Resources>
 
+    <Style x:Key="AbaPerfilStyle"
+           TargetType="Button">
+
+        <Setter Property="Background"
+                Value="Transparent"/>
+
+        <Setter Property="BorderThickness"
+                Value="0"/>
+
+        <Setter Property="Foreground"
+                Value="#F3E6C9"/>
+
+        <Setter Property="FontSize"
+                Value="26"/>
+
+        <Setter Property="FontWeight"
+                Value="Bold"/>
+
+        <Setter Property="Cursor"
+                Value="Hand"/>
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="bd"
+                            Background="{TemplateBinding Background}"
+                            Padding="6">
+
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <!-- Hover -->
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+
+                            <Setter TargetName="bd"
+                                    Property="Background"
+                                    Value="#30D4AF37"/>
+
+                        </Trigger>
+
+                        <!-- Clique -->
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+
+                            <Setter TargetName="bd"
+                                    Property="Background"
+                                    Value="#60D4AF37"/>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+</Page.Resources>
     <Grid Width="1076">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -155,52 +226,35 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
 
-                <Button x:Name="btnPosts"
-                        Content="Publicações"
-                        Width="180"
-                        Height="45"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Foreground="#F3E6C9"
-                        FontSize="26"
-                        FontWeight="Bold"
-                        Click="Publicacoes_Button"
-                        Cursor="Hand"/>
+             <Button x:Name="btnPosts"
+                    Content="Publicações"
+                    Width="180"
+                    Height="45"
+                    Style="{StaticResource AbaPerfilStyle}"
+                    Click="Publicacoes_Button"/>
+
+
 
                 <Button x:Name="btnObras"
                         Content="Obras"
                         Width="180"
                         Height="45"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Foreground="#F3E6C9"
-                        FontSize="26"
-                        FontWeight="Bold"
-                        Click="Obras_Button"
-                        Cursor="Hand"/>
+                        Style="{StaticResource AbaPerfilStyle}"
+                        Click="Obras_Button"/>
 
                 <Button x:Name="btnGaleria"
-                        Content="Galeria"
-                        Width="180"
-                        Height="45"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Foreground="#F3E6C9"
-                        FontSize="26"
-                        FontWeight="Bold"
-                        Click="Galeria_Button"
-                        Cursor="Hand"/>
+                            Content="Galeria"
+                            Width="180"
+                            Height="45"
+                            Style="{StaticResource AbaPerfilStyle}"
+                            Click="Galeria_Button"/>
+
                 <Button x:Name="btnAdmin"
                         Content="Painel Admin"
                         Width="220"
                         Height="45"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Foreground="#F3E6C9"
-                        FontSize="26"
-                        FontWeight="Bold"
+                        Style="{StaticResource AbaPerfilStyle}"
                         Click="Admin_Button"
-                        Cursor="Hand"
                         Visibility="Collapsed"/>
 
             </StackPanel>

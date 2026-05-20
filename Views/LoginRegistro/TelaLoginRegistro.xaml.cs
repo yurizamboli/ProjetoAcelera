@@ -65,6 +65,8 @@ namespace ProjetoAcelera.Views.LoginRegistro
                 txtSenhaVisivelRegistro.Visibility = Visibility.Collapsed;
 
                 senhaVisivelRegistro = false;
+
+                chkTermos.IsChecked = false;
             }
 
         }      

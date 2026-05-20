@@ -89,6 +89,7 @@
                                 FontWeight="Bold"
                                 BorderThickness="0"
                                 Click="Publicar_Button"/>
+
                             </StackPanel>
                         </StackPanel>
 				</Border>

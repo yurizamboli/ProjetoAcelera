@@ -467,6 +467,9 @@ namespace ProjetoAcelera.Views.Home
             NavigationService.Navigate(new Views.Teste.Dashboard());
         }
 
-
+        private void BtnSobreNos_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Views.Cultura.TelaCultura());
+        }
     }
 }

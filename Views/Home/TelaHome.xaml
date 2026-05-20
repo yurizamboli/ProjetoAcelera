@@ -6,7 +6,6 @@
                 Stretch="UniformToFill"/>
     </Page.Background>
     <Page.Resources>
-
         <!-- BOTÕES MENU -->
         <Style x:Key="MenuButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
@@ -19,26 +18,64 @@
         </Style>
 
         <!-- BOTÃO PRINCIPAL -->
-        <Style x:Key="CTAButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#1F3A5F"/>
-            <Setter Property="Foreground" Value="#F3E6C9"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontFamily" Value="Georgia"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Padding" Value="18,8"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
+<Style x:Key="CTAButtonStyle" TargetType="Button">
+
+    <Setter Property="Background" Value="#1F3A5F"/>
+    <Setter Property="Foreground" Value="#F3E6C9"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="FontFamily" Value="Georgia"/>
+    <Setter Property="FontSize" Value="11"/>
+    <Setter Property="Padding" Value="18,8"/>
+    <Setter Property="Cursor" Value="Hand"/>
+
+    <!-- remove o fundo azul -->
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="Button">
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+
+                    <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                </Border>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
 
         <!-- SETAS  -->
-        <Style x:Key="ArrowButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#1F3A5F"/>
-            <Setter Property="Foreground" Value="#F3E6C9"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Width" Value="36"/>
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
+<Style x:Key="ArrowButtonStyle" TargetType="Button">
+
+    <Setter Property="Background" Value="#1F3A5F"/>
+    <Setter Property="Foreground" Value="#F3E6C9"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="Width" Value="36"/>
+    <Setter Property="Height" Value="36"/>
+    <Setter Property="FontSize" Value="14"/>
+    <Setter Property="Cursor" Value="Hand"/>
+
+    <!-- remove o fundo azul -->
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="Button">
+
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+
+                    <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                </Border>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+  
        
     </Page.Resources>
 
@@ -50,7 +87,72 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
+        <!-- APRESENTAÇÃO -->
+<Border Background="#EDE3D1"
+        CornerRadius="20"
+        Padding="28"
+        Margin="0,0,0,24"
+        BorderBrush="#C9B27D"
+        BorderThickness="2">
 
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="220"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- TEXO -->
+        <StackPanel Grid.Column="0"
+                    Margin="0,0,20,0">
+
+            <TextBlock Text="Bem-vindo à ALAHC"
+                       FontFamily="Georgia"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       Foreground="#1F3A5F"
+                       Margin="0,0,0,12"/>
+
+            <TextBlock Text="A Academia de Letras, Artes e História de Cruzeiro preserva a memória cultural da cidade e incentiva artistas, escritores e projetos culturais da região."
+                       FontSize="15"
+                       Foreground="#444444"
+                       TextWrapping="Wrap"
+                       LineHeight="24"
+                       Margin="0,0,0,10"/>
+
+            <TextBlock Text="Explore eventos, artistas, obras e publicações da comunidade em um ambiente moderno e acessível."
+                       FontSize="15"
+                       Foreground="#444444"
+                       TextWrapping="Wrap"
+                       LineHeight="24"
+                       Margin="0,0,0,18"/>
+
+            <Button Content="Saiba mais"
+            Style="{StaticResource CTAButtonStyle}"
+                    Width="150"
+                    Height="42"
+                    Background="#1F3A5F"
+                    Foreground="#F3E6C9"
+                    FontWeight="Bold"
+                    BorderBrush="#B8860B"
+                    BorderThickness="2"
+                    Cursor="Hand"
+                    Click="BtnSobreNos_Click"/>
+        </StackPanel>
+
+        <!-- LOGO -->
+        <Border Grid.Column="1"
+                Background="Transparent"
+                CornerRadius="18"
+                Padding="10">
+
+            <Image Source="/ImagemAcelera/ALAHCPNG.png"
+                   Stretch="Uniform"/>
+        </Border>
+
+    </Grid>
+
+</Border>
             <!-- EVENTO -->
             <Border Margin="20,16"
                         CornerRadius="24"
