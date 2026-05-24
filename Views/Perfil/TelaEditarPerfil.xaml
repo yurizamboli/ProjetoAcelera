@@ -30,22 +30,23 @@
                 <StackPanel HorizontalAlignment="Center"
                             VerticalAlignment="Center">
 
-                    <Border Width="180"
-                            Height="180"
-                            BorderBrush="#1F3A5F"
-                            BorderThickness="3"
-                            CornerRadius="16"
-                            Background="#D8D3C7"
-                            ClipToBounds="True"
-                            Margin="0,0,0,15">
+                <Border Width="190"
+                        Height="190"
+                        BorderBrush="#1F3A5F"
+                        BorderThickness="3"
+                        Background="#D8D3C7"
+                        ClipToBounds="True"
+                        Margin="0,0,0,15">
 
-                        <Image x:Name="imgPreview"
-                               Stretch="UniformToFill"/>
-                    </Border>
+                    <Image x:Name="imgPreview"
+                    Source="/ImagemAcelera/AvatarPadrao.png"
+                           Stretch="UniformToFill"/>
+
+                </Border>
 
                     <Button Content="Escolher Foto"
                             Width="145"
-                            Height="36"
+                            MinHeight="38"
                             Background="#1F3A5F"
                             Foreground="Gold"
                             FontWeight="Bold"
@@ -69,27 +70,39 @@
                                Foreground="#1F3A5F"
                                FontWeight="Bold"/>
 
+                  <Border Background="#E8E1CF"
+                        BorderBrush="#BDAE84"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Margin="0,4,0,10">
+
                     <TextBox x:Name="txtNome"
-                             Height="36"
-                             Background="#E8E1CF"
-                             BorderBrush="#BDAE84"
-                             BorderThickness="1"
-                             Padding="10"
-                             Margin="0,4,0,10"/>
+                             MinHeight="38"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Padding="10,8,10,6"/>
+    
+                     </Border>
 
                     <TextBlock Text="Biografia"
                                Foreground="#1F3A5F"
                                FontWeight="Bold"/>
 
+                   <Border Background="#E8E1CF"
+                        BorderBrush="#BDAE84"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Margin="0,4,0,10">
+
                     <TextBox x:Name="txtBio"
                              Height="100"
                              AcceptsReturn="True"
                              TextWrapping="Wrap"
-                             Background="#E8E1CF"
-                             BorderBrush="#BDAE84"
-                             BorderThickness="1"
-                             Padding="10"
-                             Margin="0,4,0,10"/>
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Padding="10,8,10,6"/>
+
+                    </Border>
 
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Margin="0,0,15,0">
@@ -97,29 +110,40 @@
                                        Foreground="#1F3A5F"
                                        FontWeight="Bold"/>
 
-                            <TextBox x:Name="txtFacebook"
-                                     Width="185"
-                                     Height="34"
-                                     Background="#E8E1CF"
-                                     BorderBrush="#BDAE84"
-                                     BorderThickness="1"
-                                     Padding="8"
-                                     Margin="0,4,0,0"/>
+                            <Border Background="#E8E1CF"
+                                    BorderBrush="#BDAE84"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    Margin="0,4,0,0">
+
+                                <TextBox x:Name="txtFacebook"
+                                         Width="185"
+                                         MinHeight="38"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         Padding="8,8,8,6"/>
+
+                        </Border>
                         </StackPanel>
 
                         <StackPanel>
                             <TextBlock Text="Instagram"
                                        Foreground="#1F3A5F"
                                        FontWeight="Bold"/>
+                        <Border Background="#E8E1CF"
+                                BorderBrush="#BDAE84"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Margin="0,4,0,0">
 
                             <TextBox x:Name="txtInstagram"
                                      Width="185"
-                                     Height="34"
-                                     Background="#E8E1CF"
-                                     BorderBrush="#BDAE84"
-                                     BorderThickness="1"
-                                     Padding="8"
-                                     Margin="0,4,0,0"/>
+                                     MinHeight="38"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     Padding="8,8,8,6"/>
+
+                        </Border>
                         </StackPanel>
                     </StackPanel>
 
