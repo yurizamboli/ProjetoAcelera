@@ -83,18 +83,27 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- FOTO -->
-                <Border BorderBrush="#1F3A5F"
-                        BorderThickness="2"
-                        CornerRadius="10"
-                        Width="130"
-                        Height="140"
-                        Background="#D8D3C7"
-                        ClipToBounds="True"
-                        VerticalAlignment="Top">
+            <Border BorderBrush="#1F3A5F"
+                    BorderThickness="3"
+                    Width="170"
+                    Height="170"
+                    Background="#1F3A5F"
+                    CornerRadius="12"
+                    Padding="4"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center">
+
+            <Border Background="#E8E1CF"
+                        CornerRadius="8"
+                        ClipToBounds="True">
 
                     <Image x:Name="imgPerfil"
+                           Source="/ImagemAcelera/AvatarPadrao.png"
                            Stretch="UniformToFill"/>
+
                 </Border>
+
+            </Border>
 
                 <!-- INFO -->
                 <StackPanel Grid.Column="1"
