@@ -41,8 +41,32 @@
                             BorderThickness="0"
                             Cursor="Hand"
                             HorizontalAlignment="Center"
-                            Click="BtnCarregarMais_Click"/>
+                            Click="BtnCarregarMais_Click">
+                            <Button.Style>
+        <Style TargetType="Button">
 
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border Background="{TemplateBinding Background}">
+
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+    </Button.Style>
+    </Button>
                 </StackPanel>
 
 

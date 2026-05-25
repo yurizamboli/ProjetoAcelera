@@ -9,6 +9,47 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow">
 
+        <Window.Resources>
+
+    <!-- BOTÕES SEM HOVER -->
+    <Style x:Key="BotaoObraStyle"
+           TargetType="Button">
+
+        <Setter Property="Foreground"
+                Value="White"/>
+
+        <Setter Property="FontWeight"
+                Value="Bold"/>
+
+        <Setter Property="BorderThickness"
+                Value="0"/>
+
+        <Setter Property="Cursor"
+                Value="Hand"/>
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="10">
+
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+
+                    </Border>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+</Window.Resources>
     <!-- FUNDO -->
     <Window.Background>
         <ImageBrush ImageSource="/ImagemAcelera/solid-navy-blue-concrete-textured-wall.jpg"
@@ -171,14 +212,11 @@
                     <Button Content="Selecionar Imagem"
                             Height="42"
                             FontSize="14"
-                            FontWeight="Bold"
                             Background="#1F3A5F"
                             Foreground="#F3E6C9"
-                            BorderThickness="0"
-                            Cursor="Hand"
                             Margin="0,0,0,20"
+                            Style="{StaticResource BotaoObraStyle}"
                             Click="BtnSelecionarImagem_Click"/>
-
                     <!-- BOTÕES -->
                     <Grid>
 
@@ -187,26 +225,20 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0"
-                                Content="Cancelar"
-                                Height="44"
-                                Margin="0,0,10,0"
-                                FontWeight="Bold"
-                                Background="#8B1E1E"
-                                Foreground="White"
-                                BorderThickness="0"
-                                Cursor="Hand"
-                                Click="Button_Click"/>
+                    <Button Grid.Column="0"
+                            Content="Cancelar"
+                            Height="44"
+                            Margin="0,0,10,0"
+                            Background="#8B1E1E"
+                            Style="{StaticResource BotaoObraStyle}"
+                            Click="Button_Click"/>
 
                         <Button Grid.Column="1"
                                 Content="Salvar Alterações"
                                 Height="44"
                                 Margin="10,0,0,0"
-                                FontWeight="Bold"
                                 Background="#B8860B"
-                                Foreground="White"
-                                BorderThickness="0"
-                                Cursor="Hand"
+                                Style="{StaticResource BotaoObraStyle}"
                                 Click="BtnSalvar_Click"/>
 
                     </Grid>

@@ -5,7 +5,7 @@
 
     <Grid>
 
-        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
 
             <!-- CONTAINER -->
             <Grid HorizontalAlignment="Center"
@@ -25,10 +25,10 @@
                                 <Image Source="/ImagemAcelera/cruzeiro.png"
                                        Stretch="Fill"/>
 
-                                <!-- overlay -->
+                                <!-- OVERLAY -->
                                 <Border Background="#70000000"/>
 
-                                <!-- texto -->
+                                <!-- TEXTO -->
                                 <StackPanel VerticalAlignment="Center"
                                             HorizontalAlignment="Center">
 
@@ -104,7 +104,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- imagem -->
+                            <!-- IMAGEM -->
                             <Border CornerRadius="18"
                                     ClipToBounds="True"
                                     Margin="0,0,25,0">
@@ -115,7 +115,7 @@
 
                             </Border>
 
-                            <!-- texto -->
+                            <!-- TEXTO -->
                             <StackPanel Grid.Column="1"
                                         VerticalAlignment="Center"
                                         MaxWidth="720">
@@ -159,7 +159,7 @@
                                 <ColumnDefinition Width="420"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- texto -->
+                            <!-- TEXTO -->
                             <StackPanel VerticalAlignment="Center"
                                         Margin="0,0,25,0"
                                         MaxWidth="720">
@@ -184,7 +184,7 @@
 
                             </StackPanel>
 
-                            <!-- imagem -->
+                            <!-- IMAGEM -->
                             <Border Grid.Column="1"
                                     CornerRadius="18"
                                     ClipToBounds="True">
@@ -214,7 +214,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- imagem -->
+                            <!-- IMAGEM -->
                             <Border CornerRadius="18"
                                     ClipToBounds="True"
                                     Margin="0,0,25,0">
@@ -225,7 +225,7 @@
 
                             </Border>
 
-                            <!-- texto -->
+                            <!-- TEXTO -->
                             <StackPanel Grid.Column="1"
                                         VerticalAlignment="Center"
                                         MaxWidth="720">
@@ -252,14 +252,285 @@
 
                         </Grid>
 
-                    </Border>
+                    </Border>   
+                    <!-- CENTRO CULTURAL -->
+<Border Background="#0D3348"
+        CornerRadius="24"
+        Margin="45,12"
+        Padding="24"
+        BorderBrush="#B8860B"
+        BorderThickness="2">
 
-                </StackPanel>
+    <Grid>
 
-            </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="320"/>
+        </Grid.ColumnDefinitions>
 
-        </ScrollViewer>
+        <!-- TEXTO -->
+        <StackPanel Margin="0,0,25,0"
+                    VerticalAlignment="Center">
+
+            <TextBlock Text="CENTRO CULTURAL DE CRUZEIRO"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       Foreground="#F3E6C9"
+                       Margin="0,0,0,12"/>
+
+            <Rectangle Height="2"
+                       Fill="#D4AF37"
+                       Width="180"
+                       HorizontalAlignment="Left"
+                       Margin="0,0,0,18"/>
+
+            <TextBlock TextWrapping="Wrap"
+                       FontSize="15"
+                       Foreground="#F1F1F1"
+                       LineHeight="28"
+                       Text="Ele é utilizado para a realização de eventos como exposições, apresentações teatrais, musicais, palestras e atividades educativas. O local também incentiva artistas da própria cidade, dando espaço para que possam mostrar seus trabalhos e talentos."/>
+
+            <TextBlock TextWrapping="Wrap"
+                       FontSize="15"
+                       Foreground="#F1F1F1"
+                       LineHeight="28"
+                       Margin="0,14,0,0"
+                       Text="Além disso, o centro cultural contribui para a formação cultural da população, promovendo acesso à arte e ao conhecimento. É um ponto de encontro para quem se interessa por cultura, educação e entretenimento na cidade."/>
+
+        </StackPanel>
+
+        <!-- IMAGEM -->
+        <Border Grid.Column="1"
+                CornerRadius="18"
+                ClipToBounds="True">
+
+            <Image Source="/ImagemAcelera/Rodoviaria.png"
+                   Width="300"
+                   Height="240"
+                   Stretch="UniformToFill"/>
+
+        </Border>
 
     </Grid>
 
+</Border>
+
+<!-- FESTAS -->
+<Border Background="#F3E6C9"
+        CornerRadius="24"
+        Margin="45,12"
+        Padding="24"
+        BorderBrush="#C9B27D"
+        BorderThickness="2">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- IMAGEM -->
+        <Border CornerRadius="18"
+                ClipToBounds="True"
+                Margin="0,0,25,0">
+
+            <Image Source="/ImagemAcelera/festa_junina.jpg"
+                   Width="300"
+                   Height="240"
+                   Stretch="UniformToFill"/>
+
+        </Border>
+
+        <!-- TEXTO -->
+        <StackPanel Grid.Column="1"
+                    VerticalAlignment="Center">
+
+            <TextBlock Text="FESTAS E TRADIÇÕES"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       Foreground="#1F3A5F"
+                       Margin="0,0,0,12"/>
+
+            <Rectangle Height="2"
+                       Fill="#B8860B"
+                       Width="180"
+                       HorizontalAlignment="Left"
+                       Margin="0,0,0,18"/>
+
+            <TextBlock TextWrapping="Wrap"
+                       FontSize="15"
+                       Foreground="#444444"
+                       LineHeight="28"
+                       Text="A cidade possui diversas festas religiosas e populares ao longo do ano. A principal é a festa de Nossa Senhora da Conceição, padroeira da cidade, com missas, procissões e eventos que reúnem muitos moradores."/>
+
+            <TextBlock TextWrapping="Wrap"
+                       FontSize="15"
+                       Foreground="#444444"
+                       LineHeight="28"
+                       Margin="0,14,0,0"
+                       Text="Além disso, também são comuns festas juninas, rodeios e eventos com música e comida típica, que refletem o estilo do interior paulista."/>
+
+        </StackPanel>
+
+    </Grid>
+
+</Border>
+
+<!-- EVENTOS E TURISMO -->
+<Border Background="#0D3348"
+        CornerRadius="24"
+        Margin="45,12"
+        Padding="24"
+        BorderBrush="#B8860B"
+        BorderThickness="2">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="320"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- TEXTO -->
+        <StackPanel Margin="0,0,25,0"
+                    VerticalAlignment="Center">
+
+            <TextBlock Text="EVENTOS E TURISMO"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       Foreground="#F3E6C9"
+                       Margin="0,0,0,12"/>
+
+            <Rectangle Height="2"
+                       Fill="#D4AF37"
+                       Width="180"
+                       HorizontalAlignment="Left"
+                       Margin="0,0,0,18"/>
+
+            <TextBlock TextWrapping="Wrap"
+                       FontSize="15"
+                       Foreground="#F1F1F1"
+                       LineHeight="28"
+                       Text="Cruzeiro se destaca por seus eventos que movimentam a cidade ao longo do ano e atraem visitantes da região. Um dos principais destaques é o festival de balonismo, que colore o céu e se tornou uma marca turística local."/>
+
+            <TextBlock TextWrapping="Wrap"
+                       FontSize="15"
+                       Foreground="#F1F1F1"
+                       LineHeight="28"
+                       Margin="0,14,0,0"
+                       Text="Além disso, a cidade promove festas tradicionais, feiras e eventos culturais que valorizam a comunidade e a cultura regional. Esses eventos ajudam a fortalecer o turismo e a economia local."/>
+
+        </StackPanel>
+
+        <!-- IMAGEM -->
+        <Border Grid.Column="1"
+                CornerRadius="18"
+                ClipToBounds="True">
+
+            <Image Source="/ImagemAcelera/balonismo.jpg"
+                   Width="300"
+                   Height="240"
+                   Stretch="UniformToFill"/>
+
+        </Border>
+
+    </Grid>
+
+</Border>
+
+<!-- LENDAS -->
+<Border Background="#F3E6C9"
+        CornerRadius="24"
+        Margin="45,12"
+        Padding="28"
+        BorderBrush="#C9B27D"
+        BorderThickness="2">
+
+    <StackPanel>
+
+        <TextBlock Text="LENDAS E HISTÓRIAS DE CRUZEIRO"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   Foreground="#1F3A5F"
+                   Margin="0,0,0,12"/>
+
+        <Rectangle Height="2"
+                   Fill="#B8860B"
+                   Width="220"
+                   HorizontalAlignment="Left"
+                   Margin="0,0,0,20"/>
+
+        <TextBlock TextWrapping="Wrap"
+                   FontSize="15"
+                   Foreground="#444444"
+                   LineHeight="30"
+                   Text="A cidade de Cruzeiro carrega diversas lendas que fazem parte da tradição oral, transmitidas principalmente pelos moradores mais antigos e que ajudam a formar o imaginário popular da região."/>
+
+        <TextBlock TextWrapping="Wrap"
+                   FontSize="15"
+                   Foreground="#444444"
+                   LineHeight="30"
+                   Margin="0,14,0,0"
+                   Text="Entre as histórias mais conhecidas estão as aparições em antigas fazendas do ciclo do café, com relatos de sons estranhos, vultos e possíveis espíritos. A região da ferrovia também é cercada de mistérios, com acontecimentos inexplicáveis próximos aos trilhos e construções antigas."/>
+
+        <TextBlock TextWrapping="Wrap"
+                   FontSize="15"
+                   Foreground="#444444"
+                   LineHeight="30"
+                   Margin="0,14,0,0"
+                   Text="Além disso, uma das lendas mais curiosas envolve os lobisomens. Segundo a crença popular, em noites de lua cheia, essas criaturas vagariam por áreas afastadas, como sítios e matas, com relatos de uivos e figuras correndo na escuridão."/>
+
+    </StackPanel>
+
+</Border>
+
+<!-- CULINÁRIA -->
+<Border Background="#0D3348"
+        CornerRadius="24"
+        Margin="45,12"
+        Padding="28"
+        BorderBrush="#B8860B"
+        BorderThickness="2">
+
+    <StackPanel>
+
+        <TextBlock Text="CULINÁRIA DE CRUZEIRO"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   Foreground="#F3E6C9"
+                   Margin="0,0,0,12"/>
+
+        <Rectangle Height="2"
+                   Fill="#D4AF37"
+                   Width="190"
+                   HorizontalAlignment="Left"
+                   Margin="0,0,0,20"/>
+
+        <TextBlock TextWrapping="Wrap"
+                   FontSize="15"
+                   Foreground="#F1F1F1"
+                   LineHeight="30"
+                   Text="Entre as comidas mais comuns estão o arroz com feijão, carne de panela, frango caipira, linguiça artesanal e torresmo, muitas vezes preparados no fogão a lenha."/>
+
+        <TextBlock TextWrapping="Wrap"
+                   FontSize="15"
+                   Foreground="#F1F1F1"
+                   LineHeight="30"
+                   Margin="0,14,0,0"
+                   Text="Também são bastante consumidos pratos como macarronada, polenta e lasanha, herança da imigração italiana. Em festas e eventos, aparecem comidas típicas como milho cozido, pamonha, canjica e pastel."/>
+
+        <TextBlock TextWrapping="Wrap"
+                   FontSize="15"
+                   Foreground="#F1F1F1"
+                   LineHeight="30"
+                   Margin="0,14,0,0"
+                   Text="Nos doces, se destacam bolo de fubá, arroz doce, doce de leite, goiabada e compotas caseiras. Essas comidas fazem parte do dia a dia e das tradições da cidade, estando presentes em reuniões de família e celebrações locais."/>
+
+    </StackPanel>
+</Border>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </Page>

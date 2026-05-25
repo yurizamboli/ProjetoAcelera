@@ -30,6 +30,7 @@
 
         <Setter Property="Template">
 
+
             <Setter.Value>
 
                 <ControlTemplate TargetType="Button">
@@ -74,6 +75,49 @@
         </Setter>
 
     </Style>
+    <!-- BOTÕES PERFIL -->
+<Style x:Key="BotaoPerfilStyle"
+       TargetType="Button">
+
+    <Setter Property="Background"
+            Value="#1F3A5F"/>
+
+    <Setter Property="Foreground"
+            Value="Gold"/>
+
+    <Setter Property="FontWeight"
+            Value="Bold"/>
+
+    <Setter Property="BorderThickness"
+            Value="0"/>
+
+    <Setter Property="Cursor"
+            Value="Hand"/>
+
+    <Setter Property="Height"
+            Value="32"/>
+
+    <Setter Property="Template">
+
+        <Setter.Value>
+
+            <ControlTemplate TargetType="Button">
+
+                <Border Background="{TemplateBinding Background}"
+                        CornerRadius="8">
+
+                    <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+
+                </Border>
+
+            </ControlTemplate>
+
+        </Setter.Value>
+
+    </Setter>
+
+</Style>
 
 </Page.Resources>
     <Grid Width="1076">
@@ -195,20 +239,13 @@
                             Margin="10,0">
 
                     <Button Content="Editar"
-                            Height="32"
                             Margin="0,0,0,8"
-                            Background="#1F3A5F"
-                            Foreground="Gold"
-                            FontWeight="Bold"
-                            BorderThickness="0"
+                            Style="{StaticResource BotaoPerfilStyle}"
                             Click="EditarPerfil_Button"/>
+
                     <Button Content="Sair"
-                            Height="32"
                             Margin="0,0,0,8"
-                            Background="#1F3A5F"
-                            Foreground="Gold"
-                            FontWeight="Bold"
-                            BorderThickness="0"
+                            Style="{StaticResource BotaoPerfilStyle}"
                             Click="Logout_Button"/>
 
                     

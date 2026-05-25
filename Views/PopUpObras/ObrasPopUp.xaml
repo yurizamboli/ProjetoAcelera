@@ -8,6 +8,46 @@
         SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow">
+        <Window.Resources>
+
+    <Style x:Key="BotaoPopupStyle"
+           TargetType="Button">
+
+        <Setter Property="Foreground"
+                Value="#F3E6C9"/>
+
+        <Setter Property="FontWeight"
+                Value="Bold"/>
+
+        <Setter Property="BorderThickness"
+                Value="0"/>
+
+        <Setter Property="Cursor"
+                Value="Hand"/>
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="10">
+
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+
+                    </Border>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+</Window.Resources>
 
     <!-- FUNDO -->
     <Window.Background>
@@ -45,15 +85,16 @@
 
                             <!-- ESTRELA FAVORITAR -->
                             <!-- ESTRELA FAVORITAR -->
-                            <Button Width="48"
-                                    Height="48"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    Margin="12"
-                                    Background="#AA000000"
-                                    BorderBrush="Transparent"
-                                    Cursor="Hand"
-                                    Click="BtnFavoritar_Click">
+                        <Button Width="48"
+                                Height="48"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="12"
+                                Background="#AA000000"
+                                BorderThickness="0"
+                                Cursor="Hand"
+                                Style="{StaticResource BotaoPopupStyle}"
+                                Click="BtnFavoritar_Click">
 
                                 <TextBlock x:Name="txtEstrela"
                                            Text="☆"
@@ -100,30 +141,25 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- EDITAR -->
-                        <Button Grid.Column="0"
-                                Content="Editar"
-                                Height="46"
-                                Margin="0,0,10,0"
-                                FontSize="14"
-                                FontWeight="Bold"
-                                Background="#1F3A5F"
-                                Foreground="#F3E6C9"
-                                BorderThickness="0"
-                                Cursor="Hand"
-                                Click="BtnEditar_Click"/>
+                     <Button Grid.Column="0"
+                            Content="Editar"
+                            Height="46"
+                            Margin="0,0,10,0"
+                            FontSize="14"
+                            Background="#1F3A5F"
+                            Style="{StaticResource BotaoPopupStyle}"
+                            Click="BtnEditar_Click"/>
 
                         <!-- EXCLUIR -->
-                        <Button Grid.Column="1"
-                                Content="Excluir"
-                                Height="46"
-                                Margin="10,0,0,0"
-                                FontSize="14"
-                                FontWeight="Bold"
-                                Background="#8B1E1E"
-                                Foreground="White"
-                                BorderThickness="0"
-                                Cursor="Hand"
-                                Click="BtnExcluir_Click"/>
+                    <Button Grid.Column="1"
+                            Content="Excluir"
+                            Height="46"
+                            Margin="10,0,0,0"
+                            FontSize="14"
+                            Background="#8B1E1E"
+                            Foreground="White"
+                            Style="{StaticResource BotaoPopupStyle}"
+                            Click="BtnExcluir_Click"/>
 
                     </Grid>
                 </StackPanel>
