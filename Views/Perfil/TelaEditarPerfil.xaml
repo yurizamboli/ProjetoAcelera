@@ -9,6 +9,50 @@
         <ImageBrush ImageSource="/ImagemAcelera/solid-navy-blue-concrete-textured-wall.jpg"
                 Stretch="UniformToFill"/>
     </Window.Background>
+    <Window.Resources>
+
+    <!-- BOTÃO SEM HOVER -->
+    <Style x:Key="BotaoSemHover"
+           TargetType="Button">
+
+        <Setter Property="Background"
+                Value="#1F3A5F"/>
+
+        <Setter Property="Foreground"
+                Value="Gold"/>
+
+        <Setter Property="FontWeight"
+                Value="Bold"/>
+
+        <Setter Property="BorderThickness"
+                Value="0"/>
+
+        <Setter Property="Cursor"
+                Value="Hand"/>
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="8">
+
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+
+                    </Border>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+</Window.Resources>
     <Grid>
         <Border Width="780"
                 Height="455"
@@ -52,6 +96,7 @@
                             FontWeight="Bold"
                             BorderThickness="0"
                             Cursor="Hand"
+                            Style="{StaticResource BotaoSemHover}"
                             Click="EscolherFoto_Click"/>
                 </StackPanel>
 
@@ -160,6 +205,7 @@
                                 FontWeight="Bold"
                                 BorderThickness="0"
                                 Cursor="Hand"
+                                Style="{StaticResource BotaoSemHover}"
                                 Click="Salvar_Click"/>
 
                         <Button Content="Cancelar"
@@ -170,6 +216,7 @@
                                 FontWeight="Bold"
                                 BorderThickness="0"
                                 Cursor="Hand"
+                                Style="{StaticResource BotaoSemHover}"
                                 Click="Cancelar_Click"/>
                     </StackPanel>
                 </StackPanel>

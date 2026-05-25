@@ -8,7 +8,46 @@
         SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow">
+        <Window.Resources>
 
+    <Style x:Key="BotaoPopupStyle"
+           TargetType="Button">
+
+        <Setter Property="Foreground"
+                Value="#F3E6C9"/>
+
+        <Setter Property="FontWeight"
+                Value="Bold"/>
+
+        <Setter Property="BorderThickness"
+                Value="0"/>
+
+        <Setter Property="Cursor"
+                Value="Hand"/>
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="10">
+
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+
+                    </Border>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+</Window.Resources>
     <!-- FUNDO -->
     <Window.Background>
         <ImageBrush ImageSource="/ImagemAcelera/solid-navy-blue-concrete-textured-wall.jpg"
@@ -92,15 +131,12 @@
                     </Border>
 
                     <!-- BOTÃO -->
-                    <Button Content="Fechar"
-                            Height="44"
-                            Margin="0,22,0,0"
-                            Background="#1F3A5F"
-                            Foreground="#F3E6C9"
-                            FontWeight="Bold"
-                            BorderThickness="0"
-                            Cursor="Hand"
-                            Click="Button_Click"/>
+                <Button Content="Fechar"
+                        Height="44"
+                        Margin="0,22,0,0"
+                        Background="#1F3A5F"
+                        Style="{StaticResource BotaoPopupStyle}"
+                        Click="Button_Click"/>
 
                 </StackPanel>
             </StackPanel>

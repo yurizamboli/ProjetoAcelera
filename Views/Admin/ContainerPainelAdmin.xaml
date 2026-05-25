@@ -4,17 +4,75 @@
       Background="Transparent">
     <Page.Resources>
 
-        <!-- BOTÃO PADRÃO AZUL -->
-        <Style x:Key="BotaoAzul" TargetType="Button">
-            <Setter Property="Height" Value="34"/>
-            <Setter Property="Padding" Value="14,5"/>
-            <Setter Property="Background" Value="#1F3A5F"/>
-            <Setter Property="Foreground" Value="#F3E6C9"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Margin" Value="0,6,8,0"/>
-        </Style>
+ <!-- BOTÃO PADRÃO AZUL -->
+<Style x:Key="BotaoAzul" TargetType="Button">
+    <Setter Property="Height" Value="34"/>
+    <Setter Property="Padding" Value="14,5"/>
+    <Setter Property="Background" Value="#1F3A5F"/>
+    <Setter Property="Foreground" Value="#F3E6C9"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="Cursor" Value="Hand"/>
+    <Setter Property="Margin" Value="0,6,8,0"/>
+    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+
+    <!-- REMOVE HOVER / CLICK / FOCUS -->
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="Button">
+                <Border Background="{TemplateBinding Background}"
+                        CornerRadius="8">
+                    
+                    <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                    
+                </Border>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+
+<!-- REMOVE HOVER DO LISTBOX -->
+<Style TargetType="ListBoxItem">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="ListBoxItem">
+                
+                <Border Background="Transparent">
+                    <ContentPresenter/>
+                </Border>
+
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+
+<!-- REMOVE HOVER DO LISTVIEW -->
+<Style TargetType="ListViewItem">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="ListViewItem">
+                
+                <Border Background="Transparent">
+                    <ContentPresenter/>
+                </Border>
+
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+
 
         <!-- BOTÃO DOURADO -->
         <Style x:Key="BotaoDourado" TargetType="Button" BasedOn="{StaticResource BotaoAzul}">
@@ -27,6 +85,15 @@
             <Setter Property="Background" Value="#8B1E1E"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
+        <!-- BOTÃO VERDE -->
+            <Style x:Key="BotaoVerde"
+                   TargetType="Button"
+                   BasedOn="{StaticResource BotaoAzul}">
+    
+                <Setter Property="Background" Value="#2E7D32"/>
+                <Setter Property="Foreground" Value="White"/>
+    
+            </Style>
 
         <!-- TEXTBOX PADRÃO -->
         <Style TargetType="TextBox">
@@ -209,12 +276,64 @@
                         <TextBlock Text="Edite ou remova eventos cadastrados."
                                        Style="{StaticResource Subtitulo}"/>
 
-                        <ListBox x:Name="listaEventos"
-                                     Margin="0,8,0,0"
-                                     Height="160"
-                                     SelectionMode="Single"
-                                     Background="#F3E6C9"
-                                     BorderBrush="#C9B27D"/>
+                   <ListBox x:Name="listaEventos"
+         Margin="0,8,0,0"
+         Height="160"
+         SelectionMode="Single"
+         Background="#F3E6C9"
+         BorderBrush="#C9B27D">
+
+    <ListBox.ItemContainerStyle>
+        <Style TargetType="ListBoxItem">
+
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Margin" Value="0,0,0,2"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#1F3A5F"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <!-- HOVER -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd"
+                                        Property="Background"
+                                        Value="#E8D9B5"/>
+                            </Trigger>
+
+                            <!-- SELECIONADO -->
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd"
+                                        Property="Background"
+                                        Value="#1F3A5F"/>
+
+                                <Setter Property="Foreground"
+                                        Value="#FFF7E1"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </ListBox.ItemContainerStyle>
+
+</ListBox>
 
                         <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Right"
@@ -279,7 +398,7 @@
          HorizontalContentAlignment="Stretch">
 
                                 <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                         <Setter Property="Padding" Value="0"/>
                                         <Setter Property="Margin" Value="0,0,0,8"/>
@@ -372,15 +491,10 @@
 
                             <ComboBox x:Name="comboPromover"/>
 
-                            <Button Content="Promover"
-                                        Background="#2E7D32"
-                                        Foreground="White"
-                                        FontWeight="Bold"
-                                        BorderThickness="0"
-                                        Height="34"
-                                        Cursor="Hand"
-                                        Margin="0,10,0,0"
-                                        Click="Promover_Click"/>
+                    <Button Content="Promover"
+                            Style="{StaticResource BotaoVerde}"
+                            Margin="0,10,0,0"
+                            Click="Promover_Click"/>
                             <TextBlock Text="Administradores promovidos"
                                        FontWeight="Bold"
                                        Foreground="#1F3A5F"
@@ -394,8 +508,8 @@
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      HorizontalContentAlignment="Stretch">
 
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                         <Setter Property="Padding" Value="0"/>
                                         <Setter Property="Margin" Value="0,0,0,8"/>
@@ -450,22 +564,18 @@
                                                 </StackPanel>
 
                                                 <!-- BOTÃO -->
-                                                <Button Grid.Column="2"
-                                                        Content="Remover"
-                                                        Width="78"
-                                                        Height="30"
-                                                        FontSize="11"
-                                                        HorizontalAlignment="Right"
-                                                        VerticalAlignment="Center"
-                                                        Background="#8B1E1E"
-                                                        Foreground="White"
-                                                        FontWeight="Bold"
-                                                        BorderThickness="0"
-                                                        Cursor="Hand"
-                                                        Padding="0"
-                                                        Margin="0"
-                                                        Tag="{Binding}"
-                                                        Click="RemoverAdmin_Click"/>
+                                            <Button Grid.Column="2"
+                                                    Content="Remover"
+                                                    Width="78"
+                                                    Height="30"
+                                                    FontSize="11"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource BotaoVermelho}"
+                                                    Padding="0"
+                                                    Margin="0"
+                                                    Tag="{Binding}"
+                                                    Click="RemoverAdmin_Click"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -512,8 +622,8 @@
          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
          HorizontalContentAlignment="Stretch">
 
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                         <Setter Property="Padding" Value="0"/>
                                         <Setter Property="Margin" Value="0,0,0,8"/>
@@ -568,22 +678,18 @@
                                                 </StackPanel>
 
                                                 <!-- BOTÃO -->
-                                                <Button Grid.Column="2"
-                            Content="Liberar"
-                            Width="78"
-                            Height="30"
-                            FontSize="11"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Background="#2E7D32"
-                            Foreground="White"
-                            FontWeight="Bold"
-                            BorderThickness="0"
-                            Cursor="Hand"
-                            Padding="0"
-                            Margin="0"
-                            Tag="{Binding}"
-                            Click="RemoverBanimento_Click"/>
+                                         <Button Grid.Column="2"
+                                                Content="Liberar"
+                                                Width="78"
+                                                Height="30"
+                                                FontSize="11"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource BotaoVerde}"
+                                                Padding="0"
+                                                Margin="0"
+                                                Tag="{Binding}"
+                                                Click="RemoverBanimento_Click"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -617,7 +723,7 @@
                                       ScrollViewer.VerticalScrollBarVisibility="Auto">
 
                             <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
+                                <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                     <Setter Property="Padding" Value="0"/>
                                     <Setter Property="Margin" Value="0,0,0,10"/>
@@ -695,32 +801,17 @@
                                                                FontWeight="Bold"
                                                                VerticalAlignment="Center"/>
 
-                                                <Button Grid.Column="1"
-                                                            Content="Publicar na Home"
-                                                            Width="145"
-                                                            Height="34"
-                                                            Margin="0,0,8,0"
-                                                            Background="#B8860B"
-                                                            Foreground="White"
-                                                            FontWeight="Bold"
-                                                            BorderThickness="0"
-                                                            Cursor="Hand"
-                                                            VerticalAlignment="Center"
-                                                            Click="AprovarPostagem_Click"
-                                                            Tag="{Binding}"/>
+                                            <Button Grid.Column="1"
+                                                    Content="Publicar na Home"
+                                                    Style="{StaticResource BotaoDourado}"
+                                                    Width="145"
+                                                    Click="AprovarPostagem_Click"/>
 
                                                 <Button Grid.Column="2"
-                                                            Content="Não publicar"
-                                                            Width="125"
-                                                            Height="34"
-                                                            Background="#8B1E1E"
-                                                            Foreground="White"
-                                                            FontWeight="Bold"
-                                                            BorderThickness="0"
-                                                            Cursor="Hand"
-                                                            VerticalAlignment="Center"
-                                                            Click="ReprovarPostagem_Click"
-                                                            Tag="{Binding}"/>
+                                                        Content="Não publicar"
+                                                        Style="{StaticResource BotaoVermelho}"
+                                                        Width="125"
+                                                        Click="ReprovarPostagem_Click"/>
 
                                             </Grid>
 

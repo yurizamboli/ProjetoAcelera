@@ -4,6 +4,51 @@
       Height="Auto"
       Width="1000"
       Background="Transparent">
+      <Page.Resources>
+<Style x:Key="BotaoLoginStyle"
+       TargetType="Button">
+
+    <Setter Property="Background"
+            Value="#1F3A5F"/>
+
+    <Setter Property="Foreground"
+            Value="Gold"/>
+
+    <Setter Property="FontWeight"
+            Value="Bold"/>
+
+    <Setter Property="BorderBrush"
+            Value="#C9B27D"/>
+
+    <Setter Property="BorderThickness"
+            Value="2"/>
+
+    <Setter Property="Cursor"
+            Value="Hand"/>
+
+    <Setter Property="Template">
+
+        <Setter.Value>
+
+            <ControlTemplate TargetType="Button">
+
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+
+                    <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+
+                </Border>
+
+            </ControlTemplate>
+
+        </Setter.Value>
+
+    </Setter>
+
+</Style>
+</Page.Resources>
 
     <Grid Margin="0,85,0,0">
         <Grid.RowDefinitions>
@@ -179,15 +224,10 @@
                     </CheckBox>
 
                     <Button Content="CADASTRAR"
-                            Height="40"
-                            Margin="0,14,0,0"
-                            Background="#1F3A5F"
-                            Foreground="#D4AF37"
-                            FontWeight="Bold"
-                            BorderBrush="#C9B27D"
-                            BorderThickness="2"
-                            Cursor="Hand"
-                            Click="BtnCadastrar_Click"/>
+                        Height="40"
+                        Margin="0,14,0,0"
+                        Style="{StaticResource BotaoLoginStyle}"
+                        Click="BtnCadastrar_Click"/>
                 </StackPanel>
             </Border>
 
@@ -278,20 +318,16 @@
                         </Grid>
                     </Border>
 
-                    <Button Content="ENTRAR!"
-                            Height="42"
-                            Margin="0,0,0,14"
-                            Background="#1F3A5F"
-                            Foreground="Gold"
-                            FontWeight="Bold"
-                            BorderBrush="#C9B27D"
-                            BorderThickness="2"
-                            Cursor="Hand"
-                            Click="BtnLogin_Click"/>
+                <Button Content="ENTRAR!"
+                        Height="42"
+                        Margin="0,0,0,14"
+                        Style="{StaticResource BotaoLoginStyle}"
+                        Click="BtnLogin_Click"/>
 
                     <Button Content="Esqueceu a senha?"
                             Height="38"
                             Background="Transparent"
+                            Style="{StaticResource BotaoLoginStyle}"
                             Foreground="#1F3A5F"
                             FontWeight="Bold"
                             BorderThickness="0"
