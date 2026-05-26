@@ -141,7 +141,7 @@ namespace ProjetoAcelera.Services
                 .Where(u => u.Publicacoes != null)
                 .SelectMany(u => u.Publicacoes)
                 .Where(p => p.Status == "Aprovado")
-                .OrderByDescending(p => p.DataPublicacao)
+                .OrderByDescending(p => p.DataAprovacao ?? p.DataPublicacao)   //COLOQUEI PARA AS POSTAGENS APARECEREM EM ORDEM DE ENVIO, POIS A APROVAÇÃO PODE DEMORAR E FICAR DESORDENADA
                 .ToList();
         }
         public List<Publicacao> ObterPendentes()
@@ -170,6 +170,7 @@ namespace ProjetoAcelera.Services
             if (publicacao != null)
             {
                 publicacao.Status = "Aprovado";
+                publicacao.DataAprovacao = DateTime.Now;
             }
         }
         public void ReprovarPublicacao(Guid id)
@@ -265,6 +266,35 @@ namespace ProjetoAcelera.Services
                     publicacao.Comentarios.Remove(comentario);
                     return;
                 }
+            }
+        }
+        public List<Publicacao> ObterPublicadasNaHome()
+        {
+            var usuarios = usuarioService.ObterTodos();
+
+            if (usuarios == null)
+            {
+                return new List<Publicacao>();
+            }
+
+            return usuarios
+                .Where(u => u != null && u.Publicacoes != null)
+                .SelectMany(u => u.Publicacoes)
+                .Where(p => p != null && p.Status == "Aprovado")
+                .OrderByDescending(p => p.DataAprovacao ?? p.DataPublicacao)
+                .ToList();
+        }
+
+        public void RemoverDaHome(Guid id)
+        {
+            var publicacao = usuarioService.ObterTodos()
+                .Where(u => u.Publicacoes != null)
+                .SelectMany(u => u.Publicacoes)
+                .FirstOrDefault(p => p.Id == id);
+
+            if (publicacao != null)
+            {
+                publicacao.Status = "Removida da Home";
             }
         }
     }

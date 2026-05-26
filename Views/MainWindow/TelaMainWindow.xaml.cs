@@ -6,7 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace ProjetoAcelera.Views.MainWindow
 {
@@ -16,7 +19,7 @@ namespace ProjetoAcelera.Views.MainWindow
         {
             InitializeComponent();
             AtualizarNavbar();
-            SwitchFrame.Navigate(new Views.Home.TelaHome());
+            Navegar(new Views.Home.TelaHome());
         }
         public void AtualizarNavbar()
         {
@@ -37,43 +40,55 @@ namespace ProjetoAcelera.Views.MainWindow
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            SwitchFrame.Navigate(new Views.Home.TelaHome());
+            Navegar(new Views.Home.TelaHome());
         }
 
         private void Programacao_Click(object sender, RoutedEventArgs e) {
-            SwitchFrame.Navigate(new Views.Calendario.Calendario());
+            Navegar(new Views.Calendario.Calendario());
         }
         private void Cultura_Click(object sender, RoutedEventArgs e) 
         {
-            SwitchFrame.Navigate(new Views.Cultura.TelaCultura());
+            Navegar(new Views.Cultura.TelaCultura());
         }
         private void Artistas_Click(object sender, RoutedEventArgs e) 
         {
-            SwitchFrame.Navigate(new Views.Artistas.TelaArtista());
+            Navegar(new Views.Artistas.TelaArtista());
         }
         private void NossaCidade_Click(object sender, RoutedEventArgs e)
         {
-            SwitchFrame.Navigate(new Views.Teste.Dashboard());
+            Navegar(new Views.Teste.Dashboard());
         }       
         private void Conta_Click(object sender, RoutedEventArgs e)
         {
-                SwitchFrame.Navigate(new Views.Perfil.TelaPerfil());
+                Navegar(new Views.Perfil.TelaPerfil());
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            SwitchFrame.Navigate(new Views.LoginRegistro.TelaLoginRegistro());
+            Navegar(new Views.LoginRegistro.TelaLoginRegistro());
         }
 
         private void Fechar_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+       
         private void SwitchFrame_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             double velocidadeScroll = 3.0;
             ScrollPrincipal.ScrollToVerticalOffset(ScrollPrincipal.VerticalOffset - (e.Delta / velocidadeScroll));
             e.Handled = true;
+        }
+        private void Navegar(Page pagina)
+        {
+            SwitchFrame.Navigate(pagina);
+
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                ScrollPrincipal.ScrollToVerticalOffset(0);
+                ScrollPrincipal.ScrollToTop();
+
+            }), DispatcherPriority.ContextIdle);
         }
     }
 }
