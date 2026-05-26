@@ -35,6 +35,7 @@ namespace ProjetoAcelera.Views.Admin
             CarregarDados();
             CarregarEventos();
             CarregarPublicacoesPendentes();
+            CarregarPublicacoesPublicadas();
         }
 
         private void CarregarDados()
@@ -50,8 +51,8 @@ namespace ProjetoAcelera.Views.Admin
             // LISTA DE USUÁRIOS
             var listaUsuarios = usuarioService.ObterTodos().Where(u => u.Email != user.Email && !u.Banido).ToList();
 
-            var listaParaPromover = usuarioService.ObterTodos().Where(u => u.Email != user.Email &&u.Cargo != "Admin" &&!u.Banido).ToList();
-            var listaParaBanir = usuarioService.ObterTodos().Where(u => u.Email != user.Email &&!u.Banido &&!u.AdminPrincipal).ToList();
+            var listaParaPromover = usuarioService.ObterTodos().Where(u => u.Email != user.Email && u.Cargo != "Admin" && !u.Banido).ToList();
+            var listaParaBanir = usuarioService.ObterTodos().Where(u => u.Email != user.Email && !u.Banido && !u.AdminPrincipal).ToList();
 
             comboUsuarios.ItemsSource = null;
             comboUsuarios.ItemsSource = listaUsuarios;
@@ -351,6 +352,7 @@ namespace ProjetoAcelera.Views.Admin
             publicacaoService.AprovarPublicacao(postagem.Id);
 
             CarregarPublicacoesPendentes();
+            CarregarPublicacoesPublicadas();
 
             MessageBox.Show("Postagem aprovada com sucesso.");
         }
@@ -366,6 +368,7 @@ namespace ProjetoAcelera.Views.Admin
             publicacaoService.ReprovarPublicacao(postagem.Id);
 
             CarregarPublicacoesPendentes();
+            CarregarPublicacoesPublicadas();
 
             MessageBox.Show("Postagem rejeitada.");
         }
@@ -472,6 +475,36 @@ namespace ProjetoAcelera.Views.Admin
             usuario.AdminPrincipal = false;
             MessageBox.Show("Usuário voltou a ser usuário comum.");
             CarregarDados();
+        }
+        private void CarregarPublicacoesPublicadas()
+        {
+            listaPostagensPublicadas.ItemsSource = null;
+            listaPostagensPublicadas.ItemsSource =
+                publicacaoService.ObterPublicadasNaHome();
+        }
+        private void RemoverDaHome_Click(object sender, RoutedEventArgs e)
+        {
+            var botao = sender as Button;
+            var postagem = botao?.Tag as Publicacao;
+
+            if (postagem == null)
+                return;
+
+            var confirm = MessageBox.Show(
+                "Deseja remover esta publicação da Home?",
+                "Confirmar remoção",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (confirm != MessageBoxResult.Yes)
+                return;
+
+            publicacaoService.RemoverDaHome(postagem.Id);
+
+            CarregarPublicacoesPendentes();
+            CarregarPublicacoesPublicadas();
+
+            MessageBox.Show("Publicação removida da Home.");
         }
     }
 }

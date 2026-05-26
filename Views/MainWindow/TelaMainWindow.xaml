@@ -232,6 +232,7 @@
                 <Frame x:Name="SwitchFrame"
                Grid.Row="0"
                NavigationUIVisibility="Hidden"
+               
                PreviewMouseWheel="SwitchFrame_PreviewMouseWheel"/>
 
                 <!-- Espaço vazio que empurra o rodapé para baixo quando a tela é pequena -->

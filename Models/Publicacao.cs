@@ -24,7 +24,7 @@ namespace ProjetoAcelera.Models
         public int Visualizacoes { get; set; } = 0;
         public bool ComentariosPermitidos { get; set; } = true;
         public string Status { get; set; } = "Aguardando aprovação";
-
+        public DateTime? DataAprovacao { get; set; }
         public int Curtidas
         {
             get

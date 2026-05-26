@@ -805,12 +805,14 @@
                                                     Content="Publicar na Home"
                                                     Style="{StaticResource BotaoDourado}"
                                                     Width="145"
+                                                    Tag="{Binding}"
                                                     Click="AprovarPostagem_Click"/>
 
                                                 <Button Grid.Column="2"
                                                         Content="Não publicar"
                                                         Style="{StaticResource BotaoVermelho}"
                                                         Width="125"
+                                                        Tag="{Binding}"
                                                         Click="ReprovarPostagem_Click"/>
 
                                             </Grid>
@@ -823,8 +825,126 @@
                         </ListView>
                     </StackPanel>
                 </Border>
+                <!-- POSTAGENS PUBLICADAS NA HOME -->
+                <Border Background="#FFF7E1"
+                        BorderBrush="#C9B27D"
+                        BorderThickness="2"
+                        CornerRadius="18"
+                        Padding="16"
+                        Margin="0,0,0,20">
 
+                    <StackPanel>
+                        <TextBlock Text="Postagens Publicadas na Home"
+                                     Style="{StaticResource TituloCard}"/>
+
+                        <TextBlock Text="Gerencie as publicações que já estão aparecendo no feed global da Home."
+                                   Style="{StaticResource Subtitulo}"/>
+
+                        <ListView x:Name="listaPostagensPublicadas"
+                                  Margin="0,10,0,0"
+                                  Height="430"
+                                  SelectionMode="Single"
+                                  Background="#F3E6C9"
+                                  BorderBrush="#C9B27D"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="Margin" Value="0,0,0,10"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Border Background="#FFF7E1"
+                                            BorderBrush="#1F3A5F"
+                                            BorderThickness="2"
+                                            MaxWidth="930"
+                                            Height="425"
+                                            CornerRadius="14"
+                                            Padding="12"
+                                            Margin="0,0,0,15"
+                                            HorizontalAlignment="Stretch">
+
+                                        <Grid>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <TextBlock Grid.Row="0"
+                                                       Text="{Binding NomeAutor}"
+                                                       FontWeight="Bold"
+                                                       FontSize="15"
+                                                       Foreground="#1F3A5F"/>
+
+                                            <ScrollViewer Grid.Row="1"
+                                                          MaxHeight="100"
+                                                          VerticalScrollBarVisibility="Auto"
+                                                          HorizontalScrollBarVisibility="Disabled"
+                                                          Margin="0,8,0,0">
+
+                                                <TextBlock Text="{Binding Conteudo}"
+                                                           TextWrapping="Wrap"
+                                                           Foreground="#333333"/>
+
+                                            </ScrollViewer>
+
+                                            <Border Grid.Row="2"
+                                                    CornerRadius="12"
+                                                    Margin="0,10,0,10"
+                                                    ClipToBounds="True"
+                                                    BorderBrush="#C9B27D"
+                                                    BorderThickness="1"
+                                                    Background="#E8E1CF">
+
+                                                <Image Source="{Binding ImagemUrl}"
+                                                       Height="200"
+                                                       Stretch="UniformToFill"
+                                                       Cursor="Hand"
+                                                       MouseDown="AbrirImagem_Click"/>
+
+                                            </Border>
+
+                                            <Grid Grid.Row="3"
+                                                  Margin="0,8,0,0"
+                                                  VerticalAlignment="Bottom">
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Text="Esta publicação está aparecendo na Home."
+                                                           Foreground="#1F3A5F"
+                                                           FontWeight="Bold"
+                                                           VerticalAlignment="Center"/>
+
+                                                <Button Grid.Column="1"
+                                                        Content="Remover da Home"
+                                                        Style="{StaticResource BotaoVermelho}"
+                                                        Width="150"
+                                                        Tag="{Binding}"
+                                                        Click="RemoverDaHome_Click"/>
+
+                                            </Grid>
+
+                                        </Grid>
+                                    </Border>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </Border>
             </StackPanel>
+            
         </ScrollViewer>
     </Grid>
 </Page>
