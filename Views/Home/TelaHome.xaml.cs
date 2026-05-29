@@ -26,19 +26,22 @@ namespace ProjetoAcelera.Views.Home
         {
             InitializeComponent();
            
-            eventoService = new EventoService();
+            eventoService = App.EventoService;
             publicacaoService = new PublicacaoService();
             listaEventos = eventoService.ObterEvento();
 
-            if (listaEventos == null || listaEventos.Count == 0)
+            if (listaEventos != null && listaEventos.Count > 0)
             {
-                MessageBox.Show("Nenhum evento encontrado.",
-                                "Aviso",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
-                return;
+                MostrarEvento();
             }
-            MostrarEvento();
+            else
+            {
+                txtTitulo.Text = "Nenhum evento cadastrado";
+                txtData.Text = "";
+                txtDescricao.Text = "Ainda não há eventos disponíveis.";
+                txtDetalhes.Text = "Os eventos cadastrados pelo administrador aparecerão aqui.";
+            }
+
             CarregarFeedPublicacoes();
             CarregarArtistasRecentes();
             CarregarArtistasDestaque();
@@ -48,12 +51,23 @@ namespace ProjetoAcelera.Views.Home
 
         private void MostrarEvento()
         {
+            if (listaEventos == null || listaEventos.Count == 0)
+            {
+                return;
+            }
+
             var evento = listaEventos[indiceAtual];
 
             txtTitulo.Text = evento.Titulo;
-            txtData.Text = evento.Data;
+            txtData.Text = evento.DataInicio.ToString("dd/MM/yyyy");
             txtDescricao.Text = evento.Descricao;
-            txtDetalhes.Text = evento.Detalhes;
+
+            txtDetalhes.Text = evento.Programacao;
+
+            if (!string.IsNullOrWhiteSpace(evento.Local))
+            {
+                txtDetalhes.Text += "\n\nLocal: " + evento.Local;
+            }
 
             try
             {
@@ -63,11 +77,13 @@ namespace ProjetoAcelera.Views.Home
             {
                 try
                 {
-                    imgEvento.Source = AuxilioImagens.CarregarImgOtimizada("pack://application:,,,/ImagemAcelera/evento1.png",900);
+                    imgEvento.Source = AuxilioImagens.CarregarImgOtimizada(
+                        "pack://application:,,,/ImagemAcelera/evento1.png",
+                        900);
                 }
-                catch 
-                { 
-                    //vazio
+                catch
+                {
+                    // vazio
                 }
             }
         }
@@ -429,6 +445,11 @@ namespace ProjetoAcelera.Views.Home
         }
         private void BtnProximo_Click(object sender, RoutedEventArgs e)
         {
+            if (listaEventos == null || listaEventos.Count == 0)
+            {
+                return;
+            }
+
             indiceAtual++;
 
             if (indiceAtual >= listaEventos.Count)
@@ -439,13 +460,18 @@ namespace ProjetoAcelera.Views.Home
 
         private void BtnAnterior_Click(object sender, RoutedEventArgs e)
         {
+            if (listaEventos == null || listaEventos.Count == 0)
+            {
+                return;
+            }
+
             indiceAtual--;
+
             if (indiceAtual < 0)
                 indiceAtual = listaEventos.Count - 1;
 
             MostrarEvento();
         }
-
 
         private void Programacao_Click(object sender, RoutedEventArgs e)
         {

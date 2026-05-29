@@ -160,199 +160,294 @@
                                HorizontalAlignment="Left"
                                Margin="0,0,0,22"/>
 
-                <!-- EVENTOS E PROGRAMAÇÃO -->
-                <Grid Margin="0,0,0,18">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <!-- EVENTOS -->
+                <Border Background="#FFF7E1"
+                        BorderBrush="#C9B27D"
+                        BorderThickness="2"
+                        CornerRadius="18"
+                        Padding="16"
+                        Margin="0,0,0,18">
 
-                    <!-- CRIAR EVENTO -->
-                    <Border Grid.Column="0"
-                                Background="#FFF7E1"
-                                BorderBrush="#C9B27D"
-                                BorderThickness="2"
-                                CornerRadius="18"
-                                Padding="16"
-                                Margin="0,0,10,0">
+                    <StackPanel>
 
-                        <StackPanel>
+                        <TextBlock Text="Criar Evento"
+               Style="{StaticResource TituloCard}"/>
 
-                            <TextBlock Text="Criar Evento"
-                                           Style="{StaticResource TituloCard}"/>
+                        <TextBlock Text="Cadastre um novo evento cultural para exibição no sistema."
+               Style="{StaticResource Subtitulo}"/>
 
-                            <TextBlock Text="Cadastre um novo evento cultural para exibição no sistema."
-                                           Style="{StaticResource Subtitulo}"/>
+                        <TextBlock Text="Título do evento"
+               FontWeight="Bold"
+               Foreground="#1F3A5F"
+               Margin="0,6,0,0"/>
 
-                            <TextBox x:Name="txtTituloEvento"
-                                         ToolTip="Título do evento"/>
+                        <TextBox x:Name="txtTituloEvento"
+             ToolTip="Título do evento"/>
 
-                            <TextBox x:Name="txtDescEvento"
-                                         Height="80"
-                                         TextWrapping="Wrap"
-                                         VerticalScrollBarVisibility="Auto"
-                                         ToolTip="Descrição do evento"/>
+                        <TextBlock Text="Descrição do evento"
+               FontWeight="Bold"
+               Foreground="#1F3A5F"
+               Margin="0,10,0,0"/>
 
-                            <DatePicker x:Name="dateEvento"/>
+                        <TextBox x:Name="txtDescEvento"
+             Height="80"
+             TextWrapping="Wrap"
+             VerticalScrollBarVisibility="Auto"
+             ToolTip="Descrição do evento"/>
 
-                            <Grid Margin="0,6,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                        <TextBlock Text="Programação ou detalhes"
+               FontWeight="Bold"
+               Foreground="#1F3A5F"
+               Margin="0,10,0,0"/>
 
-                                <Button Content="Selecionar Imagem"
-                                            Style="{StaticResource BotaoAzul}"
-                                            Click="SelecionarImagemEvento_Click"/>
+                        <TextBox x:Name="txtProgramacaoEvento"
+             Height="80"
+             TextWrapping="Wrap"
+             VerticalScrollBarVisibility="Auto"
+             ToolTip="Programação ou detalhes do evento"/>
 
-                                <TextBox x:Name="txtCaminhoImagem"
-                                             Grid.Column="1"
-                                             Text="Selecione uma imagem..."
-                                             IsReadOnly="True"
-                                             Foreground="#666666"/>
-                            </Grid>
+                        <TextBlock Text="Local do evento"
+               FontWeight="Bold"
+               Foreground="#1F3A5F"
+               Margin="0,10,0,0"/>
 
-                            <Button Content="Adicionar Evento"
-                                        Style="{StaticResource BotaoDourado}"
-                                        Width="180"
-                                        HorizontalAlignment="Right"
-                                        Click="AdicionarEvento_Click"/>
+                        <TextBox x:Name="txtLocalEvento"
+             ToolTip="Local do evento"/>
 
-                        </StackPanel>
-                    </Border>
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                    <!-- PROGRAMAÇÃO -->
-                    <Border Grid.Column="1"
-                                Background="#FFF7E1"
-                                BorderBrush="#C9B27D"
-                                BorderThickness="2"
-                                CornerRadius="18"
-                                Padding="16"
-                                Margin="10,0,0,0">
+                            <StackPanel Grid.Column="0"
+                    Margin="0,0,8,0">
 
-                        <StackPanel>
+                                <TextBlock Text="Data de início"
+                       FontWeight="Bold"
+                       Foreground="#1F3A5F"/>
 
-                            <TextBlock Text="Adicionar Programação"
-                                           Style="{StaticResource TituloCard}"/>
+                                <DatePicker x:Name="dateEventoInicio"/>
 
-                            <TextBlock Text="Vincule uma atividade ou programação a um evento já cadastrado."
-                                           Style="{StaticResource Subtitulo}"/>
+                            </StackPanel>
 
-                            <ComboBox x:Name="comboEventosProgramacao"/>
+                            <StackPanel Grid.Column="1"
+                    Margin="8,0,0,0">
 
-                            <DatePicker x:Name="dateProgramacao"/>
+                                <TextBlock Text="Data de fim"
+                       FontWeight="Bold"
+                       Foreground="#1F3A5F"/>
 
-                            <TextBox x:Name="txtNomeProgramacao"
-                                         ToolTip="Nome da programação"/>
+                                <DatePicker x:Name="dateEventoFim"/>
 
-                            <TextBox x:Name="txtDescProgramacao"
-                                         Height="80"
-                                         TextWrapping="Wrap"
-                                         VerticalScrollBarVisibility="Auto"
-                                         ToolTip="Descrição da programação"/>
+                            </StackPanel>
+                        </Grid>
 
-                            <Button Content="Adicionar Programação"
-                                        Style="{StaticResource BotaoDourado}"
-                                        Width="210"
-                                        HorizontalAlignment="Right"
-                                        Click="AdicionarProgramacao_Click"/>
+                        <TextBlock Text="Imagem do evento"
+               FontWeight="Bold"
+               Foreground="#1F3A5F"
+               Margin="0,10,0,0"/>
 
-                        </StackPanel>
-                    </Border>
-                </Grid>
+                        <Grid Margin="0,6,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Content="Selecionar Imagem"
+                Style="{StaticResource BotaoAzul}"
+                Click="SelecionarImagemEvento_Click"/>
+
+                            <TextBox x:Name="txtCaminhoImagem"
+                 Grid.Column="1"
+                 Text="Selecione uma imagem..."
+                 IsReadOnly="True"
+                 Foreground="#666666"/>
+                        </Grid>
+
+                        <CheckBox x:Name="checkEventoDestaque"
+              Content="Exibir este evento em destaque na Home"
+              Foreground="#1F3A5F"
+              FontWeight="Bold"
+              Margin="0,10,0,0"
+              IsChecked="True"/>
+
+                        <Button Content="Adicionar Evento"
+            Style="{StaticResource BotaoDourado}"
+            Width="180"
+            HorizontalAlignment="Right"
+            Click="AdicionarEvento_Click"/>
+
+                    </StackPanel>
+                </Border>
 
                 <!-- GERENCIAR EVENTOS -->
                 <Border Background="#FFF7E1"
-                            BorderBrush="#C9B27D"
-                            BorderThickness="2"
-                            CornerRadius="18"
-                            Padding="16"
-                            Margin="0,0,0,18">
+                        BorderBrush="#C9B27D"
+                        BorderThickness="2"
+                        CornerRadius="18"
+                        Padding="16"
+                        Margin="0,0,0,18">
 
                     <StackPanel>
+
                         <TextBlock Text="Gerenciar Eventos"
-                                       Style="{StaticResource TituloCard}"/>
+                                      Style="{StaticResource TituloCard}"/>
 
-                        <TextBlock Text="Edite ou remova eventos cadastrados."
-                                       Style="{StaticResource Subtitulo}"/>
+                        <TextBlock Text="Visualize e remova eventos cadastrados."
+                                     Style="{StaticResource Subtitulo}"/>
 
-                   <ListBox x:Name="listaEventos"
-         Margin="0,8,0,0"
-         Height="160"
-         SelectionMode="Single"
-         Background="#F3E6C9"
-         BorderBrush="#C9B27D">
+                        <ListBox x:Name="listaEventos"
+                                 Margin="0,8,0,0"
+                                 Height="220"
+                                 SelectionMode="Single"
+                                 Background="#F3E6C9"
+                                 BorderBrush="#C9B27D"
+                                 HorizontalContentAlignment="Stretch">
 
-    <ListBox.ItemContainerStyle>
-        <Style TargetType="ListBoxItem">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="Margin" Value="0,0,0,8"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="#1F3A5F"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 
-            <Setter Property="Padding" Value="8"/>
-            <Setter Property="Margin" Value="0,0,0,2"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#1F3A5F"/>
-            <Setter Property="Cursor" Value="Hand"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListBoxItem">
 
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
+                                                <Border x:Name="Bd"
+                                                        Background="{TemplateBinding Background}"
+                                                        CornerRadius="10"
+                                                        Padding="{TemplateBinding Padding}">
 
-                        <Border x:Name="Bd"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="6"
-                                Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter/>
 
-                            <ContentPresenter/>
+                                                </Border>
 
-                        </Border>
+                                                <ControlTemplate.Triggers>
 
-                        <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver"
+                                                             Value="True">
+                                                        <Setter TargetName="Bd"
+                                                                Property="Background"
+                                                                Value="#E8D9B5"/>
+                                                    </Trigger>
 
-                            <!-- HOVER -->
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd"
-                                        Property="Background"
-                                        Value="#E8D9B5"/>
-                            </Trigger>
+                                                    <Trigger Property="IsSelected"
+                                                              Value="True">
+                                                        <Setter TargetName="Bd"
+                                                               Property="Background"
+                                                                Value="#D6C28F"/>   
+                                                    </Trigger>
 
-                            <!-- SELECIONADO -->
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Bd"
-                                        Property="Background"
-                                        Value="#1F3A5F"/>
+                                                </ControlTemplate.Triggers>
 
-                                <Setter Property="Foreground"
-                                        Value="#FFF7E1"/>
-                            </Trigger>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
 
-                        </ControlTemplate.Triggers>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
 
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+                                    <Border Background="#FFF7E1"
+                                            BorderBrush="#D6C28F"
+                                            BorderThickness="1"
+                                            CornerRadius="10"
+                                            Padding="10"
+                                            Margin="0,0,0,8"
+                                            HorizontalAlignment="Stretch">
 
-        </Style>
-    </ListBox.ItemContainerStyle>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="160"/>
+                                            </Grid.ColumnDefinitions>
 
-</ListBox>
+                                            <!-- IMAGEM DO EVENTO -->
+                                            <Border Grid.Column="0"
+                                                    Width="65"
+                                                    Height="65"
+                                                    CornerRadius="8"
+                                                    ClipToBounds="True"
+                                                    BorderBrush="#1F3A5F"
+                                                    BorderThickness="1.5"
+                                                    VerticalAlignment="Center">
+
+                                                <Image Source="{Binding Imagem}"
+                                                         Stretch="UniformToFill"/>
+                                            </Border>
+
+                                            <!-- INFORMAÇÕES -->
+                                            <StackPanel Grid.Column="1"
+                                                        VerticalAlignment="Center"
+                                                        Margin="8,0,0,0">
+
+                                                <TextBlock Text="{Binding Titulo}"
+                                                           FontWeight="Bold"
+                                                           FontSize="15"
+                                                           Foreground="#1F3A5F"
+                                                           TextTrimming="CharacterEllipsis"/>
+
+                                                <TextBlock Text="{Binding DataInicio, StringFormat='Início: {0:dd/MM/yyyy}'}"
+                                                           FontSize="12"
+                                                           Foreground="#8A7A55"
+                                                           Margin="0,3,0,0"/>
+
+                                                <TextBlock Text="{Binding DataFim, StringFormat='Fim: {0:dd/MM/yyyy}'}"
+                                                           FontSize="12"
+                                                           Foreground="#8A7A55"
+                                                           Margin="0,3,0,0"/>
+
+                                                <TextBlock Text="{Binding Local}"
+                                                           FontSize="12"
+                                                           Foreground="#555555"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Margin="0,3,0,0"/>
+
+                                            </StackPanel>
+
+                                            <!-- STATUS -->
+                                            <StackPanel Grid.Column="2"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right">
+
+                                                <TextBlock Text="Evento cadastrado"
+                                                           FontSize="11"
+                                                           FontWeight="Bold"
+                                                           Foreground="#1F3A5F"
+                                                           HorizontalAlignment="Right"/>
+
+                                                <TextBlock Text="{Binding Destaque, StringFormat='Destaque: {0}'}"
+                                                           FontSize="11"
+                                                           Foreground="#8A7A55"
+                                                           HorizontalAlignment="Right"
+                                                           Margin="0,3,0,0"/>
+
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
 
                         <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Right"
-                                        Margin="0,8,0,0">
-
-                            <Button Content="Editar"
-                                        Width="100"
-                                        Style="{StaticResource BotaoAzul}"
-                                        Click="EditarEvento_Click"/>
+                                    HorizontalAlignment="Right"
+                                    Margin="0,8,0,0">
 
                             <Button Content="Deletar"
-                                        Width="100"
-                                        Style="{StaticResource BotaoVermelho}"
-                                        Click="DeletarEvento_Click"/>
+                                    Width="100"
+                                    Style="{StaticResource BotaoVermelho}"
+                                    Click="DeletarEvento_Click"/>
 
                         </StackPanel>
                     </StackPanel>
                 </Border>
-
                 <!-- USUÁRIOS -->
                 <Grid Margin="0,0,0,18">
                     <Grid.ColumnDefinitions>

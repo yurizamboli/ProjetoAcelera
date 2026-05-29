@@ -14,6 +14,7 @@ namespace ProjetoAcelera.Services
     public class ArquivoService
     {
         private string caminhoArquivo = "usuarios.json";
+        private string caminhoArquivoEventos = "eventos.json";
 
 
         //carrega os usuariod do arquivo json e retorna uma lista de usuarios
@@ -131,6 +132,57 @@ namespace ProjetoAcelera.Services
             File.Copy(caminhoImagem, destinoFinal, true);
 
             return destinoFinal;
+        }
+
+
+        public List<Evento> CarregarEventos()
+        {
+            try
+            {
+                if (!File.Exists(caminhoArquivoEventos))
+                {
+                    return new List<Evento>();
+                }
+
+                string json = File.ReadAllText(caminhoArquivoEventos);
+
+                if (string.IsNullOrWhiteSpace(json))
+                {
+                    return new List<Evento>();
+                }
+
+                var eventos = JsonSerializer.Deserialize<List<Evento>>(json);
+
+                if (eventos == null)
+                {
+                    return new List<Evento>();
+                }
+
+                return eventos;
+            }
+            catch
+            {
+                return new List<Evento>();
+            }
+        }
+
+        public void SalvarEventos(List<Evento> eventos)
+        {
+            try
+            {
+                var opcoes = new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                };
+
+                string json = JsonSerializer.Serialize(eventos, opcoes);
+
+                File.WriteAllText(caminhoArquivoEventos, json);
+            }
+            catch
+            {
+                // vazio para não quebrar o fechamento do sistema
+            }
         }
     }
 }
