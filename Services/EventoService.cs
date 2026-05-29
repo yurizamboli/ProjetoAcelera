@@ -10,33 +10,65 @@ namespace ProjetoAcelera.Services
 {
     public class EventoService
     {
-        private List<Evento> eventos = new List<Evento>();
-       
-        public EventoService()
+        private List<Evento> eventos;
+        private ArquivoService arquivoService;
+
+        public EventoService(ArquivoService arquivoService  )
         {
-            AdicionarEventos("Evento de Tecnologia", "2024-07-15", "Um evento para discutir as últimas tendências em tecnologia.", "Participe de palestras, workshops e networking com profissionais da área.", "pack://application:,,,/ImagemAcelera/evento1.png");
-            AdicionarEventos("Feira de Ciências", "2024-08-20", "Uma feira para apresentar projetos científicos inovadores.", "Explore experimentos, apresentações e interaja com cientistas de todas as idades.", "pack://application:,,,/ImagemAcelera/evento2.png");
-            AdicionarEventos("Festival de Música", "2024-09-10", "Um festival para celebrar a diversidade musical.", "Desfrute de performances ao vivo, food trucks e atividades para toda a família.", "pack://application:,,,/ImagemAcelera/evento3.png");
+            this.arquivoService = arquivoService;
+            eventos = arquivoService.CarregarEventos();
+            if (eventos == null)
+            {
+                eventos = new List<Evento>();
+            }
         }
         public List<Evento> ObterEvento()
         {
-            return eventos;
+            return eventos.OrderBy(e => e.DataInicio).ToList();
+        }
+        public List<Evento> ObterEventosDestaque()
+        {
+            return eventos.Where(e => e.Destaque).OrderBy(e => e.DataInicio).ToList();
+        }
+        public List<Evento> ObterEventosPorData(DateTime data)
+        {
+            return eventos
+                .Where(e =>e.DataInicio.Date <= data.Date &&(e.DataFim == null || e.DataFim.Value.Date >= data.Date))
+                .OrderBy(e => e.DataInicio)
+                .ToList();
+        }
+        public void AdicionarEvento(string titulo, DateTime datainicio, DateTime? datafim, string descricao, string programacao,string local, string imagem, bool destaque)
+        {
+            Evento novoEvento = new Evento
+            {
+                Id = Guid.NewGuid(),
+                Titulo = titulo,
+                DataInicio = datainicio,
+                DataFim = datafim,
+                Descricao = descricao,
+                Programacao = programacao,
+                Local = local,
+                Imagem = imagem,
+                Destaque = destaque
+            };
+            eventos.Add(novoEvento);
+        }
+        public void RemoverEvento(Guid id)
+        {
+            var evento = eventos.FirstOrDefault(e => e.Id == id);
+
+            if (evento == null)
+            {
+                return;
+            }
+
+            eventos.Remove(evento);
         }
 
-        //Tava private, deixei public para poder adicionar eventos depois
-        public void AdicionarEventos(string titulo, string data, string descricao, string detalhes, string imagem)
-        {       
-                Evento novoEvento = new Evento
-                {
-                    Titulo = titulo,
-                    Data = data,
-                    Descricao = descricao,
-                    Detalhes = detalhes,
-                    Imagem = imagem
-                };
-                eventos.Add(novoEvento);
-            
-            
+        public void SalvarEventos()
+        {
+            arquivoService.SalvarEventos(eventos);
         }
     }
 }
+

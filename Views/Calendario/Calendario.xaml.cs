@@ -3,14 +3,13 @@ using ProjetoAcelera.Views.Artistas;
 using ProjetoAcelera.Views.Home;
 using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Teste;
-using ProjetoAcelera.Views.Teste;
 using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-
+using System.Linq;
 
 namespace ProjetoAcelera.Views.Calendario
 {
@@ -81,15 +80,14 @@ namespace ProjetoAcelera.Views.Calendario
         {
             gridDias.Children.Clear();
 
-            // Nome do mês em português
             string[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-                              "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+                      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+
             txtMes.Text = meses[mes - 1] + " " + ano;
 
             DateTime primeiroDia = new DateTime(ano, mes, 1);
             int diasNoMes = DateTime.DaysInMonth(ano, mes);
 
-            // Ajusta para começar na segunda-feira
             int diaSemana = ((int)primeiroDia.DayOfWeek + 6) % 7;
 
             for (int i = 0; i < diaSemana; i++)
@@ -99,6 +97,7 @@ namespace ProjetoAcelera.Views.Calendario
                     Background = Brushes.Transparent,
                     Margin = new Thickness(3)
                 };
+
                 gridDias.Children.Add(placeholder);
             }
 
@@ -107,6 +106,9 @@ namespace ProjetoAcelera.Views.Calendario
             for (int dia = 1; dia <= diasNoMes; dia++)
             {
                 DateTime data = new DateTime(ano, mes, dia);
+
+                var eventosDoDia = App.EventoService.ObterEventosPorData(data);
+                bool temEvento = eventosDoDia.Any();
 
                 var texto = new TextBlock
                 {
@@ -137,15 +139,37 @@ namespace ProjetoAcelera.Views.Calendario
                     texto.Foreground = Brushes.Black;
                 }
 
+                if (temEvento)
+                {
+                    borda.BorderBrush = new SolidColorBrush(Color.FromRgb(184, 134, 11));
+                    borda.BorderThickness = new Thickness(2);
+
+                    string nomesEventos = string.Join("\n", eventosDoDia.Select(ev => "• " + ev.Titulo));
+
+                    borda.ToolTip =
+                        data.ToString("dddd, d 'de' MMMM", CultureInfo.CurrentCulture)
+                        + "\n\nEventos:\n"
+                        + nomesEventos;
+                }
+                else
+                {
+                    borda.BorderBrush = Brushes.Transparent;
+                    borda.BorderThickness = new Thickness(0);
+                    borda.ToolTip = data.ToString("dddd, d 'de' MMMM", CultureInfo.CurrentCulture);
+                }
+
                 borda.Child = texto;
-                borda.ToolTip = data.ToString("dddd, d 'de' MMMM", CultureInfo.CurrentCulture);
 
                 gridDias.Children.Add(borda);
             }
 
             while (gridDias.Children.Count < 42)
             {
-                gridDias.Children.Add(new Border { Background = Brushes.Transparent, Margin = new Thickness(3) });
+                gridDias.Children.Add(new Border
+                {
+                    Background = Brushes.Transparent,
+                    Margin = new Thickness(3)
+                });
             }
         }
 
