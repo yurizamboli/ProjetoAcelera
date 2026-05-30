@@ -468,5 +468,18 @@ namespace ProjetoAcelera.Views.Admin
 
             MessageBox.Show("Publicação removida da Home.");
         }
+        private void ListaEventosItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListBoxItem;
+            if (item == null)
+            {
+                return;
+            }
+            if (item.IsSelected)
+            {
+                listaEventos.SelectedItem = null;
+                e.Handled = true;
+            }
+        }
     }
 }
