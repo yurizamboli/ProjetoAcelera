@@ -4,74 +4,74 @@
       Background="Transparent">
     <Page.Resources>
 
- <!-- BOTÃO PADRÃO AZUL -->
-<Style x:Key="BotaoAzul" TargetType="Button">
-    <Setter Property="Height" Value="34"/>
-    <Setter Property="Padding" Value="14,5"/>
-    <Setter Property="Background" Value="#1F3A5F"/>
-    <Setter Property="Foreground" Value="#F3E6C9"/>
-    <Setter Property="FontWeight" Value="Bold"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="Cursor" Value="Hand"/>
-    <Setter Property="Margin" Value="0,6,8,0"/>
-    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <!-- BOTÃO PADRÃO AZUL -->
+        <Style x:Key="BotaoAzul" TargetType="Button">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Padding" Value="14,5"/>
+            <Setter Property="Background" Value="#1F3A5F"/>
+            <Setter Property="Foreground" Value="#F3E6C9"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,6,8,0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
 
 
-    <!-- REMOVE HOVER / CLICK / FOCUS -->
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="Button">
-                <Border Background="{TemplateBinding Background}"
+            <!-- REMOVE HOVER / CLICK / FOCUS -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
                         CornerRadius="8">
-                    
-                    <ContentPresenter HorizontalAlignment="Center"
+
+                            <ContentPresenter HorizontalAlignment="Center"
                                       VerticalAlignment="Center"/>
-                    
-                </Border>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>
 
-<!-- REMOVE HOVER DO LISTBOX -->
-<Style TargetType="ListBoxItem">
-    <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-    <Setter Property="OverridesDefaultStyle" Value="True"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="ListBoxItem">
-                
-                <Border Background="Transparent">
-                    <ContentPresenter/>
-                </Border>
+        <!-- REMOVE HOVER DO LISTBOX -->
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
 
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
 
-<!-- REMOVE HOVER DO LISTVIEW -->
-<Style TargetType="ListViewItem">
-    <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-    <Setter Property="OverridesDefaultStyle" Value="True"/>
+                        <Border Background="Transparent">
+                            <ContentPresenter/>
+                        </Border>
 
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="ListViewItem">
-                
-                <Border Background="Transparent">
-                    <ContentPresenter/>
-                </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>
+        <!-- REMOVE HOVER DO LISTVIEW -->
+        <Style TargetType="ListViewItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+
+                        <Border Background="Transparent">
+                            <ContentPresenter/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
 
         <!-- BOTÃO DOURADO -->
@@ -86,14 +86,14 @@
             <Setter Property="Foreground" Value="White"/>
         </Style>
         <!-- BOTÃO VERDE -->
-            <Style x:Key="BotaoVerde"
+        <Style x:Key="BotaoVerde"
                    TargetType="Button"
                    BasedOn="{StaticResource BotaoAzul}">
-    
-                <Setter Property="Background" Value="#2E7D32"/>
-                <Setter Property="Foreground" Value="White"/>
-    
-            </Style>
+
+            <Setter Property="Background" Value="#2E7D32"/>
+            <Setter Property="Foreground" Value="White"/>
+
+        </Style>
 
         <!-- TEXTBOX PADRÃO -->
         <Style TargetType="TextBox">
@@ -171,82 +171,83 @@
                     <StackPanel>
 
                         <TextBlock Text="Criar Evento"
-               Style="{StaticResource TituloCard}"/>
+                                    Style="{StaticResource TituloCard}"/>
 
                         <TextBlock Text="Cadastre um novo evento cultural para exibição no sistema."
-               Style="{StaticResource Subtitulo}"/>
+                                     Style="{StaticResource Subtitulo}"/>
 
                         <TextBlock Text="Título do evento"
-               FontWeight="Bold"
-               Foreground="#1F3A5F"
-               Margin="0,6,0,0"/>
+                                   FontWeight="Bold"
+                                   Foreground="#1F3A5F"
+                                   Margin="0,6,0,0"/>
 
                         <TextBox x:Name="txtTituloEvento"
-             ToolTip="Título do evento"/>
+                                ToolTip="Título do evento"/>
 
                         <TextBlock Text="Descrição do evento"
-               FontWeight="Bold"
-               Foreground="#1F3A5F"
-               Margin="0,10,0,0"/>
+                                   FontWeight="Bold"
+                                   Foreground="#1F3A5F"
+                                   Margin="0,10,0,0"/>
 
                         <TextBox x:Name="txtDescEvento"
-             Height="80"
-             TextWrapping="Wrap"
-             VerticalScrollBarVisibility="Auto"
-             ToolTip="Descrição do evento"/>
+                                 Height="100"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 ToolTip="Descrição do evento"/>
 
-                        <TextBlock Text="Programação ou detalhes"
-               FontWeight="Bold"
-               Foreground="#1F3A5F"
-               Margin="0,10,0,0"/>
+                        <TextBlock Text="Programação / Cronograma"
+                                   FontWeight="Bold"
+                                   Foreground="#1F3A5F"
+                                   Margin="0,10,0,0"/>
 
                         <TextBox x:Name="txtProgramacaoEvento"
-             Height="80"
-             TextWrapping="Wrap"
-             VerticalScrollBarVisibility="Auto"
-             ToolTip="Programação ou detalhes do evento"/>
+                                 Height="120"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"
+                                 AcceptsTab="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 ToolTip="Exemplo: 12:00 Abertura&#x0a;13:00 Apresentação"/>
 
                         <TextBlock Text="Local do evento"
-               FontWeight="Bold"
-               Foreground="#1F3A5F"
-               Margin="0,10,0,0"/>
+                                   FontWeight="Bold"
+                                   Foreground="#1F3A5F"
+                                   Margin="0,10,0,0"/>
 
                         <TextBox x:Name="txtLocalEvento"
-             ToolTip="Local do evento"/>
+                                  Height="40"
+                                  ToolTip="Local do evento"/>
 
-                        <Grid Margin="0,10,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal"
+                                     Margin="0,10,0,0">
 
-                            <StackPanel Grid.Column="0"
-                    Margin="0,0,8,0">
+                            <StackPanel Width="180"
+                                         Margin="0,0,45,0">
 
                                 <TextBlock Text="Data de início"
-                       FontWeight="Bold"
-                       Foreground="#1F3A5F"/>
+                                           FontWeight="Bold"
+                                           Foreground="#1F3A5F"/>
 
                                 <DatePicker x:Name="dateEventoInicio"/>
 
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1"
-                    Margin="8,0,0,0">
+                            <StackPanel Width="180">
 
                                 <TextBlock Text="Data de fim"
-                       FontWeight="Bold"
-                       Foreground="#1F3A5F"/>
+                                           FontWeight="Bold"
+                                           Foreground="#1F3A5F"/>
 
                                 <DatePicker x:Name="dateEventoFim"/>
 
                             </StackPanel>
-                        </Grid>
+
+                        </StackPanel>
 
                         <TextBlock Text="Imagem do evento"
-               FontWeight="Bold"
-               Foreground="#1F3A5F"
-               Margin="0,10,0,0"/>
+                                   FontWeight="Bold"
+                                   Foreground="#1F3A5F"
+                                   Margin="0,10,0,0"/>
 
                         <Grid Margin="0,6,0,0">
                             <Grid.ColumnDefinitions>
@@ -255,28 +256,28 @@
                             </Grid.ColumnDefinitions>
 
                             <Button Content="Selecionar Imagem"
-                Style="{StaticResource BotaoAzul}"
-                Click="SelecionarImagemEvento_Click"/>
+                                    Style="{StaticResource BotaoAzul}"
+                                    Click="SelecionarImagemEvento_Click"/>
 
                             <TextBox x:Name="txtCaminhoImagem"
-                 Grid.Column="1"
-                 Text="Selecione uma imagem..."
-                 IsReadOnly="True"
-                 Foreground="#666666"/>
+                                     Grid.Column="1"
+                                     Text="Selecione uma imagem..."
+                                     IsReadOnly="True"
+                                     Foreground="#666666"/>     
                         </Grid>
 
                         <CheckBox x:Name="checkEventoDestaque"
-              Content="Exibir este evento em destaque na Home"
-              Foreground="#1F3A5F"
-              FontWeight="Bold"
-              Margin="0,10,0,0"
-              IsChecked="True"/>
+                                  Content="Exibir este evento em destaque na Home"
+                                  Foreground="#1F3A5F"
+                                  FontWeight="Bold"
+                                  Margin="0,10,0,0"
+                                  IsChecked="True"/>
 
                         <Button Content="Adicionar Evento"
-            Style="{StaticResource BotaoDourado}"
-            Width="180"
-            HorizontalAlignment="Right"
-            Click="AdicionarEvento_Click"/>
+                                Style="{StaticResource BotaoDourado}"
+                                Width="180"
+                                HorizontalAlignment="Right"
+                                Click="AdicionarEvento_Click"/>
 
                     </StackPanel>
                 </Border>
@@ -299,29 +300,35 @@
 
                         <ListBox x:Name="listaEventos"
                                  Margin="0,8,0,0"
-                                 Height="220"
+                                 Height="230"
                                  SelectionMode="Single"
                                  Background="#F3E6C9"
                                  BorderBrush="#C9B27D"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                  HorizontalContentAlignment="Stretch">
 
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
+                                    <EventSetter Event="PreviewMouseLeftButtonDown"
+                                                 Handler="ListaEventosItem_PreviewMouseLeftButtonDown"/>
                                     <Setter Property="Padding" Value="0"/>
-                                    <Setter Property="Margin" Value="0,0,0,8"/>
+                                    <Setter Property="Margin" Value="0,0,0,10"/>
                                     <Setter Property="Background" Value="Transparent"/>
                                     <Setter Property="Foreground" Value="#1F3A5F"/>
                                     <Setter Property="Cursor" Value="Hand"/>
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-
+                                    <Setter Property="Height" Value="225"/>
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ListBoxItem">
 
                                                 <Border x:Name="Bd"
                                                         Background="{TemplateBinding Background}"
+                                                        BorderBrush="Transparent"
+                                                        BorderThickness="2"
                                                         CornerRadius="10"
-                                                        Padding="{TemplateBinding Padding}">
+                                                        Padding="0">
 
                                                     <ContentPresenter/>
 
@@ -337,10 +344,8 @@
                                                     </Trigger>
 
                                                     <Trigger Property="IsSelected"
-                                                              Value="True">
-                                                        <Setter TargetName="Bd"
-                                                               Property="Background"
-                                                                Value="#D6C28F"/>   
+                                                             Value="True">
+                                                        <Setter TargetName="Bd" Property="BorderBrush" Value="#C00000"/>
                                                     </Trigger>
 
                                                 </ControlTemplate.Triggers>
@@ -357,78 +362,144 @@
                                     <Border Background="#FFF7E1"
                                             BorderBrush="#D6C28F"
                                             BorderThickness="1"
-                                            CornerRadius="10"
+                                            CornerRadius="8"
                                             Padding="10"
-                                            Margin="0,0,0,8"
+                                            Margin="0"
+                                            Height="219"
                                             HorizontalAlignment="Stretch">
 
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="80"/>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="160"/>
+                                                <ColumnDefinition Width="170"/>
                                             </Grid.ColumnDefinitions>
 
                                             <!-- IMAGEM DO EVENTO -->
-                                            <Border Grid.Column="0"
-                                                    Width="65"
-                                                    Height="65"
-                                                    CornerRadius="8"
+                                            <Border Grid.Column="1"
+                                                    Width="155"
+                                                    Height="145"
+                                                    CornerRadius="0"
                                                     ClipToBounds="True"
                                                     BorderBrush="#1F3A5F"
                                                     BorderThickness="1.5"
-                                                    VerticalAlignment="Center">
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Right">
 
                                                 <Image Source="{Binding Imagem}"
                                                          Stretch="UniformToFill"/>
                                             </Border>
 
                                             <!-- INFORMAÇÕES -->
-                                            <StackPanel Grid.Column="1"
+                                            <StackPanel Grid.Column="0"
                                                         VerticalAlignment="Center"
-                                                        Margin="8,0,0,0">
+                                                        Margin="8,0,12,0">
 
-                                                <TextBlock Text="{Binding Titulo}"
-                                                           FontWeight="Bold"
-                                                           FontSize="15"
-                                                           Foreground="#1F3A5F"
-                                                           TextTrimming="CharacterEllipsis"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                                <TextBlock Text="{Binding DataInicio, StringFormat='Início: {0:dd/MM/yyyy}'}"
+                                                    <TextBlock Grid.Column="0" 
+                                                               Text="{Binding Titulo}"
+                                                               FontWeight="Bold"
+                                                               FontSize="15"
+                                                               Foreground="#1F3A5F"
+                                                               TextTrimming="CharacterEllipsis"/>
+                                                    <Border Grid.Column="1"
+                                                            Background="#1F3A5F"
+                                                            CornerRadius="8"
+                                                            Padding="8,3"
+                                                            Margin="10,0,0,0"
+                                                            VerticalAlignment="Center">
+                                                        <TextBlock FontSize="11"
+                                                                   FontWeight="Bold"
+                                                                   Foreground="#F3E6C9">
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock">
+                                                                    <Setter Property="Text" Value="Destaque: Não"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding Destaque}"
+                                                                                     Value="True">
+                                                                            <Setter Property="Text" Value="Destaque: Sim"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
+                                                    </Border>
+                                                </Grid>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Margin="0,3,0,0">
+                                                    <TextBlock Text="Início: "
+                                                               FontSize="12"
+                                                               FontWeight="Bold"
+                                                               Foreground="#1F3A5F"/>
+                                                    <TextBlock Text="{Binding DataInicio, StringFormat={}{0:dd/MM/yyyy}}"
+                                                               FontSize="12"
+                                                               Foreground="#8A7A55"
+                                                               Margin="0,3,0,0"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Margin="0,2,0,0">
+                                                    <TextBlock Text="Fim: "
+                                                               FontSize="12"
+                                                               FontWeight="Bold"
+                                                               Foreground="#1F3A5F"/>
+                                                    <TextBlock Text="{Binding DataFim, StringFormat={}{0:dd/MM/yyyy}}"
                                                            FontSize="12"
                                                            Foreground="#8A7A55"
                                                            Margin="0,3,0,0"/>
+                                                </StackPanel>
 
-                                                <TextBlock Text="{Binding DataFim, StringFormat='Fim: {0:dd/MM/yyyy}'}"
-                                                           FontSize="12"
-                                                           Foreground="#8A7A55"
-                                                           Margin="0,3,0,0"/>
+                                                <!-- DESCRIÇÃO E PROGRAMAÇÃO COM SCROLL -->
+                                                <Border BorderBrush="#C9B27D"
+                                                        BorderThickness="1"
+                                                        CornerRadius="6"
+                                                        Background="#FFF7E1"
+                                                        Padding="6"
+                                                        Margin="0,5,0,0">
+                                                    <ScrollViewer MaxHeight="65"
+                                                              VerticalScrollBarVisibility="Auto"
+                                                              HorizontalScrollBarVisibility="Disabled"
+                                                              Margin="0,5,0,0">
 
-                                                <TextBlock Text="{Binding Local}"
-                                                           FontSize="12"
-                                                           Foreground="#555555"
-                                                           TextTrimming="CharacterEllipsis"
-                                                           Margin="0,3,0,0"/>
+                                                        <StackPanel>
 
-                                            </StackPanel>
+                                                            <TextBlock Text="Descrição:"
+                                                                   FontWeight="Bold"
+                                                                   Foreground="#1F3A5F"
+                                                                   FontSize="12"/>
 
-                                            <!-- STATUS -->
-                                            <StackPanel Grid.Column="2"
-                                                        VerticalAlignment="Center"
-                                                        HorizontalAlignment="Right">
+                                                            <TextBlock Text="{Binding Descricao}"
+                                                                   TextWrapping="WrapWithOverflow"
+                                                                   Foreground="#333333"
+                                                                   FontSize="12"
+                                                                   Margin="0,2,0,6"/>
 
-                                                <TextBlock Text="Evento cadastrado"
-                                                           FontSize="11"
-                                                           FontWeight="Bold"
-                                                           Foreground="#1F3A5F"
-                                                           HorizontalAlignment="Right"/>
+                                                            <Border Height="1"
+                                                                Background="#1F3A5F"
+                                                                Margin="0,2,0,6"/>
 
-                                                <TextBlock Text="{Binding Destaque, StringFormat='Destaque: {0}'}"
-                                                           FontSize="11"
-                                                           Foreground="#8A7A55"
-                                                           HorizontalAlignment="Right"
-                                                           Margin="0,3,0,0"/>
+                                                            <TextBlock Text="Programação:"
+                                                                   FontWeight="Bold"
+                                                                   Foreground="#1F3A5F"
+                                                                   FontSize="12"/>
 
+                                                            <TextBlock Text="{Binding Programacao}"
+                                                                   TextWrapping="WrapWithOverflow"
+                                                                   Foreground="#333333"
+                                                                   FontSize="12"
+                                                                   Margin="0,2,0,0"/>
+
+                                                        </StackPanel>
+                                                    </ScrollViewer>
+                                                </Border>
+                                                <TextBlock Margin="0,3,0,0"
+                                                           TextWrapping="WrapWithOverflow">
+                                                          <Run Text="Local: " Foreground="#1F3A5F" FontWeight="Bold"/>
+                                                          <Run Text="{Binding Local}" Foreground="#333333"/>
+                                                </TextBlock>
                                             </StackPanel>
                                         </Grid>
                                     </Border>
@@ -485,12 +556,12 @@
                                            Margin="0,14,0,6"/>
 
                             <ListBox x:Name="listaDestaques"
-         Height="260"
-         Background="#F3E6C9"
-         BorderBrush="#C9B27D"
-         ScrollViewer.VerticalScrollBarVisibility="Visible"
-         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-         HorizontalContentAlignment="Stretch">
+                                             Height="260"
+                                             Background="#F3E6C9"
+                                             BorderBrush="#C9B27D"
+                                             ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                             HorizontalContentAlignment="Stretch">
 
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
@@ -503,13 +574,13 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="#FFF7E1"
-                    BorderBrush="#D6C28F"
-                    BorderThickness="1"
-                    CornerRadius="10"
-                    Height="72"
-                    Margin="0,0,0,8"
-                    Padding="10"
-                    HorizontalAlignment="Stretch">
+                                                BorderBrush="#D6C28F"
+                                                BorderThickness="1"
+                                                CornerRadius="10"
+                                                Height="72"
+                                                Margin="0,0,0,8"
+                                                Padding="10"
+                                                HorizontalAlignment="Stretch">
 
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -520,46 +591,46 @@
 
                                                 <!-- FOTO -->
                                                 <Border Width="48"
-                            Height="48"
-                            CornerRadius="8"
-                            ClipToBounds="True"
-                            BorderBrush="#1F3A5F"
-                            BorderThickness="1.5"
-                            VerticalAlignment="Center">
+                                                        Height="48"
+                                                        CornerRadius="8"
+                                                        ClipToBounds="True"
+                                                        BorderBrush="#1F3A5F"
+                                                        BorderThickness="1.5"
+                                                        VerticalAlignment="Center">
 
                                                     <Image Source="{Binding Perfil.FotoPerfil}"
-                               Stretch="UniformToFill"/>
+                                                           Stretch="UniformToFill"/>
                                                 </Border>
 
                                                 <!-- TEXTO -->
                                                 <StackPanel Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Margin="8,0,0,0">
+                                                            VerticalAlignment="Center"
+                                                            Margin="8,0,0,0">
 
                                                     <TextBlock Text="{Binding Nome}"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   Foreground="#1F3A5F"
-                                   TextTrimming="CharacterEllipsis"/>
+                                                               FontWeight="Bold"
+                                                               FontSize="14"
+                                                               Foreground="#1F3A5F"
+                                                               TextTrimming="CharacterEllipsis"/>
 
                                                     <TextBlock Text="Artista em destaque"
-                                   FontSize="11"
-                                   Foreground="#8A7A55"/>
+                                                               FontSize="11"
+                                                               Foreground="#8A7A55"/>
                                                 </StackPanel>
 
                                                 <!-- BOTÃO -->
                                                 <Button Grid.Column="2"
-                            Content="Remover"
-                            Width="78"
-                            Height="30"
-                            FontSize="11"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource BotaoVermelho}"
-                            Padding="0"
-                            Margin="0"
-                            Tag="{Binding}"
-                            Click="RemoverDestaque_Click"/>
+                                                        Content="Remover"
+                                                        Width="78"
+                                                        Height="30"
+                                                        FontSize="11"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
+                                                        Style="{StaticResource BotaoVermelho}"
+                                                        Padding="0"
+                                                        Margin="0"
+                                                        Tag="{Binding}"
+                                                        Click="RemoverDestaque_Click"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -586,10 +657,10 @@
 
                             <ComboBox x:Name="comboPromover"/>
 
-                    <Button Content="Promover"
-                            Style="{StaticResource BotaoVerde}"
-                            Margin="0,10,0,0"
-                            Click="Promover_Click"/>
+                            <Button Content="Promover"
+                                    Style="{StaticResource BotaoVerde}"
+                                    Margin="0,10,0,0"
+                                    Click="Promover_Click"/>
                             <TextBlock Text="Administradores promovidos"
                                        FontWeight="Bold"
                                        Foreground="#1F3A5F"
@@ -603,8 +674,8 @@
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      HorizontalContentAlignment="Stretch">
 
-                                    <ListBox.ItemContainerStyle>
-                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                         <Setter Property="Padding" Value="0"/>
                                         <Setter Property="Margin" Value="0,0,0,8"/>
@@ -659,43 +730,42 @@
                                                 </StackPanel>
 
                                                 <!-- BOTÃO -->
-                                            <Button Grid.Column="2"
-                                                    Content="Remover"
-                                                    Width="78"
-                                                    Height="30"
-                                                    FontSize="11"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Center"
-                                                    Style="{StaticResource BotaoVermelho}"
-                                                    Padding="0"
-                                                    Margin="0"
-                                                    Tag="{Binding}"
-                                                    Click="RemoverAdmin_Click"/>
+                                                <Button Grid.Column="2"
+                                                        Content="Remover"
+                                                        Width="78"
+                                                        Height="30"
+                                                        FontSize="11"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
+                                                        Style="{StaticResource BotaoVermelho}"
+                                                        Padding="0"
+                                                        Margin="0"
+                                                        Tag="{Binding}"
+                                                        Click="RemoverAdmin_Click"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </StackPanel>
-                        
+
                     </Border>
 
                     <!-- BANIR -->
-                    <!-- BANIR -->
                     <Border Grid.Column="2"
-        Background="#FFF7E1"
-        BorderBrush="#C9B27D"
-        BorderThickness="2"
-        CornerRadius="18"
-        Padding="16"
-        Margin="10,0,0,0">
+                            Background="#FFF7E1"
+                            BorderBrush="#C9B27D"
+                            BorderThickness="2"
+                            CornerRadius="18"
+                            Padding="16"
+                            Margin="10,0,0,0">
 
                         <StackPanel>
                             <TextBlock Text="Banir Usuário"
-                   Style="{StaticResource TituloCard}"/>
+                                      Style="{StaticResource TituloCard}"/>
 
                             <TextBlock Text="Bloqueie usuários que não devem acessar o sistema."
-                   Style="{StaticResource Subtitulo}"/>
+                                         Style="{StaticResource Subtitulo}"/>
 
                             <ComboBox x:Name="comboBanir"/>
 
@@ -710,15 +780,15 @@
                                        Margin="0,14,0,6"/>
 
                             <ListBox x:Name="listaBanidos"
-         Height="260"
-         Background="#F3E6C9"
-         BorderBrush="#C9B27D"
-         ScrollViewer.VerticalScrollBarVisibility="Visible"
-         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-         HorizontalContentAlignment="Stretch">
+                                     Height="260"
+                                     Background="#F3E6C9"
+                                     BorderBrush="#C9B27D"
+                                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     HorizontalContentAlignment="Stretch">
 
-                                    <ListBox.ItemContainerStyle>
-                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                         <Setter Property="Padding" Value="0"/>
                                         <Setter Property="Margin" Value="0,0,0,8"/>
@@ -728,13 +798,13 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="#FFF7E1"
-                    BorderBrush="#D6C28F"
-                    BorderThickness="1"
-                    CornerRadius="10"
-                    Height="72"
-                    Margin="0,0,0,8"
-                    Padding="10"
-                    HorizontalAlignment="Stretch">
+                                                BorderBrush="#D6C28F"
+                                                BorderThickness="1"
+                                                CornerRadius="10"
+                                                Height="72"
+                                                Margin="0,0,0,8"
+                                                Padding="10"
+                                                HorizontalAlignment="Stretch">
 
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -745,46 +815,46 @@
 
                                                 <!-- FOTO -->
                                                 <Border Width="48"
-                            Height="48"
-                            CornerRadius="8"
-                            ClipToBounds="True"
-                            BorderBrush="#8B1E1E"
-                            BorderThickness="1.5"
-                            VerticalAlignment="Center">
+                                                        Height="48"
+                                                        CornerRadius="8"
+                                                        ClipToBounds="True"
+                                                        BorderBrush="#8B1E1E"
+                                                        BorderThickness="1.5"
+                                                        VerticalAlignment="Center">
 
                                                     <Image Source="{Binding Perfil.FotoPerfil}"
-                               Stretch="UniformToFill"/>
+                                                            Stretch="UniformToFill"/>
                                                 </Border>
 
                                                 <!-- TEXTO -->
                                                 <StackPanel Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Margin="8,0,0,0">
+                                                        VerticalAlignment="Center"
+                                                        Margin="8,0,0,0">
 
                                                     <TextBlock Text="{Binding Nome}"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   Foreground="#8B1E1E"
-                                   TextTrimming="CharacterEllipsis"/>
+                                                               FontWeight="Bold"
+                                                               FontSize="14"
+                                                               Foreground="#8B1E1E"
+                                                               TextTrimming="CharacterEllipsis"/>
 
                                                     <TextBlock Text="Usuário banido"
-                                   FontSize="11"
-                                   Foreground="#8A7A55"/>
+                                                               FontSize="11"
+                                                               Foreground="#8A7A55"/>
                                                 </StackPanel>
 
                                                 <!-- BOTÃO -->
-                                         <Button Grid.Column="2"
-                                                Content="Liberar"
-                                                Width="78"
-                                                Height="30"
-                                                FontSize="11"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Center"
-                                                Style="{StaticResource BotaoVerde}"
-                                                Padding="0"
-                                                Margin="0"
-                                                Tag="{Binding}"
-                                                Click="RemoverBanimento_Click"/>
+                                                <Button Grid.Column="2"
+                                                        Content="Liberar"
+                                                        Width="78"
+                                                        Height="30"
+                                                        FontSize="11"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
+                                                        Style="{StaticResource BotaoVerde}"
+                                                        Padding="0"
+                                                        Margin="0"
+                                                        Tag="{Binding}"
+                                                        Click="RemoverBanimento_Click"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -896,7 +966,7 @@
                                                                FontWeight="Bold"
                                                                VerticalAlignment="Center"/>
 
-                                            <Button Grid.Column="1"
+                                                <Button Grid.Column="1"
                                                     Content="Publicar na Home"
                                                     Style="{StaticResource BotaoDourado}"
                                                     Width="145"
@@ -1039,7 +1109,7 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
-            
+
         </ScrollViewer>
     </Grid>
 </Page>

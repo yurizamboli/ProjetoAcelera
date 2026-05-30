@@ -24,7 +24,7 @@ namespace ProjetoAcelera.Services
         }
         public List<Evento> ObterEvento()
         {
-            return eventos.OrderBy(e => e.DataInicio).ToList();
+            return eventos.OrderByDescending(e => e.DataInicio).ToList();
         }
         public List<Evento> ObterEventosDestaque()
         {

@@ -6,6 +6,59 @@
         <ImageBrush ImageSource="/ImagemAcelera/solid-navy-blue-concrete-textured-wall.jpg"
                 Stretch="UniformToFill"/>
     </Page.Background>
+    <Page.Resources>
+
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Width" Value="12"/>
+            <Setter Property="Background" Value="#D6C28F"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid Background="#D6C28F">
+
+                            <Track x:Name="PART_Track"
+                               IsDirectionReversed="True"
+                               Focusable="False">
+
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand"
+                                              Opacity="0"
+                                              Focusable="False"/>
+                                </Track.DecreaseRepeatButton>
+
+                                <Track.Thumb>
+                                    <Thumb>
+
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="{x:Type Thumb}">
+
+                                                <Border Background="#B8860B"
+                                                    CornerRadius="6"
+                                                    Margin="2"/>
+
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+
+                                    </Thumb>
+                                </Track.Thumb>
+
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand"
+                                              Opacity="0"
+                                              Focusable="False"/>
+                                </Track.IncreaseRepeatButton>
+
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
     <Grid >
         <!-- MENU SUPERIOR -->
         <TextBlock Text="PRÓXIMOS ENCONTROS"
@@ -96,8 +149,13 @@
                 <Border BorderBrush="#B8860B"
                         BorderThickness="2"
                         Padding="10"
-                        Background="White"
                         CornerRadius="8">
+                    <Border.Background>
+                        <ImageBrush ImageSource="/ImagemAcelera/fundo-pintado-mao-da-aguarela_24972-1199.avif"
+                                    Stretch="UniformToFill"
+                                    Opacity="0.75"/>
+                    </Border.Background>
+
                     <UniformGrid x:Name="gridDias"
                                  Columns="7"
                                  Margin="0,5,0,0"/>
@@ -105,22 +163,112 @@
 
                 <StackPanel Margin="0,25,0,0">
 
-                    <TextBlock Text="FEIRA DO LIVRO:"
+                    <TextBlock x:Name="txtDataSelecionada"
+                               Text="Selecione um dia no calendário"
                                FontWeight="Bold"
-                               FontSize="14"
-                               Foreground="#B8860B"/>
+                               FontSize="15"
+                               Foreground="#B8860B"
+                               Margin="0,0,0,10"/>
 
-                    <TextBlock Text="A feira do livro..."
-                               Margin="0,5,0,15"
-                               Foreground="#2C3E50"/>
+                    <ItemsControl x:Name="listaEventosDoDia">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
 
-                    <TextBlock Text="CLUBE DE LEITURA"
-                               FontWeight="Bold"
-                               FontSize="14"
-                               Foreground="#B8860B"/>
+                                <Border Background="#FFF7E1"
+                                        BorderBrush="#B8860B"
+                                        BorderThickness="1.5"
+                                        CornerRadius="12"
+                                        Padding="12"
+                                        Margin="0,0,0,12">
 
-                    <TextBlock Text="O clube de leitura..."
-                               Foreground="#2C3E50"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="210"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- INFORMAÇÕES DO EVENTO -->
+                                        <StackPanel Grid.Column="0"
+                                                    Margin="0,0,12,0">
+
+                                            <TextBlock Text="{Binding Titulo}"
+                                                        FontWeight="Bold"
+                                                        FontSize="16"
+                                                        Foreground="#1F3A5F"
+                                                        TextWrapping="Wrap"/>
+
+                                            <ScrollViewer MaxHeight="170"
+                                                          VerticalScrollBarVisibility="Auto"
+                                                          HorizontalScrollBarVisibility="Disabled"
+                                                          Margin="0,6,0,0">
+
+                                                <StackPanel>
+
+                                                    <TextBlock Text="Descrição"
+                                                               FontWeight="Bold"
+                                                               Foreground="#1F3A5F"
+                                                               FontSize="12"/>
+
+                                                    <TextBlock Text="{Binding Descricao}"
+                                                               TextWrapping="Wrap"
+                                                               Foreground="#333333"
+                                                               Margin="0,3,0,8"/>
+                                                    <Border Height="1.5"
+                                                            Background="#1F3A5F"
+                                                            Margin="0,4,0,8"/>
+                                                    <TextBlock Text="Programação / Cronograma"
+                                                               FontWeight="Bold"
+                                                               Foreground="#1F3A5F"
+                                                               FontSize="12"/>
+
+                                                    <TextBlock Text="{Binding Programacao}"
+                                                               TextWrapping="Wrap"
+                                                               Foreground="#333333"
+                                                               Margin="0,3,0,0"/>
+
+                                                </StackPanel>
+                                            </ScrollViewer>
+                                            <TextBlock Margin="0,8,0,0">
+                                                    <Run Text="Local: " Foreground="#1F3A5F" FontWeight="Bold"/>
+                                                    <Run Text="{Binding Local}" Foreground="#333333"/>
+                                            </TextBlock>
+                                            <TextBlock Margin="0,6,0,0"
+                                                       FontSize="12">
+                                                    <Run Text="Início: " Foreground="#1F3A5F" FontWeight="Bold"/>
+                                                    <Run Text="{Binding DataInicio, StringFormat={}{0:dd/MM/yyyy}}" Foreground="#333333"/>
+                                            </TextBlock>
+
+                                            <TextBlock Margin="0,2,0,0"
+                                                      FontSize="12">
+                                                     <Run Text="Fim: " Foreground="#1F3A5F" FontWeight="Bold"/>
+                                                     <Run Text="{Binding DataFim, StringFormat={}{0:dd/MM/yyyy}}" Foreground="#333333"/>
+                                            </TextBlock>
+
+                                        </StackPanel>
+
+                                        <!-- IMAGEM DO EVENTO -->
+                                        <Border Grid.Column="1"
+                                                Width="200"
+                                                Height="170"
+                                                CornerRadius="0"
+                                                ClipToBounds="True"
+                                                BorderBrush="#1F3A5F"
+                                                BorderThickness="1.5"
+                                                Background="#EDE3D1"
+                                                VerticalAlignment="Top">
+
+                                            <Image Source="{Binding Imagem}"
+                                                   Stretch="UniformToFill"
+                                                   Cursor="Hand"
+                                                   MouseDown="AbrirImagemEvento_Click"/>
+
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
                 </StackPanel>
 

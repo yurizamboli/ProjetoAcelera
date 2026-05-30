@@ -1,15 +1,16 @@
-﻿using ProjetoAcelera.Views.Admin;
+﻿using ProjetoAcelera.Models;
+using ProjetoAcelera.Views.Admin;
 using ProjetoAcelera.Views.Artistas;
 using ProjetoAcelera.Views.Home;
 using ProjetoAcelera.Views.Perfil;
 using ProjetoAcelera.Views.Teste;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-using System.Linq;
 
 namespace ProjetoAcelera.Views.Calendario
 {
@@ -17,7 +18,7 @@ namespace ProjetoAcelera.Views.Calendario
     {
         private int _anoAtual;
         private int _mesAtual;
-        private readonly DispatcherTimer _timer;
+        private DateTime? _dataSelecionada = null;
 
         public Calendario()
         {
@@ -25,11 +26,6 @@ namespace ProjetoAcelera.Views.Calendario
 
             Loaded += Calendario_Loaded;
 
-            _timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMinutes(1)
-            };
-            _timer.Tick += Timer_Tick;
         }
 
         private void Calendario_Loaded(object sender, RoutedEventArgs e)
@@ -39,41 +35,33 @@ namespace ProjetoAcelera.Views.Calendario
             _mesAtual = agora.Month;
 
             GerarCalendario(_anoAtual, _mesAtual);
-            _timer.Start();
         }
 
-        private void Timer_Tick(object? sender, EventArgs e)
+        private void MostrarEventosDoDia(DateTime data)
         {
-            var agora = DateTime.Now;
-            if (agora.Year != _anoAtual || agora.Month != _mesAtual)
+            if (_dataSelecionada.HasValue && _dataSelecionada.Value.Date == data.Date)
             {
-                _anoAtual = agora.Year;
-                _mesAtual = agora.Month;
+                _dataSelecionada = null;
+                listaEventosDoDia.ItemsSource = null;
+                txtDataSelecionada.Text = "Selecione um dia no calendário";
                 GerarCalendario(_anoAtual, _mesAtual);
                 return;
             }
 
-            AtualizarDestaqueDoDia(agora.Date);
-        }
-
-        private void AtualizarDestaqueDoDia(DateTime hoje)
-        {
-            foreach (var child in gridDias.Children)
+            _dataSelecionada = data.Date;
+            var eventosDoDia = App.EventoService.ObterEventosPorData(data);
+            txtDataSelecionada.Text = data.ToString("dddd, d 'de' MMMM 'de' yyyy", CultureInfo.CurrentCulture);
+            if (eventosDoDia.Any())
             {
-                if (child is Border b && b.Tag is DateTime data)
-                {
-                    if (data.Date == hoje)
-                    {
-                        b.Background = new SolidColorBrush(Color.FromRgb(184, 134, 11));
-                        if (b.Child is TextBlock t) t.Foreground = Brushes.White;
-                    }
-                    else
-                    {
-                        b.Background = Brushes.Transparent;
-                        if (b.Child is TextBlock t) t.Foreground = Brushes.Black;
-                    }
-                }
+                listaEventosDoDia.ItemsSource = eventosDoDia;
             }
+            else
+            {
+                listaEventosDoDia.ItemsSource = null;
+                txtDataSelecionada.Text += " - nenhum evento cadastrado";
+            }
+
+            GerarCalendario(_anoAtual, _mesAtual);
         }
 
         private void GerarCalendario(int ano, int mes)
@@ -127,36 +115,36 @@ namespace ProjetoAcelera.Views.Calendario
                     Margin = new Thickness(3),
                     Tag = data
                 };
-
-                if (data == hoje)
+                bool diaSelecionado =_dataSelecionada.HasValue && _dataSelecionada.Value.Date == data.Date;
+                if (temEvento)
                 {
-                    borda.Background = new SolidColorBrush(Color.FromRgb(184, 134, 11));
+                    borda.Background = new SolidColorBrush(Color.FromRgb(31, 58, 95)); // azul #1F3A5F
+                    borda.BorderBrush = new SolidColorBrush(Color.FromRgb(184, 134, 11)); // dourado #B8860B
+                    borda.BorderThickness = new Thickness(diaSelecionado ? 3 : 2);
+                    texto.Foreground = Brushes.White;
+                }
+                else if (data == hoje)
+                {
+                    borda.Background = new SolidColorBrush(Color.FromRgb(184, 134, 11)); // dourado
+                    borda.BorderBrush = Brushes.Transparent;
+                    borda.BorderThickness = new Thickness(0);
                     texto.Foreground = Brushes.White;
                 }
                 else
                 {
                     borda.Background = Brushes.Transparent;
+                    borda.BorderBrush = Brushes.Transparent;
+                    borda.BorderThickness = new Thickness(0);
                     texto.Foreground = Brushes.Black;
                 }
 
-                if (temEvento)
-                {
-                    borda.BorderBrush = new SolidColorBrush(Color.FromRgb(184, 134, 11));
-                    borda.BorderThickness = new Thickness(2);
+                borda.ToolTip = null;
+                borda.Cursor = System.Windows.Input.Cursors.Hand;
 
-                    string nomesEventos = string.Join("\n", eventosDoDia.Select(ev => "• " + ev.Titulo));
-
-                    borda.ToolTip =
-                        data.ToString("dddd, d 'de' MMMM", CultureInfo.CurrentCulture)
-                        + "\n\nEventos:\n"
-                        + nomesEventos;
-                }
-                else
+                borda.MouseLeftButtonDown += (s, e) =>
                 {
-                    borda.BorderBrush = Brushes.Transparent;
-                    borda.BorderThickness = new Thickness(0);
-                    borda.ToolTip = data.ToString("dddd, d 'de' MMMM", CultureInfo.CurrentCulture);
-                }
+                    MostrarEventosDoDia(data);
+                };
 
                 borda.Child = texto;
 
@@ -194,7 +182,25 @@ namespace ProjetoAcelera.Views.Calendario
             }
             GerarCalendario(_anoAtual, _mesAtual);
         }
+        private void AbrirImagemEvento_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var imagem = sender as Image;
+            if (imagem == null)
+            {
+                return;
+            }
+            var evento = imagem.DataContext as Evento;
+            if (evento == null)
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(evento.Imagem))
+            {
+                return;
+            }
+            JanelaImagemFull janela = new JanelaImagemFull(evento.Imagem);
+            janela.ShowDialog();
+        }
 
-        
     }
 }
