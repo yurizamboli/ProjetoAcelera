@@ -50,9 +50,9 @@
 </Style>
 </Page.Resources>
 
-    <Grid Margin="0,85,0,0">
+    <Grid Margin="0,55,0,40">
         <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="180"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -60,13 +60,13 @@
         <StackPanel Grid.Row="0"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Center"
-                    Margin="0,10,0,0"
-                    Width="148"
-                    Height="105">
+                    Margin="0,0,0,0"
+                    Width="250"
+                    Height="170">
 
             <Image Source="/ImagemAcelera/ALAHCPNG.png"
-                   Width="147"
-                   Height="126"
+                   Width="250"
+                   Height="170"
                    Margin="0,0,0,10"/>
         </StackPanel>
 
@@ -79,11 +79,15 @@
 
             <!-- ================= CADASTRO ================= -->
             <Border Grid.Column="0"
-                    Background="#F5E6C8"
                     CornerRadius="18"
                     Padding="28"
-                    BorderBrush="#C9B27D"
-                    BorderThickness="2">
+                   >
+
+                     <Border.Background>
+        <ImageBrush ImageSource="/ImagemAcelera/fundoretangulo.png"
+                    Stretch="Fill"/>
+        </Border.Background>
+
 
                 <StackPanel>
 
@@ -233,11 +237,15 @@
 
             <!-- ================= LOGIN ================= -->
             <Border Grid.Column="2"
-                    Background="#F5E6C8"
+                    
                     CornerRadius="18"
                     Padding="28"
-                    BorderBrush="#C9B27D"
-                    BorderThickness="2">
+                    >
+
+                    <Border.Background>
+        <ImageBrush ImageSource="/ImagemAcelera/fundoretangulo.png"
+                    Stretch="Fill"/>
+        </Border.Background>
 
                 <StackPanel>
 

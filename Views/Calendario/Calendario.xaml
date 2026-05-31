@@ -67,19 +67,21 @@
                    Foreground="#B8860B"
                    HorizontalAlignment="Center"
                    FontFamily="Inter"
-                   Margin="0,60,0,0"/>
-
-        <Border Background="#EDE3D1"
-                CornerRadius="15"
-                Padding="25"
+                   Margin="0,50,0,0"/>
+        <Border
+                Padding="35"
                 Width="620"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Margin="0,80,0,0">
+                <Border.Background>
+                    <ImageBrush ImageSource="/ImagemAcelera/fundoteste.png"
+                                Stretch="Fill"/>
+                </Border.Background>
 
             <StackPanel>
 
-                <Grid Margin="0,0,0,15">
+                <Grid Margin="0,15,0,20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>

@@ -258,10 +258,6 @@ namespace ProjetoAcelera.Views.Home
             {
                 Border card = PublicacaoComponentesVisual.CriarCardPublicacao();
                 card.MinWidth = 1190;
-                card.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3E6C9"));
-                card.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D6C28F"));
-                card.BorderThickness = new Thickness(1);
-                card.CornerRadius = new CornerRadius(14);
                 StackPanel stack = new StackPanel();
 
                 // TOPO: autor + data

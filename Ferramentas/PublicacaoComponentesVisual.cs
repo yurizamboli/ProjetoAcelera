@@ -23,12 +23,10 @@ namespace ProjetoAcelera.Ferramentas
         {
             return new Border
             {
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF7E1")),
-                BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C9B27D")),
-                BorderThickness = new Thickness(2),
-                CornerRadius = new CornerRadius(16),
+               Padding = new Thickness(55, 45, 55, 45),
+                Background = new ImageBrush{ImageSource = AuxilioImagens.CarregarImgOtimizada("pack://application:,,,/ImagemAcelera/fundoretangulo.png",1200),Stretch = Stretch.Fill},
                 Margin = new Thickness(0, 0, 0, 18),
-                Padding = new Thickness(15)
+                
             };
         }
 
