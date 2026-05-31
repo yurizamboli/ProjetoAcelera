@@ -23,7 +23,7 @@ namespace ProjetoAcelera.Ferramentas
         {
             return new Border
             {
-               Padding = new Thickness(55, 45, 55, 45),
+               Padding = new Thickness(65, 55, 65, 65),
                 Background = new ImageBrush{ImageSource = AuxilioImagens.CarregarImgOtimizada("pack://application:,,,/ImagemAcelera/fundoretangulo.png",1200),Stretch = Stretch.Fill},
                 Margin = new Thickness(0, 0, 0, 18),
                 

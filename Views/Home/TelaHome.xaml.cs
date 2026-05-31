@@ -257,7 +257,6 @@ namespace ProjetoAcelera.Views.Home
             foreach (var pub in publicacoes)
             {
                 Border card = PublicacaoComponentesVisual.CriarCardPublicacao();
-                card.MinWidth = 1190;
                 StackPanel stack = new StackPanel();
 
                 // TOPO: autor + data
