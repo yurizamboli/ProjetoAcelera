@@ -9,29 +9,28 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
+// cuida de toda a lógica relacionada aos usuários
 namespace ProjetoAcelera.Services
 {
     public class UsuarioService
     {
         private List<Usuario> usuarios;
         private ArquivoService arquivoService;
-
         public Usuario UsuarioLogado { get; private set; }
 
         public UsuarioService() 
         {
             arquivoService = new ArquivoService();
-
             //carrega o json
             usuarios = arquivoService.Carregar();
         }
 
+        // gera o hash da senha usando SHA256, garantindo que as senhas sejam armazenadas de forma segura.
         private string GerarHash(string senha) 
         {
             using (var sha = SHA256.Create())
             {
                 byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(senha));
-
                 var convert = new StringBuilder();
                 foreach (byte b in bytes) 
                 {
@@ -40,15 +39,15 @@ namespace ProjetoAcelera.Services
                 return convert.ToString();
             }
         }
-
+        // cadastra um novo usuário, realizando validações.
         public bool Cadastrar(string nome, string senha, string email)
         {
-            //Mudei umas coisas yuri, Agora é MensagemBox e mudei para boolean, para poder usar no cadastro do usuario
             List<string> erros = new List<string>();
             nome = nome.Trim();
             email = email.Trim().ToLower();
             senha = senha.Trim();
 
+            // validações para garantir que os dados do usuário sejam válidos e seguros.
             if (!Validacoes.ValidaNome(nome)) 
             {
                 erros.Add("Nome inválido.");
@@ -64,7 +63,6 @@ namespace ProjetoAcelera.Services
             else
             {
                 var errosSenha = SenhaForte(senha);
-
                 if (errosSenha.Any())
                 {
                     erros.Add("Senha fraca. Ela deve conter:");
@@ -78,7 +76,7 @@ namespace ProjetoAcelera.Services
             {
                 erros.Add("Já existe um usúario com esse email.");
             }
-            
+            // se houver erros, exibe uma mensagem concatenada e retorna false para indicar que o cadastro falhou.
             if (erros.Any()) 
             {
                 MessageBox.Show(string.Join("\n", erros));
@@ -86,13 +84,12 @@ namespace ProjetoAcelera.Services
             }
             //Agora todos os primeiros usuarios são adm
             bool primeiroUsuario = usuarios.Count == 0;
-
             string cargo = "Usuario";
-
             if (primeiroUsuario)
             {
                 cargo = "Admin";
             }
+            // cria um novo objeto Usuario com os dados fornecidos
             Usuario novoUsuario = new Usuario
             {
                 Nome = nome,
@@ -108,23 +105,25 @@ namespace ProjetoAcelera.Services
                     Instagram = "",
                     Bio = "",            
                     FotoPerfil = ""
-                }
+                } // perfil inicial vazio
             };
-            usuarios.Add(novoUsuario);
-            
-            return true;
-            
+            usuarios.Add(novoUsuario);            
+            return true;            
         }
 
+        // método para verificar se a senha fornecida corresponde ao hash armazenado
         private bool VerificarSenha(string senha, string hash)
         {
             return GerarHash(senha) == hash;
         }
+        
+        // método para verificar se já existe um usuário com o email fornecido
         public bool EmailExiste(string email)
         {
             return usuarios.Any(u => u.Email == email);
-
         }
+        
+        // método para verificar se a senha atende aos critérios de segurança
         public List<string> SenhaForte(string senha)
         {
             List<string> senhaFaltou = new List<string>();
@@ -148,8 +147,11 @@ namespace ProjetoAcelera.Services
             {
                 senhaFaltou.Add("caractere especial.");
             }
+            // retorna a lista de critérios que a senha não atende
             return senhaFaltou;
         }
+        
+        // classe estática para validações de campos
         public static class Validacoes 
         {
             public static bool ValidaNome(string nome) 
@@ -166,28 +168,27 @@ namespace ProjetoAcelera.Services
                 {
                     return false; 
                 }
+                // expressão regular para validar o formato do email
                 string padrao = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
                 return Regex.IsMatch(email, padrao, RegexOptions.IgnoreCase);
             }           
-
         }
         
+        // método para realizar o login do usuário, verificando as credenciais
         public bool Login(string email, string senha)
         {
             //deixei igual o do cadastro
             email = email.Trim().ToLower();
             var usuario = usuarios.FirstOrDefault(u => u.Email == email);
-
             if (usuario == null)
             {
                 return false;
             }
-
+            //verifica se o usuário está banido
             if (usuario.Banido)
             {
                 return false;
             }
-
             if (!VerificarSenha(senha, usuario.SenhaHash))
             {
                 return false;
@@ -196,15 +197,10 @@ namespace ProjetoAcelera.Services
             return true;
         }
 
+        //reliza o logout do usuário
         public void Logout()
         {
             UsuarioLogado = null;
-        }
-
-        //exibir na tela todos
-        public List<Usuario> ListarUsuarios() 
-        {
-            return usuarios.OrderBy(u => u.Nome).ToList();
         }
 
         //metodo para quando for passar pro arquivo app.xaml ((usado para salvar no json))
@@ -212,51 +208,41 @@ namespace ProjetoAcelera.Services
         {
             return usuarios;
         }
-       
-        //busca pelo nome
-        public List<Usuario> BuscarPorNome(string nome) 
-        {
-            if (string.IsNullOrWhiteSpace(nome))
-            {
-                return usuarios;
-            }
-            return usuarios.Where(u => u.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase)).ToList();
-        }
+
+        //gera um token de recuperação de senha, associando-o ao usuário e definindo uma expiração para o token.
         public string GerarTokenRecup(string email)
         {
             var usuario = usuarios.FirstOrDefault(u => u.Email == email);
-
             if (usuario == null) { return null; }
-
             string token = Guid.NewGuid().ToString().Substring(0, 6).ToUpper();
-
             usuario.TokenRecuperacao = token;
             usuario.TokenExpiracao = DateTime.Now.AddMinutes(10);
-
             return token;
         }
 
+        // troca a senha do usuário, verificando o token de recuperação e sua validade antes de permitir a alteração da senha.
         public bool RedefinirSenha(string email, string token, string novaSenha)
         {
+            //verifica se o email existe, se o token é válido e se não expirou
             var usuario = usuarios.FirstOrDefault(u => u.Email == email);
-
             if (usuario == null)
-                return false;
-
+            { 
+                return false; 
+            }
             if (usuario.TokenRecuperacao != token)
+            {
                 return false;
-
+            }
             if (usuario.TokenExpiracao < DateTime.Now)
+            {
                 return false;
-
+            }
+            // se tudo estiver correto, gera o hash da nova senha e atualiza o usuário, além de limpar o token de recuperação e sua expiração.
             usuario.SenhaHash = GerarHash(novaSenha);
-
             usuario.TokenRecuperacao = null;
             usuario.TokenExpiracao = null;
-
             return true;
         }
     }
-
 }
 

@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+// cuida de enviar email para os usuários para recuperação de senha
 namespace ProjetoAcelera.Services
 {
     public class EmailService
     {
-       
         public bool EnviarTokenPorEmail(string emailDestino, string token)
         {
             try

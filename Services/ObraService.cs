@@ -5,19 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// cuida de toda a lógica relacionada às obras dos usuários.
 namespace ProjetoAcelera.Services
 {
     public class ObraService
     {
         private UsuarioService usuarioService;
-
-
+       
         public ObraService()
         {
             this.usuarioService = App.UsuarioService;
         }
 
-
+        // Adiciona uma nova obra à lista de obras do usuário logado, criando um novo objeto Obra com os dados fornecidos
         public void AdicionarObra(string titulo, string descricao, string capa)
         {
             var UsuarioLogado = usuarioService.UsuarioLogado;
@@ -35,63 +35,41 @@ namespace ProjetoAcelera.Services
             UsuarioLogado.Obras.Add(novaObra);
         }
 
-        
-
+        // Remove uma obra da lista de obras do usuário logado
         public void RemoverObra(string titulo)
         {
             var usuario = usuarioService.UsuarioLogado;
-
             var obra = usuario.Obras.FirstOrDefault(o => o.Titulo == titulo);
-
             if (obra != null)
             {
                 usuario.Obras.Remove(obra);
             }
         }
-        //Fiz o metodo
-        public void EditarObra(string titulo, string novoTitulo, string novaDescricao, string novaCapa)
-        {
-            var usuario = usuarioService.UsuarioLogado;
 
-            var obra = usuario.Obras.FirstOrDefault(o => o.Titulo == titulo);
-
-            if (obra != null)
-            {
-                obra.Titulo = novoTitulo;
-                obra.Descricao = novaDescricao;
-                obra.Capa = novaCapa;
-            }
-        }
-
-        //Fiz o metodo aqui
+        // Altera o status de favorito de uma obra
         public void FavoritarObra(string titulo)
         {
             var usuario = usuarioService.UsuarioLogado;
-
             var obra = usuario.Obras.FirstOrDefault(o => o.Titulo == titulo);
-
             if (obra != null)
             {
                 obra.Favorito = !obra.Favorito;
             }
         }
 
-        //Mudei pra lista de obras
+        // Retorna uma lista de obras que estão marcadas como favoritas
         public List<Obra> ListarFavoritas()
         {
             var usuario = usuarioService.UsuarioLogado;
-
             return usuario.Obras.Where(o => o.Favorito).ToList();
         }
-        //ADD outro metodo, depois verifica isso aqui
+
+        //atualiza uma obra usando os novos dados enviados
         public void AtualizarObra(Obra obraAtualizada)
         {
             var usuario = usuarioService.UsuarioLogado;
-
             if (usuario == null) return;
-
-            var obra = usuario.Obras
-                .FirstOrDefault(o => o.Titulo == obraAtualizada.Titulo);
+            var obra = usuario.Obras.FirstOrDefault(o => o.Titulo == obraAtualizada.Titulo);
 
             if (obra != null)
             {

@@ -50,7 +50,6 @@ namespace ProjetoAcelera.Views.Admin
 
             // LISTA DE USUÁRIOS
             var listaUsuarios = usuarioService.ObterTodos().Where(u => u.Email != user.Email && !u.Banido).ToList();
-
             var listaParaPromover = usuarioService.ObterTodos().Where(u => u.Email != user.Email && u.Cargo != "Admin" && !u.Banido).ToList();
             var listaParaBanir = usuarioService.ObterTodos().Where(u => u.Email != user.Email && !u.Banido && !u.AdminPrincipal).ToList();
 
@@ -109,6 +108,7 @@ namespace ProjetoAcelera.Views.Admin
             string local = txtLocalEvento.Text;
             bool destaque = checkEventoDestaque.IsChecked == true;
 
+            // VALIDAÇÕES
             if (string.IsNullOrWhiteSpace(titulo))
             {
                 MessageBox.Show("Digite o título do evento.");
@@ -442,7 +442,7 @@ namespace ProjetoAcelera.Views.Admin
         {
             listaPostagensPublicadas.ItemsSource = null;
             listaPostagensPublicadas.ItemsSource =
-                publicacaoService.ObterPublicadasNaHome();
+            publicacaoService.ObterPublicadasNaHome();
         }
         private void RemoverDaHome_Click(object sender, RoutedEventArgs e)
         {
