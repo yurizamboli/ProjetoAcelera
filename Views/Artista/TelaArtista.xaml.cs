@@ -1,15 +1,11 @@
 ﻿using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
-using ProjetoAcelera.Views.Calendario;
 using ProjetoAcelera.Views.Perfil;
-using ProjetoAcelera.Views.Teste;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+
 
 namespace ProjetoAcelera.Views.Artistas
 {
@@ -209,11 +205,7 @@ namespace ProjetoAcelera.Views.Artistas
                 painelArtistas.Children.Add(CriarCard(user));
             }
         }
-
-        private void BtnVerMais_Click(object sender, RoutedEventArgs e)
-        {
-            CarregarArtistas();
-        }
+     
         private void TxtBusca_GotFocus(object sender, RoutedEventArgs e)
         {
             if (txtBusca.Text == "Buscar nome do artista...")

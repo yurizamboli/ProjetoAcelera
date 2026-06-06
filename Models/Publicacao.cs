@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-// guarda as informações de uma publicação feita por um usuário.
+﻿// guarda as informações de uma publicação feita por um usuário.
 namespace ProjetoAcelera.Models
 {
     public class Publicacao

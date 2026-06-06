@@ -1,16 +1,9 @@
 ﻿using ProjetoAcelera.Models;
-using ProjetoAcelera.Views.Admin;
-using ProjetoAcelera.Views.Artistas;
-using ProjetoAcelera.Views.Home;
 using ProjetoAcelera.Views.Perfil;
-using ProjetoAcelera.Views.Teste;
-using System;
 using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace ProjetoAcelera.Views.Calendario
 {

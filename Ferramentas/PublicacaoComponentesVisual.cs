@@ -1,5 +1,4 @@
-﻿using System;
-using ProjetoAcelera.Models;
+﻿using ProjetoAcelera.Models;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -406,7 +405,7 @@ namespace ProjetoAcelera.Ferramentas
         }
         
         // cria a área para escrever um novo comentário
-        public static StackPanel CriarCampoComentario(Publicacao pub, Action<string> enviarComentario)
+        public static StackPanel CriarCampoComentario(Publicacao pub, Func<string, bool> enviarComentario)
         {
             // a área de comentário só é exibida se os comentários estiverem permitidos
             StackPanel areaComentario = new StackPanel
@@ -492,10 +491,15 @@ namespace ProjetoAcelera.Ferramentas
                 {
                     return;
                 }
-                enviarComentario(txtComentario.Text.Trim());
+                bool comentarioEnviado = enviarComentario(txtComentario.Text.Trim());
+                if (!comentarioEnviado)
+                {
+                    return;
+                }
                 txtComentario.Clear();
                 placeholder.Visibility = Visibility.Visible;
                 avisoComentario.Visibility = Visibility.Visible;
+                
             };
 
             linhaComentario.Children.Add(campoBorder);

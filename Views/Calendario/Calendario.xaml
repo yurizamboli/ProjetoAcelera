@@ -69,7 +69,7 @@
                    FontFamily="Inter"
                    Margin="0,50,0,0"/>
         <Border
-                Padding="35"
+                Padding="35,40,35,45"
                 Width="620"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
@@ -150,7 +150,7 @@
 
                 <Border BorderBrush="#B8860B"
                         BorderThickness="2"
-                        Padding="10"
+                        Padding="25,25,25,20"
                         CornerRadius="8">
                     <Border.Background>
                         <ImageBrush ImageSource="/ImagemAcelera/fundo-pintado-mao-da-aguarela_24972-1199.avif"

@@ -1,10 +1,4 @@
 ﻿using ProjetoAcelera.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 // cuida de toda a lógica relacionada ao perfil dos usuários
 namespace ProjetoAcelera.Services
 {
@@ -52,15 +46,6 @@ namespace ProjetoAcelera.Services
             UsuarioLogado.Perfil.FotoPerfil = foto;
         }
 
-        // retorna o perfil do usuário logado
-        public Perfil ObterPerfil()
-        {
-            var UsuarioLogado = usuarioService.UsuarioLogado;
-            if (UsuarioLogado == null)
-            {
-                return null;
-            }
-            return UsuarioLogado.Perfil;
-        }
+
     }
 }

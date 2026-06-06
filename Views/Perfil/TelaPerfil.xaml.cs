@@ -3,7 +3,6 @@ using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.LoginRegistro;
 using ProjetoAcelera.Views.MainWindow;
 using ProjetoAcelera.Views.Perfil.EditarPerfil;
-using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;

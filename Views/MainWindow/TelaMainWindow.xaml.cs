@@ -1,11 +1,4 @@
-﻿using ProjetoAcelera.Views.Admin;
-using ProjetoAcelera.Views.Perfil;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -75,9 +68,64 @@ namespace ProjetoAcelera.Views.MainWindow
        
         private void SwitchFrame_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            if (FecharComboBoxAberto())
+            {
+                e.Handled = true;
+                return;
+            }
             double velocidadeScroll = 3.0;
             ScrollPrincipal.ScrollToVerticalOffset(ScrollPrincipal.VerticalOffset - (e.Delta / velocidadeScroll));
             e.Handled = true;
+        }
+        private bool FecharComboBoxAberto()
+        {
+            ComboBox comboAberto = ProcurarComboBoxAberto(SwitchFrame);
+
+            if (comboAberto != null)
+            {
+                comboAberto.IsDropDownOpen = false;
+                return true;
+            }
+
+            return false;
+        }
+
+        private ComboBox ProcurarComboBoxAberto(DependencyObject elemento)
+        {
+            if (elemento == null)
+            {
+                return null;
+            }
+
+            if (elemento is ComboBox combo && combo.IsDropDownOpen)
+            {
+                return combo;
+            }
+
+            int totalFilhos = 0;
+
+            try
+            {
+                totalFilhos = VisualTreeHelper.GetChildrenCount(elemento);
+            }
+            catch
+            {
+                return null;
+            }
+
+            for (int i = 0; i < totalFilhos; i++)
+            {
+                DependencyObject filho = VisualTreeHelper.GetChild(elemento, i);
+
+                ComboBox resultado = ProcurarComboBoxAberto(filho);
+
+                if (resultado != null)
+                {
+                    return resultado;
+                }
+            }
+
+            return null;
         }
         private void Navegar(Page pagina)
         {

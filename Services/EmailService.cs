@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 // cuida de enviar email para os usuários para recuperação de senha
@@ -17,7 +12,7 @@ namespace ProjetoAcelera.Services
             try
             {
                 var remetente = "projetoalahc@gmail.com";
-                var senha = "SENHA_DE_APP_AQUI"; 
+                var senha = "SENHA_DE_APP_AQUI";
                 // SÓ COLOCAR A SENHA PARA TESTAR LOCALMENTE, DEPOIS APAGAR E SUBIR O CÓDIGO SEM A SENHA, PARA EVITAR VAZAMENTO DE CREDENCIAIS. O IDEAL É USAR VARIÁVEIS DE AMBIENTE OU UM ARQUIVO DE CONFIGURAÇÃO QUE NÃO SEJA COMMITADO NO GITHUB.
 
                 var smtp = new SmtpClient("smtp.gmail.com", 587)

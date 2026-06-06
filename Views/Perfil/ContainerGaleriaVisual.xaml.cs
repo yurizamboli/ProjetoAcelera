@@ -1,7 +1,4 @@
 ﻿using ProjetoAcelera.Models;
-using ProjetoAcelera.Services;
-using System;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
