@@ -5,6 +5,7 @@ using System;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
+// Tela usada para editar uma obra que já foi cadastrada
 namespace ProjetoAcelera.Views.EditarObras
 {
     public partial class TelaEditarObra : Window
@@ -16,10 +17,8 @@ namespace ProjetoAcelera.Views.EditarObras
         public TelaEditarObra(Obra obra)
         {
             InitializeComponent();
-
             obraService = new ObraService();
             obraAtual = obra;
-
             PreencherCampos();
         }
 
@@ -70,6 +69,7 @@ namespace ProjetoAcelera.Views.EditarObras
 
         }
 
+ 
         private void BtnSalvar_Click(object sender, RoutedEventArgs e)
         {
             obraAtual.Titulo = txtTitulo.Text;

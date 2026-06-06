@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
+// Tela usada para casdastrar uma nova obra no perfil do usuário
 namespace ProjetoAcelera.Views.Obras
 {
     public partial class TelaAdicionarObra : Window
@@ -20,6 +21,7 @@ namespace ProjetoAcelera.Views.Obras
             obraService = new ObraService();
         }
 
+        // BOTÃO PARA SALVAR A OBRA
         private void BtnSalvar_Click(object sender, RoutedEventArgs e)
         {
             string titulo = txtTitulo.Text;
@@ -38,7 +40,11 @@ namespace ProjetoAcelera.Views.Obras
         }
 
         //Isso aqui vai ter que mudar, ta salvando a imagem no caminho do projeto, vai quebrar em outro pc, vai ter que aprender a salvar a imagem
+        
+        // guarda o caminho da imagem escolhida para a capa
         private string caminhoImagem;
+
+        // BOTÃO PARA SELECIONAR A IMAGEM DA OBRA
         private void BtnSelecionarImagem_Click(object sender, RoutedEventArgs e)
         {
 
@@ -61,6 +67,7 @@ namespace ProjetoAcelera.Views.Obras
             txtDescricaoPlaceholder.Visibility = Visibility.Hidden;
         }
 
+        // DESCRIÇÃO
         private void TxtDescricao_LostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtDescricao.Text))
@@ -68,6 +75,8 @@ namespace ProjetoAcelera.Views.Obras
                 txtDescricaoPlaceholder.Visibility = Visibility.Visible;
             }
         }
+
+        // DESCRIÇÃO
         private void txtDescricao_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
 

@@ -9,15 +9,15 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
+// cuida de salvar e carregar os dados do sistema em arquivo.
 namespace ProjetoAcelera.Services
 {
     public class ArquivoService
     {
         private string caminhoArquivo = "usuarios.json";
         private string caminhoArquivoEventos = "eventos.json";
-
-
-        //carrega os usuariod do arquivo json e retorna uma lista de usuarios
+       
+        //carrega os usuarios do arquivo json e retorna uma lista de usuarios
         public List<Usuario> Carregar()
         {
             try 
@@ -28,13 +28,11 @@ namespace ProjetoAcelera.Services
                     return new List<Usuario>();
                 }
                 string json = File.ReadAllText(caminhoArquivo);
-
                 //se estiver vazio evita erro
                 if (string.IsNullOrWhiteSpace(json)) 
                 {
                     return new List<Usuario>();
                 }
-
                 return JsonSerializer.Deserialize<List<Usuario>>(json);
             }
             catch 
@@ -43,7 +41,7 @@ namespace ProjetoAcelera.Services
                 return new List<Usuario>();
             }
         }
-
+              
         // recebe a lista dos usuarios para salvar no json
         public void Salvar(List<Usuario> usuarios) 
         {
@@ -60,13 +58,10 @@ namespace ProjetoAcelera.Services
             catch 
             {
                 //posso colocar alguma mensagem aqui de erro
-            }
-        
-        
+            }            
         }
 
-
-
+        // salva os usuarios e as imagens em pastas específicas, evitando duplicação de imagens e organizando melhor os arquivos.
         public void SalvarUsuariosComImagens(List<Usuario> usuarios)
         {
             try
@@ -92,15 +87,11 @@ namespace ProjetoAcelera.Services
                         {
                             if (!string.IsNullOrWhiteSpace(publicacao.ImagemUrl))
                             {
-                                publicacao.ImagemUrl = CopiarImagemSeNecessario(
-                                    publicacao.ImagemUrl,
-                                    pastaPublicacoes
-                                );
+                                publicacao.ImagemUrl = CopiarImagemSeNecessario(publicacao.ImagemUrl,pastaPublicacoes);
                             }
                         }
                     }
                 }
-
                 Salvar(usuarios);
             }
             catch (Exception ex)
@@ -108,13 +99,19 @@ namespace ProjetoAcelera.Services
                 MessageBox.Show("Erro ao salvar usuários com imagens: " + ex.Message);
             }
         }
+
+        // verifica se a imagem já está na pasta de destino, se não estiver, copia para lá e retorna o novo caminho. Isso evita duplicação de imagens e organiza melhor os arquivos.
         private string CopiarImagemSeNecessario(string caminhoImagem, string pastaDestino)
         {
             if (string.IsNullOrWhiteSpace(caminhoImagem))
+            {
                 return caminhoImagem;
+            }
 
             if (!File.Exists(caminhoImagem))
+            {
                 return caminhoImagem;
+            }
 
             Directory.CreateDirectory(pastaDestino);
 
@@ -134,7 +131,7 @@ namespace ProjetoAcelera.Services
             return destinoFinal;
         }
 
-
+        // carrega os eventos do arquivo json e retorna uma lista de eventos, seguindo a mesma lógica dos usuários.
         public List<Evento> CarregarEventos()
         {
             try
@@ -166,6 +163,7 @@ namespace ProjetoAcelera.Services
             }
         }
 
+        // recebe a lista de eventos para salvar no json, seguindo a mesma lógica dos usuários.
         public void SalvarEventos(List<Evento> eventos)
         {
             try

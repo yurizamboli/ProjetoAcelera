@@ -5,10 +5,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
+// cuida de criar os componentes visuais relacionados às publicações, utilizados na Home e Perfil.
 namespace ProjetoAcelera.Ferramentas
 {
     public static class PublicacaoComponentesVisual
     {
+        //cria elementos visuais usados dentro do card da publicação
         public static Border CriarLinhaAzul(Thickness margin)
         {
             return new Border
@@ -19,17 +21,19 @@ namespace ProjetoAcelera.Ferramentas
                 Margin = margin
             };
         }
+       
+        // cria o card da publicação
         public static Border CriarCardPublicacao()
         {
             return new Border
             {
                Padding = new Thickness(65, 55, 65, 65),
                 Background = new ImageBrush{ImageSource = AuxilioImagens.CarregarImgOtimizada("pack://application:,,,/ImagemAcelera/fundoretangulo.png",1200),Stretch = Stretch.Fill},
-                Margin = new Thickness(0, 0, 0, 18),
-                
+                Margin = new Thickness(0, 0, 0, 18),               
             };
         }
 
+        // cria a moldura do avatar do autor da publicação
         public static Border CriarMolduraAvatar()
         {
             return new Border
@@ -44,6 +48,7 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria o texto do nome do autor da publicação
         public static TextBlock CriarTextoAutor(string nome)
         {
             return new TextBlock
@@ -55,6 +60,7 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria o texto da data da publicação
         public static TextBlock CriarTextoData(string data)
         {
             return new TextBlock
@@ -65,6 +71,7 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria o texto do conteúdo da publicação
         public static TextBlock CriarTextoConteudo(string texto)
         {
             return new TextBlock
@@ -78,6 +85,7 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria a moldura da imagem da publicação
         public static Border CriarMolduraImagem()
         {
             return new Border
@@ -89,6 +97,7 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria o texto das curtidas da publicação
         public static TextBlock CriarTextoCurtidas(int curtidas)
         {
             return new TextBlock
@@ -100,26 +109,22 @@ namespace ProjetoAcelera.Ferramentas
                 VerticalAlignment = VerticalAlignment.Center
             };
         }
+
+        // cria a área onde ficam os comentários e as curtidas da publicação
         public static Grid CriarAreaStats()
         {
             Grid areaStats = new Grid
             {
                 Margin = new Thickness(0, 4, 0, 10)
             };
-
-            areaStats.ColumnDefinitions.Add(
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }
-            );
-
-            areaStats.ColumnDefinitions.Add(
-                new ColumnDefinition { Width = GridLength.Auto }
-            );
-
+            areaStats.ColumnDefinitions.Add( new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            areaStats.ColumnDefinitions.Add( new ColumnDefinition { Width = GridLength.Auto });
             return areaStats;
         }
 
+        // alinha os comentários à esquerda, mantendo a mesma linha das curtidas
         public static StackPanel CriarStatsEsquerda()
-        {
+        {       
             return new StackPanel
             {
                 Orientation = Orientation.Horizontal,
@@ -127,8 +132,9 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria o texto que aparece quando os comentários estão desativados
         public static TextBlock CriarTextoComentariosBloqueados()
-        {
+        {       
             return new TextBlock
             {
                 Text = "🚫 Comentários desativados",
@@ -140,6 +146,7 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria o botão para exibir ou ocultar os comentários, mostrando o total de comentários
         public static Button CriarBotaoExibirComentarios(int totalComentarios)
         {
             return new Button
@@ -158,6 +165,7 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria o card individual de cada comentário
         public static Border CriarCardComentario()
         {
             return new Border
@@ -171,6 +179,7 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria o texto do nome do autor de cada comentário
         public static TextBlock CriarNomeComentario(string nome)
         {
             return new TextBlock
@@ -181,6 +190,7 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria o texto do conteúdo de cada comentário
         public static TextBlock CriarTextoComentario(string texto)
         {
             return new TextBlock
@@ -192,6 +202,7 @@ namespace ProjetoAcelera.Ferramentas
             };
         }
 
+        // cria o texto do status de cada comentário, mostrando em verde os aprovados e em laranja os que estão aguardando aprovação
         public static TextBlock CriarStatusComentario(string status)
         {
             return new TextBlock
@@ -206,8 +217,11 @@ namespace ProjetoAcelera.Ferramentas
 
 
         ///////////////////////////COMENTARIOS/////////////////////////
+        
+        // cria a área de comentários da publicação, com a opção de mostrar todos os comentários (incluindo os que estão aguardando aprovação) e botões para aprovar ou reprovar comentários quando permitido. Também inclui a funcionalidade de exibir ou ocultar os comentários e carregar mais comentários quando houver muitos
         public static void CriarAreaComentarios(Publicacao pub, StackPanel areaStats, StackPanel stack, bool mostrarTodosComentarios, bool permitirAprovacao, Action<Guid> aprovarComentario, Action<Guid> reprovarComentario, bool iniciarAberto = false)
         {
+            // filtra os comentários para exibir apenas os aprovados, a menos que a opção de mostrar todos os comentários esteja ativada
             var comentariosParaExibir = pub.Comentarios ?? new List<Comentario>();
 
             if (!mostrarTodosComentarios)
@@ -223,12 +237,12 @@ namespace ProjetoAcelera.Ferramentas
                 areaStats.Children.Add(comentariosBloqueados);
                 return;
             }
-
+            // cria o container onde os comentários serão exibidos
             StackPanel comentariosContainer = new StackPanel
             {
                 Margin = new Thickness(0, 5, 0, 0)
             };
-
+            // cria o ScrollViewer para permitir rolagem quando houver muitos comentários
             ScrollViewer scrollComentarios = new ScrollViewer
             {
                 MaxHeight = 220,
@@ -238,11 +252,12 @@ namespace ProjetoAcelera.Ferramentas
                 Visibility = Visibility.Collapsed,
                 Margin = new Thickness(0, 8, 0, 0)
             };
-
+            // cria o botão para exibir ou ocultar os comentários
             Button btnExibirComentarios = CriarBotaoExibirComentarios(totalComentarios);
             int quantidadeComentariosExibidos = 10;
             const int quantidadeCarregarMaisComentarios = 10;
-
+            
+            // função para adicionar um comentário na tela
             void AdicionarComentarioNaTela(Comentario comentario)
             {
                 Border comentarioCard = CriarCardComentario();
@@ -254,7 +269,7 @@ namespace ProjetoAcelera.Ferramentas
 
                 comentarioStack.Children.Add(nomeComentario);
                 comentarioStack.Children.Add(textoComentario);
-
+                
                 if (mostrarTodosComentarios)
                 {
                     TextBlock statusComentario = CriarStatusComentario(comentario.Status);
@@ -268,7 +283,7 @@ namespace ProjetoAcelera.Ferramentas
                         Orientation = Orientation.Horizontal,
                         HorizontalAlignment = HorizontalAlignment.Right
                     };
-
+                    // ao clicar no botão de aprovar, chama a função de aprovação passando o ID do comentário
                     Button btnAprovarComentario = new Button
                     {
                         Content = "Aprovar",
@@ -280,13 +295,12 @@ namespace ProjetoAcelera.Ferramentas
                         FontWeight = FontWeights.Bold,
                         BorderThickness = new Thickness(0),
                         Cursor = Cursors.Hand
-                    };
-
+                    };      
                     btnAprovarComentario.Click += (s, e) =>
                     {
                         aprovarComentario(comentario.Id);
                     };
-
+                    // ao clicar no botão de reprovar, chama a função de reprovação passando o ID do comentário
                     Button btnReprovarComentario = new Button
                     {
                         Content = "Reprovar",
@@ -313,7 +327,7 @@ namespace ProjetoAcelera.Ferramentas
                 comentarioCard.Child = comentarioStack;
                 comentariosContainer.Children.Add(comentarioCard);
             }
-
+            // função para renderizar os comentários na tela, exibindo apenas a quantidade definida e mostrando o botão de carregar mais quando houver mais comentários para exibir
             void RenderizarComentarios()
             {
                 comentariosContainer.Children.Clear();
@@ -333,18 +347,15 @@ namespace ProjetoAcelera.Ferramentas
                     comentariosContainer.Children.Add(semComentariosCard);
                     return;
                 }
-
-                var comentariosExibidos = comentariosParaExibir
-                    .Take(quantidadeComentariosExibidos)
-                    .ToList();
-
+                var comentariosExibidos = comentariosParaExibir.Take(quantidadeComentariosExibidos).ToList();
+                // para cada comentário a ser exibido, chama a função de adicionar o comentário
                 foreach (var comentario in comentariosExibidos)
                 {
                     AdicionarComentarioNaTela(comentario);
                 }
-
                 if (quantidadeComentariosExibidos < totalComentarios)
                 {
+                    // se houver mais comentários para exibir, mostra o botão de carregar mais
                     Button btnCarregarMaisComentarios = new Button
                     {
                         Content = "Carregar mais comentários",
@@ -368,7 +379,7 @@ namespace ProjetoAcelera.Ferramentas
                     comentariosContainer.Children.Add(btnCarregarMaisComentarios);
                 }
             }
-
+            // ao clicar no botão de exibir ou ocultar comentários, alterna a visibilidade do container de comentários e atualiza o texto do botão
             btnExibirComentarios.Click += (s, e) =>
             {
                 if (scrollComentarios.Visibility == Visibility.Visible)
@@ -393,8 +404,11 @@ namespace ProjetoAcelera.Ferramentas
             areaStats.Children.Add(btnExibirComentarios);
             stack.Children.Add(scrollComentarios);
         }
+        
+        // cria a área para escrever um novo comentário
         public static StackPanel CriarCampoComentario(Publicacao pub, Action<string> enviarComentario)
         {
+            // a área de comentário só é exibida se os comentários estiverem permitidos
             StackPanel areaComentario = new StackPanel
             {
                 Orientation = Orientation.Vertical,
@@ -417,7 +431,7 @@ namespace ProjetoAcelera.Ferramentas
                 Width = 560,
                 Padding = new Thickness(12, 0, 12, 0)
             };
-
+            
             Grid gridCampo = new Grid();
 
             TextBox txtComentario = new TextBox
@@ -471,16 +485,14 @@ namespace ProjetoAcelera.Ferramentas
                 BorderThickness = new Thickness(0),
                 Cursor = Cursors.Hand
             };
-
+            // ao clicar no botão de comentar, verifica se o campo de comentário não está vazio, chama a função de enviar comentário passando o texto do comentário e limpa o campo, mostrando uma mensagem de que o comentário foi enviado para análise
             btnComentar.Click += (s, e) =>
             {
                 if (string.IsNullOrWhiteSpace(txtComentario.Text))
                 {
                     return;
                 }
-
                 enviarComentario(txtComentario.Text.Trim());
-
                 txtComentario.Clear();
                 placeholder.Visibility = Visibility.Visible;
                 avisoComentario.Visibility = Visibility.Visible;
@@ -488,10 +500,8 @@ namespace ProjetoAcelera.Ferramentas
 
             linhaComentario.Children.Add(campoBorder);
             linhaComentario.Children.Add(btnComentar);
-
             areaComentario.Children.Add(linhaComentario);
             areaComentario.Children.Add(avisoComentario);
-
             return areaComentario;
         }
     }
