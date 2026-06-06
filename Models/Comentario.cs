@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using System.Text;
-using System.Threading.Tasks;
-
-// guarda as informações de um comentário feito em uma publicação.
+﻿// guarda as informações de um comentário feito em uma publicação.
 namespace ProjetoAcelera.Models
 {
     public class Comentario

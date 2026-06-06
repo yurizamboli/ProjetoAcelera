@@ -1,6 +1,4 @@
 ﻿using ProjetoAcelera.Models;
-using System;
-using System.Linq;
 
 // Métodos usados pelo administrador.
 namespace ProjetoAcelera.Services

@@ -1,6 +1,5 @@
 ﻿using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Models;
-using System;
 using System.Windows;
 
 namespace ProjetoAcelera.Views.PopUpObras

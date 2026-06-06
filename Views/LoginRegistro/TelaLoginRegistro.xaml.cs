@@ -1,15 +1,9 @@
 ﻿using ProjetoAcelera.Services;
-using ProjetoAcelera.Views.Home;
 using ProjetoAcelera.Views.MainWindow;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace ProjetoAcelera.Views.LoginRegistro
 {
@@ -22,7 +16,7 @@ namespace ProjetoAcelera.Views.LoginRegistro
         public TelaLoginRegistro()
         {
             InitializeComponent();
-           this.usuarioService = App.UsuarioService;
+            this.usuarioService = App.UsuarioService;
             this.emailService = App.EmailService;
             // Mantém o placeholder do PasswordBox atualizado quando o usuário digita
             txtSenhaRegistro.PasswordChanged += TxtSenhaRegistro_PasswordChanged;
@@ -38,7 +32,7 @@ namespace ProjetoAcelera.Views.LoginRegistro
             string nome = LimparPlaceholder(txtNomeRegistro.Text, "Nome");
             string email = LimparPlaceholder(txtEmailRegistro.Text, "Email");
             string senha = txtSenhaRegistro.Password;
-            
+
             if (chkTermos.IsChecked != true)
             {
                 MessageBox.Show("Você precisa aceitar os termos de uso e política de privacidade para se cadastrar.");
@@ -69,7 +63,7 @@ namespace ProjetoAcelera.Views.LoginRegistro
                 chkTermos.IsChecked = false;
             }
 
-        }      
+        }
         //SUMIR O NOME
         private void TxtNomeRegistro_GotFocus(object sender, RoutedEventArgs e)
         {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using ProjetoAcelera.Models;
 
 // cuida de toda a lógica relacionada aos eventos
@@ -32,7 +28,7 @@ namespace ProjetoAcelera.Services
         // retorna os eventos que estão marcados como destaque, ordenados pela data de início, do mais recente para o mais antigo.
         public List<Evento> ObterEventosDestaque()
         {
-            return eventos.Where(e => e.Destaque).OrderBy(e => e.DataInicio).ToList();
+            return eventos.Where(e => e.Destaque).OrderByDescending(e => e.DataInicio).ToList();
         }
 
         // retorna os eventos que estão ocorrendo em uma data específica, ou seja, eventos cuja data de início é anterior ou igual à data fornecida e cuja data de fim é posterior ou igual à data fornecida (ou seja, eventos que estão ativos nessa data).

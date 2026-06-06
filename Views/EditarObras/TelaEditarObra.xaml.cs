@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
-using System;
 using System.Windows;
 using System.Windows.Media.Imaging;
 

@@ -1,13 +1,10 @@
 ﻿using Microsoft.Win32;
-using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
-using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using ProjetoAcelera.Ferramentas;
 
 namespace ProjetoAcelera.Views.Perfil
@@ -256,5 +253,6 @@ namespace ProjetoAcelera.Views.Perfil
             publicacaoComentariosAberta = null;
             CarregarPublicacoes();
         }
+       
     }
 }

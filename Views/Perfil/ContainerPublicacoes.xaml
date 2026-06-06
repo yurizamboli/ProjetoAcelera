@@ -9,7 +9,8 @@
             Padding="5"
             Background="#F3E6C9">
 		<Grid>
-		<ScrollViewer VerticalScrollBarVisibility="Auto"
+		<ScrollViewer x:Name="scrollPublicacoes"
+                      VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">
 
 			<StackPanel >
@@ -72,7 +73,7 @@
 							</StackPanel>
 						</Border>
                             <StackPanel Orientation="Horizontal"
-             HorizontalAlignment="Right">
+                                         HorizontalAlignment="Right">
                                 <CheckBox x:Name="chkPermiteComentarios"
                                       Content="Permitir comentários"
                                       IsChecked="True"
@@ -80,16 +81,16 @@
                                       FontWeight="Bold"
                                       Margin="0,10,15,0"/>
                             <Button Content="Publicar"
-        Width="130"
-        Height="38"
-        Margin="0,12,0,0"
-        HorizontalAlignment="Right"
-        Background="#1F3A5F"
-        Foreground="Gold"
-        FontWeight="Bold"
-        BorderThickness="0"
-        Cursor="Hand"
-        Click="Publicar_Button">
+                                    Width="130"
+                                    Height="38"
+                                    Margin="0,12,0,0"
+                                    HorizontalAlignment="Right"
+                                    Background="#1F3A5F"
+                                    Foreground="Gold"
+                                    FontWeight="Bold"
+                                    BorderThickness="0"
+                                    Cursor="Hand"
+                                    Click="Publicar_Button">
 
     <Button.Style>
 
@@ -135,20 +136,20 @@
                                    Margin="0,0,8,0"/>
 
                         <ComboBox x:Name="cmbFiltroPublicacoes"
-                                    Width="190"
-                                    Height="34"
-                                    SelectedIndex="0"
-                                    SelectionChanged="cmbFiltroPublicacoes_SelectionChanged"
-                                    Background="#FFF7E1"
-                                    Foreground="#1F3A5F"
-                                    BorderBrush="#C9B27D"
-                                    BorderThickness="2"
-                                    FontWeight="Bold"
-                                    FontSize="13"
-                                    Padding="8,0"
-                                    Cursor="Hand"
-                                    VerticalContentAlignment="Center"
-                                    HorizontalContentAlignment="Left">
+                                  Width="190"
+                                  Height="34"
+                                  SelectedIndex="0"
+                                  SelectionChanged="cmbFiltroPublicacoes_SelectionChanged"
+                                  Background="#FFF7E1"
+                                  Foreground="#1F3A5F"
+                                  BorderBrush="#C9B27D"
+                                  BorderThickness="2"
+                                  FontWeight="Bold"
+                                  FontSize="13"
+                                  Padding="8,0"
+                                  Cursor="Hand"
+                                  VerticalContentAlignment="Center"
+                                  HorizontalContentAlignment="Left">            
 
                             <ComboBoxItem Content="Todos os posts"
                                           Background="#FFF7E1"

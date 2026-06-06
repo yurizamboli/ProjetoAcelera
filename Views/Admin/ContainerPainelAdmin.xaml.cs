@@ -1,17 +1,14 @@
 ﻿using Microsoft.Win32;
-using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.Home;
 using ProjetoAcelera.Views.LoginRegistro;
 using ProjetoAcelera.Views.MainWindow;
 using ProjetoAcelera.Views.Perfil;
-using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
+
 
 namespace ProjetoAcelera.Views.Admin
 {

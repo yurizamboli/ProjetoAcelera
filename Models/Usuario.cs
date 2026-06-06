@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-// guarda as informações principais do usuário.
+﻿// guarda as informações principais do usuário.
 namespace ProjetoAcelera.Models
 {
     public class Usuario

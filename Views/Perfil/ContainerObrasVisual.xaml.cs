@@ -1,10 +1,8 @@
 ﻿using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Models;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Linq;
 using System.Windows.Input;
 using ProjetoAcelera.Views.PopUpObras;
 

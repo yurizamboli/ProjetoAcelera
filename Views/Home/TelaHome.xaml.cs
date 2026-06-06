@@ -2,10 +2,7 @@ using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
 using ProjetoAcelera.Views.Perfil;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -28,7 +25,7 @@ namespace ProjetoAcelera.Views.Home
            
             eventoService = App.EventoService;
             publicacaoService = new PublicacaoService();
-            listaEventos = eventoService.ObterEvento();
+            listaEventos = eventoService.ObterEventosDestaque();
 
             if (listaEventos != null && listaEventos.Count > 0)
             {
@@ -36,10 +33,10 @@ namespace ProjetoAcelera.Views.Home
             }
             else
             {
-                txtTitulo.Text = "Nenhum evento cadastrado";
+                txtTitulo.Text = "Nenhum evento em destaque";
                 txtData.Text = "";
                 txtDescricao.Text = "Ainda não há eventos disponíveis.";
-                txtDetalhes.Text = "Os eventos cadastrados pelo administrador aparecerão aqui.";
+                txtDetalhes.Text = "Os eventos marcados como destaque pelo administrador aparecerão aqui.";
             }
 
             CarregarFeedPublicacoes();
@@ -402,11 +399,15 @@ namespace ProjetoAcelera.Views.Home
                         var usuarioLogado = App.UsuarioService.UsuarioLogado;
                         if (usuarioLogado == null)
                         {
-                            MessageBox.Show("Faça login para comentar.");
-                            return;
+                            MessageBox.Show("Faça login para comentar.",
+                                            "Login necessário",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Warning);
+                            return false;
+
                         }
                         publicacaoService.AdicionarComentario(pub.Id, usuarioLogado.Nome, usuarioLogado.Email, textoComentario);
-                        
+                        return true;
                     }
                 );
                 stack.Children.Add(campoComentario);

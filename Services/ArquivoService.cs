@@ -1,12 +1,6 @@
 ﻿using ProjetoAcelera.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 
 // cuida de salvar e carregar os dados do sistema em arquivo.

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-// guarda as informações de um evento que pode aparecer na programação(calendário) ou na página principal.
+﻿// guarda as informações de um evento que pode aparecer na programação(calendário) ou na página principal.
 namespace ProjetoAcelera.Models
 {
     public class Evento

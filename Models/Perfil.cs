@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-// guarda as informações do perfil do usuário, informações que o usuário pode definir.
+﻿// guarda as informações do perfil do usuário, informações que o usuário pode definir.
 namespace ProjetoAcelera.Models
 {
     public class Perfil

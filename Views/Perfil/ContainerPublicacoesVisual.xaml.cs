@@ -1,14 +1,11 @@
 ﻿using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
-using System;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace ProjetoAcelera.Views.Perfil
 {
@@ -201,11 +198,15 @@ namespace ProjetoAcelera.Views.Perfil
                     var usuarioLogado = App.UsuarioService.UsuarioLogado;
                     if (usuarioLogado == null)
                     {
-                        MessageBox.Show("Faça login para comentar.");
-                        return;
+                        MessageBox.Show("Faça login para comentar.",
+                                         "Login necessário",
+                                         MessageBoxButton.OK,
+                                         MessageBoxImage.Warning);
+                        return false;
                     }
 
                     publicacaoService.AdicionarComentario( post.Id, usuarioLogado.Nome, usuarioLogado.Email, textoComentario);
+                    return true;
                 }
             );
 

@@ -1,10 +1,4 @@
 ﻿using ProjetoAcelera.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 // cuida de toda a lógica relacionada às obras dos usuários.
 namespace ProjetoAcelera.Services
 {
@@ -44,24 +38,6 @@ namespace ProjetoAcelera.Services
             {
                 usuario.Obras.Remove(obra);
             }
-        }
-
-        // Altera o status de favorito de uma obra
-        public void FavoritarObra(string titulo)
-        {
-            var usuario = usuarioService.UsuarioLogado;
-            var obra = usuario.Obras.FirstOrDefault(o => o.Titulo == titulo);
-            if (obra != null)
-            {
-                obra.Favorito = !obra.Favorito;
-            }
-        }
-
-        // Retorna uma lista de obras que estão marcadas como favoritas
-        public List<Obra> ListarFavoritas()
-        {
-            var usuario = usuarioService.UsuarioLogado;
-            return usuario.Obras.Where(o => o.Favorito).ToList();
         }
 
         //atualiza uma obra usando os novos dados enviados

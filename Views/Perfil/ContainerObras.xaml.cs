@@ -1,11 +1,8 @@
 ﻿using ProjetoAcelera.Ferramentas;
 using ProjetoAcelera.Models;
 using ProjetoAcelera.Services;
-using ProjetoAcelera.Views.EditarObras;
 using ProjetoAcelera.Views.Obras;
 using ProjetoAcelera.Views.PopUpObras;
-using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

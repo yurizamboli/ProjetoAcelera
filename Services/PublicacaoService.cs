@@ -1,10 +1,4 @@
 ﻿using ProjetoAcelera.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 // cuida de toda a lógica relacionada às publicações dos usuários
 namespace ProjetoAcelera.Services
