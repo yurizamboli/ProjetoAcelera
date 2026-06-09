@@ -120,6 +120,18 @@
                                TextWrapping="Wrap"
                                LineHeight="24"/>
 
+                               <Button Content="Conheça a Equipe de Desenvolvimento"
+                                    Width="260"
+                                    Height="42"
+                                    Margin="0,20,0,0"
+                                    HorizontalAlignment="Left"
+                                    Background="#B8860B"
+                                    Foreground="White"
+                                    FontWeight="Bold"
+                                    BorderThickness="0"
+                                    Cursor="Hand"
+                                    Click="BtnEquipe_Click"/>
+
                 </StackPanel>
             </Border>
 
@@ -199,232 +211,6 @@
                 </Border>
 
             </Grid>
-
-            <!-- IMORTAIS -->
-            <Border Background="#EDE3D1"
-                    CornerRadius="18"
-                    Padding="20"
-                    Margin="0,0,0,20">
-
-                <StackPanel>
-
-                    <TextBlock Text="Imortais"
-                               FontSize="24"
-                               FontWeight="Bold"
-                               Foreground="#1F3A5F"
-                               Margin="0,0,0,16"/>
-
-                    <WrapPanel>
-
-                       
-
-
-                    </WrapPanel>
-
-                </StackPanel>
-            </Border>
-
-            <!-- EQUIPE -->
-            <Border Background="#EDE3D1"
-                    CornerRadius="18"
-                    Padding="20">
-
-                <StackPanel>
-
-                    <TextBlock Text="Equipe do Projeto"
-                               FontFamily="Georgia"
-                               FontSize="24"
-                               FontWeight="Bold"
-                               Foreground="#1F3A5F"
-                               Margin="0,0,0,8"/>
-
-                    <TextBlock Text="Desenvolvimento e idealização do sistema."
-                               FontFamily="Georgia"
-                               FontSize="13"
-                               Foreground="#555555"
-                               Margin="0,0,0,18"/>
-
-                    <WrapPanel>
-
-                        <!-- CARD -->
-                        <Border Width="320"
-                                Background="#FFF7E1"
-                                CornerRadius="12"
-                                Padding="14"
-                                Margin="0,0,12,12">
-
-                            <StackPanel>
-
-                                <Rectangle Height="4"
-                                           Fill="#B8860B"
-                                           RadiusX="4"
-                                           RadiusY="4"
-                                           Margin="0,0,0,10"/>
-
-                                <TextBlock Text="Gabriel Henrique Carvalho Neves Cardoso"
-                                           FontSize="18"
-                                           FontWeight="Bold"
-                                           Foreground="#1F3A5F"
-                                           TextWrapping="Wrap"/>
-
-                                <TextBlock Text="Desenvolvedor Full Stack"
-                                           Foreground="#777777"
-                                           Margin="0,3,0,8"/>
-
-                                <TextBlock Text="Email: gabrielhencardoso1974@gmail.com"
-                                           Foreground="#444444"/>
-
-                                <TextBlock Text="Contato: (12) 98212-0965"
-                                           Foreground="#444444"/>
-
-                            </StackPanel>
-
-                        </Border>
-
-                        <!-- CARD -->
-                        <Border Width="320"
-                                Background="#FFF7E1"
-                                CornerRadius="12"
-                                Padding="14"
-                                Margin="0,0,12,12">
-
-                            <StackPanel>
-
-                                <Rectangle Height="4"
-                                           Fill="#B8860B"
-                                           RadiusX="4"
-                                           RadiusY="4"
-                                           Margin="0,0,0,10"/>
-
-                                <TextBlock Text="Gabriel Henrique Oliveira Mancilha Florentino"
-                                           FontSize="18"
-                                           FontWeight="Bold"
-                                           Foreground="#1F3A5F"
-                                           TextWrapping="Wrap"/>
-
-                                <TextBlock Text="Documentação e Pesquisa"
-                                           Foreground="#777777"
-                                           Margin="0,3,0,8"/>
-
-                                <TextBlock Text="Email: gabrielmanchilha1@gmail.com"
-                                           Foreground="#444444"/>
-
-                                <TextBlock Text="Contato: (12) 99645-9172"
-                                           Foreground="#444444"/>
-
-                            </StackPanel>
-
-                        </Border>
-
-                        <!-- CARD -->
-                        <Border Width="320"
-                                Background="#FFF7E1"
-                                CornerRadius="12"
-                                Padding="14"
-                                Margin="0,0,12,12">
-
-                            <StackPanel>
-
-                                <Rectangle Height="4"
-                                           Fill="#B8860B"
-                                           RadiusX="4"
-                                           RadiusY="4"
-                                           Margin="0,0,0,10"/>
-
-                                <TextBlock Text="Gabriel Mariano Pinto"
-                                           FontSize="18"
-                                           FontWeight="Bold"
-                                           Foreground="#1F3A5F"
-                                           TextWrapping="Wrap"/>
-
-                                <TextBlock Text="Documentação e Protótipos"
-                                           Foreground="#777777"
-                                           Margin="0,3,0,8" Height="37"/>
-
-                                <TextBlock Text="Email: gabrielmariano2@hotmail.com"
-                                           Foreground="#444444"/>
-
-                                <TextBlock Text="Contato: (12) 98256-8171"
-                                           Foreground="#444444"/>
-
-                            </StackPanel>
-
-                        </Border>
-
-                        <!-- CARD -->
-                        <Border Width="320"
-                                Background="#FFF7E1"
-                                CornerRadius="12"
-                                Padding="14"
-                                Margin="0,0,12,12">
-
-                            <StackPanel>
-
-                                <Rectangle Height="4"
-                                           Fill="#B8860B"
-                                           RadiusX="4"
-                                           RadiusY="4"
-                                           Margin="0,0,0,10"/>
-
-                                <TextBlock Text="Marjorye Porto Picanço"
-                                           FontSize="18"
-                                           FontWeight="Bold"
-                                           Foreground="#1F3A5F"
-                                           TextWrapping="Wrap"/>
-
-                                <TextBlock Text="Desenvolvedor Front-End"
-                                           Foreground="#777777"
-                                           Margin="0,3,0,8" Height="37"/>
-
-                                <TextBlock Text="Email: marjorye.p.picano@gmail.com"
-                                           Foreground="#444444"/>
-
-                                <TextBlock Text="Contato: (12) 98178-5393"
-                                           Foreground="#444444"/>
-
-                            </StackPanel>
-
-                        </Border>
-
-                        <!-- CARD -->
-                        <Border Width="320"
-                                Background="#FFF7E1"
-                                CornerRadius="12"
-                                Padding="14"
-                                Margin="0,0,12,12">
-
-                            <StackPanel>
-
-                                <Rectangle Height="4"
-                                           Fill="#B8860B"
-                                           RadiusX="4"
-                                           RadiusY="4"
-                                           Margin="0,0,0,10"/>
-
-                                <TextBlock Text="Yuri Zamboli Corrêa"
-                                           FontSize="18"
-                                           FontWeight="Bold"
-                                           Foreground="#1F3A5F"
-                                           TextWrapping="Wrap"/>
-
-                                <TextBlock Text="Desenvolvedor Full Stack"
-                                           Foreground="#777777"
-                                           Margin="0,3,0,8" Height="32"/>
-
-                                <TextBlock Text="Email: yurizamboli47@gmail.com"
-                                           Foreground="#444444"/>
-
-                                <TextBlock Text="Contato: (12) 98145-2712"
-                                           Foreground="#444444"/>
-
-                            </StackPanel>
-
-                        </Border>
-
-                    </WrapPanel>
-
-                </StackPanel>
-            </Border>
 
             <!-- FRASE -->
             <TextBlock Text='"Tecnologia e cultura caminhando juntas para preservar nossa história."'
