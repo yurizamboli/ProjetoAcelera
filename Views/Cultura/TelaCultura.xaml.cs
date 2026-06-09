@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ProjetoAcelera.Views.Cultura
@@ -9,9 +10,9 @@ namespace ProjetoAcelera.Views.Cultura
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BtnEquipe_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new TelaEquipeProjeto());
         }
     }
 }

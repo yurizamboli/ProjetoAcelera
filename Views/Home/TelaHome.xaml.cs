@@ -39,9 +39,10 @@ namespace ProjetoAcelera.Views.Home
                 txtDetalhes.Text = "Os eventos marcados como destaque pelo administrador aparecerão aqui.";
             }
 
+            CarregarArtistasDestaque();
             CarregarFeedPublicacoes();
             CarregarArtistasRecentes();
-            CarregarArtistasDestaque();
+            
         }
 
 
@@ -195,25 +196,14 @@ namespace ProjetoAcelera.Views.Home
         {
             painelArtistasDestaque.Children.Clear();
 
-            var artistas = App.UsuarioService.ObterTodos().Where(u => u.Perfil != null && u.Perfil.Destaque && !u.Banido).Take(4).ToList();
+            var artistas = App.UsuarioService.ObterTodos().Where(u => u.Perfil != null && u.Perfil.Destaque && !u.Banido).Take(6).ToList();
 
             foreach (var artista in artistas)
             {
-                Border avatarBorder = new Border
+                Image img = new Image
                 {
-                    Width = 90,
-                    Height = 90,
-                    CornerRadius = new CornerRadius(0),
-                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F3A5F")),
-                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B8860B")),
-                    BorderThickness = new Thickness(2),
-                    Margin = new Thickness(10, 0, 10, 0),
-                    ClipToBounds = true,
-                    Cursor = Cursors.Hand
-                };
-
-                Image avatar = new Image
-                {
+                    Width = 120,
+                    Height = 120,
                     Stretch = Stretch.UniformToFill
                 };
 
@@ -221,26 +211,115 @@ namespace ProjetoAcelera.Views.Home
                 {
                     if (!string.IsNullOrWhiteSpace(artista.Perfil?.FotoPerfil) && File.Exists(artista.Perfil.FotoPerfil))
                     {
-                        avatar.Source = AuxilioImagens.CarregarImgOtimizada( artista.Perfil.FotoPerfil,200);
+                        img.Source = AuxilioImagens.CarregarImgOtimizada(artista.Perfil.FotoPerfil, 200);
                     }
                     else
                     {
-                        avatar.Source = AuxilioImagens.CarregarImgOtimizada("pack://application:,,,/ImagemAcelera/AvatarPadrao.png", 200);
+                        img.Source = AuxilioImagens.CarregarImgOtimizada("pack://application:,,,/ImagemAcelera/AvatarPadrao.png",200);
                     }
                 }
                 catch
                 {
-                    //vazio
+
+                }
+                Border foto = new Border
+                {
+                    Width = 120,
+                    Height = 120,
+                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D4AF37")),
+                    BorderThickness = new Thickness(2),
+                    Child = img,
+                    Margin = new Thickness(0, 0, 0, 8)
+                };
+                TextBlock nome = new TextBlock
+                {
+                    Text = artista.Nome,
+                    FontWeight = FontWeights.Bold,
+                    FontSize = 17,
+                    Foreground = Brushes.White,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    TextAlignment = TextAlignment.Center,
+                    TextWrapping = TextWrapping.Wrap
+                };
+                TextBlock destaque = new TextBlock
+                {
+                    Text = "⭐ ARTISTA EM DESTAQUE",
+                    Foreground = Brushes.Gold,
+                    FontSize = 12,
+                    FontWeight = FontWeights.Bold,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 6, 0, 0)
+                };
+                Border linha = new Border
+                {
+                    Width = 50,
+                    Height = 2,
+                    Background = new SolidColorBrush(
+                        (Color)ColorConverter.ConvertFromString("#D4AF37")),
+                    Margin = new Thickness(0, 8, 0, 8),
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+                TextBlock publicacoes = new TextBlock
+                {
+                    Foreground = Brushes.LightGray,
+                    FontSize = 11,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+                int qtd;
+                if (artista.Publicacoes != null)
+                {
+                    qtd = artista.Publicacoes.Count;
+                }
+                else
+                {
+                    qtd = 0;
                 }
 
-                avatarBorder.Child = avatar;
+                if (qtd == 1)
+                {
+                    publicacoes.Text = "1 publicação";
+                }
+                else
+                {
+                    publicacoes.Text = qtd + " publicações";
+                }
 
-                avatarBorder.MouseDown += (s, e) =>
+                StackPanel conteudo = new StackPanel();
+
+                conteudo.Children.Add(foto);
+                conteudo.Children.Add(nome);
+                conteudo.Children.Add(destaque);
+                conteudo.Children.Add(linha);
+                conteudo.Children.Add(publicacoes);
+
+                Border card = new Border
+                {
+                    Width = 220,
+                    MinHeight = 260,
+                    Background = new SolidColorBrush(
+                        (Color)ColorConverter.ConvertFromString("#163545")),
+                    BorderBrush = new SolidColorBrush(
+                        (Color)ColorConverter.ConvertFromString("#244B5A")),
+                    BorderThickness = new Thickness(2),
+                    Padding = new Thickness(20),
+                    Margin = new Thickness(8),
+                    Cursor = Cursors.Hand,
+                    Child = conteudo
+                };
+                card.MouseEnter += (s, e) =>
+                {
+                    card.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1F4A5D"));
+                };
+                card.MouseLeave += (s, e) =>
+                {
+                    card.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#163545"));
+                };
+                card.MouseDown += (s, e) =>
                 {
                     NavigationService.Navigate(new TelaPerfilVisual(artista));
                 };
 
-                painelArtistasDestaque.Children.Add(avatarBorder);
+                painelArtistasDestaque.Children.Add(card);
             }
         }
 

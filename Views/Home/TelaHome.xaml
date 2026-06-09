@@ -168,6 +168,41 @@
                     </Border>
                 </Grid>
             </Border>
+                        <!-- ARTISTAS EM DESTAQUE -->
+                <Border
+                    Background="#0D3348"
+                    CornerRadius="16"
+                    BorderBrush="#B8860B"
+                    BorderThickness="2"
+                    Padding="30"
+                    Margin="20,16">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="ARTISTAS"
+                            FontSize="22"
+                            FontWeight="Bold"
+                            FontFamily="Georgia"
+                            Foreground="#F3E6C9"
+                            HorizontalAlignment="Center"
+                            Margin="0,0,0,20"/>
+
+                        <WrapPanel
+                            x:Name="painelArtistasDestaque"
+                            HorizontalAlignment="Center"
+                            Margin="0,10,0,15"/>
+                        
+                        <Button
+                            Content="VEJA MAIS ARTISTAS"
+                            Style="{StaticResource CTAButtonStyle}"
+                            Background="#B8860B"
+                            HorizontalAlignment="Center"
+                            Margin="0,20,0,0"
+                            Click="Artistas_Click"/>
+
+                    </StackPanel>
+                </Border>
 
             <!-- EVENTO EM DESTAQUE + ARTISTAS RECENTES -->
             <Grid Margin="20,16">
@@ -208,7 +243,7 @@
 
                                 <StackPanel>
                                     <TextBlock
-                                        Text="Evento em destaque"
+                                        Text="Evento"
                                         FontFamily="Georgia"
                                         FontSize="24"
                                         FontWeight="Bold"
@@ -488,7 +523,7 @@
 
                     <StackPanel>
                         <TextBlock
-                            Text="ARTISTAS RECENTES"
+                            Text="POSTAGENS RECENTES"
                             FontSize="18"
                             FontWeight="Bold"
                             FontFamily="Georgia"
@@ -501,38 +536,7 @@
                 </Border>
             </Grid>
 
-            <!-- ARTISTAS EM DESTAQUE -->
-            <Border
-                Background="#0D3348"
-                CornerRadius="10"
-                BorderBrush="#B8860B"
-                BorderThickness="1"
-                Padding="20,16"
-                Margin="20,16">
 
-                <StackPanel>
-                    <TextBlock
-                        Text="ARTISTAS EM DESTAQUE"
-                        FontFamily="Georgia"
-                        FontSize="16"
-                        FontWeight="Bold"
-                        Foreground="#F3E6C9"
-                        HorizontalAlignment="Center"
-                        Margin="0,0,0,14"/>
-
-                    <WrapPanel
-                        x:Name="painelArtistasDestaque"
-                        HorizontalAlignment="Center"/>
-
-                    <Button
-                        Content="VEJA MAIS ARTISTAS"
-                        Style="{StaticResource CTAButtonStyle}"
-                        Background="#B8860B"
-                        HorizontalAlignment="Center"
-                        Margin="0,14,0,0"
-                        Click="Artistas_Click"/>
-                </StackPanel>
-            </Border>
 
             <!-- FEED DE PUBLICAÇÕES -->
             <Grid Margin="20,16">
