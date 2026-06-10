@@ -137,7 +137,7 @@
 
                         <Ellipse>
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="/ImagemAcelera/Equipe/semfoto.png"
+                                <ImageBrush ImageSource="/ImagemAcelera/Equipe/gabrielmanchilha.jpg"
                                             Stretch="UniformToFill"/>
                             </Ellipse.Fill>
                         </Ellipse>
@@ -157,7 +157,7 @@
                                            TextWrapping="Wrap"
                                            TextAlignment="Center"/>
 
-                                <TextBlock Text="Design UI/UX e Documentação"
+                                <TextBlock Text="Comunicação e Documentação"
                                            Foreground="#777777"
                                            TextAlignment="Center"
                                            Margin="0,3,0,8"/>
@@ -200,7 +200,7 @@
 
                             <Ellipse>
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/ImagemAcelera/Equipe/semfoto.png"
+                                    <ImageBrush ImageSource="/ImagemAcelera/Equipe/gabrielmariano.jpg"
                                                 Stretch="UniformToFill"/>
                                 </Ellipse.Fill>
                             </Ellipse>
@@ -219,7 +219,7 @@
                                            Foreground="#1F3A5F"
                                            TextAlignment="Center"/>
 
-                                <TextBlock Text="Comunicação e Documentação"
+                                <TextBlock Text="Design UI/UX e Documentação"
                                            Foreground="#777777"
                                            TextAlignment="Center"
                                            Margin="0,3,0,8"/>
